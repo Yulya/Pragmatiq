@@ -15,17 +15,13 @@
 # limitations under the License.
 #
 import datetime
+import os
 from django.utils import simplejson as json
-
+from google.appengine.ext.webapp import template
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 from google.appengine.ext import db
 from google.appengine.ext.webapp import RequestHandler
-
-
-class MainHandler(webapp.RequestHandler):
-    def get(self):
-        self.response.out.write('Hello world!')
 
 class Employee(db.Model):
     first_name = db.StringProperty()
@@ -34,18 +30,32 @@ class Employee(db.Model):
     salary = db.IntegerProperty()
     first_date = db.DateProperty()
 
+
+class MainHandler(webapp.RequestHandler):
+    def get(self):
+        emp_query = Employee.all()
+        employees = emp_query.fetch(10)
+        template_values = {'employees': employees}
+        
+        path = os.path.join(os.path.dirname(__file__), 'emp.html')
+        self.response.out.write(template.render(path, template_values))
+            
+
+
 class CreateEmployee(RequestHandler):
     def post(self):
+        errors = []
         data = json.loads(self.request.body)
+        try:
+            employee = Employee(first_name=data['first_name'],
+                                 last_name=data['last_name'],
+                                 e_mail = data['e_mail'],
+                                 salary = int(data['salary']),
+                                 first_date = datetime.datetime.strptime(data['first_date'], '%d-%m-%Y').date())
+            employee.put()
 
-        employee = Employee(
-            first_name=data['first_name'],
-            last_name=data['last_name'],
-            e_mail = data['e_mail'],
-            salary = data['salary'],
-            first_date = datetime.datetime.strptime(data['first_data'], '%D-%M-%Y'))
-
-        employee.put()
+        except:
+            errors.append ('uncorrect data')
         
         
 
@@ -53,7 +63,7 @@ class CreateEmployee(RequestHandler):
 def main():
     application = webapp.WSGIApplication([
             ('/', MainHandler),
-            ('/createemployee',CreateEmployee)
+            ('/add_emp',CreateEmployee)
             ],
         debug=True)
     util.run_wsgi_app(application)
