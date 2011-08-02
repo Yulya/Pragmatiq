@@ -20,15 +20,8 @@ from django.utils import simplejson as json
 from google.appengine.ext.webapp import template
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
-from google.appengine.ext import db
 from google.appengine.ext.webapp import RequestHandler
-
-class Employee(db.Model):
-    first_name = db.StringProperty()
-    last_name = db.StringProperty()
-    e_mail = db.StringProperty()
-    salary = db.IntegerProperty()
-    first_date = db.DateProperty()
+from logic.emp import Employee
 
 
 class MainHandler(webapp.RequestHandler):
@@ -37,7 +30,7 @@ class MainHandler(webapp.RequestHandler):
         employees = emp_query.fetch(10)
         template_values = {'employees': employees}
         
-        path = os.path.join(os.path.dirname(__file__), 'emp.html')
+        path = os.path.join(os.path.dirname(__file__), 'templates/emp.html')
         self.response.out.write(template.render(path, template_values))
             
 
