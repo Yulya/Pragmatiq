@@ -14,51 +14,119 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+import base64
 import datetime
 import os
 from django.utils import simplejson as json
+from google.appengine.api import users
 from google.appengine.ext.webapp import template
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 from google.appengine.ext.webapp import RequestHandler
-from logic.emp import Employee
+from logic.logic import Employee, Usr
+
+class BaseHandler(RequestHandler):
+    def pre_get(self):
+        user = users.get_current_user()
+        if not user:
+            basic_auth = self.request.headers.get('Authorization')
+            if not basic_auth:
+                self.error(401)
+                return
+            username, password = '', ''
+            try:
+                user_info = base64.decodestring(basic_auth[6:])
+                username, password = user_info.split(':')
+            except: Exception('Cannot parse it')
+            user_info = Usr.gql("WHERE username = :username", username = username).get()
+            if user_info is None:
+                self.response.set_status(401, 'bad login')
+                
+            else:
+                if user_info.password != password:
+                    self.response.set_status(401, 'bad password')
+                    
+                else:
+                    user = user_info
+        return user
 
 
-class MainHandler(webapp.RequestHandler):
+
+
+
+class MainHandler(BaseHandler):
+
+
     def get(self):
-        emp_query = Employee.all()
-        employees = emp_query.fetch(10)
-        template_values = {'employees': employees}
+
+        user = self.pre_get()
+        if not user:
+            url = users.create_login_url(self.request.uri)
+            self.redirect(url)
+
+        else:
+            try:
+                username = user.username
+            except AttributeError: username = user.email()
+            
+            emp_query = Employee.all()
+            employees = emp_query.fetch(10)
+            template_values = {'employees': employees,
+                               'user': username
+                               }
+
+            path = os.path.join(os.path.dirname(__file__), 'templates/emp.html')
+            self.response.out.write(template.render(path, template_values))
+
+
+class CreateEmployee(BaseHandler):
+
+
+    def post(self):
+
+        user = self.pre_get()
+        if not user:
+            self.error(401)
+        else:    
+            data = json.loads(self.request.body)
+            try:
+                employee = Employee(first_name=data['first_name'],
+                                     last_name=data['last_name'],
+                                     e_mail = data['e_mail'],
+                                     salary = int(data['salary']),
+                                     first_date = datetime.datetime.strptime(data['first_date'], '%d-%m-%Y').date())
+                employee.put()
+
+            except:
+                self.response.set_status(400)
+
+class CreateUser(RequestHandler):
+
+    def post(self):
+        data = json.loads(self.request.body)
+        try:
+            usr = Usr(username = data['username'],
+                      password = data['password'])
+
+            usr.put()
+
+        except:
+            print ('uncorrect data')
         
-        path = os.path.join(os.path.dirname(__file__), 'templates/emp.html')
-        self.response.out.write(template.render(path, template_values))
+
+
+
+
+
             
 
 
-class CreateEmployee(RequestHandler):
-    def post(self):
-        errors = []
-        data = json.loads(self.request.body)
-        try:
-            employee = Employee(first_name=data['first_name'],
-                                 last_name=data['last_name'],
-                                 e_mail = data['e_mail'],
-                                 salary = int(data['salary']),
-                                 first_date = datetime.datetime.strptime(data['first_date'], '%d-%m-%Y').date())
-            employee.put()
-
-        except:
-            errors.append ('uncorrect data')
-        
-        
-
-
 def main():
-    application = webapp.WSGIApplication([
-            ('/', MainHandler),
-            ('/add_emp',CreateEmployee)
-            ],
-        debug=True)
+    application = webapp.WSGIApplication(
+                                         [('/', MainHandler),
+                                          ('/add_usr',CreateUser),
+                                          ('/add_emp',CreateEmployee)],
+                                         debug=True)
     util.run_wsgi_app(application)
     
 
