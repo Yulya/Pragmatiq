@@ -28,28 +28,29 @@ from logic.logic import Employee, Usr
 class BaseHandler(RequestHandler):
     def pre_get(self):
         user = users.get_current_user()
-        if not user:
-            basic_auth = self.request.headers.get('Authorization')
-            if not basic_auth:
-                self.error(401)
-                return
-            username, password = '', ''
-            try:
-                user_info = base64.decodestring(basic_auth[6:])
-                username, password = user_info.split(':')
-            except: self.error(400)
-            user_info = Usr.gql("WHERE username = :username", username = username).get()
-            if user_info is None:
-                self.response.set_status(401)
-                
-            else:
-                if user_info.password != password:
-                    self.response.set_status(401)
-                    
-                else:
-                    user = user_info
-        return user
+        if user is not None:
+            return user
 
+        basic_auth = self.request.headers.get('Authorization')
+        if not basic_auth:
+            self.error(401)
+
+        username, password = '', ''
+        try:
+            user_info = base64.decodestring(basic_auth[6:])
+            username, password = user_info.split(':')
+        except ValueError:
+            self.error(400)
+
+        user_info = Usr.gql("WHERE username = :username", username = username).get()
+
+        if user_info is None:
+            self.error(401)
+
+        if user_info.password != password:
+            self.error(401)
+
+        return user_info
 
 
 
@@ -60,14 +61,15 @@ class MainHandler(BaseHandler):
     def get(self):
 
         user = self.pre_get()
-        if not user:
+        if user is not None:
             url = users.create_login_url(self.request.uri)
             self.redirect(url)
 
         else:
             try:
                 username = user.username
-            except AttributeError: username = user.email()
+            except AttributeError:
+                username = user.email()
             
             emp_query = Employee.all()
             employees = emp_query.fetch(10)
@@ -87,18 +89,19 @@ class CreateEmployee(BaseHandler):
         user = self.pre_get()
         if not user:
             self.error(401)
-        else:    
-            data = json.loads(self.request.body)
-            try:
-                employee = Employee(first_name=data['first_name'],
-                                     last_name=data['last_name'],
-                                     e_mail = data['e_mail'],
-                                     salary = int(data['salary']),
-                                     first_date = datetime.datetime.strptime(data['first_date'], '%d-%m-%Y').date())
-                employee.put()
 
-            except:
-                self.response.set_status(400)
+        data = json.loads(self.request.body)
+        try:
+            employee = Employee(first_name=data['first_name'],
+                                 last_name=data['last_name'],
+                                 e_mail = data['e_mail'],
+                                 salary = int(data['salary']),
+                                 first_date = datetime.datetime.strptime(data['first_date'], '%d-%m-%Y').date())
+            employee.put()
+
+        except Exception:
+            self.response.set_status(400)
+
 
 class CreateUser(RequestHandler):
 
@@ -110,7 +113,7 @@ class CreateUser(RequestHandler):
 
             usr.put()
 
-        except:
+        except Exception:
             self.response.set_status(400)
         
 
