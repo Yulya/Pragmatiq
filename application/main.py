@@ -37,14 +37,14 @@ class BaseHandler(RequestHandler):
             try:
                 user_info = base64.decodestring(basic_auth[6:])
                 username, password = user_info.split(':')
-            except: Exception('Cannot parse it')
+            except: self.error(400)
             user_info = Usr.gql("WHERE username = :username", username = username).get()
             if user_info is None:
-                self.response.set_status(401, 'bad login')
+                self.response.set_status(401)
                 
             else:
                 if user_info.password != password:
-                    self.response.set_status(401, 'bad password')
+                    self.response.set_status(401)
                     
                 else:
                     user = user_info
@@ -111,7 +111,7 @@ class CreateUser(RequestHandler):
             usr.put()
 
         except:
-            print ('uncorrect data')
+            self.response.set_status(400)
         
 
 
