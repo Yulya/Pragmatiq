@@ -56,7 +56,7 @@ if not errors:
         resp = urllib2.urlopen(req)
     except urllib2.HTTPError, e:
         print e
-        
+
 else:
     for error in errors:
         print (error)

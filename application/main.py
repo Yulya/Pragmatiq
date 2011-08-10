@@ -14,9 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+import logging
 import base64
 import datetime
+import hashlib
 import os
+import random
+import string
 from django.utils import simplejson as json
 from google.appengine.api import users
 from google.appengine.ext.webapp import template
@@ -25,7 +29,22 @@ from google.appengine.ext.webapp import util
 from google.appengine.ext.webapp import RequestHandler
 from logic.logic import Employee, Usr
 
+def make_password(password):
+    salt = ''.join(random.choice(
+        string.ascii_uppercase
+        + string.ascii_lowercase
+        + string.digits) for x in range(4))
+    hash = hashlib.sha1(salt + password).hexdigest()
+    return salt + '$' + hash
+
+def check_password(str_pass,hash_pass):
+    salt, hash = hash_pass.split('$')
+    return hash == hashlib.sha1(salt + str_pass).hexdigest()
+
+
 class BaseHandler(RequestHandler):
+    
+
     def pre_get(self):
         user = users.get_current_user()
         if user is not None:
@@ -34,6 +53,7 @@ class BaseHandler(RequestHandler):
         basic_auth = self.request.headers.get('Authorization')
         if not basic_auth:
             self.error(401)
+            return
 
         username, password = '', ''
         try:
@@ -41,14 +61,19 @@ class BaseHandler(RequestHandler):
             username, password = user_info.split(':')
         except ValueError:
             self.error(400)
+            return
 
-        user_info = Usr.gql("WHERE username = :username", username = username).get()
+        user_info = Usr.gql("WHERE username = :username",
+                            username = username).get()
 
         if user_info is None:
             self.error(401)
+            return
 
-        if user_info.password != password:
+
+        if not check_password(password, user_info.password):
             self.error(401)
+            return
 
         return user_info
 
@@ -61,7 +86,8 @@ class MainHandler(BaseHandler):
     def get(self):
 
         user = self.pre_get()
-        if user is not None:
+        
+        if user is None:
             url = users.create_login_url(self.request.uri)
             self.redirect(url)
 
@@ -72,7 +98,7 @@ class MainHandler(BaseHandler):
                 username = user.email()
             
             emp_query = Employee.all()
-            employees = emp_query.fetch(10)
+            employees = emp_query.fetch(1000)
             template_values = {'employees': employees,
                                'user': username
                                }
@@ -87,8 +113,11 @@ class CreateEmployee(BaseHandler):
     def post(self):
 
         user = self.pre_get()
+
         if not user:
-            self.error(401)
+            self.response.set_status(401)
+            return
+
 
         data = json.loads(self.request.body)
         try:
@@ -96,11 +125,13 @@ class CreateEmployee(BaseHandler):
                                  last_name=data['last_name'],
                                  e_mail = data['e_mail'],
                                  salary = int(data['salary']),
-                                 first_date = datetime.datetime.strptime(data['first_date'], '%d-%m-%Y').date())
-            employee.put()
+                                 first_date = datetime.datetime.strptime(
+                                     data['first_date'], '%d-%m-%Y').date())
 
-        except Exception:
-            self.response.set_status(400)
+            employee.put()
+        except ValueError:
+           self.response.set_status(400)
+
 
 
 class CreateUser(RequestHandler):
@@ -109,22 +140,16 @@ class CreateUser(RequestHandler):
         data = json.loads(self.request.body)
         try:
             usr = Usr(username = data['username'],
-                      password = data['password'])
+                      password = make_password(data['password']))
 
             usr.put()
 
         except Exception:
             self.response.set_status(400)
-        
-
-
-
-
-
-            
 
 
 def main():
+    logging.getLogger().setLevel(logging.DEBUG)
     application = webapp.WSGIApplication(
                                          [('/', MainHandler),
                                           ('/add_usr',CreateUser),
