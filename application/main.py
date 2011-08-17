@@ -17,7 +17,7 @@
 import logging
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
-from logic.handlers import MainHandler, CreateUser, CreateEmployee
+from logic.handlers import MainHandler, CreateUser, CreateEmployee, Authentication
 
 
 def main():
@@ -27,6 +27,8 @@ def main():
                                           ('/add_emp', CreateEmployee),
                                            ],
                                          debug=True)
+
+    application = Authentication(application)
     util.run_wsgi_app(application)
 
 if __name__ == '__main__':

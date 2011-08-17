@@ -1,6 +1,7 @@
 import base64
 import datetime
 import os
+from webob import Request
 from django.utils import simplejson as json
 from google.appengine.api import users
 from google.appengine.ext.webapp import template
@@ -47,23 +48,23 @@ class MainHandler(BaseHandler):
 
     def get(self):
 
-        user = self.pre_get()
+#        user = self.pre_get()
+#
+#        if user is None:
+#            url = users.create_login_url(self.request.uri)
+#            self.redirect(url)
+#
+#        else:
+#            try:
+#                username = user.username
+#            except AttributeError:
+#                username = user.email()
 
-        if user is None:
-            url = users.create_login_url(self.request.uri)
-            self.redirect(url)
-
-        else:
-            try:
-                username = user.username
-            except AttributeError:
-                username = user.email()
-
-            url = "/send"
+            url = users.create_logout_url(users.create_login_url(self.request.uri))
             emp_query = Employee.all()
             employees = emp_query.fetch(1000)
             template_values = {'employees': employees,
-                               'user': username,
+#                               'user': username,
                                'url': url}
 
             path = os.path.join(os.path.dirname(__file__),
@@ -107,3 +108,26 @@ class CreateUser(RequestHandler):
 
         except Exception:
             self.response.set_status(400)
+
+
+class Authentication(object):
+
+    def __init__(self, app):
+        self.app = app
+
+    def __call__(self, environ, start_response):
+
+        user = users.get_current_user()
+        url = users.create_login_url("/")
+
+        req = Request(environ)
+        resp = req.get_response(self.app)
+
+        if user is None:
+            resp.status = "307"
+            resp.location = url
+
+        return resp(environ, start_response)
+
+
+
