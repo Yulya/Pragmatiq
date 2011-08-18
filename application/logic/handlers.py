@@ -1,7 +1,7 @@
 import base64
 import datetime
 import os
-from webob import Request
+from webob import Request, Response
 from django.utils import simplejson as json
 from google.appengine.api import users
 from google.appengine.ext.webapp import template
@@ -9,42 +9,42 @@ from google.appengine.ext.webapp import RequestHandler
 from logic.func import check_password, make_password
 from logic.models import Employee, Usr
 
+#
+#class BaseHandler(RequestHandler):
+#
+#    def pre_get(self):
+#        user = users.get_current_user()
+#        if user is not None:
+#            return user
+#
+#        basic_auth = self.request.headers.get('Authorization')
+#        if not basic_auth:
+#            self.error(401)
+#            return
+#
+#        username, password = '', ''
+#        try:
+#            user_info = base64.decodestring(basic_auth[6:])
+#            username, password = user_info.split(':')
+#        except ValueError:
+#            self.error(400)
+#            return
+#
+#        user_info = Usr.gql("WHERE username = :username ",
+#                            username=username).get()
+#
+#        if user_info is None:
+#            self.error(401)
+#            return
+#
+#        if not check_password(password, user_info.password):
+#            self.error(401)
+#            return
+#
+#        return user_info
 
-class BaseHandler(RequestHandler):
 
-    def pre_get(self):
-        user = users.get_current_user()
-        if user is not None:
-            return user
-
-        basic_auth = self.request.headers.get('Authorization')
-        if not basic_auth:
-            self.error(401)
-            return
-
-        username, password = '', ''
-        try:
-            user_info = base64.decodestring(basic_auth[6:])
-            username, password = user_info.split(':')
-        except ValueError:
-            self.error(400)
-            return
-
-        user_info = Usr.gql("WHERE username = :username ",
-                            username=username).get()
-
-        if user_info is None:
-            self.error(401)
-            return
-
-        if not check_password(password, user_info.password):
-            self.error(401)
-            return
-
-        return user_info
-
-
-class MainHandler(BaseHandler):
+class MainHandler(RequestHandler):
 
     def get(self):
 
@@ -72,15 +72,15 @@ class MainHandler(BaseHandler):
             self.response.out.write(template.render(path, template_values))
 
 
-class CreateEmployee(BaseHandler):
+class CreateEmployee(RequestHandler):
 
     def post(self):
 
-        user = self.pre_get()
-
-        if not user:
-            self.response.set_status(401)
-            return
+#        user = self.pre_get()
+#
+#        if not user:
+#            self.response.set_status(401)
+#            return
 
         data = json.loads(self.request.body)
         try:
@@ -121,12 +121,35 @@ class Authentication(object):
         url = users.create_login_url("/")
 
         req = Request(environ)
-        resp = req.get_response(self.app)
 
         if user is None:
-            resp.status = "307"
-            resp.location = url
+            try:
+                auth_header = req.headers['Authorization']
+            except KeyError:
+                resp = Response(status = "307", location = url)
+                return resp(environ, start_response)
 
+            username, password = '', ''
+            try:
+                user_info = base64.decodestring(auth_header[6:])
+                username, password = user_info.split(':')
+
+            except ValueError:
+                resp = Response(status = "401")
+                return resp(environ, start_response)
+
+            user_info = Usr.gql("WHERE username = :username ",
+                        username=username).get()
+
+            if user_info is None:
+                resp = Response(status = "401")
+                return resp(environ, start_response)
+
+            if not check_password(password, user_info.password):
+                resp = Response(status = "401")
+                return resp(environ, start_response)
+
+        resp = req.get_response(self.app)
         return resp(environ, start_response)
 
 
