@@ -9,62 +9,15 @@ from google.appengine.ext.webapp import RequestHandler
 from logic.func import check_password, make_password
 from logic.models import Employee, Usr
 
-#
-#class BaseHandler(RequestHandler):
-#
-#    def pre_get(self):
-#        user = users.get_current_user()
-#        if user is not None:
-#            return user
-#
-#        basic_auth = self.request.headers.get('Authorization')
-#        if not basic_auth:
-#            self.error(401)
-#            return
-#
-#        username, password = '', ''
-#        try:
-#            user_info = base64.decodestring(basic_auth[6:])
-#            username, password = user_info.split(':')
-#        except ValueError:
-#            self.error(400)
-#            return
-#
-#        user_info = Usr.gql("WHERE username = :username ",
-#                            username=username).get()
-#
-#        if user_info is None:
-#            self.error(401)
-#            return
-#
-#        if not check_password(password, user_info.password):
-#            self.error(401)
-#            return
-#
-#        return user_info
-
 
 class MainHandler(RequestHandler):
 
     def get(self):
 
-#        user = self.pre_get()
-#
-#        if user is None:
-#            url = users.create_login_url(self.request.uri)
-#            self.redirect(url)
-#
-#        else:
-#            try:
-#                username = user.username
-#            except AttributeError:
-#                username = user.email()
-
             url = users.create_logout_url(users.create_login_url(self.request.uri))
             emp_query = Employee.all()
             employees = emp_query.fetch(1000)
             template_values = {'employees': employees,
-#                               'user': username,
                                'url': url}
 
             path = os.path.join(os.path.dirname(__file__),
@@ -75,12 +28,6 @@ class MainHandler(RequestHandler):
 class CreateEmployee(RequestHandler):
 
     def post(self):
-
-#        user = self.pre_get()
-#
-#        if not user:
-#            self.response.set_status(401)
-#            return
 
         data = json.loads(self.request.body)
         try:
@@ -109,7 +56,7 @@ class CreateUser(RequestHandler):
         except Exception:
             self.response.set_status(400)
 
-
+            
 class Authentication(object):
 
     def __init__(self, app):
