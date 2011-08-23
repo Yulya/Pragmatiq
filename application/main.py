@@ -17,7 +17,7 @@
 import logging
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
-from logic.handlers import MainHandler, CreateUser, CreateEmployee, Authentication
+from logic.handlers import MainHandler, CreateUser, CreateEmployee, Authentication, AddAssessmentForm, ShowAssessmentForm
 
 
 def main():
@@ -25,7 +25,8 @@ def main():
     application = webapp.WSGIApplication([('/', MainHandler),
                                           ('/add_usr', CreateUser),
                                           ('/add_emp', CreateEmployee),
-                                           ],
+                                          ('/add_info', AddAssessmentForm),
+                                          ('/as_form', ShowAssessmentForm)],
                                          debug=True)
 
     application = Authentication(application)

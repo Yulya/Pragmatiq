@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+
+
+
+<html>
+<head>
+    <script type="text/javascript" src="../static/jquery.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <title></title>
+</head>
+
+
+<script type="text/javascript">
+    
+$(document).ready(function(){
+
+    $('.add_button').click(function(){
+
+        but = $(this);
+
+        $.post('/add_info',{table: but.parent().attr('id')}, function(data){
+
+         $('<input type="text" size="75">').attr('id',data).focusout(function(){
+            
+            $.post("/add_info", {value: this.value, key: this.id})
+
+    }).insertBefore(but)
+        })
+        })})
+
+
+
+</script>
+
+
+<body>
+
+<a href="{{url}}">logout</a>
+<p id="period">Period: </p>
+<p id="employee">Employee: </p>
+<p id="manager">Manager: </p>
+
+
+
+<div id="prev_goals" class="input_div">
+
+    <p>Previous goals:</p>
+
+        <input type="button" class="add_button" value="add" >
+
+</div>
+
+<div id="next_goals" class="input_div">
+
+        <p>Next goals:</p>
+
+            <input type="button" class="add_button" value="add" >
+
+</div>
+
+<div id="achievements" class="input_div">
+
+        <p>Achievements:</p>
+
+        <input type="button" class="add_button" value="add" >
+
+
+</div>
+
+<div id="challengers" class="input_div">
+
+        <p>Challengers:</p>
+
+        <input type="button" class="add_button" value="add" >
+
+</div>
+<div id="concl">
+    <p>Conclusions:</p>
+    
+</div>
+
+
+
+</body>
+</html>

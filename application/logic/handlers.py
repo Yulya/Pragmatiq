@@ -1,13 +1,13 @@
 import base64
 import datetime
-import os
 from webob import Request, Response
 from django.utils import simplejson as json
 from google.appengine.api import users
+from google.appengine.ext.db import Model
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp import RequestHandler
 from logic.func import check_password, make_password
-from logic.models import Employee, Usr
+from logic.models import Employee, Usr, PreviousGoals, NextGoals
 
 
 class MainHandler(RequestHandler):
@@ -20,8 +20,7 @@ class MainHandler(RequestHandler):
             template_values = {'employees': employees,
                                'url': url}
 
-            path = os.path.join(os.path.dirname(__file__),
-                                'templates/emp.html')
+            path = 'templates/emp.html'
             self.response.out.write(template.render(path, template_values))
 
 
@@ -56,7 +55,53 @@ class CreateUser(RequestHandler):
         except Exception:
             self.response.set_status(400)
 
-            
+class ShowAssessmentForm(RequestHandler):
+
+    def get(self):
+
+        url = users.create_logout_url(users.create_login_url(self.request.uri))
+        template_values = {'url': url}
+
+        path = 'templates/as_form.html'
+        self.response.out.write(template.render(path, template_values))
+
+
+
+
+class AddAssessmentForm(RequestHandler):
+
+    def post(self):
+
+        if self.request.get('key'):
+            key = self.request.get('key')
+            obj = Model.get(key)
+            obj.value = self.request.get('value')
+            obj.put()
+                        
+        else:
+            key=''
+            if self.request.get('table'):
+                if self.request.get('table') == 'next_goals':
+                    next_goal = NextGoals()
+                    next_goal.put()
+                    key = next_goal.key()
+
+                elif self.request.get('table') == 'challengers':
+                    next_goal = NextGoals()
+                    next_goal.put()
+                    key = next_goal.key()
+
+                elif self.request.get('table') == 'achievements':
+                    next_goal = NextGoals()
+                    next_goal.put()
+                    key = next_goal.key()
+                else: self.error(400)
+            else: self.error(400)
+            self.response.out.write(key)
+
+
+
+
 class Authentication(object):
 
     def __init__(self, app):

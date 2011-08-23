@@ -28,14 +28,14 @@ class Roles(db.Model):
 
 
 class AssessmentForm(db.Model):
-    name = db.ReferenceProperty(Employee)
-    manager = db.ReferenceProperty(Employee)
+    name = db.ReferenceProperty(Employee, collection_name='name')
+    manager = db.ReferenceProperty(Employee, collection_name='manager')
 
 
 class PreviousGoals(db.Model):
     form = db.ReferenceProperty(AssessmentForm,
                                 collection_name='previous_goals')
-    goal = db.StringProperty()
+    value = db.StringProperty()
     result = phone_type = db.StringProperty(
       choices=('Below Expectations', 'Meet Expectations',
                'Above Expectations'))
@@ -45,31 +45,25 @@ class PreviousGoals(db.Model):
 class NextGoals(db.Model):
     form = db.ReferenceProperty(AssessmentForm,
                                 collection_name='next_goals')
-    goal = db.StringProperty()
+    value = db.StringProperty()
     comment = db.StringProperty()
 
 
 class Achievements(db.Model):
     form = db.ReferenceProperty(AssessmentForm,
                                 collection_name='achievements')
-    name = db.StringProperty()
+    valuee = db.StringProperty()
     comment = db.StringProperty()
     
 
 class Challengers(db.Model):
     form = db.ReferenceProperty(AssessmentForm,
                                 collection_name='challengers')
-    name = db.StringProperty()
+    value = db.StringProperty()
     comment = db.StringProperty()
 
 
 class Conclusion(db.Model):
     form = db.ReferenceProperty(AssessmentForm, collection_name='conclusion')
-    name = db.StringProperty()
+    value = db.StringProperty()
     comment = db.StringProperty()
-
-
-
-
-    
-
