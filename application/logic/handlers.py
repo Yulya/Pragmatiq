@@ -38,7 +38,9 @@ class CreateEmployee(RequestHandler):
                                      data['first_date'], '%d-%m-%Y').date())
 
             employee.put()
-        except ValueError as e:
+        #python2.5 doesn't support following syntax
+        #except ValueError as e;
+        except ValueError, e:
             self.response.set_status(400, e.message)
 
 

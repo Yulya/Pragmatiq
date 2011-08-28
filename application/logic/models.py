@@ -52,7 +52,7 @@ class NextGoals(db.Model):
 class Achievements(db.Model):
     form = db.ReferenceProperty(AssessmentForm,
                                 collection_name='achievements')
-    valuee = db.StringProperty()
+    value = db.StringProperty()
     comment = db.StringProperty()
     
 
