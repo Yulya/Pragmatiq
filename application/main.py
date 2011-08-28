@@ -17,7 +17,8 @@
 import logging
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
-from logic.handlers import MainHandler, CreateUser, CreateEmployee, Authentication, AddAssessmentForm, ShowAssessmentForm
+from logic.handlers import MainHandler, CreateUser, CreateEmployee, \
+	Authentication, AddAssessmentForm, ShowAssessmentForm
 
 
 def main():
@@ -30,7 +31,7 @@ def main():
     #/assessment_form/goals/get
     #/assessment_form/goals/add
     #/assessment_form/goals/update
-	#/assessment_form/challengers/get
+    #/assessment_form/challengers/get
     #/assessment_form/challengers/add
     #/assessment_form/challengers/update
     application = webapp.WSGIApplication([('/', MainHandler),
