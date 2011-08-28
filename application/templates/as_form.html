@@ -16,20 +16,18 @@
 $(document).ready(function(){
 
     $('.add_button').click(function(){
-
-        but = $(this);
-
-        $.post('/add_info',{table: but.parent().attr('id')}, function(data){
-
-         $('<input type="text" size="75">').attr('id',data).focusout(function(){
-            
-            $.post("/add_info", {value: this.value, key: this.id})
-
-    }).insertBefore(but)
-        })
-        })})
-
-
+        var button = $(this);
+        $.post(
+            '/add_info',
+            { table: button.parent().attr('id') },
+            function(data){
+                $('<input type="text" size="75">').attr('id',data).focusout(function(){
+                    $.post("/add_info", {value: this.value, key: this.id})
+                }).insertBefore(button)
+            }
+        )
+    })
+})
 
 </script>
 
