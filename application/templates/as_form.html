@@ -17,19 +17,21 @@ var form_key='';
 $(document).ready(function(){
 
     $.post('/add_info', function(data){form_key = data})
-
     $('.add_button').click(function(){
-        
-        but = $(this);
-        $.post('/add_info', {table: but.parent().attr('id'), form_key: form_key}, function(data){
+        var button = $(this);
+        $.post(
+            '/add_info',
+            { table: button.parent().attr('id') },
+            function(data){
+                $('<input type="text" size="75">').attr('id',data).focusout(function(){
+                    $.post("/add_info", {value: this.value, key: this.id})
+                }).insertBefore(button)
+            }
+        )
+    })
+})
 
-         $('<input type="text" size="75">').attr('id',data).focusout(function(){
 
-            $.post("/add_info", {value: this.value, key: this.id})
-
-    }).insertBefore(but)
-        })
-        })})
 
 
 

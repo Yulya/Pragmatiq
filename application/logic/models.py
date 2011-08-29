@@ -55,7 +55,7 @@ class Achievements(db.Model):
                                 collection_name='achievements')
     value = db.StringProperty()
     comment = db.StringProperty()
-    
+
 
 class Challengers(db.Model):
     form = db.ReferenceProperty(AssessmentForm,
