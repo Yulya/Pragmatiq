@@ -7,7 +7,7 @@ from google.appengine.ext.db import Model
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp import RequestHandler
 from logic.func import check_password, make_password
-from logic.models import Employee, Usr, PreviousGoals, NextGoals
+from logic.models import Employee, Usr, NextGoals, AssessmentForm, Challengers, Achievements
 
 
 class MainHandler(RequestHandler):
@@ -17,10 +17,14 @@ class MainHandler(RequestHandler):
             url = users.create_logout_url(users.create_login_url(self.request.uri))
             emp_query = Employee.all()
             employees = emp_query.fetch(1000)
+            prs = AssessmentForm.all()
+
+
             template_values = {'employees': employees,
+                               'prs': prs,
                                'url': url}
 
-            path = 'templates/emp.html'
+            path = 'templates/index.html'
             self.response.out.write(template.render(path, template_values))
 
 
@@ -72,33 +76,46 @@ class AddAssessmentForm(RequestHandler):
 
     def post(self):
 
+        if self.request.get('form_key'):
+            form_key = self.request.get('form_key')
+            form = AssessmentForm.get(form_key)
+        else:
+            form = AssessmentForm()
+            form.put()
+            form_key = form.key()
+            self.response.out.write(form_key)
+            return
+
+
         if self.request.get('key'):
             key = self.request.get('key')
             obj = Model.get(key)
             obj.value = self.request.get('value')
             obj.put()
-                        
+
         else:
             key=''
             if self.request.get('table'):
                 if self.request.get('table') == 'next_goals':
                     next_goal = NextGoals()
+                    next_goal.form = form
                     next_goal.put()
                     key = next_goal.key()
 
                 elif self.request.get('table') == 'challengers':
-                    next_goal = NextGoals()
-                    next_goal.put()
-                    key = next_goal.key()
+                    chal = Challengers()
+                    chal.put()
+                    chal.form = form
+                    key = chal.key()
 
                 elif self.request.get('table') == 'achievements':
-                    next_goal = NextGoals()
-                    next_goal.put()
-                    key = next_goal.key()
+                    ach = Achievements()
+                    ach.put()
+                    ach.form = form
+                    key = ach.key()
                 else: self.error(400)
             else: self.error(400)
             self.response.out.write(key)
-
 
 
 

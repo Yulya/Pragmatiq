@@ -28,8 +28,9 @@ class Roles(db.Model):
 
 
 class AssessmentForm(db.Model):
-    name = db.ReferenceProperty(Employee, collection_name='name')
-    manager = db.ReferenceProperty(Employee, collection_name='manager')
+    name = db.StringProperty()
+    employee = db.ReferenceProperty(Employee, collection_name='pr')
+    manager = db.ReferenceProperty(Employee, collection_name='emp_pr')
 
 
 class PreviousGoals(db.Model):
@@ -52,7 +53,7 @@ class NextGoals(db.Model):
 class Achievements(db.Model):
     form = db.ReferenceProperty(AssessmentForm,
                                 collection_name='achievements')
-    valuee = db.StringProperty()
+    value = db.StringProperty()
     comment = db.StringProperty()
     
 
