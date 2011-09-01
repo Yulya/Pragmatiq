@@ -3,11 +3,13 @@ import datetime
 from webob import Request, Response
 from django.utils import simplejson as json
 from google.appengine.api import users
+from google.appengine.api.datastore_errors import BadKeyError
 from google.appengine.ext.db import Model
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp import RequestHandler
+from logic import models
 from logic.func import check_password, make_password
-from logic.models import Employee, Usr, NextGoals, AssessmentForm, Challengers, Achievements
+from logic.models import User, PerformanceReviewForm
 
 
 class MainHandler(RequestHandler):
@@ -16,31 +18,36 @@ class MainHandler(RequestHandler):
 
         login_url = users.create_login_url(self.request.uri)
         logout_url = users.create_logout_url(login_url)
-        emp_query = Employee.all()
-        employees = emp_query.fetch(1000)
-        template_values = {'employees': employees,
+
+        forms = PerformanceReviewForm.all()
+        keys = []
+        for form in forms:
+            keys.append(form.key())
+
+        template_values = {'keys': keys,
                            'url': logout_url}
 
-        path = 'templates/emp.html'
+        path = 'templates/index.html'
         self.response.out.write(template.render(path, template_values))
 
 
-
-class CreateEmployee(RequestHandler):
+class CreateUser(RequestHandler):
 
     def post(self):
 
         data = json.loads(self.request.body)
         try:
-            employee = Employee(first_name=data['first_name'],
-                                 last_name=data['last_name'],
-                                 e_mail=data['e_mail'],
-                                 salary=int(data['salary']),
-                                 first_date=datetime.datetime.strptime(
-                                     data['first_date'], '%d-%m-%Y').date())
+            user = User(first_name=data['first_name'],
+                        username=data['username'],
+                        password=data['password'],
+                        last_name=data['last_name'],
+                        e_mail=data['e_mail'],
+                        salary=int(data['salary']),
+                        first_date=datetime.datetime.strptime(
+                        data['first_date'], '%d-%m-%Y').date())
 
-            employee.put()
-        
+            user.put()
+
         except ValueError, e:
             self.response.set_status(400, e.message)
 
@@ -50,7 +57,7 @@ class CreateUser(RequestHandler):
     def post(self):
         data = json.loads(self.request.body)
         try:
-            usr = Usr(username=data['username'],
+            usr = User(username=data['username'],
                       password=make_password(data['password']))
 
             usr.put()
@@ -59,61 +66,94 @@ class CreateUser(RequestHandler):
             self.response.set_status(400)
 
 
-class ShowAssessmentForm(RequestHandler):
+class AddPrForm(RequestHandler):
 
     def get(self):
 
-        url = users.create_logout_url(users.create_login_url(self.request.uri))
-        template_values = {'url': url}
+        login_url = users.create_login_url(self.request.uri)
+        logout_url = users.create_logout_url(login_url)
+
+        form = PerformanceReviewForm()
+        form.put()
+        key = form.key()
+
+        template_values = {'key': key,
+                           'url': logout_url}
 
         path = 'templates/as_form.html'
         self.response.out.write(template.render(path, template_values))
 
 
-class AddAssessmentForm(RequestHandler):
+class GetPrForm(RequestHandler):
+
+    def get(self, key):
+
+        login_url = users.create_login_url(self.request.uri)
+        logout_url = users.create_logout_url(login_url)
+
+        try:
+            form = PerformanceReviewForm.get(key)
+        except BadKeyError:
+            self.error(405)
+            return
+
+        next_goals = form.next_goals
+        challengers = form.challengers
+        achievements = form.achievements
+
+        template_values = {'url': logout_url,
+                           'key': key,
+                           'next_goals': next_goals,
+                           'challengers': challengers,
+                           'achievements': achievements}
+
+        path = 'templates/as_form.html'
+        self.response.out.write(template.render(path, template_values))
+
+
+class UpdateData(RequestHandler):
+
+    def post(self, object_key):
+
+        value = self.request.get('value')
+        try:
+            obj = Model.get(object_key)
+        except BadKeyError:
+            self.error(405)
+            return
+
+        obj.value = self.request.get('value')
+        obj.put()
+
+
+class AddData(RequestHandler):
 
     def post(self):
 
-        if self.request.get('form_key'):
-            form_key = self.request.get('form_key')
-            form = AssessmentForm.get(form_key)
-        else:
-            form = AssessmentForm()
-            form.put()
-            form_key = form.key()
-            self.response.out.write(form_key)
+        dict = {'next_goals': 'NextGoals',
+                'challengers': 'Challengers',
+                'achievements': 'Achievements'}
+
+        form_key = self.request.get('form_key')
+        table = self.request.get('table')
+
+        try:
+            attr = getattr(models, dict[table])
+        except AttributeError, KeyError:
+            self.error(405)
             return
 
+        obj = attr()
 
-        if self.request.get('key'):
-            key = self.request.get('key')
-            obj = Model.get(key)
-            obj.value = self.request.get('value')
+        try:
+            obj.form = PerformanceReviewForm.get(form_key)
             obj.put()
+            key = obj.key()
+        except BadKeyError:
+            self.error(405)
+            return
 
-        else:
-            key = ''
-            if self.request.get('table'):
-                if self.request.get('table') == 'next_goals':
-                    next_goal = NextGoals()
-                    next_goal.form = form
-                    next_goal.put()
-                    key = next_goal.key()
-                elif self.request.get('table') == 'challengers':
-
-                    chal = Challengers()
-                    chal.put()
-                    chal.form = form
-                    key = chal.key()
-
-                elif self.request.get('table') == 'achievements':
-                    ach = Achievements()
-                    ach.put()
-                    ach.form = form
-                    key = ach.key()
-                else: self.error(400)
-            else: self.error(400)
-            self.response.out.write(key)
+        self.response.out.write(key)
 
 
 class Authentication(object):
@@ -144,7 +184,7 @@ class Authentication(object):
                 resp = Response(status="401")
                 return resp(environ, start_response)
 
-            user_info = Usr.gql("WHERE username = :username ",
+            user_info = User.gql("WHERE username = :username ",
                         username=username).get()
 
             if user_info is None:
@@ -154,6 +194,12 @@ class Authentication(object):
             if not check_password(password, user_info.password):
                 resp = Response(status="401")
                 return resp(environ, start_response)
+        else:
+            user_info = User.gql("WHERE e_mail = :e_mail",
+                                 e_mail=user.email())
+            if user_info is None:
+                user = User(
+                    e_mail=user.email())
 
         resp = req.get_response(self.app)
         return resp(environ, start_response)

@@ -17,28 +17,21 @@
 import logging
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
-from logic.handlers import MainHandler, CreateUser, CreateEmployee, \
-	Authentication, AddAssessmentForm, ShowAssessmentForm
+from logic.handlers import MainHandler, CreateUser,\
+	Authentication, AddPrForm, GetPrForm, UpdateData, AddData
 
 
 def main():
     logging.getLogger().setLevel(logging.DEBUG)
-    #url structure
-    #/user/add
-    #/employee/add
-    #/assessment_form/add
-    #/assessment_form/get
-    #/assessment_form/goals/get
-    #/assessment_form/goals/add
-    #/assessment_form/goals/update
-    #/assessment_form/challengers/get
-    #/assessment_form/challengers/add
-    #/assessment_form/challengers/update
     application = webapp.WSGIApplication([('/', MainHandler),
                                           ('/add_usr', CreateUser),
-                                          ('/add_emp', CreateEmployee),
-                                          ('/add_info', AddAssessmentForm),
-                                          ('/as_form', ShowAssessmentForm)],
+                                          ('/add_emp', CreateUser),
+
+                                          ('/pr/add', AddPrForm),
+                                          ('/pr/data/add', AddData),
+                                          ('/pr/data/update/(.*)', UpdateData),
+                                          ('/pr/(.*)', GetPrForm)
+                                         ],
                                          debug=True)
 
     application = Authentication(application)

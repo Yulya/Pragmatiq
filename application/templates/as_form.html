@@ -12,19 +12,24 @@
 
 <script type="text/javascript">
 
-var form_key='';
+var form_key= '{{key}}';
+
+function send_value(id, value){
+       $.post('/pr/data/update/'+ id, {value: value});
+    }
 
 $(document).ready(function(){
 
-    $.post('/add_info', function(data){form_key = data})
+
     $('.add_button').click(function(){
         var button = $(this);
+        var table = button.parent().attr('id');
         $.post(
-            '/add_info',
-            { table: button.parent().attr('id') },
+            '/pr/data/add',
+            {form_key: form_key, table: table},
             function(data){
                 $('<input type="text" size="75">').attr('id',data).focusout(function(){
-                    $.post("/add_info", {value: this.value, key: this.id})
+                    $.post('/pr/data/update/'+this.id, {value: this.value})
                 }).insertBefore(button)
             }
         )
@@ -50,14 +55,26 @@ $(document).ready(function(){
 <div id="prev_goals" class="input_div">
 
     <p>Previous goals:</p>
+    {% for goal in prev_goals %}
 
-        <input type="button" class="add_button" value="add" >
+        <p>{{goal.value}}</p>
+
+    {% endfor %}
+
+
 
 </div>
 
 <div id="next_goals" class="input_div">
 
         <p>Next goals:</p>
+    
+    {% for goal in next_goals %}
+
+        <input type="text" size="75" id="{{goal.key}}" value="{{goal.value}}" onblur="send_value(id, value)">
+
+    {% endfor %}
+
 
             <input type="button" class="add_button" value="add" >
 
@@ -66,6 +83,12 @@ $(document).ready(function(){
 <div id="achievements" class="input_div">
 
         <p>Achievements:</p>
+
+    {% for ach in achievements %}
+
+        <input type="text" size="75" id="{{ach.key}}" value="{{ach.value}}" onblur="send_value(id, value)">
+
+    {% endfor %}
 
         <input type="button" class="add_button" value="add" >
 
@@ -76,10 +99,15 @@ $(document).ready(function(){
 
         <p>Challengers:</p>
 
+    {% for chal in challengers %}
+
+        <input type="text" size="75" id="{{chal.key}}" value="{{chal.value}}" onblur="send_value(id, value)">
+
+    {% endfor %}
         <input type="button" class="add_button" value="add" >
 
 </div>
-<div id="concl">
+<div id="conclusions">
     <p>Conclusions:</p>
     
 </div>

@@ -8,11 +8,14 @@ import getpass
 
 
 parser = OptionParser()
+parser.add_option("-u", "--username", dest="username")
+parser.add_option("-p", "--password", dest="password")
 parser.add_option("-f", "--first_name", dest="first_name")
 parser.add_option("-l", "--last_name", dest="last_name")
 parser.add_option("-e", "--e_mail", dest="e_mail")
 parser.add_option("-s", "--salary", dest="salary")
 parser.add_option("-d", "--first_date", dest="first_date")
+
 
 username = raw_input('username:')
 password = getpass.getpass()
@@ -39,11 +42,13 @@ except ValueError:
     errors.append('enter correct date in form dd-mm-YY. ')
 
 if not errors:
-    data = json.dumps({"first_name": options.first_name,
-                   "last_name": options.last_name,
-                   "e_mail": options.e_mail,
-                   "salary": options.salary,
-                   "first_date": options.first_date})
+    data = json.dumps({"username": options.username,
+                       "password": options.password,
+                       "first_name": options.first_name,
+                       "last_name": options.last_name,
+                       "e_mail": options.e_mail,
+                       "salary": options.salary,
+                       "first_date": options.first_date})
 
     base64string = base64.encodestring(
                 '%s:%s' % (username, password))[:-1]
