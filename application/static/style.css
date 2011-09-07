@@ -4,3 +4,9 @@ div {
     margin: 20px;
     padding:  20px;
 }
+.result,#user{
+    width: auto;
+}
+td{
+    border: 1px solid #cccccc;
+}

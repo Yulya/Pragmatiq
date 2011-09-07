@@ -15,10 +15,11 @@ parser.add_option("-l", "--last_name", dest="last_name")
 parser.add_option("-e", "--e_mail", dest="e_mail")
 parser.add_option("-s", "--salary", dest="salary")
 parser.add_option("-d", "--first_date", dest="first_date")
+parser.add_option("-r", "--role", dest="role")
 
 
-username = raw_input('username:')
-password = getpass.getpass()
+#username = raw_input('username:')
+#password = getpass.getpass()
 
 (options, args) = parser.parse_args()
 errors = []
@@ -48,14 +49,15 @@ if not errors:
                        "last_name": options.last_name,
                        "e_mail": options.e_mail,
                        "salary": options.salary,
+                       "role": options.role,
                        "first_date": options.first_date})
 
-    base64string = base64.encodestring(
-                '%s:%s' % (username, password))[:-1]
-    auth_header = "Basic %s" % base64string
+#    base64string = base64.encodestring(
+#                '%s:%s' % (username, password))[:-1]
+#    auth_header = "Basic %s" % base64string
 
     req = urllib2.Request('http://localhost:8080/add_emp', data)
-    req.add_header("Authorization", auth_header)
+#    req.add_header("Authorization", auth_header)
     try:
         resp = urllib2.urlopen(req)
     except urllib2.HTTPError, e:

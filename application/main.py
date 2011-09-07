@@ -18,19 +18,23 @@ import logging
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 from logic.handlers import MainHandler, CreateUser,\
-	Authentication, AddPrForm, GetPrForm, UpdateData, AddData
+	Authentication, AddPrForm, GetPrForm, UpdateData, AddData, CreateRoles, GetPrs, GetSelfPr, UserTable
 
 
 def main():
     logging.getLogger().setLevel(logging.DEBUG)
     application = webapp.WSGIApplication([('/', MainHandler),
-                                          ('/add_usr', CreateUser),
                                           ('/add_emp', CreateUser),
-
-                                          ('/pr/add', AddPrForm),
+                                          ('/users', UserTable),
+                                        
+                                          ('/pr/add/(.*)', AddPrForm),
                                           ('/pr/data/add', AddData),
                                           ('/pr/data/update/(.*)', UpdateData),
-                                          ('/pr/(.*)', GetPrForm)
+                                          ('/pr/self',GetSelfPr),
+                                          ('/pr/(.*)', GetPrForm),
+                                          ('/manager',GetPrs),
+                                          ('/pr/self',GetSelfPr),
+                                          ('/create_role', CreateRoles)
                                          ],
                                          debug=True)
 

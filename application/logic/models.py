@@ -1,6 +1,10 @@
 from google.appengine.ext import db
 
 
+class Role(db.Model):
+    value = db.StringProperty()
+
+
 class User(db.Model):
     first_name = db.StringProperty()
     last_name = db.StringProperty()
@@ -9,9 +13,8 @@ class User(db.Model):
     first_date = db.DateProperty()
     username = db.StringProperty()
     password = db.StringProperty()
-    roles = db.StringProperty(
-        choices=('employee', 'manager', 'hr'))
-
+    role = db.ListProperty(db.Key)
+    manager = db.SelfReferenceProperty(collection_name='subs')
 
 class Phone(db.Model):
     employee = db.ReferenceProperty(User,
@@ -29,7 +32,7 @@ class PerformanceReview(db.Model):
 
 class PerformanceReviewForm(db.Model):
     pr = db.ReferenceProperty(PerformanceReview, collection_name='forms')
-    type = db.StringProperty(choices=('self', 'manager'))
+    author = db.ReferenceProperty(User, collection_name='forms')
 
 
 class PreviousGoals(db.Model):
