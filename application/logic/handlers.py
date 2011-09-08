@@ -36,7 +36,12 @@ class UserTable(RequestHandler):
 
     def get(self):
 
-        users = User.all()
+        users = User.all().fetch(1000)
+        for user in users:
+            user.roles = ''
+            for role in user.role:
+
+                user.roles = user.roles + Model.get(role).value
 
         template_values = {'users': users,
                            }
@@ -79,7 +84,24 @@ class CreateUser(RequestHandler):
         first_name = self.request.get('first_name')
         e_mail = self.request.get('e_mail')
         last_name = self.request.get('last_name')
-        manager = self.request.get('user')
+        manager = Model.get(self.request.get('manager'))
+        roles = self.request.POST.getall('role')
+
+        user = User(first_name=first_name,
+                    e_mail = e_mail,
+                    last_name = last_name,
+                    manager=manager)
+
+        for role in roles:
+            role_key = Role.gql("WHERE value = :role", role = role).get().key()
+            user.role.append(role_key)
+
+        user.put()
+        
+       
+
+
+
 
 class GetSelfPr(RequestHandler):
 
@@ -239,12 +261,11 @@ class CreateRoles(RequestHandler):
         
         role = Role(value='manager')
         role.put()
-        k = role.key()
         role = Role(value='employee')
         role.put()
         role = Role(value='hr')
         role.put()
-
+        
 
 class Authentication(object):
 
@@ -290,6 +311,7 @@ class Authentication(object):
             if user_info is None:
                 user_info = User(
                     e_mail=user.email())
+                user_info.put()
 
         environ["current_user"] = user_info
         resp = req.get_response(self.app)

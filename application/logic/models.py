@@ -8,7 +8,7 @@ class Role(db.Model):
 class User(db.Model):
     first_name = db.StringProperty()
     last_name = db.StringProperty()
-    e_mail = db.EmailProperty()
+    e_mail = db.StringProperty()
     salary = db.IntegerProperty()
     first_date = db.DateProperty()
     username = db.StringProperty()
