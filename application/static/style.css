@@ -4,9 +4,10 @@ div {
     margin: 20px;
     padding:  20px;
 }
-.result,#user{
+.result, #user{
     width: auto;
 }
-td{
+table, td{
     border: 1px solid #cccccc;
+    border-collapse:collapse;
 }

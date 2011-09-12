@@ -1,5 +1,6 @@
 import base64
 import datetime
+import re
 from webob import Request, Response
 from django.utils import simplejson as json
 from google.appengine.api import users
@@ -30,7 +31,7 @@ class MainHandler(RequestHandler):
 
         path = 'templates/index.html'
         self.response.out.write(template.render(path, template_values))
-
+        
 
 class UserTable(RequestHandler):
 
@@ -40,8 +41,7 @@ class UserTable(RequestHandler):
         for user in users:
             user.roles = ''
             for role in user.role:
-
-                user.roles = user.roles + Model.get(role).value
+                user.roles = user.roles + Model.get(role).value +' '
 
         template_values = {'users': users,
                            }
@@ -84,8 +84,11 @@ class CreateUser(RequestHandler):
         first_name = self.request.get('first_name')
         e_mail = self.request.get('e_mail')
         last_name = self.request.get('last_name')
-        manager = Model.get(self.request.get('manager'))
+        if self.request.get('manager'):
+            manager = Model.get(self.request.get('manager'))
+        else: manager = None
         roles = self.request.POST.getall('role')
+
 
         user = User(first_name=first_name,
                     e_mail = e_mail,
@@ -97,10 +100,6 @@ class CreateUser(RequestHandler):
             user.role.append(role_key)
 
         user.put()
-        
-       
-
-
 
 
 class GetSelfPr(RequestHandler):
@@ -128,13 +127,16 @@ class GetPrs(RequestHandler):
 
         login_url = users.create_login_url(self.request.uri)
         logout_url = users.create_logout_url(login_url)
-        employees = User.all().fetch(1000)
+
+        employees = user.subs
+
+#        employees = User.all().fetch(1000)
 
         for employee in employees:
 
-            pr = PerformanceReview.gql("WHERE employee = :employee\
-                                        AND manager = :user",
-                                       employee = employee, user = user).get()
+            pr = PerformanceReview.gql("WHERE employee = :employee",
+                                       employee = employee).get()
+
             if pr is None:
                 employee.self_form = None
                 employee.manager_form = None
@@ -257,15 +259,19 @@ class AddData(RequestHandler):
 
 class CreateRoles(RequestHandler):
 
-    def get(self):
-        
-        role = Role(value='manager')
-        role.put()
-        role = Role(value='employee')
-        role.put()
-        role = Role(value='hr')
-        role.put()
-        
+    def post(self):
+
+        try:
+            role = Role(value='manager')
+            role.put()
+            role = Role(value='employee')
+            role.put()
+            role = Role(value='hr')
+            role.put()
+        except:
+            self.response.out.write('error')
+            return
+        self.response.out.write('roles created')
 
 class Authentication(object):
 
@@ -278,41 +284,44 @@ class Authentication(object):
         url = users.create_login_url("/")
 
         req = Request(environ)
+        
+        non_auth_urls = ['/create_role','/users','/add_emp']
+        if environ['PATH_INFO'] not in non_auth_urls:
+            
+            if user is None:
+                try:
+                    auth_header = req.headers['Authorization']
+                except KeyError:
+                    resp = Response(status="307", location=url)
+                    return resp(environ, start_response)
 
-        if user is None:
-            try:
-                auth_header = req.headers['Authorization']
-            except KeyError:
-                resp = Response(status="307", location=url)
-                return resp(environ, start_response)
+                username, password = '', ''
+                try:
+                    user_info = base64.decodestring(auth_header[6:])
+                    username, password = user_info.split(':')
 
-            username, password = '', ''
-            try:
-                user_info = base64.decodestring(auth_header[6:])
-                username, password = user_info.split(':')
+                except ValueError:
+                    resp = Response(status="401")
+                    return resp(environ, start_response)
 
-            except ValueError:
-                resp = Response(status="401")
-                return resp(environ, start_response)
+                user_info = User.gql("WHERE username = :username ",
+                            username=username).get()
 
-            user_info = User.gql("WHERE username = :username ",
-                        username=username).get()
+                if user_info is None:
+                    resp = Response(status="401")
+                    return resp(environ, start_response)
 
-            if user_info is None:
-                resp = Response(status="401")
-                return resp(environ, start_response)
+                if not check_password(password, user_info.password):
+                    resp = Response(status="401")
+                    return resp(environ, start_response)
+            else:
+                user_info = User.gql("WHERE e_mail = :e_mail",
+                                     e_mail=user.email()).get()
+                if user_info is None:
+                    user_info = User(
+                        e_mail=user.email())
+                    user_info.put()
 
-            if not check_password(password, user_info.password):
-                resp = Response(status="401")
-                return resp(environ, start_response)
-        else:
-            user_info = User.gql("WHERE e_mail = :e_mail",
-                                 e_mail=user.email()).get()
-            if user_info is None:
-                user_info = User(
-                    e_mail=user.email())
-                user_info.put()
-
-        environ["current_user"] = user_info
+            environ["current_user"] = user_info
         resp = req.get_response(self.app)
         return resp(environ, start_response)
