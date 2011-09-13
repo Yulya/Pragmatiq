@@ -18,7 +18,8 @@ import logging
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 from logic.handlers import MainHandler, CreateUser,\
-	Authentication, AddPrForm, GetPrForm, UpdateData, AddData, CreateRoles, GetPrs, GetSelfPr, UserTable
+	Authentication, AddPrForm, GetPrForm, UpdateData,\
+    AddData, CreateRoles, GetPrs, UserTable, CreatePR
 
 
 def main():
@@ -26,14 +27,14 @@ def main():
     application = webapp.WSGIApplication([('/', MainHandler),
                                           ('/add_emp', CreateUser),
                                           ('/users', UserTable),
-                                        
+                                          ('/create_pr', CreatePR),
                                           ('/pr/add/(.*)', AddPrForm),
                                           ('/pr/data/add', AddData),
                                           ('/pr/data/update/(.*)', UpdateData),
-                                          ('/pr/self',GetSelfPr),
+#                                          ('/pr/self',GetSelfPr),
                                           ('/pr/(.*)', GetPrForm),
                                           ('/manager',GetPrs),
-                                          ('/pr/self',GetSelfPr),
+#                                          ('/pr/self',GetSelfPr),
                                           ('/create_role', CreateRoles)
                                          ],
                                          debug=True)

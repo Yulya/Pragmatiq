@@ -1,22 +1,20 @@
 import base64
-import datetime
-import re
 from webob import Request, Response
-from django.utils import simplejson as json
 from google.appengine.api import users
 from google.appengine.api.datastore_errors import BadKeyError
 from google.appengine.ext.db import Model
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp import RequestHandler
 from logic import models
-from logic.func import check_password, make_password
+from logic.func import check_password
 from logic.models import User, PerformanceReviewForm, PerformanceReview, Role
 
 
 class MainHandler(RequestHandler):
 
-    def get(self):
+    #gets current user and returns his roles
 
+    def get(self):
 
         user = self.request.environ['current_user']
 
@@ -31,9 +29,11 @@ class MainHandler(RequestHandler):
 
         path = 'templates/index.html'
         self.response.out.write(template.render(path, template_values))
-        
+
 
 class UserTable(RequestHandler):
+
+    #selects all users and returns them
 
     def get(self):
 
@@ -41,7 +41,7 @@ class UserTable(RequestHandler):
         for user in users:
             user.roles = ''
             for role in user.role:
-                user.roles = user.roles + Model.get(role).value +' '
+                user.roles = user.roles + Model.get(role).value + ' '
 
         template_values = {'users': users,
                            }
@@ -49,77 +49,45 @@ class UserTable(RequestHandler):
         path = 'templates/users.html'
         self.response.out.write(template.render(path, template_values))
 
+
 class CreateUser(RequestHandler):
 
-#    def post(self):
-#
-#        data = json.loads(self.request.body)
-#        roles = data['role'].split(',')
-#        role_keys = []
-#        for role in roles:
-#            role_key = Role.gql("WHERE value = :value",
-#                                value = role).get().key()
-#            if role_key is not None:
-#                role_keys.append(role_key)
-#
-#        try:
-#            user = User(first_name=data['first_name'],
-#                        username=data['username'],
-#                        password=data['password'],
-#                        last_name=data['last_name'],
-#                        e_mail=data['e_mail'],
-#                        salary=int(data['salary']),
-#                        role=role_keys,
-#                        first_date=datetime.datetime.strptime(
-#                        data['first_date'], '%d-%m-%Y').date())
-#
-#
-#            user.put()
-#
-#        except ValueError, e:
-#            self.response.set_status(400, e.message)
+    #gets data and puts them to DB
 
     def post(self):
 
         first_name = self.request.get('first_name')
         e_mail = self.request.get('e_mail')
         last_name = self.request.get('last_name')
+
         if self.request.get('manager'):
             manager = Model.get(self.request.get('manager'))
-        else: manager = None
+        else:
+            manager = None
+
         roles = self.request.POST.getall('role')
+        try:
+            user = User(first_name=first_name,
+                        e_mail=e_mail,
+                        last_name=last_name,
+                        manager=manager)
+#
+#            for role in roles:
+#                role_key = Role.gql("WHERE value = :role", role=role).get().key()
+#                user.role.append(role_key)
 
-
-        user = User(first_name=first_name,
-                    e_mail = e_mail,
-                    last_name = last_name,
-                    manager=manager)
-
-        for role in roles:
-            role_key = Role.gql("WHERE value = :role", role = role).get().key()
-            user.role.append(role_key)
-
-        user.put()
-
-
-class GetSelfPr(RequestHandler):
-
-    def get(self):
-
-        user = self.request.environ['current_user']
-
-        login_url = users.create_login_url(self.request.uri)
-        logout_url = users.create_logout_url(login_url)
-
-        pr = PerformanceReview.gql("WHERE employee = :user", user = user).get()
-        form = pr.forms.filter('author', user).get()
-        if form is None:
+            user.put()
+        except ValueError:
+            self.response.out.write('error')
             return
-        self.response.out.write(form.key())
+        self.response.out.write(roles)
+
 
 
 
 class GetPrs(RequestHandler):
+
+    #selects all PR objects for current user's subs and returns them
 
     def get(self):
 
@@ -130,12 +98,10 @@ class GetPrs(RequestHandler):
 
         employees = user.subs
 
-#        employees = User.all().fetch(1000)
-
         for employee in employees:
 
             pr = PerformanceReview.gql("WHERE employee = :employee",
-                                       employee = employee).get()
+                                       employee=employee).get()
 
             if pr is None:
                 employee.self_form = None
@@ -143,10 +109,10 @@ class GetPrs(RequestHandler):
             else:
                 employee.self_form = PerformanceReviewForm.gql(
                     "WHERE author = :employee AND pr = :pr",
-                    employee = employee, pr = pr).get()
+                    employee=employee, pr=pr).get()
                 employee.manager_form = PerformanceReviewForm.gql(
                     "WHERE author = :user AND pr = :pr",
-                    user = user, pr = pr).get()
+                    user=user, pr=pr).get()
 
         template_values = {'user': user,
                            'employees': employees,
@@ -155,12 +121,30 @@ class GetPrs(RequestHandler):
         path = 'templates/manager.html'
         self.response.out.write(template.render(path, template_values))
 
+class CreatePR(RequestHandler):
+
+    #creates PR objects for all employees
+
+    def get(self):
+
+        employees = User.all()
+
+        for employee in employees:
+            if employee.manager is not None:
+                pr = PerformanceReview(employee=employee,
+                                       manager=employee.manager)
+                pr.put()
+            else:
+                pr = PerformanceReview(employee=employee)
+                pr.put()
+        self.response.out.write('ok')
 
 class AddPrForm(RequestHandler):
 
+    #gets employee's key, select employee's PR
+
     def get(self, key):
 
-        
         login_url = users.create_login_url(self.request.uri)
         logout_url = users.create_logout_url(login_url)
 
@@ -168,16 +152,16 @@ class AddPrForm(RequestHandler):
         emp = Model.get(key)
 
         pr = PerformanceReview.gql("WHERE employee = :employee",
-                                   employee = emp, manager = user).get()
+                                   employee=emp, manager=user).get()
 
         pr_form = PerformanceReviewForm.gql("WHERE pr =:pr \
                                             AND author = :author",
                                             pr=pr, author=user).get()
 
         if pr_form is None:
-            pr_form = PerformanceReviewForm(pr=pr,author=user)
+            pr_form = PerformanceReviewForm(pr=pr, author=user)
             pr_form.put()
-        
+
         template_values = {'key': pr_form.key(),
                            'url': logout_url}
 
@@ -191,12 +175,21 @@ class GetPrForm(RequestHandler):
 
         login_url = users.create_login_url(self.request.uri)
         logout_url = users.create_logout_url(login_url)
+        user = self.request.environ['current_user']
 
-        try:
-            form = PerformanceReviewForm.get(key)
-        except BadKeyError:
-            self.error(405)
-            return
+        if key == 'self':
+
+            pr = PerformanceReview.gql("WHERE employee = :user", user=user).get()
+            form = pr.forms.filter('author', user).get()
+            if form is None:
+                return
+
+        else:
+            try:
+                form = PerformanceReviewForm.get(key)
+            except BadKeyError:
+                self.error(405)
+                return
 
         next_goals = form.next_goals
         challengers = form.challengers
@@ -273,6 +266,7 @@ class CreateRoles(RequestHandler):
             return
         self.response.out.write('roles created')
 
+
 class Authentication(object):
 
     def __init__(self, app):
@@ -284,10 +278,10 @@ class Authentication(object):
         url = users.create_login_url("/")
 
         req = Request(environ)
-        
-        non_auth_urls = ['/create_role','/users','/add_emp']
+
+        non_auth_urls = ['/create_role', '/users', '/add_emp']
         if environ['PATH_INFO'] not in non_auth_urls:
-            
+
             if user is None:
                 try:
                     auth_header = req.headers['Authorization']

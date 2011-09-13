@@ -16,6 +16,7 @@ class User(db.Model):
     role = db.ListProperty(db.Key)
     manager = db.SelfReferenceProperty(collection_name='subs')
 
+
 class Phone(db.Model):
     employee = db.ReferenceProperty(User,
                                  collection_name='phone_numbers')
@@ -28,6 +29,7 @@ class PerformanceReview(db.Model):
     employee = db.ReferenceProperty(User, collection_name='self_pr')
     manager = db.ReferenceProperty(User, collection_name='managed_pr')
     title = db.StringProperty()
+    date = db.DateProperty()
 
 
 class PerformanceReviewForm(db.Model):
