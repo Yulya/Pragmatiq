@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<table>
+    {% for employee in employees %}
+        <tr>
+            <td>{{employee.first_name}} {{employee.last_name}}</td>
+            <td>
+                {% if employee.manager_form %}
+                    <a href="/pr/get/{{employee.manager_form.key}}">mark</a>
+                {% else %}
+                    <a href="/pr/add/{{employee.key}}">add</a>
+                {% endif %}
+            </td>
+
+            <td>
+                {% if not employee.self_form.key %}
+                    <p>none</p>
+                {% else %}
+                    <a href="/pr/get/{{employee.self_form.key}}">show</a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
