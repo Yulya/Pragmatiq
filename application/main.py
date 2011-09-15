@@ -19,23 +19,25 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 from logic.handlers import MainHandler, CreateUser,\
 	Authentication, AddPrForm, GetPrForm, UpdateData,\
-    AddData, CreateRoles, GetPrs, UserTable, CreatePR
-
+    AddData, CreateRoles, GetPrs, UserTable, CreatePR,\
+    GetPreviousGoals, GetSelfPR
 
 def main():
     logging.getLogger().setLevel(logging.DEBUG)
     application = webapp.WSGIApplication([('/', MainHandler),
                                           ('/add_emp', CreateUser),
                                           ('/users', UserTable),
-                                          ('/create_pr', CreatePR),
+                                          ('/create_role', CreateRoles),
+#                                          ('/show',ShowData),
+                                          ('/pr/create', CreatePR),
+                                          ('/pr/prev_goals/(.*)',GetPreviousGoals),
+                                          ('/pr/get/self', GetSelfPR),
                                           ('/pr/add/(.*)', AddPrForm),
                                           ('/pr/data/add', AddData),
                                           ('/pr/data/update/(.*)', UpdateData),
-#                                          ('/pr/self',GetSelfPr),
-                                          ('/pr/(.*)', GetPrForm),
-                                          ('/manager',GetPrs),
-#                                          ('/pr/self',GetSelfPr),
-                                          ('/create_role', CreateRoles)
+                                          ('/pr/get/(.*)', GetPrForm),
+                                          ('/manager',GetPrs)
+
                                          ],
                                          debug=True)
 

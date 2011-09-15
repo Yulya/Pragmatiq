@@ -20,7 +20,7 @@ function send_value(id, value){
 
 $(document).ready(function(){
 
-
+    $('#prev_goals').load('/pr/prev_goals/{{key}}');
     $('.add_button').click(function(){
         var button = $(this);
         var table = button.parent().attr('id');
@@ -45,18 +45,10 @@ $(document).ready(function(){
 
 <body>
 
-<a href="{{url}}">logout</a>
+<p>Performance Review Form for {{emp.first_name}} {{emp.last_name}}</p>
+<p>author: {{author.first_name}} {{author.last_name}}</p>
 
 <div id="prev_goals" class="input_div">
-
-    <p>Previous goals:</p>
-    {% for goal in prev_goals %}
-
-        <p>{{goal.value}}</p>
-
-    {% endfor %}
-
-
 
 </div>
 
