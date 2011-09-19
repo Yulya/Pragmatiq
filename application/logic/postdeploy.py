@@ -1,4 +1,5 @@
 from google.appengine.ext import db
+from logic.models import Role
 
 
 class PostDeployLog(db.Model):
@@ -21,7 +22,12 @@ class PostDeploy():
 
     def deploy_roles(self):
         if not self.deploy_log.roles_deployed:
-            #todo: put roles initialization logic
+            role = Role(value='manager')
+            role.put()
+            role = Role(value='employee')
+            role.put()
+            role = Role(value='hr')
+            role.put()
             self.deploy_log.roles_deployed = True
             self.deploy_log.put()
 
