@@ -228,9 +228,11 @@ class GetPrForm(RequestHandler):
 
     def get(self, key):
 
+        user = self.request.environ['current_user']
+
         login_url = users.create_login_url(self.request.uri)
         logout_url = users.create_logout_url(login_url)
-        user = self.request.environ['current_user']
+        
 
         try:
             form = PerformanceReviewForm.get(key)
@@ -251,8 +253,12 @@ class GetPrForm(RequestHandler):
                            'challengers': challengers,
                            'achievements': achievements}
 
-        path = 'templates/as_form.html'
-        self.response.out.write(template.render(path, template_values))
+        if user.key() == form.author.key():
+            path = 'templates/as_form.html'
+            self.response.out.write(template.render(path, template_values))
+        else:
+            path = 'templates/form_data.html'
+            self.response.out.write(template.render(path, template_values))
 
 
 class UpdateData(RequestHandler):

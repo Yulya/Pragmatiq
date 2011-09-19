@@ -5,15 +5,23 @@
     <title></title>
 </head>
 <body>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.load').click(function(){
+            var url=this.title;
+            $('.result').load(url)
+        })
+    })
+</script>
 <table>
     {% for employee in employees %}
         <tr>
             <td>{{employee.first_name}} {{employee.last_name}}</td>
             <td>
                 {% if employee.manager_form %}
-                    <a href="/pr/get/{{employee.manager_form.key}}">mark</a>
+                    <input class="load" type="button" title="pr/get/{{employee.manager_form.key}}" value="mark">
                 {% else %}
-                    <a href="/pr/add/{{employee.key}}">add</a>
+                    <input type="button" title="/pr/add/{{employee.key}}" class="load" value="add">
                 {% endif %}
             </td>
 
@@ -21,7 +29,7 @@
                 {% if not employee.self_form.key %}
                     <p>none</p>
                 {% else %}
-                    <a href="/pr/get/{{employee.self_form.key}}">show</a>
+                    <input type="button" title="/pr/get/{{employee.self_form.key}}" class="load" value="show">
                 {% endif %}
             </td>
         </tr>

@@ -1,8 +1,20 @@
 div {
-    width: 700px;
-    border: 1px solid #cccccc;
     margin: 20px;
-    padding:  20px;
+    /*border: 1px solid #cccccc;*/
+
+}
+body{
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 14px;
+}
+p{
+    margin: 0px;
+    padding: 0px;
+}
+#wrapper{
+    width:900px;
+    margin: auto;
+    border: 1px solid #cccccc;
 }
 .result, #user{
     width: auto;

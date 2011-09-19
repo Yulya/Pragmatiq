@@ -48,6 +48,7 @@
     })
 </script>
 <body>
+<div id="wrapper">
 <div>
     <input type="button" id="create_roles" value="create roles" >
 </div>
@@ -70,25 +71,40 @@
 <div>
     <p>add new:</p>
     <form action="/add_emp" id="user_form" method="post">
-        <p>first_name:</p>
-        <input type="text" name="first_name">
-        <p>last_name:</p>
-        <input type="text" name="last_name">
-        <p>e_mail:</p>
-        <input type="text" name="e_mail">
-        <p>select role:</p>
-        <input type="checkbox" name="role" value="employee">employee<br>
-        <input type="checkbox" name="role" value="manager">manager<br>
-        <input type="checkbox" name="role" value="hr">hr<br>
-        <p>manager:</p>
-        <select name="manager">
-            {% for user in users %}
-                <option value="{{user.key}}">{{user.first_name}} {{user.last_name}}</option>
-            {% endfor %}
-        </select><br>
-        <input type="button" id="send" value="add">
+        <table>
+            <tr>
+                <td><label>first_name:</label></td>
+                <td><input type="text" name="first_name"><br></td>
+            </tr>
+            <tr>
+                <td><label>last_name:</label></td>
+                <td><input type="text" name="last_name"><br></td>
+            </tr>
+            <tr>
+                <td><label>e_mail:</label></td>
+                <td><input type="text" name="e_mail"><br></td>
+            </tr>
+            <tr>
+                <td><label>select role:</label></td>
+                <td><input type="checkbox" name="role" value="employee">employee<br>
+                    <input type="checkbox" name="role" value="manager">manager<br>
+                    <input type="checkbox" name="role" value="hr">hr<br></td>
+            </tr>
+            <tr>
+                <td><label>manager:</label></td>
+                <td><select name="manager">
+                    {% for user in users %}
+                        <option value="{{user.key}}">{{user.first_name}} {{user.last_name}}</option>
+                    {% endfor %}
+                    </select><br>
+                </td>
+            </tr>
+        </table>
+                <input type="button" id="send" value="add">
 
     </form>
+
+</div>
 </div>
 </body>
 </html>
