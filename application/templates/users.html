@@ -91,7 +91,7 @@
                 <td><label>manager:</label></td>
                 <td><select name="manager">
                     {% for user in users %}
-                        <option value="{{user.key}}">{{user.first_name}} {{user.last_name}}</option>
+                        <option value="{{user.key}}">{{user.e_mail}}</option>
                     {% endfor %}
                     </select><br>
                 </td>
