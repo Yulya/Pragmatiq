@@ -1,0 +1,4 @@
+cron:
+- description: send mail about pr
+  url: /check
+  schedule: every 24 hours

@@ -7,7 +7,7 @@ from google.appengine.ext.db import Model
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp import RequestHandler
 from logic import models
-from logic.func import check_password
+from logic.func import check_password, send_message
 from logic.models import User, PerformanceReviewForm, PerformanceReview, Role
 
 
@@ -341,16 +341,35 @@ class CreateRoles(RequestHandler):
         self.response.out.write('roles created')
 
 
-#class ShowData(RequestHandler):
-#
-#    def get(self):
-#
-#        prs = PerformanceReview.all()
-#
-#        template_values = {'prs': prs}
-#
-#        path = 'templates/pr.html'
-#        self.response.out.write(template.render(path, template_values))
+class CheckDate(RequestHandler):
+
+    def get(self):
+
+        today = datetime.date.today()
+        subject = 'Performance Review'
+
+        month = datetime.timedelta(days=30)
+        two_weeks = datetime.timedelta(days=14)
+        week = datetime.timedelta(days=7)
+
+        prs = PerformanceReview.all().filter('date >=', today)
+
+        for pr in prs:
+
+            delta = pr.date - today
+            text = 'Your Performance Review starts in ' \
+                   + str(delta.days) + ' days'
+
+            if delta == month or delta == two_weeks or delta <= week:
+
+                send_message(pr.employee.e_mail, subject, text)
+                
+                
+                
+
+
+
+        
 
 
 class Authentication(object):
@@ -365,7 +384,7 @@ class Authentication(object):
 
         req = Request(environ)
 
-        non_auth_urls = ['/create_role', '/users', '/add_emp']
+        non_auth_urls = ['/create_role', '/users', '/add_emp', '/new_user']
         if environ['PATH_INFO'] not in non_auth_urls:
 
             if user is None:
