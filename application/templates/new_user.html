@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+        <script type="text/javascript" src="/static/jquery.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <title></title>
+</head>
+<script type="text/javascript">
+
+
+    $(document).ready(function(){
+                    
+        $('#send').click(function(){
+
+            var $form = $('#user_form'),
+                first_name = $form.find( 'input[name="first_name"]' ).val(),
+                last_name = $form.find( 'input[name="last_name"]' ).val(),
+                e_mail = $form.find( 'input[name="e_mail"]' ).val(),
+                manager = $form.find( 'select[name="manager"]' ).val(),
+                url = $form.attr( 'action' ),
+                role = '';
+                $('input[name="role"]:checked').each(function(){
+                    role = role + this.value + ',';
+                })
+                
+                $.post( url,
+                        {first_name: first_name,
+                        last_name: last_name,
+                        e_mail: e_mail,
+                        role: role,
+                        manager: manager},
+                        function(data){
+                            alert(data)
+                        })
+
+        })
+
+        $('#create_roles').click(
+                function(){
+                   $.post('/create_role',
+                            function(data){
+                                alert(data);
+                               })
+                  })
+
+
+    })
+</script>
+<body>
+<div id="wrapper">
+<div>
+    <p>add new:</p>
+    <form action="/add_emp" id="user_form" method="post">
+        <table>
+            <tr>
+                <td><label>first_name:</label></td>
+                <td><input type="text" name="first_name"><br></td>
+            </tr>
+            <tr>
+                <td><label>last_name:</label></td>
+                <td><input type="text" name="last_name"><br></td>
+            </tr>
+            <tr>
+                <td><label>e_mail:</label></td>
+                <td><input type="text" name="e_mail"><br></td>
+            </tr>
+            <tr>
+                <td><label>select role:</label></td>
+                <td><input type="checkbox" name="role" value="employee">employee<br>
+                    <input type="checkbox" name="role" value="manager">manager<br>
+                    <input type="checkbox" name="role" value="hr">hr<br></td>
+            </tr>
+            <tr>
+                <td><label>manager:</label></td>
+                <td><select name="manager">
+                    {% for manager in managers %}
+                        <option value="{{user.key}}">{{manager.e_mail}}</option>
+                    {% endfor %}
+                    </select><br>
+                </td>
+            </tr>
+        </table>
+                <input type="button" id="send" value="add">
+
+    </form>
+
+</div>
+</div>
+</body>
+</html>

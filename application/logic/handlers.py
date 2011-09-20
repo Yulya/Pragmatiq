@@ -51,6 +51,24 @@ class UserTable(RequestHandler):
         self.response.out.write(template.render(path, template_values))
 
 
+class GetManagers(RequestHandler):
+
+    def get(self):
+
+        users = User.all()
+        managers = []
+        for user in users:
+            for role in user.role:
+                if Model.get(role).value == 'manager':
+                    managers.append(user)
+
+        template_values = {'managers': managers,
+                           }
+
+        path = 'templates/new_user.html'
+        self.response.out.write(template.render(path, template_values))
+
+
 class CreateUser(RequestHandler):
 
     #gets data and puts them to DB
