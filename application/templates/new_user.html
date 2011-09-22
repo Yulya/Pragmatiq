@@ -17,6 +17,7 @@
                 first_name = $form.find( 'input[name="first_name"]' ).val(),
                 last_name = $form.find( 'input[name="last_name"]' ).val(),
                 e_mail = $form.find( 'input[name="e_mail"]' ).val(),
+                dept = $form.find( 'input[name="dept"]' ).val(),
                 manager = $form.find( 'select[name="manager"]' ).val(),
                 url = $form.attr( 'action' ),
                 role = '';
@@ -29,6 +30,7 @@
                         last_name: last_name,
                         e_mail: e_mail,
                         role: role,
+                        dept: dept,
                         manager: manager},
                         function(data){
                             alert(data)
@@ -66,6 +68,10 @@
                 <td><input type="text" name="e_mail"><br></td>
             </tr>
             <tr>
+                <td><label>dept:</label></td>
+                <td><input type="text" name="dept"><br></td>
+            </tr>
+            <tr>
                 <td><label>select role:</label></td>
                 <td><input type="checkbox" name="role" value="employee">employee<br>
                     <input type="checkbox" name="role" value="manager">manager<br>
@@ -75,7 +81,7 @@
                 <td><label>manager:</label></td>
                 <td><select name="manager">
                     {% for manager in managers %}
-                        <option value="{{user.key}}">{{manager.e_mail}}</option>
+                        <option value="{{manager.key}}">{{manager.e_mail}}</option>
                     {% endfor %}
                     </select><br>
                 </td>

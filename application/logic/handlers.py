@@ -8,7 +8,7 @@ from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp import RequestHandler
 from logic import models
 from logic.func import check_password, send_message
-from logic.models import User, PerformanceReviewForm, PerformanceReview, Role
+from logic.models import User, PerformanceReviewForm, PerformanceReview, Role, Dept
 
 
 class MainHandler(RequestHandler):
@@ -78,6 +78,13 @@ class CreateUser(RequestHandler):
         first_name = self.request.get('first_name')
         e_mail = self.request.get('e_mail')
         last_name = self.request.get('last_name')
+        dept = self.request.get('dept')
+
+        dept_ref = Dept.all().filter('name', dept).get()
+
+        if dept_ref is None:
+            dept_ref = Dept(name=dept)
+            dept_ref.put()
 
         try:
             manager = Model.get(self.request.get('manager'))
@@ -89,6 +96,7 @@ class CreateUser(RequestHandler):
             user = User(first_name=first_name,
                         e_mail=e_mail,
                         last_name=last_name,
+                        dept=dept_ref,
                         manager=manager)
         
             for role in roles:
@@ -126,7 +134,6 @@ class GetPreviousGoals(RequestHandler):
         self.response.out.write(template.render(path, template_values))
 
 
-
 class GetSelfPR(RequestHandler):
 
     def get(self):
@@ -140,10 +147,6 @@ class GetSelfPR(RequestHandler):
         else:
             self.response.out.write(form.key())
             return
-
-
-
-
 
 
 class GetPrs(RequestHandler):
@@ -176,6 +179,7 @@ class GetPrs(RequestHandler):
         path = 'templates/manager.html'
         self.response.out.write(template.render(path, template_values))
 
+
 class CreatePR(RequestHandler):
 
     #creates PR objects for all employees
@@ -190,27 +194,32 @@ class CreatePR(RequestHandler):
             self.error(403)
             return
 
-        employees = User.all()
         date_str = self.request.get('date')
+
+        employees = self.request.get('employees')[:-1].split(',')
 
         try:
             date = datetime.datetime.strptime(date_str, '%d.%m.%Y').date()
         except ValueError:
             self.response.out.write('incorrect date')
-            self.error(405)
+            self.error(403)
             return
 
         for employee in employees:
-            if employee.manager is not None:
-                pr = PerformanceReview(employee=employee,
-                                       manager=employee.manager,
+
+            user = Model.get(employee)
+
+            if user.manager is not None:
+                pr = PerformanceReview(employee=user,
+                                       manager=user.manager,
                                        date=date)
                 pr.put()
             else:
-                pr = PerformanceReview(employee=employee,
+                pr = PerformanceReview(employee=user,
                                       date=date)
                 pr.put()
         self.response.out.write('ok')
+
 
 class AddPrForm(RequestHandler):
 
@@ -338,7 +347,6 @@ class CreateRoles(RequestHandler):
         except:
             self.response.out.write('error')
             return
-        self.response.out.write('roles created')
 
 
 class CheckDate(RequestHandler):
@@ -363,13 +371,19 @@ class CheckDate(RequestHandler):
             if delta == month or delta == two_weeks or delta <= week:
 
                 send_message(pr.employee.e_mail, subject, text)
-                
-                
-                
 
 
+class HR(RequestHandler):
+    
+    def get(self):
 
-        
+        depts = Dept.all()
+
+        template_values = {'depts': depts}
+
+        path = 'templates/hr.html'
+        self.response.out.write(template.render(path, template_values))
+
 
 
 class Authentication(object):

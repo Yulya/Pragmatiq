@@ -15,7 +15,11 @@ class User(db.Model):
     password = db.StringProperty()
     role = db.ListProperty(db.Key)
     manager = db.SelfReferenceProperty(collection_name='subs')
+    dept = db.ReferenceProperty(collection_name='users')
 
+
+class Dept(db.Model):
+    name = db.StringProperty()
 
 class Phone(db.Model):
     employee = db.ReferenceProperty(User,

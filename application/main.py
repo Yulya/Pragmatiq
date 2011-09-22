@@ -20,7 +20,7 @@ from google.appengine.ext.webapp import util
 from logic.handlers import MainHandler, CreateUser,\
 	Authentication, AddPrForm, GetPrForm, UpdateData,\
     AddData, CreateRoles, GetPrs, UserTable, CreatePR,\
-    GetPreviousGoals, GetSelfPR, GetManagers, CheckDate
+    GetPreviousGoals, GetSelfPR, GetManagers, CheckDate, HR
 from logic.postdeploy import PostDeploy
 
 def main():
@@ -41,7 +41,8 @@ def main():
                                           ('/pr/data/add', AddData),
                                           ('/pr/data/update/(.*)', UpdateData),
                                           ('/pr/get/(.*)', GetPrForm),
-                                          ('/manager',GetPrs)
+                                          ('/manager',GetPrs),
+                                          ('/hr', HR)
 
                                          ],
                                          debug=True)

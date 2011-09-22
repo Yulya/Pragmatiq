@@ -23,11 +23,8 @@
             })
         }
         if (a == 'hr'){
-            $('.result').html('')
-            $('<input type="text" id="pr_date">').appendTo('.result');
-            $('<input type="button" value="add pr">').click(function(){
-                    var date = $('#pr_date').val();
-                    $.post('/pr/create', {date: date}, function(data){alert(data)})}).appendTo('.result');
+            $('.result').load('/hr');
+            
         }
     }
 </script>

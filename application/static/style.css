@@ -23,3 +23,6 @@ table, td{
     border: 1px solid #cccccc;
     border-collapse:collapse;
 }
+#list{
+    margin-left: 20px;
+}
