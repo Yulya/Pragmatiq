@@ -195,6 +195,7 @@ class CreatePR(RequestHandler):
             return
 
         date_str = self.request.get('date')
+        type = self.request.get('type')
 
         employees = self.request.get('employees')[:-1].split(',')
 
@@ -212,11 +213,13 @@ class CreatePR(RequestHandler):
             if user.manager is not None:
                 pr = PerformanceReview(employee=user,
                                        manager=user.manager,
+                                       type=type,
                                        date=date)
                 pr.put()
             else:
                 pr = PerformanceReview(employee=user,
-                                      date=date)
+                                       type=type,
+                                       date=date)
                 pr.put()
         self.response.out.write('ok')
 
@@ -382,6 +385,18 @@ class HR(RequestHandler):
         template_values = {'depts': depts}
 
         path = 'templates/hr.html'
+        self.response.out.write(template.render(path, template_values))
+
+
+class Show(RequestHandler):
+
+    def get(self):
+
+        prs = PerformanceReview.all()
+
+        template_values = {'prs': prs}
+
+        path = 'templates/pr.html'
         self.response.out.write(template.render(path, template_values))
 
 

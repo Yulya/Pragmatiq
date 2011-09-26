@@ -1,5 +1,5 @@
 application: mirantisqnx
-version: production
+version: staging
 runtime: python
 api_version: 1
 

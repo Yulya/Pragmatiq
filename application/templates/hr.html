@@ -11,10 +11,11 @@
         $('#submit').click(function(){
             var employees = '';
             var date = $('#date').val();
+            var type = $('#type').val();
             $('input[name="employees"]:checked').each(function(){
                     employees = employees + this.value + ',';})
 
-            $.post('/pr/create', {'employees': employees,'date': date}, function(data){alert(data)})
+            $.post('/pr/create', {'employees': employees,'type':type, 'date': date}, function(data){alert(data)})
         })
 
         $('.check_all').click(function(){
@@ -27,6 +28,13 @@
     <div>
         date:
         <input type="text" id="date">
+    </div>
+    <div>
+        type:
+        <select id='type'>
+            <option value='main'>main</option>
+            <option value='intermediate'>intermediate</option>
+        </select>
     </div>
 <p></p>
     {% for dept in depts %}

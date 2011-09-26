@@ -15,6 +15,7 @@
         <p>emp mail {{pr.employee.e_mail}}</p>
         <p>man mail {{pr.manager.e_mail}}</p>
         <p>date {{pr.date}}</p>
+        <p>type {{pr.type}}</p>
         {% for form in pr.forms %}
             <p> author {{form.author.e_mail}}</p>
             {% for goal in form.next_goals %}

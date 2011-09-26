@@ -32,7 +32,7 @@ class Phone(db.Model):
 class PerformanceReview(db.Model):
     employee = db.ReferenceProperty(User, collection_name='self_pr')
     manager = db.ReferenceProperty(User, collection_name='managed_pr')
-    title = db.StringProperty()
+    type = db.StringProperty(choices=('main','intermediate'))
     date = db.DateProperty()
 
 
