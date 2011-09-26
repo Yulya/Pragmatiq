@@ -8,7 +8,7 @@ from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp import RequestHandler
 from logic import models
 from logic.func import check_password, send_message
-from logic.models import User, PerformanceReviewForm, PerformanceReview, Role, Dept
+from logic.models import User, PerformanceReviewForm, PerformanceReview, Role, Dept, NextGoals
 
 
 class MainHandler(RequestHandler):
@@ -140,7 +140,7 @@ class GetSelfPR(RequestHandler):
 
         user = self.request.environ['current_user']
 
-        pr = PerformanceReview.gql("WHERE employee = :user", user=user).get()
+        pr = PerformanceReview.all().filter('employee',user).order('-date').get()
         form = pr.forms.filter('author', user).get()
         if form is None:
             return
@@ -210,6 +210,7 @@ class CreatePR(RequestHandler):
 
             user = Model.get(employee)
 
+
             if user.manager is not None:
                 pr = PerformanceReview(employee=user,
                                        manager=user.manager,
@@ -221,6 +222,9 @@ class CreatePR(RequestHandler):
                                        type=type,
                                        date=date)
                 pr.put()
+
+                           
+
         self.response.out.write('ok')
 
 
@@ -244,8 +248,26 @@ class AddPrForm(RequestHandler):
             pr_form = PerformanceReviewForm(pr=pr, author=user)
             pr_form.put()
 
+        if pr.type == 'intermediate':
+
+            prev_pr = PerformanceReview.all().order('-date').filter('date <', pr.date).filter('employee', pr.employee).get()
+            author = pr_form.author
+            if prev_pr is None:
+                prev_goals = []
+
+            prev_form = prev_pr.forms.filter('author', author).get()
+            try:
+                prev_goals = prev_form.next_goals
+            except AttributeError:
+                prev_goals = []
+
+            for goal in prev_goals:
+                next_goal = NextGoals(form=pr_form,value=goal.value).put()
+
+
         template_values = {'key': pr_form.key(),
                            'emp': emp,
+                           'next_goals': pr_form.next_goals,
                            'author': user,
                            'user': user,
                            'url': logout_url}
@@ -270,6 +292,17 @@ class GetPrForm(RequestHandler):
             self.error(405)
             return
 
+        pr = form.pr
+        author = form.author
+
+        prev_pr = PerformanceReview.all().order('-date').filter('date <', pr.date).filter('employee', pr.employee).get()
+
+        try:
+            prev_form = prev_pr.forms.filter('author', author).get()
+            prev_goals = prev_form.next_goals
+        except AttributeError:
+            prev_goals = []
+
         next_goals = form.next_goals
         challengers = form.challengers
         achievements = form.achievements
@@ -279,6 +312,8 @@ class GetPrForm(RequestHandler):
                            'user': user,
                            'author': form.author,
                            'emp': form.pr.employee,
+                           'type': form.pr.type,
+                           'prev_goals': prev_goals,
                            'next_goals': next_goals,
                            'challengers': challengers,
                            'achievements': achievements}

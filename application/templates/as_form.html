@@ -13,6 +13,7 @@
 <script type="text/javascript">
 
 var form_key= '{{key}}';
+var form_type='{{type}}';
 
 function send_value(id, value){
        $.post('/pr/data/update/'+ id, {value: value});
@@ -20,7 +21,12 @@ function send_value(id, value){
 
 $(document).ready(function(){
 
-    $('#prev_goals').load('/pr/prev_goals/{{key}}');
+    if (form_type == 'main'){
+        {% for goal in prev_goals %}
+        $('#prev_goals').append('<p>{{goal.value}}</p>');
+        {% endfor %}
+        }
+
     $('.add_button').click(function(){
         var button = $(this);
         var table = button.parent().attr('id');
@@ -48,7 +54,7 @@ $(document).ready(function(){
 <p>author: {{author.first_name}} {{author.last_name}}</p>
 
 <div id="prev_goals" class="input_div">
-
+<p>Previous Goals:</p>
 </div>
 
 <div id="next_goals" class="input_div">
