@@ -1,4 +1,4 @@
-from google.appengine.ext import db
+from google.appengine.ext import db, blobstore
 
 
 class Role(db.Model):
@@ -39,6 +39,7 @@ class PerformanceReview(db.Model):
 class PerformanceReviewForm(db.Model):
     pr = db.ReferenceProperty(PerformanceReview, collection_name='forms')
     author = db.ReferenceProperty(User, collection_name='forms')
+    f = db.StringProperty()
 
 
 class PreviousGoals(db.Model):

@@ -1,10 +1,12 @@
 import base64
+import urllib
 from webob import Request, Response
 import datetime
 from google.appengine.api import users
 from google.appengine.api.datastore_errors import BadKeyError
+from google.appengine.ext import blobstore
 from google.appengine.ext.db import Model
-from google.appengine.ext.webapp import template
+from google.appengine.ext.webapp import template, blobstore_handlers
 from google.appengine.ext.webapp import RequestHandler
 from logic import models
 from logic.func import check_password, send_message
@@ -139,7 +141,6 @@ class GetSelfPR(RequestHandler):
     def get(self):
 
         user = self.request.environ['current_user']
-
         pr = PerformanceReview.all().filter('employee',user).order('-date').get()
         form = pr.forms.filter('author', user).get()
         if form is None:
@@ -259,6 +260,9 @@ class AddPrForm(RequestHandler):
         except AttributeError:
             prev_goals = []
 
+        upload_url = blobstore.create_upload_url('/upload')
+
+
         if pr.type == 'intermediate':
 
             for goal in prev_goals:
@@ -271,6 +275,7 @@ class AddPrForm(RequestHandler):
                            'prev_goals': prev_goals,
                            'next_goals': pr_form.next_goals,
                            'author': user,
+                           'upload_url': upload_url,
                            'user': user,
                            'url': logout_url}
 
@@ -309,12 +314,17 @@ class GetPrForm(RequestHandler):
         challengers = form.challengers
         achievements = form.achievements
 
+        upload_url = blobstore.create_upload_url('/upload')
+
+        
         template_values = {'url': logout_url,
                            'key': key,
                            'user': user,
                            'author': form.author,
                            'emp': form.pr.employee,
                            'type': form.pr.type,
+                           'file': form.f,
+                           'upload_url': upload_url,
                            'prev_goals': prev_goals,
                            'next_goals': next_goals,
                            'challengers': challengers,
@@ -346,7 +356,29 @@ class UpdateData(RequestHandler):
             obj.grade = int(self.request.get('grade'))
             
         obj.put()
+
+
+class UploadHandler(blobstore_handlers.BlobstoreUploadHandler):
+
+    def post(self):
         
+        upload_files = self.get_uploads('file')
+        key = self.request.get('key')
+        blob_info = upload_files[0]
+        form = Model.get(key)
+        form.f = str(blob_info.key())
+        form.put()
+        self.redirect('/serve/%s' % blob_info.key())
+
+class ServeHandler(blobstore_handlers.BlobstoreDownloadHandler):
+    
+    def get(self, resource):
+
+        resource = str(urllib.unquote(resource))
+        blob_info = blobstore.BlobInfo.get(resource)
+        self.send_blob(blob_info)
+
+
 
 class AddData(RequestHandler):
 
