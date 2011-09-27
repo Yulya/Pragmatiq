@@ -23,18 +23,16 @@
 {% endblock %}
 
 {% block content %}
-<div id="wrapper">
-    <div id="user">
-        <p>{{user.first_name}} {{user.last_name}}</p>
-        <p>{{user.e_mail}}</p>
-        <select>
-            {% for role in roles %}
-                <option onclick="load('{{role}}')">{{role}}</option>
-            {% endfor %}
-        </select>
-    </div>
-
-
-    <div class="result"></div>
+<div id="user">
+    <p>{{user.first_name}} {{user.last_name}}</p>
+    <p>{{user.e_mail}}</p>
+    <select>
+        {% for role in roles %}
+            <option onclick="load('{{role}}')">{{role}}</option>
+        {% endfor %}
+    </select>
 </div>
+
+
+<div class="result"></div>
 {% endblock %}
