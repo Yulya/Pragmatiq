@@ -23,9 +23,18 @@ $(document).ready(function(){
 
     if (form_type == 'main'){
         {% for goal in prev_goals %}
-        $('#prev_goals').append('<p>{{goal.value}}</p>');
+            $('#prev_goals').append('<select id="{{goal.key}}"></select>');
+            $('#{{goal.key}}').append('<option value="1" class="grade">below expectations</option>');
+            $('#{{goal.key}}').append('<option value="2" class="grade">meet expectations</option>');
+            $('#{{goal.key}}').append('<option value="3" class="grade">above expectations</option>');
+            $('#prev_goals').append('{{goal.value}}<br>');
         {% endfor %}
         }
+
+    $('.grade').click(function(){
+        var id = $(this).parent().attr('id');
+        $.post('/pr/data/update/'+id, {'grade': this.value}, function(data){alert(data)})
+    })
 
     $('.add_button').click(function(){
         var button = $(this);

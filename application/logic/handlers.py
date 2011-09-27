@@ -248,18 +248,18 @@ class AddPrForm(RequestHandler):
             pr_form = PerformanceReviewForm(pr=pr, author=user)
             pr_form.put()
 
-        if pr.type == 'intermediate':
+        prev_pr = PerformanceReview.all().order('-date').filter('date <', pr.date).filter('employee', pr.employee).get()
+        author = pr_form.author
 
-            prev_pr = PerformanceReview.all().order('-date').filter('date <', pr.date).filter('employee', pr.employee).get()
-            author = pr_form.author
-            if prev_pr is None:
-                prev_goals = []
+        prev_goals = []
 
+        try:
             prev_form = prev_pr.forms.filter('author', author).get()
-            try:
-                prev_goals = prev_form.next_goals
-            except AttributeError:
-                prev_goals = []
+            prev_goals = prev_form.next_goals
+        except AttributeError:
+            prev_goals = []
+
+        if pr.type == 'intermediate':
 
             for goal in prev_goals:
                 next_goal = NextGoals(form=pr_form,value=goal.value).put()
@@ -267,6 +267,8 @@ class AddPrForm(RequestHandler):
 
         template_values = {'key': pr_form.key(),
                            'emp': emp,
+                           'type': pr.type,
+                           'prev_goals': prev_goals,
                            'next_goals': pr_form.next_goals,
                            'author': user,
                            'user': user,
@@ -330,16 +332,21 @@ class UpdateData(RequestHandler):
 
     def post(self, object_key):
 
-        value = self.request.get('value')
+
         try:
             obj = Model.get(object_key)
         except BadKeyError:
             self.error(405)
             return
 
-        obj.value = self.request.get('value')
-        obj.put()
+        if self.request.get('value'):
+            obj.value = self.request.get('value')
 
+        if self.request.get('grade'):
+            obj.grade = int(self.request.get('grade'))
+            
+        obj.put()
+        
 
 class AddData(RequestHandler):
 
