@@ -1,14 +1,6 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
+{% extends "_base.html" %}
 
-
-
-<html>
-<head>
-    <script type="text/javascript" src="../static/jquery.js"></script>
-    <link rel="stylesheet" type="text/css" href="../static/style.css">
-    <title></title>
-</head>
+{% block script %}
 <script type="text/javascript">
     function load(a){
         if (a == 'manager'){
@@ -28,26 +20,21 @@
         }
     }
 </script>
+{% endblock %}
 
-<body>
+{% block content %}
 <div id="wrapper">
-<div id="user">
-    <p>{{user.first_name}} {{user.last_name}}</p>
-    <p>{{user.e_mail}}</p>
-    <select>
-        {% for role in roles %}
-            <option onclick="load('{{role}}')">{{role}}</option>
-        {% endfor %}
-    </select>
+    <div id="user">
+        <p>{{user.first_name}} {{user.last_name}}</p>
+        <p>{{user.e_mail}}</p>
+        <select>
+            {% for role in roles %}
+                <option onclick="load('{{role}}')">{{role}}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+
+    <div class="result"></div>
 </div>
-
-
-<div class="result">
-
-</div>
-
-
-<a href="{{url}}">logout</a>
-</div>
-</body>
-</html>
+{% endblock %}

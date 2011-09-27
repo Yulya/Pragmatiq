@@ -20,13 +20,18 @@ class MainHandler(RequestHandler):
     def get(self):
 
         user = self.request.environ['current_user']
+        email = None
+        if user is not None:
+            email = user.e_mail
 
         login_url = users.create_login_url(self.request.uri)
         logout_url = users.create_logout_url(login_url)
         roles = []
         for role_key in user.role:
             roles.append(Model.get(role_key).value)
-        template_values = {'user': user,
+        template_values = {
+                           'username': email,
+                           'user': user,
                            'roles': roles,
                            'url': logout_url}
 

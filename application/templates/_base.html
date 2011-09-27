@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <script type="text/javascript" src="/static/jquery.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+
+    <!-- title -->
+    {% block title %}
+        <title>Pragmatiq - Performance Review tool</title>
+    {% endblock %}
+</head>
+<body>
+
+<!-- script -->
+{% block script %}
+
+{% endblock %}
+
+<!-- header -->
+<div id="header">
+    {% block header %}
+        <table>
+            <tr>
+                <td>{{username}}</td>
+                <td>Current role: {{role}}</td>
+                <td><a href="/logout">Logout</a></td>
+            </tr>
+        </table>
+    {% endblock %}
+</div>
+
+<!-- sidebar -->
+<div id="sidebar">
+    {% block sidebar %}
+
+    {% endblock %}
+</div>
+
+<!-- content -->
+<div id="content">
+    {% block content %}
+
+    {% endblock %}
+</div>
+
+<!-- footer -->
+<div id="footer">
+    From Kharkov with Love
+</div>
+
+</body>
+</html>
