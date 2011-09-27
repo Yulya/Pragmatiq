@@ -12,7 +12,19 @@
 <div>
     <p>Users:</p>
     <table>
-        {% for user in users %}
+        {% if users %}
+            <thead>
+                <tr>
+                    <td> First Name </td>
+                    <td> Last Name </td>
+                    <td> Email </td>
+                    <td> Manager </td>
+                    <td> Roles </td>
+                    <td> Department </td>
+                </tr>
+            </thead>
+        {% endif %}
+	    {% for user in users %}
             <tr>
                 <td>{{user.first_name}}</td>
                 <td>{{user.last_name}}</td>
