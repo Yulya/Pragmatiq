@@ -5,31 +5,9 @@
 <link rel="stylesheet" type="text/css" href="/static/index.css">
 {% endblock %}
 
-{% block script %}
-<script type="text/javascript">
-    function load(a){
-        if (a == 'manager'){
-            $('.result').load('/manager');
-        }
-        if (a == 'employee'){
-            $.get('/pr/get/self',
-                    function(data){
-                        if (data){
-                            $('.result').load('pr/get/' + data);}
-                        else {$('.result').load('pr/add/{{user.key}}')}
-            })
-        }
-        if (a == 'hr'){
-            $('.result').load('/hr');
-            
-        }
-    }
-</script>
-{% endblock %}
-
 {% block content %}
 <div id="user">
 </div>
 
-<div class="result"></div>
+<div id="result" class="result"></div>
 {% endblock %}

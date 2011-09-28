@@ -65,10 +65,13 @@ $(document).ready(function() {
             <td>{{prev_goal.value}}</td>
             <td>
                 <select id="{{prev_goal.key}}">
-                    <option value="1" class="grade" selected="{{prev_goal.is_selected('below expectations')}}">below expectations</option>
-                    <option value="2" class="grade" selected="{{prev_goal.is_selected('meet expectations')}}">meet expectations</option>
-                    <option value="3" class="grade" selected="{{prev_goal.is_selected('above expectations')}}">above expectations</option>
+                    <option value="1" class="grade">below expectations</option>
+                    <option value="2" class="grade">meet expectations</option>
+                    <option value="3" class="grade">above expectations</option>
                 </select>
+                <script type="text/javascript" language="JavaScript">
+                    $("#{{prev_goal.key}}").val("{{prev_goal.result}}");
+                </script>
             </td>
         </tr>
     {% endfor %}

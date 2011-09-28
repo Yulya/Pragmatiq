@@ -49,15 +49,8 @@ class PreviousGoals(db.Model):
     form = db.ReferenceProperty(PerformanceReviewForm,
                                 collection_name='previous_goals')
     value = db.StringProperty()
-    result = db.StringProperty(
-      choices=('Below Expectations', 'Meet Expectations',
-               'Above Expectations'))
+    result = db.IntegerProperty(default=2, choices=(1, 2, 3))
     comment = db.StringProperty()
-
-    def is_selected(self, check_value):
-        if check_value == self.result.lower():
-            return True
-        return False
 
 
 class NextGoals(db.Model):
