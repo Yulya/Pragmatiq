@@ -114,8 +114,9 @@ $(document).ready(function(){
     
 </div>
 <div>
-    
+    {% if file_name%}
       <a href="/serve/{{file_key}}">{{file_name}}</a>
+    {% endif %}
 
 </div>
 <div>

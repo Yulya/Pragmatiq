@@ -166,18 +166,18 @@ class GetPrs(RequestHandler):
         login_url = users.create_login_url(self.request.uri)
         logout_url = users.create_logout_url(login_url)
 
-        employees = user.subs.fetch(1000)
+        employees = []
 
-        for employee in employees:
+        for employee in user.subs.fetch(1000):
 
             pr = PerformanceReview.all().filter('employee', employee).order('-start_date').get()
 
-            if pr is None:
-                employee = None
-            else:
+            if pr is not None:
+
                 employee.self_form = pr.forms.filter('author', employee).get()
                 employee.manager_form = pr.forms.filter('author', user).get()
-                    
+                employees.append(employee)
+
         template_values = {'user': user,
                            'employees': employees,
                            'url': logout_url}
@@ -258,7 +258,7 @@ class AddPrForm(RequestHandler):
             pr_form = PerformanceReviewForm(pr=pr, author=user)
             pr_form.put()
 
-        prev_pr = PerformanceReview.all().order('-start_date').filter('start_date <', pr.date).filter('employee', pr.employee).get()
+        prev_pr = PerformanceReview.all().order('-start_date').filter('start_date <', pr.start_date).filter('employee', pr.employee).get()
         author = pr_form.author
 
         prev_goals = []
@@ -312,7 +312,7 @@ class GetPrForm(RequestHandler):
         pr = form.pr
         author = form.author
 
-        prev_pr = PerformanceReview.all().order('-start_date').filter('start_date <', pr.date).filter('employee', pr.employee).get()
+        prev_pr = PerformanceReview.all().order('-start_date').filter('start_date <', pr.start_date).filter('employee', pr.employee).get()
 
         try:
             prev_form = prev_pr.forms.filter('author', author).get()
