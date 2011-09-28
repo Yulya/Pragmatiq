@@ -33,7 +33,7 @@ class MainHandler(RequestHandler):
                            'username': email,
                            'user': user,
                            'roles': roles,
-                           'url': logout_url}
+                           'logout_url': logout_url}
 
         path = 'templates/index.html'
         self.response.out.write(template.render(path, template_values))
