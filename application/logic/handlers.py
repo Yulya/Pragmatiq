@@ -182,7 +182,7 @@ class GetPrs(RequestHandler):
                            'employees': employees,
                            'url': logout_url}
 
-        path = 'templates/manager.html'
+        path = 'templates/api.manager.html'
         self.response.out.write(template.render(path, template_values))
 
 

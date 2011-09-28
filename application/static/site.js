@@ -17,6 +17,5 @@ function load_role(a){
 }
 
 function load(url) {
-    alert(url)
     $('.result').load(url);
 }
