@@ -321,7 +321,7 @@ class GetPrForm(RequestHandler):
             prev_goals = []
 
         next_goals = form.next_goals
-        challengers = form.challengers
+        challenges = form.challengers #todo: use challenges instead of challengers
         achievements = form.achievements
 
         upload_url = blobstore.create_upload_url('/upload')
@@ -331,7 +331,7 @@ class GetPrForm(RequestHandler):
                            'key': key,
                            'user': user,
                            'date': pr.finish_date,
-                           'author': form.author,
+                           'author': form.author, #todo: rename to manager
                            'emp': form.pr.employee,
                            'type': form.pr.type,
                            'file_key': form.file_key,
@@ -339,7 +339,7 @@ class GetPrForm(RequestHandler):
                            'upload_url': upload_url,
                            'prev_goals': prev_goals,
                            'next_goals': next_goals,
-                           'challengers': challengers,
+                           'challenges': challenges,
                            'achievements': achievements}
 
         if user.key() == form.author.key():

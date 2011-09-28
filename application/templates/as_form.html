@@ -60,7 +60,7 @@ $(document).ready(function(){
 
 <body>
 <p>Performance Review Form for {{emp.first_name}} {{emp.last_name}}</p>
-<p>author: {{author.first_name}} {{author.last_name}}</p>
+<p>Manager: {{author.first_name}} {{author.last_name}}</p>
 <p>date: {{date}}</p>
 
 <div id="prev_goals" class="input_div">
@@ -97,13 +97,13 @@ $(document).ready(function(){
 
 </div>
 
-<div id="challengers" class="input_div">
+<div id="challenges" class="input_div">
 
-        <p>Challengers:</p>
+        <p>Challenges:</p>
 
-    {% for chal in challengers %}
+    {% for challenge in challenges %}
 
-        <input type="text" size="75" id="{{chal.key}}" value="{{chal.value}}" onblur="send_value(id, value)">
+        <input type="text" size="75" id="{{challenge.key}}" value="{{challenge.value}}" onblur="send_value(id, value)">
 
     {% endfor %}
         <input type="button" class="add_button" value="add" >
