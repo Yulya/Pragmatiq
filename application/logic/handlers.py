@@ -289,7 +289,7 @@ class AddPrForm(RequestHandler):
                            'user': user,
                            'url': logout_url}
 
-        path = 'templates/as_form.html'
+        path = 'templates/api.assessment_form.html'
         self.response.out.write(template.render(path, template_values))
 
 
@@ -343,7 +343,7 @@ class GetPrForm(RequestHandler):
                            'achievements': achievements}
 
         if user.key() == form.author.key():
-            path = 'templates/as_form.html'
+            path = 'templates/api.assessment_form.html'
             self.response.out.write(template.render(path, template_values))
         else:
             path = 'templates/form_data.html'
