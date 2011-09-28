@@ -20,3 +20,14 @@ indexes:
   - name: employee
   - name: date
     direction: desc
+
+- kind: PerformanceReview
+  properties:
+  - name: employee
+  - name: start_date
+
+- kind: PerformanceReview
+  properties:
+  - name: employee
+  - name: start_date
+    direction: desc

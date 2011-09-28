@@ -126,7 +126,7 @@ class GetPreviousGoals(RequestHandler):
         pr = form.pr
         author = form.author
 
-        prev_pr = PerformanceReview.all().order('-date').filter('date <', pr.date).filter('employee', pr.employee).get()
+        prev_pr = PerformanceReview.all().order('-start_date').filter('start_date <', pr.date).filter('employee', pr.employee).get()
 
         if prev_pr is None:
             self.response.out.write("there aren't previous goals")
@@ -146,7 +146,7 @@ class GetSelfPR(RequestHandler):
     def get(self):
 
         user = self.request.environ['current_user']
-        pr = PerformanceReview.all().filter('employee',user).order('-date').get()
+        pr = PerformanceReview.all().filter('employee',user).order('-start_date').get()
         form = pr.forms.filter('author', user).get()
         if form is None:
             return
@@ -170,7 +170,7 @@ class GetPrs(RequestHandler):
 
         for employee in employees:
 
-            pr = PerformanceReview.all().filter('employee', employee).order('-date').get()
+            pr = PerformanceReview.all().filter('employee', employee).order('-start_date').get()
 
             if pr is None:
                 employee = None
@@ -200,15 +200,17 @@ class CreatePR(RequestHandler):
             self.error(403)
             return
 
-        date_str = self.request.get('date')
+        start_str = self.request.get('start')
+        finish_str = self.request.get('finish')
         type = self.request.get('type')
 
         employees = self.request.get('employees')[:-1].split(',')
 
         try:
-            date = datetime.datetime.strptime(date_str, '%d.%m.%Y').date()
+            start = datetime.datetime.strptime(start_str, '%d.%m.%Y').date()
+            finish = datetime.datetime.strptime(finish_str, '%d.%m.%Y').date()
         except ValueError:
-            self.response.out.write('incorrect date')
+            self.response.out.write('incorrect start_date')
             self.error(403)
             return
 
@@ -221,12 +223,14 @@ class CreatePR(RequestHandler):
                 pr = PerformanceReview(employee=user,
                                        manager=user.manager,
                                        type=type,
-                                       date=date)
+                                       start_date=start,
+                                       finish_date=finish)
                 pr.put()
             else:
                 pr = PerformanceReview(employee=user,
                                        type=type,
-                                       date=date)
+                                       start_date=start,
+                                       finish_date=finish)
                 pr.put()
 
                            
@@ -246,7 +250,7 @@ class AddPrForm(RequestHandler):
         user = self.request.environ['current_user']
         emp = Model.get(key)
 
-        pr = PerformanceReview.all().filter('employee', emp).order('-date').get()
+        pr = PerformanceReview.all().filter('employee', emp).order('-start_date').get()
 
         pr_form = pr.forms.filter('author', user).get()
 
@@ -254,7 +258,7 @@ class AddPrForm(RequestHandler):
             pr_form = PerformanceReviewForm(pr=pr, author=user)
             pr_form.put()
 
-        prev_pr = PerformanceReview.all().order('-date').filter('date <', pr.date).filter('employee', pr.employee).get()
+        prev_pr = PerformanceReview.all().order('-start_date').filter('start_date <', pr.date).filter('employee', pr.employee).get()
         author = pr_form.author
 
         prev_goals = []
@@ -276,6 +280,7 @@ class AddPrForm(RequestHandler):
 
         template_values = {'key': pr_form.key(),
                            'emp': emp,
+                           'date': pr.finish_date,
                            'type': pr.type,
                            'prev_goals': prev_goals,
                            'next_goals': pr_form.next_goals,
@@ -307,7 +312,7 @@ class GetPrForm(RequestHandler):
         pr = form.pr
         author = form.author
 
-        prev_pr = PerformanceReview.all().order('-date').filter('date <', pr.date).filter('employee', pr.employee).get()
+        prev_pr = PerformanceReview.all().order('-start_date').filter('start_date <', pr.date).filter('employee', pr.employee).get()
 
         try:
             prev_form = prev_pr.forms.filter('author', author).get()
@@ -325,6 +330,7 @@ class GetPrForm(RequestHandler):
         template_values = {'url': logout_url,
                            'key': key,
                            'user': user,
+                           'date': pr.finish_date,
                            'author': form.author,
                            'emp': form.pr.employee,
                            'type': form.pr.type,
@@ -445,7 +451,7 @@ class CheckDate(RequestHandler):
         two_weeks = datetime.timedelta(days=14)
         week = datetime.timedelta(days=7)
 
-        prs = PerformanceReview.all().filter('date >=', today)
+        prs = PerformanceReview.all().filter('start_date >=', today)
 
         for pr in prs:
 

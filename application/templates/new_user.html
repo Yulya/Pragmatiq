@@ -33,7 +33,10 @@
                         dept: dept,
                         manager: manager},
                         function(data){
-                            alert(data)
+                            if (data == "ok"){
+                                window.location = "/users"
+                            }
+                            else alert('error');
                         })
 
         })
@@ -80,6 +83,7 @@
             <tr>
                 <td><label>manager:</label></td>
                 <td><select name="manager">
+                        <option value="">None</option>
                     {% for manager in managers %}
                         <option value="{{manager.key}}">{{manager.e_mail}}</option>
                     {% endfor %}

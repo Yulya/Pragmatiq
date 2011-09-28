@@ -33,7 +33,8 @@ class PerformanceReview(db.Model):
     employee = db.ReferenceProperty(User, collection_name='self_pr')
     manager = db.ReferenceProperty(User, collection_name='managed_pr')
     type = db.StringProperty(choices=('main','intermediate'))
-    date = db.DateProperty()
+    start_date = db.DateProperty()
+    finish_date = db.DateProperty()
 
 
 class PerformanceReviewForm(db.Model):
