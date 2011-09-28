@@ -15,21 +15,23 @@
 var form_key= '{{key}}';
 var form_type='{{type}}';
 
-function send_value(id, value){
-       $.post('/pr/data/update/'+ id, {value: value});
-    }
+function send_value(id, value) {
+   $.post('/pr/data/update/'+ id, {value: value});
+}
 
-$(document).ready(function(){
-
-    if (form_type == 'main'){
-        {% for goal in prev_goals %}
+$(document).ready(function() {
+    /*
+    if (form_type == 'main') {
+         I don't expect we render JavaScript
+        {# {% for goal in prev_goals %} #}
             $('#prev_goals').append('<select id="{{goal.key}}"></select>');
             $('#{{goal.key}}').append('<option value="1" class="grade">below expectations</option>');
             $('#{{goal.key}}').append('<option value="2" class="grade">meet expectations</option>');
             $('#{{goal.key}}').append('<option value="3" class="grade">above expectations</option>');
             $('#prev_goals').append('{{goal.value}}<br>');
-        {% endfor %}
-        }
+        {# {% endfor %} #}
+    }
+    */
 
     $('.grade').click(function(){
         var id = $(this).parent().attr('id');
@@ -64,7 +66,28 @@ $(document).ready(function(){
 <p>date: {{date}}</p>
 
 <div id="prev_goals" class="input_div">
-<p>Previous Goals:</p>
+    <p>Previous Goals:</p>
+    <table>
+        <thead>
+            <tr>
+                <td>Goal</td>
+                <td>Value</td>
+            </tr>
+        </thead>
+    {% for prev_goal in prev_goals %}
+        <tr>
+            <td>{{prev_goal.value}}</td>
+            <td>
+                <!-- todo choose 'selected' value -->
+                <select id="{{prev_goal.key}}">
+                    <option value="1" class="grade">below expectations</option>
+                    <option value="2" class="grade">meet expectations</option>
+                    <option value="3" class="grade">above expectations</option>
+                </select>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
 </div>
 
 <div id="next_goals" class="input_div">
