@@ -284,7 +284,7 @@ class AddPrForm(RequestHandler):
                            'type': pr.type,
                            'prev_goals': prev_goals,
                            'next_goals': pr_form.next_goals,
-                           'author': user,
+                           'author': user, #todo: rename author to manager
                            'upload_url': upload_url,
                            'user': user,
                            'url': logout_url}
