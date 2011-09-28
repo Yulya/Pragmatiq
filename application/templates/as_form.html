@@ -52,11 +52,6 @@ $(document).ready(function() {
         )
     })
 })
-
-
-
-
-
 </script>
 
 
@@ -91,64 +86,50 @@ $(document).ready(function() {
 </div>
 
 <div id="next_goals" class="input_div">
-
-        <p>Next goals:</p>
-    
+    <p>Next goals:</p>
     {% for goal in next_goals %}
-
         <input type="text" size="75" id="{{goal.key}}" value="{{goal.value}}" onblur="send_value(id, value)">
-
     {% endfor %}
-
-
-            <input type="button" class="add_button" value="add" >
-
+    <input type="button" class="add_button" value="add" >
 </div>
 
 <div id="achievements" class="input_div">
-
-        <p>Achievements:</p>
-
+    <p>Achievements:</p>
     {% for ach in achievements %}
-
         <input type="text" size="75" id="{{ach.key}}" value="{{ach.value}}" onblur="send_value(id, value)">
-
     {% endfor %}
-
-        <input type="button" class="add_button" value="add" >
-
-
+    <input type="button" class="add_button" value="add" >
 </div>
 
 <div id="challenges" class="input_div">
-
-        <p>Challenges:</p>
-
+    <p>Challenges:</p>
     {% for challenge in challenges %}
         <!-- todo: use css class instead of properties -->
         <input type="text" size="75" id="{{challenge.key}}" value="{{challenge.value}}" onblur="send_value(id, value)">
-
     {% endfor %}
-        <input type="button" class="add_button" value="add" >
-
+    <input type="button" class="add_button" value="add" >
 </div>
+
 <div id="conclusions">
-    <p>Conclusions:</p>
-    
+    <p>Performance conclusion:</p>
+    <!-- todo insert logic here -->
 </div>
-<div>
-    {% if file_name%}
-      <a href="/serve/{{file_key}}">{{file_name}}</a>
-    {% endif %}
 
+<div>
+    <p>Attached files:</p>
+    {% if file_name%}
+        <a href="/serve/{{file_key}}">{{file_name}}</a>
+    {% endif %}
 </div>
+
 <div>
     <form action="{{upload_url}}" method="POST" enctype="multipart/form-data">
         <input type='hidden' name='key' value={{key}}>
         <input type="file" name="file"><br>
-        <input type="submit" name="submit" value="add">
+        <input type="submit" name="submit" value="attach">
     </form>
 </div>
+
 <a href="{{url}}">logout</a>
 
 </body>
