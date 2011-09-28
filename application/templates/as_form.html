@@ -27,7 +27,7 @@ $(document).ready(function() {
     $('.grade').click(function() {
         var id = $(this).parent().attr('id');
         $.post('/pr/data/update/'+id, {'grade': this.value}, function(data){alert(data)})
-    })
+    });
 
     $('.add_button').click(function() {
         var button = $(this);
@@ -41,7 +41,7 @@ $(document).ready(function() {
                 }).insertBefore(button)
             }
         )
-    })
+    });
 })
 </script>
 {% endblock %}
@@ -64,11 +64,10 @@ $(document).ready(function() {
         <tr>
             <td>{{prev_goal.value}}</td>
             <td>
-                <!-- todo choose 'selected' value -->
                 <select id="{{prev_goal.key}}">
-                    <option value="1" class="grade">below expectations</option>
-                    <option value="2" class="grade">meet expectations</option>
-                    <option value="3" class="grade">above expectations</option>
+                    <option value="1" class="grade" selected="{{prev_goal.is_selected('below expectations')}}">below expectations</option>
+                    <option value="2" class="grade" selected="{{prev_goal.is_selected('meet expectations')}}">meet expectations</option>
+                    <option value="3" class="grade" selected="{{prev_goal.is_selected('above expectations')}}">above expectations</option>
                 </select>
             </td>
         </tr>
@@ -77,7 +76,7 @@ $(document).ready(function() {
 </div>
 
 <div id="next_goals" class="input_div">
-    <p>Next goals:</p>
+    <p>Goals for the next period:</p>
     {% for goal in next_goals %}
         <input type="text" size="75" id="{{goal.key}}" value="{{goal.value}}" onblur="send_value(id, value)">
     {% endfor %}

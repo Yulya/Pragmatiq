@@ -54,6 +54,11 @@ class PreviousGoals(db.Model):
                'Above Expectations'))
     comment = db.StringProperty()
 
+    def is_selected(self, check_value):
+        if check_value == self.result.lower():
+            return True
+        return False
+
 
 class NextGoals(db.Model):
     form = db.ReferenceProperty(PerformanceReviewForm,
