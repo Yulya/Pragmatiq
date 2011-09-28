@@ -14,4 +14,9 @@ indexes:
   properties:
   - name: employee
   - name: date
+
+- kind: PerformanceReview
+  properties:
+  - name: employee
+  - name: date
     direction: desc

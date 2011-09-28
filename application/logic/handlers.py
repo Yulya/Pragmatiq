@@ -328,7 +328,8 @@ class GetPrForm(RequestHandler):
                            'author': form.author,
                            'emp': form.pr.employee,
                            'type': form.pr.type,
-                           'file': form.f,
+                           'file_key': form.file_key,
+                           'file_name': form.file_name,
                            'upload_url': upload_url,
                            'prev_goals': prev_goals,
                            'next_goals': next_goals,
@@ -371,9 +372,11 @@ class UploadHandler(blobstore_handlers.BlobstoreUploadHandler):
         key = self.request.get('key')
         blob_info = upload_files[0]
         form = Model.get(key)
-        form.f = str(blob_info.key())
+        form.file_key = str(blob_info.key())
+        form.file_name = blob_info.filename
+
         form.put()
-        self.redirect('/serve/%s' % blob_info.key())
+        self.redirect('/')
 
 class ServeHandler(blobstore_handlers.BlobstoreDownloadHandler):
     
