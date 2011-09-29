@@ -21,7 +21,7 @@ from logic.handlers import MainHandler, CreateUser,\
 	Authentication, AddPrForm, GetPrForm, UpdateData,\
     AddData, CreateRoles, GetPrs, UserTable, CreatePR,\
     GetPreviousGoals, GetSelfPR, GetManagers, CheckDate, HR, Show,\
-    UploadHandler, ServeHandler
+    UploadHandler, ServeHandler, UrlHandler
 from logic.postdeploy import PostDeploy
 
 def main():
@@ -31,6 +31,7 @@ def main():
     logging.getLogger().setLevel(logging.DEBUG)
     application = webapp.WSGIApplication([('/', MainHandler),
                                           ('/add_emp', CreateUser),
+                                          ('/logout', UrlHandler),
                                           ('/users', UserTable),
                                           ('/create_role', CreateRoles),
                                           ('/new_user', GetManagers),

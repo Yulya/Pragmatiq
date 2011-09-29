@@ -76,6 +76,14 @@ class GetManagers(RequestHandler):
         self.response.out.write(template.render(path, template_values))
 
 
+class UrlHandler(RequestHandler):
+
+    def get(self):
+
+        login_url = users.create_login_url('/')
+        logout_url = users.create_logout_url(login_url)
+        self.redirect(logout_url)
+
 class CreateUser(RequestHandler):
 
     #gets data and puts them to DB
