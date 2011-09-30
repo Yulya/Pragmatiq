@@ -44,6 +44,48 @@ class PerformanceReviewForm(db.Model):
     file_name = db.StringProperty()
 
 
+class Project(db.Model):
+    form = db.ReferenceProperty(PerformanceReviewForm,
+                                collection_name='projects')
+    value = db.StringProperty()
+
+
+class Responsibility(db.Model):
+    form = db.ReferenceProperty(PerformanceReviewForm,
+                                collection_name='responsibilities')
+    value = db.StringProperty()
+
+
+class Skill(db.Model):
+    form = db.ReferenceProperty(PerformanceReviewForm,
+                                collection_name='skills')
+    value = db.StringProperty()
+
+
+class Career(db.Model):
+    form = db.ReferenceProperty(PerformanceReviewForm,
+                                collection_name='careers')
+    objective = db.StringProperty()
+    plan = db.StringProperty()
+
+
+class Issue(db.Model):
+    form = db.ReferenceProperty(PerformanceReviewForm,
+                                collection_name='issues')
+    value = db.StringProperty()
+
+
+class Complaint(db.Model):
+    form = db.ReferenceProperty(PerformanceReviewForm,
+                                collection_name='complaints')
+    value = db.IntegerProperty()
+
+
+class ManagerHelp(db.Model):
+    form = db.ReferenceProperty(PerformanceReviewForm,
+                                collection_name='manager_helps')
+    value = db.StringProperty()
+
 
 class PreviousGoals(db.Model):
     form = db.ReferenceProperty(PerformanceReviewForm,
@@ -65,18 +107,18 @@ class Achievements(db.Model):
     form = db.ReferenceProperty(PerformanceReviewForm,
                                 collection_name='achievements')
     value = db.StringProperty()
-    comment = db.StringProperty()
+
 
 
 class Challengers(db.Model):
     form = db.ReferenceProperty(PerformanceReviewForm,
                                 collection_name='challengers')
     value = db.StringProperty()
-    comment = db.StringProperty()
+
 
 
 class Conclusion(db.Model):
     form = db.ReferenceProperty(PerformanceReviewForm,
                                 collection_name='conclusion')
     value = db.StringProperty()
-    comment = db.StringProperty()
+    
