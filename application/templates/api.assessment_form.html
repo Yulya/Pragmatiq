@@ -51,6 +51,54 @@ $(document).ready(function() {
 <p>Manager: {{author.first_name}} {{author.last_name}}</p>
 <p>date: {{date}}</p>
 
+<div id="">
+
+</div>
+
+
+
+<div id="project" class="input_div">
+    <p>Please list all projects and initiatives you participated in during this performance review period.</p>
+    {% for project in projects %}
+        <input type="text" size="75" id="{{project.key}}" value="{{project.value}}" onblur="send_value(id, value)">
+    {% endfor %}
+    <input type="button" class="add_button" value="add" >
+</div>
+
+<div id="achievements" class="input_div">
+    <p>What do you consider to be your key accomplishments since your last review?</p>
+    {% for ach in achievements %}
+        <input type="text" size="75" id="{{ach.key}}" value="{{ach.value}}" onblur="send_value(id, value)">
+    {% endfor %}
+    <input type="button" class="add_button" value="add" >
+</div>
+
+<div id="responsibility" class="input_div">
+    <p>List your key job responsibilities during your performance period. Please comment on your job performance assessment.</p>
+    {% for responsibility in responsibilities %}
+        <input type="text" size="75" id="{{responsibility.key}}" value="{{responsibility.value}}" onblur="send_value(id, value)">
+    {% endfor %}
+    <input type="button" class="add_button" value="add" >
+</div>
+
+<div id="challenges" class="input_div">
+    <p>If you have experienced challenges, please specify the areas where you need to focus and improve. </p>
+    {% for challenge in challenges %}
+        <!-- todo: use css class instead of properties -->
+        <input type="text" size="75" id="{{challenge.key}}" value="{{challenge.value}}" onblur="send_value(id, value)">
+    {% endfor %}
+    <input type="button" class="add_button" value="add" >
+</div>
+
+<div id="skill" class="input_div">
+    <p>If you have experienced challenges, please specify the areas where you need to focus and improve. </p>
+    {% for skill in skills %}
+        <!-- todo: use css class instead of properties -->
+        <input type="text" size="75" id="{{skill.key}}" value="{{skill.value}}" onblur="send_value(id, value)">
+    {% endfor %}
+    <input type="button" class="add_button" value="add" >
+</div>
+
 <div id="prev_goals" class="input_div">
     <p>Previous Goals:</p>
     <table>
@@ -86,22 +134,38 @@ $(document).ready(function() {
     <input type="button" class="add_button" value="add" >
 </div>
 
-<div id="achievements" class="input_div">
-    <p>Achievements:</p>
-    {% for ach in achievements %}
-        <input type="text" size="75" id="{{ach.key}}" value="{{ach.value}}" onblur="send_value(id, value)">
+<div id="career" class="input_div">
+    <p>What are your professional interests and long-term career objectives, and what are you plans to accomplish these objectives?  </p>
+    {% for career in careers %}
+        <input type="text" size="75" id="{{career.key}}" value="{{career.value}}" onblur="send_value(id, value)">
     {% endfor %}
     <input type="button" class="add_button" value="add" >
 </div>
 
-<div id="challenges" class="input_div">
-    <p>Challenges:</p>
-    {% for challenge in challenges %}
-        <!-- todo: use css class instead of properties -->
-        <input type="text" size="75" id="{{challenge.key}}" value="{{challenge.value}}" onblur="send_value(id, value)">
+<div id="issue" class="input_div">
+    <p>Do you see any issues with your role within the company and/or your project(s)?</p>
+    {% for issue in issues %}
+        <input type="text" size="75" id="{{issue.key}}" value="{{issue.value}}" onblur="send_value(id, value)">
     {% endfor %}
     <input type="button" class="add_button" value="add" >
 </div>
+
+<div id="complaint" class="input_div">
+    <p>Do you have any complaints?</p>
+    {% for complaint in complaints %}
+        <input type="text" size="75" id="{{complaint.key}}" value="{{complaint.value}}" onblur="send_value(id, value)">
+    {% endfor %}
+    <input type="button" class="add_button" value="add" >
+</div>
+
+<div id="ManagerHelp" class="input_div">
+    <p>Is there anything your manager could do to help you do a better job? </p>
+    {% for manager_help in manager_helps %}
+        <input type="text" size="75" id="{{manager_help.key}}" value="{{manager_help.value}}" onblur="send_value(id, value)">
+    {% endfor %}
+    <input type="button" class="add_button" value="add" >
+</div>
+
 
 <div id="conclusions">
     <p>Performance conclusion:</p>
