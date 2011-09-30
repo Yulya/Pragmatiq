@@ -91,7 +91,7 @@ $(document).ready(function() {
 </div>
 
 <div id="skill" class="input_div">
-    <p>If you have experienced challenges, please specify the areas where you need to focus and improve. </p>
+    <p>Please mention what skills and/or knowledge do you need for further development to contribute to your overall job success.</p>
     {% for skill in skills %}
         <!-- todo: use css class instead of properties -->
         <input type="text" size="75" id="{{skill.key}}" value="{{skill.value}}" onblur="send_value(id, value)">
@@ -158,7 +158,7 @@ $(document).ready(function() {
     <input type="button" class="add_button" value="add" >
 </div>
 
-<div id="ManagerHelp" class="input_div">
+<div id="manager_help" class="input_div">
     <p>Is there anything your manager could do to help you do a better job? </p>
     {% for manager_help in manager_helps %}
         <input type="text" size="75" id="{{manager_help.key}}" value="{{manager_help.value}}" onblur="send_value(id, value)">

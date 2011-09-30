@@ -65,8 +65,7 @@ class Skill(db.Model):
 class Career(db.Model):
     form = db.ReferenceProperty(PerformanceReviewForm,
                                 collection_name='careers')
-    objective = db.StringProperty()
-    plan = db.StringProperty()
+    value = db.StringProperty()
 
 
 class Issue(db.Model):
@@ -78,7 +77,7 @@ class Issue(db.Model):
 class Complaint(db.Model):
     form = db.ReferenceProperty(PerformanceReviewForm,
                                 collection_name='complaints')
-    value = db.IntegerProperty()
+    value = db.StringProperty()
 
 
 class ManagerHelp(db.Model):
@@ -110,9 +109,9 @@ class Achievements(db.Model):
 
 
 
-class Challengers(db.Model):
+class Challenges(db.Model):
     form = db.ReferenceProperty(PerformanceReviewForm,
-                                collection_name='challengers')
+                                collection_name='challenges')
     value = db.StringProperty()
 
 

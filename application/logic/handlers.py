@@ -329,8 +329,15 @@ class GetPrForm(RequestHandler):
             prev_goals = []
 
         next_goals = form.next_goals
-        challenges = form.challengers #todo: use challenges instead of challengers
+        challenges = form.challenges #todo: use challenges instead of challengers
         achievements = form.achievements
+        projects = form.projects
+        responsibilities = form.responsibilities
+        skills = form.skills
+        careers = form.careers
+        issues = form.issues
+        complaints = form.complaints
+        manager_helps = form.manager_helps
 
         upload_url = blobstore.create_upload_url('/upload')
 
@@ -348,7 +355,16 @@ class GetPrForm(RequestHandler):
                            'prev_goals': prev_goals,
                            'next_goals': next_goals,
                            'challenges': challenges,
-                           'achievements': achievements}
+                           'careers': careers,
+                           'achievements': achievements,
+                           'projects': projects,
+                           'responsibilities': responsibilities,
+                           'skills': skills,
+                           'issues': issues,
+                           'complaints': complaints,
+                           'manager_helps': manager_helps
+                           }
+
 
         if user.key() == form.author.key():
             path = 'templates/api.assessment_form.html'
@@ -407,8 +423,15 @@ class AddData(RequestHandler):
     def post(self):
 
         dict = {'next_goals': 'NextGoals',
-                'challengers': 'Challengers',
-                'achievements': 'Achievements'}
+                'challenges': 'Challenges',
+                'achievements': 'Achievements',
+                'project': 'Project',
+                'skill': 'Skill',
+                'responsibility': 'Responsibility',
+                'career': 'Career',
+                'manager_help': 'ManagerHelp',
+                'complaint': 'Complaint',
+                'issue': 'Issue'}
 
         form_key = self.request.get('form_key')
         table = self.request.get('table')
