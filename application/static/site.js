@@ -1,4 +1,4 @@
-function load_role(a){
+function load_role(a, user_key){
     if (a == 'manager'){
         $('.result').load('/manager');
         $('.result').css('display', 'block');
@@ -7,8 +7,14 @@ function load_role(a){
         $.get('/pr/get/self',
                 function(data){
                     if (data){
-                        $('.result').load('pr/get/' + data);}
-                    else {$('.result').load('pr/add/{{user.key}}')}
+                        if (data == 'pr not created'){
+                            $('.result').css('display', 'block');
+                            $('.result').html(data);
+                        }
+                        else{
+                        $('.result').load('pr/get/' + data);
+                        }}
+                    else {$('.result').load('pr/add/' + user_key)}
         $('.result').css('display', 'block');
         })
     }

@@ -10,7 +10,8 @@ from google.appengine.ext.webapp import template, blobstore_handlers
 from google.appengine.ext.webapp import RequestHandler
 from logic import models
 from logic.func import check_password, send_message
-from logic.models import User, PerformanceReviewForm, PerformanceReview, Role, Dept, NextGoals
+from logic.models import User, PerformanceReviewForm, PerformanceReview,\
+    Role, Dept, NextGoals
 
 
 class MainHandler(RequestHandler):
@@ -22,7 +23,7 @@ class MainHandler(RequestHandler):
         user = self.request.environ['current_user']
         email = None
         if user is not None:
-            email = user.e_mail
+            email = user.email
 
         login_url = users.create_login_url(self.request.uri)
         logout_url = users.create_logout_url(login_url)
@@ -91,7 +92,7 @@ class CreateUser(RequestHandler):
     def post(self):
 
         first_name = self.request.get('first_name')
-        e_mail = self.request.get('e_mail')
+        email = self.request.get('email')
         last_name = self.request.get('last_name')
         dept = self.request.get('dept')
 
@@ -109,13 +110,14 @@ class CreateUser(RequestHandler):
         roles = self.request.get('role')[:-1].split(',')
         try:
             user = User(first_name=first_name,
-                        e_mail=e_mail,
+                        email=email,
                         last_name=last_name,
                         dept=dept_ref,
                         manager=manager)
         
             for role in roles:
-                role_key = Role.gql("WHERE value = :role", role=role).get().key()
+                role_key = Role.gql("WHERE value = :role",
+                                    role=role).get().key()
                 user.role.append(role_key)
 
             user.put()
@@ -134,7 +136,9 @@ class GetPreviousGoals(RequestHandler):
         pr = form.pr
         author = form.author
 
-        prev_pr = PerformanceReview.all().order('-start_date').filter('start_date <', pr.date).filter('employee', pr.employee).get()
+        prev_pr = PerformanceReview.all().order('-start_date').\
+                                          filter('start_date <', pr.date).\
+                                          filter('employee', pr.employee).get()
 
         if prev_pr is None:
             self.response.out.write("there aren't previous goals")
@@ -154,14 +158,16 @@ class GetSelfPR(RequestHandler):
     def get(self):
 
         user = self.request.environ['current_user']
-        pr = PerformanceReview.all().filter('employee',user).order('-start_date').get()
-        form = pr.forms.filter('author', user).get()
-        if form is None:
+        pr = PerformanceReview.all().filter('employee',user).\
+                                     order('-start_date').get()
+        try:
+            form = pr.forms.filter('author', user).get()
+        except AttributeError:
+            self.response.out.write('pr not created')
             return
-        else:
+        if form is not None:
             self.response.out.write(form.key())
-            return
-
+        
 
 class GetPrs(RequestHandler):
 
@@ -178,7 +184,8 @@ class GetPrs(RequestHandler):
 
         for employee in user.subs.fetch(1000):
 
-            pr = PerformanceReview.all().filter('employee', employee).order('-start_date').get()
+            pr = PerformanceReview.all().filter('employee', employee).\
+                                        order('-start_date').get()
 
             if pr is not None:
 
@@ -258,7 +265,8 @@ class AddPrForm(RequestHandler):
         user = self.request.environ['current_user']
         emp = Model.get(key)
 
-        pr = PerformanceReview.all().filter('employee', emp).order('-start_date').get()
+        pr = PerformanceReview.all().filter('employee', emp).\
+                                    order('-start_date').get()
 
         pr_form = pr.forms.filter('author', user).get()
 
@@ -266,7 +274,9 @@ class AddPrForm(RequestHandler):
             pr_form = PerformanceReviewForm(pr=pr, author=user)
             pr_form.put()
 
-        prev_pr = PerformanceReview.all().order('-start_date').filter('start_date <', pr.start_date).filter('employee', pr.employee).get()
+        prev_pr = PerformanceReview.all().order('-start_date').\
+                                        filter('start_date <', pr.start_date).\
+                                        filter('employee', pr.employee).get()
         author = pr_form.author
 
         prev_goals = []
@@ -320,7 +330,9 @@ class GetPrForm(RequestHandler):
         pr = form.pr
         author = form.author
 
-        prev_pr = PerformanceReview.all().order('-start_date').filter('start_date <', pr.start_date).filter('employee', pr.employee).get()
+        prev_pr = PerformanceReview.all().order('-start_date').\
+                                        filter('start_date <', pr.start_date).\
+                                        filter('employee', pr.employee).get()
 
         try:
             prev_form = prev_pr.forms.filter('author', author).get()
@@ -370,7 +382,7 @@ class GetPrForm(RequestHandler):
             path = 'templates/api.assessment_form.html'
             self.response.out.write(template.render(path, template_values))
         else:
-            path = 'templates/form_data.html'
+            path = 'templates/api.form_data.html'
             self.response.out.write(template.render(path, template_values))
 
 
@@ -492,7 +504,7 @@ class CheckDate(RequestHandler):
 
             if delta == month or delta == two_weeks or delta <= week:
 
-                send_message(pr.employee.e_mail, subject, text)
+                send_message(pr.employee.email, subject, text)
 
 
 class HR(RequestHandler):
@@ -503,7 +515,7 @@ class HR(RequestHandler):
 
         template_values = {'depts': depts}
 
-        path = 'templates/hr.html'
+        path = 'templates/api.hr.html'
         self.response.out.write(template.render(path, template_values))
 
 
@@ -527,7 +539,7 @@ class Authentication(object):
 
     def __call__(self, environ, start_response):
 
-        user = users.get_current_user()
+        current_user = users.get_current_user()
         url = users.create_login_url("/")
 
         req = Request(environ)
@@ -535,7 +547,7 @@ class Authentication(object):
         non_auth_urls = ['/create_role', '/users', '/add_emp', '/new_user']
         if environ['PATH_INFO'] not in non_auth_urls:
 
-            if user is None:
+            if current_user is None:
                 try:
                     auth_header = req.headers['Authorization']
                 except KeyError:
@@ -562,11 +574,11 @@ class Authentication(object):
                     resp = Response(status="401")
                     return resp(environ, start_response)
             else:
-                user_info = User.gql("WHERE e_mail = :e_mail",
-                                     e_mail=user.email()).get()
+                user_info = User.gql("WHERE email = :email",
+                                     email=current_user.email()).get()
                 if user_info is None:
                     user_info = User(
-                        e_mail=user.email())
+                        email=current_user.email())
                     user_info.put()
 
             environ["current_user"] = user_info
