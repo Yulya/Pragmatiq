@@ -225,10 +225,10 @@ class CreatePR(RequestHandler):
         employees = self.request.get('employees')[:-1].split(',')
 
         try:
-            start = datetime.datetime.strptime(start_str, '%d.%m.%Y').date()
-            finish = datetime.datetime.strptime(finish_str, '%d.%m.%Y').date()
+            start = datetime.datetime.strptime(start_str, '%m/%d/%Y').date()
+            finish = datetime.datetime.strptime(finish_str, '%m/%d/%Y').date()
         except ValueError:
-            self.response.out.write('incorrect start_date')
+            self.response.out.write('incorrect date')
             self.error(403)
             return
 
