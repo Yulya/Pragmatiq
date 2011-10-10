@@ -21,6 +21,7 @@ class MainHandler(RequestHandler):
     def get(self):
 
         user = self.request.environ['current_user']
+        current_role = self.request.environ['current_role']
         email = None
         if user is not None:
             email = user.email
@@ -34,6 +35,7 @@ class MainHandler(RequestHandler):
                            'username': email,
                            'user': user,
                            'roles': roles,
+                           'current_role': current_role,
                            'logout_url': logout_url}
 
         path = 'templates/index.html'
@@ -158,6 +160,7 @@ class GetSelfPR(RequestHandler):
     def get(self):
 
         user = self.request.environ['current_user']
+
         pr = PerformanceReview.all().filter('employee',user).\
                                      order('-start_date').get()
         try:
@@ -512,7 +515,7 @@ class HR(RequestHandler):
     def get(self):
 
         depts = Dept.all()
-
+        
         template_values = {'depts': depts}
 
         path = 'templates/api.hr.html'
@@ -582,5 +585,13 @@ class Authentication(object):
                     user_info.put()
 
             environ["current_user"] = user_info
+
+            
+
+            try:
+                current_role = environ["current_role"]
+            except KeyError:
+                environ["current_role"] = Model.get(user_info.role[0]).value
+
         resp = req.get_response(self.app)
         return resp(environ, start_response)

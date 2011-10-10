@@ -16,7 +16,11 @@
 
     <!-- script -->
     {% block script %}
-
+    <script type="text/javascript">
+    $(document).ready(function(){
+        load_role('{{current_role}}','{{user.key}}');
+    })
+    </script>
     {% endblock %}
 </head>
 <body>
