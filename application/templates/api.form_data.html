@@ -1,0 +1,120 @@
+{% extends "_api_base.html" %}
+
+
+<script type="text/javascript">
+</script>
+
+{% block content %}
+<body>
+
+<p>Performance Review Form for {{emp.first_name}} {{emp.last_name}}</p>
+<p>author: {{author.first_name}} {{author.last_name}}</p>
+
+<div id="project" class="input_div">
+    <p>Please list all projects and initiatives you participated in during this performance review period.</p>
+    {% for project in projects %}
+        <p>{{project.value}}</p>
+    {% endfor %}
+</div>
+
+<div id="achievements" class="input_div">
+    <p>What do you consider to be your key accomplishments since your last review?</p>
+    {% for ach in achievements %}
+        <p>{{ach.value}}</p>
+    {% endfor %}
+
+</div>
+
+<div id="responsibility" class="input_div">
+    <p>List your key job responsibilities during your performance period. Please comment on your job performance assessment.</p>
+    {% for responsibility in responsibilities %}
+        <p>{{responsibility.value}}</p>
+    {% endfor %}
+
+</div>
+
+<div id="challenges" class="input_div">
+    <p>If you have experienced challenges, please specify the areas where you need to focus and improve. </p>
+    {% for challenge in challenges %}
+        <!-- todo: use css class instead of properties -->
+        <p>{{challenge.value}}</p>
+    {% endfor %}
+</div>
+
+<div id="skill" class="input_div">
+    <p>Please mention what skills and/or knowledge do you need for further development to contribute to your overall job success.</p>
+    {% for skill in skills %}
+        <!-- todo: use css class instead of properties -->
+        <p>{{skill.value}}</p>
+    {% endfor %}
+</div>
+
+<div id="prev_goals" class="input_div">
+    <p>Previous Goals:</p>
+    <table>
+        <thead>
+            <tr>
+                <td>Goal</td>
+                <td>Value</td>
+            </tr>
+        </thead>
+    {% for prev_goal in prev_goals %}
+        <tr>
+            <td>{{prev_goal.value}}</td>
+            <td>
+                {{prev_goal.grade}}
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+</div>
+
+<div id="next_goals" class="input_div">
+    <p>Goals for the next period:</p>
+    {% for goal in next_goals %}
+        <p>{{goal.value}}</p>
+    {% endfor %}
+</div>
+
+<div id="career" class="input_div">
+    <p>What are your professional interests and long-term career objectives, and what are you plans to accomplish these objectives?  </p>
+    {% for career in careers %}
+        <p>{{career.value}}</p>
+    {% endfor %}
+</div>
+
+<div id="issue" class="input_div">
+    <p>Do you see any issues with your role within the company and/or your project(s)?</p>
+    {% for issue in issues %}
+        <p>{{issue.value}}</p>
+    {% endfor %}
+</div>
+
+<div id="complaint" class="input_div">
+    <p>Do you have any complaints?</p>
+    {% for complaint in complaints %}
+        <p>{{complaint.value}}</p>
+    {% endfor %}
+</div>
+
+<div id="manager_help" class="input_div">
+    <p>Is there anything your manager could do to help you do a better job? </p>
+    {% for manager_help in manager_helps %}
+        <p>{{manager_help.value}}</p>
+    {% endfor %}
+</div>
+
+
+<div id="conclusions">
+    <p>Performance conclusion:</p>
+    <!-- todo insert logic here -->
+</div>
+
+<div>
+    <p>Attached files:</p>
+    {% if file_name%}
+        <a href="/serve/{{file_key}}">{{file_name}}</a>
+    {% endif %}
+</div>
+</body>
+{% endblock %}

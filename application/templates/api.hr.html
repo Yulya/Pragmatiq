@@ -1,0 +1,72 @@
+{% extends "_base.html" %}
+
+{% block script %}
+<script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.date').datepicker({ dateFormat: 'yy-mm-dd' });
+        $('#submit').click(function(){
+            var employees = '';
+            var start = $('#start').val();
+            var finish = $('#finish').val();
+            var type = $('#type').val();
+            $('input[name="employees"]:checked').each(function(){
+                    employees = employees + this.value + ',';})
+
+            re = /^\d{4}\-\d{1,2}\-\d{1,2}$/;
+
+            if (start != '' && start.match(re) && finish != '' && finish.match(re)){
+                $.post('/pr/create', {'employees': employees,
+                    'type':type,
+                    'start': start,
+                    'finish': finish},
+                        function(data){alert(data)})
+            }
+            else {alert('incorrect date')}
+
+        })
+
+        $('.check_all').click(function(){
+            $(this).parent().find(':checkbox').attr('checked', this.checked);
+	    });
+
+    })
+</script>
+{% endblock %}
+
+{% block content %}
+
+    <div>
+        start date:
+        <input type="text" id="start" class="date">
+    </div>
+    <div>
+        finish date:
+        <input type="text" id="finish" class="date">
+    </div>
+    <div>
+        type:
+        <select id='type'>
+            <option value='main'>main</option>
+            <option value='intermediate'>intermediate</option>
+        </select>
+    </div>
+<p></p>
+    {% for dept in depts %}
+        <div id="dept">
+            <input id="{{dept.name}}" class="check_all"  type="checkbox">
+            {{dept.name}}
+            <br>
+            <div id="list">
+            {% for employee in dept.users %}
+                <input name="employees" type="checkbox" class="{{dept}}" value="{{employee.key}}">
+                {{employee.first_name}}{{employee.last_name}}
+                <br>
+            {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+<input type='button' id='submit' value="create PR">
+
+{% endblock %}

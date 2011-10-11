@@ -170,7 +170,19 @@ class GetSelfPR(RequestHandler):
             return
         if form is not None:
             self.response.out.write(form.key())
-        
+
+
+class GetAllEmployees(RequestHandler):
+
+    def get(self):
+
+        prs = PerformanceReview.all().filter('finish_date >=', datetime.date.today())
+
+        template_values = {'prs': prs}
+
+        path = 'templates/hr_table.html'
+        self.response.out.write(template.render(path, template_values))
+
 
 class GetPrs(RequestHandler):
 
@@ -225,8 +237,8 @@ class CreatePR(RequestHandler):
         employees = self.request.get('employees')[:-1].split(',')
 
         try:
-            start = datetime.datetime.strptime(start_str, '%m/%d/%Y').date()
-            finish = datetime.datetime.strptime(finish_str, '%m/%d/%Y').date()
+            start = datetime.datetime.strptime(start_str, '%Y-%m-%d').date()
+            finish = datetime.datetime.strptime(finish_str, '%Y-%m-%d').date()
         except ValueError:
             self.response.out.write('incorrect date')
             self.error(403)
@@ -251,9 +263,51 @@ class CreatePR(RequestHandler):
                                        finish_date=finish)
                 pr.put()
 
-                           
+
 
         self.response.out.write('ok')
+
+
+class UpdatePR(RequestHandler):
+
+    def post(self):
+
+        user = self.request.environ['current_user']
+
+        role_key = Role.gql("WHERE value = :hr", hr='hr').get().key()
+
+        if role_key not in user.role:
+            self.error(403)
+            return
+
+        key = self.request.get('key')
+        pr = Model.get(key)
+        start_str = self.request.get('start')
+        finish_str = self.request.get('finish')
+
+        if start_str:
+            try:
+                start = datetime.datetime.strptime(start_str, '%m/%d/%Y').date()
+                pr.start_date = start
+            except ValueError:
+                self.response.out.write('incorrect date')
+                self.error(401)
+                return
+
+        if finish_str:
+            try:
+                finish = datetime.datetime.strptime(finish_str, '%m/%d/%Y').date()
+                pr.finish_date = finish
+            except ValueError:
+                self.response.out.write('incorrect date')
+                self.error(401)
+                return
+
+        pr.put()
+
+
+
+
 
 
 class AddPrForm(RequestHandler):

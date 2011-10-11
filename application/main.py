@@ -21,7 +21,7 @@ from logic.handlers import MainHandler, CreateUser,\
 	Authentication, AddPrForm, GetPrForm, UpdateData,\
     AddData, CreateRoles, GetPrs, UserTable, CreatePR,\
     GetPreviousGoals, GetSelfPR, GetManagers, CheckDate, HR, Show,\
-    UploadHandler, ServeHandler, UrlHandler
+    UploadHandler, ServeHandler, UrlHandler, GetAllEmployees, UpdatePR
 from logic.postdeploy import PostDeploy
 
 def main():
@@ -37,6 +37,7 @@ def main():
                                           ('/new_user', GetManagers),
                                           ('/check', CheckDate),
                                           ('/pr/create', CreatePR),
+                                          ('/pr/update', UpdatePR),
                                           ('/pr/prev_goals/(.*)',GetPreviousGoals),
                                           ('/pr/get/self', GetSelfPR),
                                           ('/pr/add/(.*)', AddPrForm),
@@ -44,7 +45,8 @@ def main():
                                           ('/pr/data/update/(.*)', UpdateData),
                                           ('/pr/get/(.*)', GetPrForm),
                                           ('/manager',GetPrs),
-                                          ('/hr', HR),
+                                          ('/hr', GetAllEmployees),
+                                          ('/new_period', HR),
                                           ('/upload', UploadHandler),
                                           ('/serve/([^/]+)?', ServeHandler),
                                           ('/show',Show)
