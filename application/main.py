@@ -40,7 +40,7 @@ def main():
                                           ('/pr/update', UpdatePR),
                                           ('/pr/prev_goals/(.*)',GetPreviousGoals),
                                           ('/pr/get/self', GetSelfPR),
-                                          ('/pr/add/(.*)', AddPrForm),
+                                          ('/pr/add/(.*)/(.*)', AddPrForm),
                                           ('/pr/data/add', AddData),
                                           ('/pr/data/update/(.*)', UpdateData),
                                           ('/pr/get/(.*)', GetPrForm),

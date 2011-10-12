@@ -87,6 +87,7 @@ class UrlHandler(RequestHandler):
         logout_url = users.create_logout_url(login_url)
         self.redirect(logout_url)
 
+
 class CreateUser(RequestHandler):
 
     #gets data and puts them to DB
@@ -116,7 +117,7 @@ class CreateUser(RequestHandler):
                         last_name=last_name,
                         dept=dept_ref,
                         manager=manager)
-        
+
             for role in roles:
                 role_key = Role.gql("WHERE value = :role",
                                     role=role).get().key()
@@ -161,14 +162,15 @@ class GetSelfPR(RequestHandler):
 
         user = self.request.environ['current_user']
 
-        pr = PerformanceReview.all().filter('employee',user).\
+        pr = PerformanceReview.all().filter('employee', user).\
                                      order('-start_date').get()
         try:
-            form = pr.forms.filter('author', user).get()
+            form = pr.forms.filter('type', 'employee').get()
         except AttributeError:
             self.response.out.write('pr not created')
             return
         if form is not None:
+            
             self.response.out.write(form.key())
 
 
@@ -176,7 +178,8 @@ class GetAllEmployees(RequestHandler):
 
     def get(self):
 
-        prs = PerformanceReview.all().filter('finish_date >=', datetime.date.today())
+        prs = PerformanceReview.all().filter('finish_date >=',
+                                             datetime.date.today())
 
         template_values = {'prs': prs}
 
@@ -204,8 +207,8 @@ class GetPrs(RequestHandler):
 
             if pr is not None:
 
-                employee.self_form = pr.forms.filter('author', employee).get()
-                employee.manager_form = pr.forms.filter('author', user).get()
+                employee.self_form = pr.forms.filter('type', 'employee').get()
+                employee.manager_form = pr.forms.filter('type', 'manager').get()
                 employees.append(employee)
 
         template_values = {'user': user,
@@ -247,7 +250,6 @@ class CreatePR(RequestHandler):
         for employee in employees:
 
             user = Model.get(employee)
-
 
             if user.manager is not None:
                 pr = PerformanceReview(employee=user,
@@ -314,7 +316,7 @@ class AddPrForm(RequestHandler):
 
     #gets employee's key, select employee's PR
 
-    def get(self, key):
+    def get(self, type, key):
 
         login_url = users.create_login_url(self.request.uri)
         logout_url = users.create_logout_url(login_url)
@@ -325,21 +327,20 @@ class AddPrForm(RequestHandler):
         pr = PerformanceReview.all().filter('employee', emp).\
                                     order('-start_date').get()
 
-        pr_form = pr.forms.filter('author', user).get()
+        pr_form = pr.forms.filter('type', type).get()
 
         if pr_form is None:
-            pr_form = PerformanceReviewForm(pr=pr, author=user)
+            pr_form = PerformanceReviewForm(pr=pr, type=type)
             pr_form.put()
 
         prev_pr = PerformanceReview.all().order('-start_date').\
                                         filter('start_date <', pr.start_date).\
                                         filter('employee', pr.employee).get()
-        author = pr_form.author
 
         prev_goals = []
 
         try:
-            prev_form = prev_pr.forms.filter('author', author).get()
+            prev_form = prev_pr.forms.filter('type', type).get()
             prev_goals = prev_form.next_goals
         except AttributeError:
             prev_goals = []
@@ -359,7 +360,7 @@ class AddPrForm(RequestHandler):
                            'type': pr.type,
                            'prev_goals': prev_goals,
                            'next_goals': pr_form.next_goals,
-                           'author': user, #todo: rename author to manager
+                           'author': user,  #todo: rename author to manager
                            'upload_url': upload_url,
                            'user': user,
                            'url': logout_url}
@@ -385,20 +386,20 @@ class GetPrForm(RequestHandler):
             return
 
         pr = form.pr
-        author = form.author
+        type = form.type
 
         prev_pr = PerformanceReview.all().order('-start_date').\
                                         filter('start_date <', pr.start_date).\
                                         filter('employee', pr.employee).get()
 
         try:
-            prev_form = prev_pr.forms.filter('author', author).get()
+            prev_form = prev_pr.forms.filter('type', type).get()
             prev_goals = prev_form.next_goals
         except AttributeError:
             prev_goals = []
 
         next_goals = form.next_goals
-        challenges = form.challenges #todo: use challenges instead of challengers
+        challenges = form.challenges
         achievements = form.achievements
         projects = form.projects
         responsibilities = form.responsibilities
@@ -415,7 +416,7 @@ class GetPrForm(RequestHandler):
                            'key': key,
                            'user': user,
                            'date': pr.finish_date,
-                           'author': form.author, #todo: rename to manager
+#                           'author': form.author, #todo: rename to manager
                            'emp': form.pr.employee,
                            'type': form.pr.type,
                            'file_key': form.file_key,
@@ -432,16 +433,12 @@ class GetPrForm(RequestHandler):
                            'issues': issues,
                            'complaints': complaints,
                            'manager_helps': manager_helps
-                           }
+                        }
 
 
-        if user.key() == form.author.key():
-            path = 'templates/api.assessment_form.html'
-            self.response.out.write(template.render(path, template_values))
-        else:
-            path = 'templates/api.form_data.html'
-            self.response.out.write(template.render(path, template_values))
-
+        path = 'templates/api.assessment_form.html'
+        self.response.out.write(template.render(path, template_values))
+        
 
 class UpdateData(RequestHandler):
 

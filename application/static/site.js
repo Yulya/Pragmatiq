@@ -14,7 +14,7 @@ function load_role(a, user_key){
                         else{
                         $('.result').load('pr/get/' + data);
                         }}
-                    else {$('.result').load('pr/add/' + user_key)}
+                    else {$('.result').load('pr/add/employee/' + user_key)}
         $('.result').css('display', 'block');
         })
     }

@@ -12,7 +12,7 @@
                 {% if employee.manager_form %}
                     <input type="button" value="mark" onclick="load('pr/get/{{employee.manager_form.key}}')">
                 {% else %}
-                    <input type="button" value="add" onclick="load('/pr/add/{{employee.key}}')">
+                    <input type="button" value="add" onclick="load('/pr/add/manager/{{employee.key}}')">
                 {% endif %}
             </td>
 
