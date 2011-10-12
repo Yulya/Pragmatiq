@@ -2,25 +2,25 @@
 
 {% block content %}
 <table>
-    {% if not employees %}
+    {% if not prs %}
         No reviews currently available
     {% endif %}
-    {% for employee in employees %}
+    {% for pr in prs %}
         <tr>
-            <td>{{employee.first_name}} {{employee.last_name}}</td>
+            <td>{{pr.employee.first_name}} {{pr.employee.last_name}}</td>
             <td>
-                {% if employee.manager_form %}
-                    <input type="button" value="mark" onclick="load('pr/get/{{employee.manager_form.key}}')">
+                {% if pr.manager_form %}
+                    <input type="button" value="mark" onclick="load('pr/get/manager/{{pr.key}}')">
                 {% else %}
-                    <input type="button" value="add" onclick="load('/pr/add/manager/{{employee.key}}')">
+                    <input type="button" value="add" onclick="load('/pr/add/manager/{{pr.employee.key}}')">
                 {% endif %}
             </td>
 
             <td>
-                {% if not employee.self_form.key %}
+                {% if not pr.self_form %}
                     <p>none</p>
                 {% else %}
-                    <input type="button" value="show" onclick="load('/pr/get/{{employee.self_form.key}}')">
+                    <input type="button" value="show" onclick="load('/pr/get/employee/{{pr.key}}')">
                 {% endif %}
             </td>
         </tr>

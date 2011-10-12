@@ -31,3 +31,8 @@ indexes:
   - name: employee
   - name: start_date
     direction: desc
+
+- kind: PerformanceReview
+  properties:
+  - name: manager
+  - name: finish_date

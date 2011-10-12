@@ -18,10 +18,11 @@ import logging
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 from logic.handlers import MainHandler, CreateUser,\
-	Authentication, AddPrForm, GetPrForm, UpdateData,\
+	Authentication, AddPrForm, UpdateData,\
     AddData, CreateRoles, GetPrs, UserTable, CreatePR,\
     GetPreviousGoals, GetSelfPR, GetManagers, CheckDate, HR, Show,\
-    UploadHandler, ServeHandler, UrlHandler, GetAllEmployees, UpdatePR
+    UploadHandler, ServeHandler, UrlHandler, GetAllEmployees, UpdatePR, \
+    GetManagerForm, GetEmployeeForm
 from logic.postdeploy import PostDeploy
 
 def main():
@@ -40,10 +41,12 @@ def main():
                                           ('/pr/update', UpdatePR),
                                           ('/pr/prev_goals/(.*)',GetPreviousGoals),
                                           ('/pr/get/self', GetSelfPR),
+                                          ('/pr/get/manager/(.*)', GetManagerForm),
+                                          ('/pr/get/employee/(.*)', GetEmployeeForm),
                                           ('/pr/add/(.*)/(.*)', AddPrForm),
                                           ('/pr/data/add', AddData),
                                           ('/pr/data/update/(.*)', UpdateData),
-                                          ('/pr/get/(.*)', GetPrForm),
+#                                          ('/pr/get/(.*)', GetPrForm),
                                           ('/manager',GetPrs),
                                           ('/hr', GetAllEmployees),
                                           ('/new_period', HR),

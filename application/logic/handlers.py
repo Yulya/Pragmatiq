@@ -171,7 +171,7 @@ class GetSelfPR(RequestHandler):
             return
         if form is not None:
             
-            self.response.out.write(form.key())
+            self.response.out.write(pr.key())
 
 
 class GetAllEmployees(RequestHandler):
@@ -198,21 +198,15 @@ class GetPrs(RequestHandler):
         login_url = users.create_login_url(self.request.uri)
         logout_url = users.create_logout_url(login_url)
 
-        employees = []
+        prs = PerformanceReview.all().filter('manager',
+                                            user).filter('finish_date >=',
+                                                         datetime.date.today()).fetch(1000)
 
-        for employee in user.subs.fetch(1000):
+        for pr in prs:
+            pr.self_form = pr.forms.filter('type', 'employee').get()
+            pr.manager_form = pr.forms.filter('type', 'manager').get()
 
-            pr = PerformanceReview.all().filter('employee', employee).\
-                                        order('-start_date').get()
-
-            if pr is not None:
-
-                employee.self_form = pr.forms.filter('type', 'employee').get()
-                employee.manager_form = pr.forms.filter('type', 'manager').get()
-                employees.append(employee)
-
-        template_values = {'user': user,
-                           'employees': employees,
+        template_values = {'prs': prs,
                            'url': logout_url}
 
         path = 'templates/api.manager.html'
@@ -289,7 +283,7 @@ class UpdatePR(RequestHandler):
 
         if start_str:
             try:
-                start = datetime.datetime.strptime(start_str, '%m/%d/%Y').date()
+                start = datetime.datetime.strptime(start_str, '%Y-%m-%d').date()
                 pr.start_date = start
             except ValueError:
                 self.response.out.write('incorrect date')
@@ -298,7 +292,7 @@ class UpdatePR(RequestHandler):
 
         if finish_str:
             try:
-                finish = datetime.datetime.strptime(finish_str, '%m/%d/%Y').date()
+                finish = datetime.datetime.strptime(finish_str, '%Y-%m-%d').date()
                 pr.finish_date = finish
             except ValueError:
                 self.response.out.write('incorrect date')
@@ -369,7 +363,77 @@ class AddPrForm(RequestHandler):
         self.response.out.write(template.render(path, template_values))
 
 
-class GetPrForm(RequestHandler):
+class GetEmployeeForm(RequestHandler):
+    
+    def get(self, key):
+
+        user = self.request.environ['current_user']
+
+        login_url = users.create_login_url(self.request.uri)
+        logout_url = users.create_logout_url(login_url)
+
+
+        try:
+            pr = PerformanceReview.get(key)
+        except BadKeyError:
+            self.error(405)
+            return
+
+        form = pr.forms.filter('type', 'employee').get()
+
+        prev_pr = PerformanceReview.all().order('-start_date').\
+                                        filter('start_date <', pr.start_date).\
+                                        filter('employee', pr.employee).get()
+
+        try:
+            prev_form = prev_pr.forms.filter('type', type).get()
+            prev_goals = prev_form.next_goals
+        except AttributeError:
+            prev_goals = []
+
+        next_goals = form.next_goals
+        challenges = form.challenges
+        achievements = form.achievements
+        projects = form.projects
+        responsibilities = form.responsibilities
+        skills = form.skills
+        careers = form.careers
+        issues = form.issues
+        complaints = form.complaints
+        manager_helps = form.manager_helps
+
+        upload_url = blobstore.create_upload_url('/upload')
+
+
+        template_values = {'url': logout_url,
+                           'key': key,
+                           'user': user,
+                           'date': pr.finish_date,
+#                           'author': form.author, #todo: rename to manager
+                           'emp': form.pr.employee,
+                           'type': form.pr.type,
+                           'file_key': form.file_key,
+                           'file_name': form.file_name,
+                           'upload_url': upload_url,
+                           'prev_goals': prev_goals,
+                           'next_goals': next_goals,
+                           'challenges': challenges,
+                           'careers': careers,
+                           'achievements': achievements,
+                           'projects': projects,
+                           'responsibilities': responsibilities,
+                           'skills': skills,
+                           'issues': issues,
+                           'complaints': complaints,
+                           'manager_helps': manager_helps
+                        }
+
+
+        path = 'templates/api.assessment_form.html'
+        self.response.out.write(template.render(path, template_values))
+
+
+class GetManagerForm(RequestHandler):
 
     def get(self, key):
 
@@ -380,13 +444,12 @@ class GetPrForm(RequestHandler):
         
 
         try:
-            form = PerformanceReviewForm.get(key)
+            pr = PerformanceReview.get(key)
         except BadKeyError:
             self.error(405)
             return
 
-        pr = form.pr
-        type = form.type
+        form = pr.forms.filter('type', 'manager').get()
 
         prev_pr = PerformanceReview.all().order('-start_date').\
                                         filter('start_date <', pr.start_date).\

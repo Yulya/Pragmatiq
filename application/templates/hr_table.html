@@ -13,7 +13,7 @@
         $('.date').focusout(function(){
             var name = this.name;
             var key = this.title;
-            if (name == 'start'){$.post('pr/update', {'start': this.value, 'key': key}, function(data){alert(data)})}
+            if (name == 'start'){$.post('pr/update', {'start': this.value, 'key': key})}
             if (name == 'finish'){$.post('pr/update', {'finish': this.value, 'key': key})}
         })
         $('#period').click(function(){

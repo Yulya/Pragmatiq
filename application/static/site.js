@@ -12,7 +12,7 @@ function load_role(a, user_key){
                             $('.result').html(data);
                         }
                         else{
-                        $('.result').load('pr/get/' + data);
+                        $('.result').load('pr/get/employee/' + data);
                         }}
                     else {$('.result').load('pr/add/employee/' + user_key)}
         $('.result').css('display', 'block');
