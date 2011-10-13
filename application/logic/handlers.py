@@ -302,10 +302,70 @@ class UpdatePR(RequestHandler):
         pr.put()
 
 
+class ManagerFormSubmit(RequestHandler):
+
+    def get(self, key):
+
+        user = self.request.environ['current_user']
+
+        form = PerformanceReviewForm.get(key)
+
+        if form.pr.manager.email != user.email:
+            self.error(307)
+            return
+
+        errors = []
+        try:
+            form.salary[0]
+        except IndexError:
+            errors.append("put employee's salary")
+        try:
+            form.grade[0]
+        except IndexError:
+            errors.append("put employee's grade")
+        try:
+            form.conclusion[0]
+        except IndexError:
+            errors.append("put PR conclusion")
+        if len(form.next_goals.fetch(1000)) < 2:
+            errors.append("put more goals for next period")
+
+        if not errors:
+            form.status = 'submitted'
+            form.put()
+            self.response.out.write('ok')
+        else:
+            self.response.out.write('\n'.join(errors))
+
+
+class EmployeeFormSubmit(RequestHandler):
+
+    def get(self, key):
+
+        user = self.request.environ['current_user']
+
+        form = PerformanceReviewForm.get(key)
+
+        if form.pr.employee.email != user.email:
+            self.error(307)
+            return
+
+        form.status = 'submitted'
+        form.put()
+        self.response.out.write('ok')
+
+
+class EmployeeFormApprove(RequestHandler):
+    pass
+
+
+class ManagerFormApprove(RequestHandler):
+    pass
+
 
 class AddManagerForm(RequestHandler):
 
-    def get(self, type, key):
+    def get(self, key):
 
         type = 'manager'
 
@@ -316,12 +376,12 @@ class AddManagerForm(RequestHandler):
         emp = Model.get(key)
 
         pr = PerformanceReview.all().filter('employee', emp).\
-                                    order('-start_date').get()
+                                    order('-finish_date').get()
 
         pr_form = pr.forms.filter('type', type).get()
 
         if pr_form is None:
-            pr_form = PerformanceReviewForm(pr=pr, type=type)
+            pr_form = PerformanceReviewForm(pr=pr, type=type, status='draft')
             pr_form.put()
 
         prev_pr = PerformanceReview.all().order('-start_date').\
@@ -349,6 +409,7 @@ class AddManagerForm(RequestHandler):
                            'emp': emp,
                            'date': pr.finish_date,
                            'type': pr.type,
+                           'status': pr_form.status,
                            'prev_goals': prev_goals,
                            'next_goals': pr_form.next_goals,
                            'author': user,  #todo: rename author to manager
@@ -381,7 +442,7 @@ class AddEmployeeForm(RequestHandler):
         pr_form = pr.forms.filter('type', type).get()
 
         if pr_form is None:
-            pr_form = PerformanceReviewForm(pr=pr, type=type)
+            pr_form = PerformanceReviewForm(pr=pr, type=type, status='draft')
             pr_form.put()
 
         prev_pr = PerformanceReview.all().order('-start_date').\
@@ -406,6 +467,7 @@ class AddEmployeeForm(RequestHandler):
 
 
         template_values = {'key': pr_form.key(),
+                           'status': pr_form.status,
                            'emp': emp,
                            'date': pr.finish_date,
                            'type': pr.type,
@@ -443,7 +505,7 @@ class GetEmployeeForm(RequestHandler):
                                         filter('employee', pr.employee).get()
 
         try:
-            prev_form = prev_pr.forms.filter('type', type).get()
+            prev_form = prev_pr.forms.filter('type', 'employee').get()
             prev_goals = prev_form.next_goals
         except AttributeError:
             prev_goals = []
@@ -464,6 +526,7 @@ class GetEmployeeForm(RequestHandler):
 
         template_values = {'url': logout_url,
                            'key': form.key(),
+                           'status': form.status,
                            'user': user,
                            'date': pr.finish_date,
 #                           'author': form.author, #todo: rename to manager
@@ -513,7 +576,7 @@ class GetManagerForm(RequestHandler):
                                         filter('employee', pr.employee).get()
 
         try:
-            prev_form = prev_pr.forms.filter('type', type).get()
+            prev_form = prev_pr.forms.filter('type', 'manager').get()
             prev_goals = prev_form.next_goals
         except AttributeError:
             prev_goals = []
@@ -528,12 +591,25 @@ class GetManagerForm(RequestHandler):
         issues = form.issues
         complaints = form.complaints
         manager_helps = form.manager_helps
+        try:
+            salary = form.salary[0]
+        except IndexError:
+            salary = None
+        try:
+            grade = form.grade[0]
+        except IndexError:
+            grade = None
+        try:
+            conclusion = form.conclusion[0]
+        except IndexError:
+            conclusion = None
 
         upload_url = blobstore.create_upload_url('/upload')
 
         
         template_values = {'url': logout_url,
                            'key': form.key(),
+                           'status': form.status,
                            'user': user,
                            'date': pr.finish_date,
 #                           'author': form.author, #todo: rename to manager
@@ -545,12 +621,15 @@ class GetManagerForm(RequestHandler):
                            'prev_goals': prev_goals,
                            'next_goals': next_goals,
                            'challenges': challenges,
+                           'conclusion': conclusion,
                            'careers': careers,
                            'achievements': achievements,
                            'projects': projects,
                            'responsibilities': responsibilities,
                            'skills': skills,
                            'issues': issues,
+                           'salary': salary,
+                           'grade': grade,
                            'complaints': complaints,
                            'manager_helps': manager_helps
                         }
@@ -613,10 +692,13 @@ class AddData(RequestHandler):
                 'achievements': 'Achievements',
                 'project': 'Project',
                 'skill': 'Skill',
+                'conclusion': 'Conclusion',
                 'responsibility': 'Responsibility',
                 'career': 'Career',
                 'manager_help': 'ManagerHelp',
                 'complaint': 'Complaint',
+                'grade': 'Grade',
+                'salary': 'Salary',
                 'issue': 'Issue'}
 
         form_key = self.request.get('form_key')

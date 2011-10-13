@@ -17,11 +17,11 @@
             </td>
 
             <td>
-                {% if not pr.self_form %}
-                    <p>none</p>
-                {% else %}
+                {% ifequal pr.self_form.status "submitted" %}
                     <input type="button" value="show" onclick="load('/pr/get/employee/{{pr.key}}')">
-                {% endif %}
+                {% else %}
+                    <p>none</p>
+                {% endifequal %}
             </td>
         </tr>
     {% endfor %}

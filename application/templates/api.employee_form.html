@@ -11,18 +11,23 @@ function send_value(id, value) {
 }
 
 $(document).ready(function() {
-    /*
-    if (form_type == 'main') {
-        // I don't expect we render JavaScript this way
-        {# {% for goal in prev_goals %} #}
-            $('#prev_goals').append('<select id="{{goal.key}}"></select>');
-            $('#{{goal.key}}').append('<option value="1" class="grade">below expectations</option>');
-            $('#{{goal.key}}').append('<option value="2" class="grade">meet expectations</option>');
-            $('#{{goal.key}}').append('<option value="3" class="grade">above expectations</option>');
-            $('#prev_goals').append('{{goal.value}}<br>');
-        {# {% endfor %} #}
+
+    if ('{{status}}' != 'draft'){
+        $('input:text').attr('readonly', 'readonly');
+        $('.add_button').attr('disabled', 'disabled')
     }
-    */
+
+    $('#submit').click(function(){
+        $.get('/pr/employee/submit/'+form_key, function(data){
+            if (data == 'ok'){
+                $('input:text').attr('readonly', 'readonly');
+                $('.add_button').attr('disabled', 'disabled')
+            }
+            else{
+                alert(data)
+            }
+        })
+    })
 
     $('.grade').click(function() {
         var id = $(this).parent().attr('id');
@@ -187,4 +192,7 @@ $(document).ready(function() {
     </form>
 </div>
 
+<div>
+    <input type="button" id="submit" value="submit">
+</div>
 {% endblock %}

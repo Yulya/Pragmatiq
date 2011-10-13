@@ -21,6 +21,7 @@ class User(db.Model):
 class Dept(db.Model):
     name = db.StringProperty()
 
+
 class Phone(db.Model):
     employee = db.ReferenceProperty(User,
                                  collection_name='phone_numbers')
@@ -48,6 +49,18 @@ class PerformanceReviewForm(db.Model):
 class Project(db.Model):
     form = db.ReferenceProperty(PerformanceReviewForm,
                                 collection_name='projects')
+    value = db.StringProperty()
+
+
+class Grade(db.Model):
+    form = db.ReferenceProperty(PerformanceReviewForm,
+                                collection_name='grade')
+    value = db.StringProperty()
+
+
+class Salary(db.Model):
+    form = db.ReferenceProperty(PerformanceReviewForm,
+                                collection_name='salary')
     value = db.StringProperty()
 
 
