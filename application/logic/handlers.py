@@ -303,14 +303,11 @@ class UpdatePR(RequestHandler):
 
 
 
-
-
-
-class AddPrForm(RequestHandler):
-
-    #gets employee's key, select employee's PR
+class AddManagerForm(RequestHandler):
 
     def get(self, type, key):
+
+        type = 'manager'
 
         login_url = users.create_login_url(self.request.uri)
         logout_url = users.create_logout_url(login_url)
@@ -359,7 +356,67 @@ class AddPrForm(RequestHandler):
                            'user': user,
                            'url': logout_url}
 
-        path = 'templates/api.assessment_form.html'
+        path = 'templates/api.manager_form.html'
+        self.response.out.write(template.render(path, template_values))
+
+
+
+class AddEmployeeForm(RequestHandler):
+
+    #gets employee's key, select employee's PR
+
+    def get(self, key):
+
+        type = 'employee'
+
+        login_url = users.create_login_url(self.request.uri)
+        logout_url = users.create_logout_url(login_url)
+
+        user = self.request.environ['current_user']
+        emp = Model.get(key)
+
+        pr = PerformanceReview.all().filter('employee', emp).\
+                                    order('-start_date').get()
+
+        pr_form = pr.forms.filter('type', type).get()
+
+        if pr_form is None:
+            pr_form = PerformanceReviewForm(pr=pr, type=type)
+            pr_form.put()
+
+        prev_pr = PerformanceReview.all().order('-start_date').\
+                                        filter('start_date <', pr.start_date).\
+                                        filter('employee', pr.employee).get()
+
+        prev_goals = []
+
+        try:
+            prev_form = prev_pr.forms.filter('type', type).get()
+            prev_goals = prev_form.next_goals
+        except AttributeError:
+            prev_goals = []
+
+        upload_url = blobstore.create_upload_url('/upload')
+
+
+        if pr.type == 'intermediate':
+
+            for goal in prev_goals:
+                next_goal = NextGoals(form=pr_form,value=goal.value).put()
+
+
+        template_values = {'key': pr_form.key(),
+                           'emp': emp,
+                           'date': pr.finish_date,
+                           'type': pr.type,
+                           'prev_goals': prev_goals,
+                           'next_goals': pr_form.next_goals,
+                           'author': user,  #todo: rename author to manager
+                           'upload_url': upload_url,
+                           'user': user,
+                           'url': logout_url}
+
+        path = 'templates/api.employee_form.html'
         self.response.out.write(template.render(path, template_values))
 
 
@@ -406,7 +463,7 @@ class GetEmployeeForm(RequestHandler):
 
 
         template_values = {'url': logout_url,
-                           'key': key,
+                           'key': form.key(),
                            'user': user,
                            'date': pr.finish_date,
 #                           'author': form.author, #todo: rename to manager
@@ -429,7 +486,7 @@ class GetEmployeeForm(RequestHandler):
                         }
 
 
-        path = 'templates/api.assessment_form.html'
+        path = 'templates/api.employee_form.html'
         self.response.out.write(template.render(path, template_values))
 
 
@@ -476,7 +533,7 @@ class GetManagerForm(RequestHandler):
 
         
         template_values = {'url': logout_url,
-                           'key': key,
+                           'key': form.key(),
                            'user': user,
                            'date': pr.finish_date,
 #                           'author': form.author, #todo: rename to manager
@@ -499,7 +556,7 @@ class GetManagerForm(RequestHandler):
                         }
 
 
-        path = 'templates/api.assessment_form.html'
+        path = 'templates/api.manager_form.html'
         self.response.out.write(template.render(path, template_values))
         
 
