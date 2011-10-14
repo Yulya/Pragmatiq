@@ -11,7 +11,7 @@ from google.appengine.ext.webapp import RequestHandler
 from logic import models
 from logic.func import check_password, send_message
 from logic.models import User, PerformanceReviewForm, PerformanceReview,\
-    Role, Dept, NextGoals
+    Role, Dept, NextGoals, Salary
 
 
 class MainHandler(RequestHandler):
@@ -179,7 +179,12 @@ class GetAllEmployees(RequestHandler):
     def get(self):
 
         prs = PerformanceReview.all().filter('finish_date >=',
-                                             datetime.date.today())
+                                             datetime.date.today()).fetch(1000)
+
+        for pr in prs:
+            pr.employee_form = pr.forms.filter('type', 'employee').get()
+            pr.manager_form = pr.forms.filter('type', 'manager').get()
+
 
         template_values = {'prs': prs}
 
@@ -327,8 +332,12 @@ class ManagerFormSubmit(RequestHandler):
             form.conclusion[0]
         except IndexError:
             errors.append("put PR conclusion")
-        if len(form.next_goals.fetch(1000)) < 2:
+        if len(form.next_goals.fetch(1000)) < 1:
             errors.append("put more goals for next period")
+        if len(form.achievements.fetch(1000)) < 1:
+            errors.append("put more achievements")
+        if len(form.challenges.fetch(1000)) < 1:
+            errors.append("put more challenges")
 
         if not errors:
             form.status = 'submitted'
@@ -355,12 +364,36 @@ class EmployeeFormSubmit(RequestHandler):
         self.response.out.write('ok')
 
 
-class EmployeeFormApprove(RequestHandler):
-    pass
-
-
 class ManagerFormApprove(RequestHandler):
-    pass
+
+    def get(self, key):
+
+
+        user = self.request.environ['current_user']
+
+        form = PerformanceReviewForm.get(key)
+
+        if form.pr.manager.email != user.email:
+            self.error(307)
+            return
+
+        if form.status == 'registered':
+            form.status = 'approved'
+            form.put()
+
+
+class RegisterPerformanceReview(RequestHandler):
+
+    def get(self, key):
+
+        pr = PerformanceReview.get(key)
+
+        for form in pr.forms:
+
+            form.status = 'registered'
+            form.put()
+
+        self.response.out.write('ok')
 
 
 class AddManagerForm(RequestHandler):
@@ -581,6 +614,13 @@ class GetManagerForm(RequestHandler):
         except AttributeError:
             prev_goals = []
 
+        if form.status == 'submitted' and user.email == form.pr.manager.email:
+            path = 'templates/api.manager_form.html'
+            self.response.out.write(template.render(path,
+                                                    {'url': logout_url,
+                                                    'status': form.status}))
+            return
+
         next_goals = form.next_goals
         challenges = form.challenges
         achievements = form.achievements
@@ -591,6 +631,7 @@ class GetManagerForm(RequestHandler):
         issues = form.issues
         complaints = form.complaints
         manager_helps = form.manager_helps
+
         try:
             salary = form.salary[0]
         except IndexError:
@@ -649,6 +690,10 @@ class UpdateData(RequestHandler):
         except BadKeyError:
             self.error(405)
             return
+
+        if isinstance(obj, Salary):
+            if not self.request.get('value').isdigit():
+                return
 
         if self.request.get('value'):
             obj.value = self.request.get('value')

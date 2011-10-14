@@ -12,13 +12,26 @@ function send_value(id, value) {
 
 $(document).ready(function() {
 
-    if ('{{status}}' != 'draft'){
+    if ('{{status}}' == 'approved'){
         $('input:text').attr('readonly', 'readonly');
         $('.add_button').attr('disabled', 'disabled')
     }
+    if ('{{status}}' == 'submitted'){
+        $('.input_div').html('');
+        $('#info').append('<p>form temporary unavailable</p>')
+    }
+    if ('{{status}}' == 'registered'){
+        
+        $('#grade').attr('readonly', 'readonly');
+        $('#salary').attr('readonly', 'readonly');
+    }
+
+    $('#approve').click(function(){
+        $.get('/pr/manager/submit/' +form_key);
+    })
 
     $('#submit').click(function(){
-        $.get('/pr/manager/submit/'+form_key, function(data){
+        $.get('/pr/manager/submit/' +form_key, function(data){
             if (data == 'ok'){
                 $('input:text').attr('readonly', 'readonly');
                 $('.add_button').attr('disabled', 'disabled')
@@ -32,7 +45,9 @@ $(document).ready(function() {
     
     $('.grade').click(function() {
         var id = $(this).parent().attr('id');
-        $.post('/pr/data/update/'+id, {'grade': this.value}, function(data){alert(data)})
+        $.post('/pr/data/update/'+id,
+                {'grade': this.value},
+                function(data){alert(data)})
     });
 
     $('.add_button').click(function() {
@@ -42,8 +57,10 @@ $(document).ready(function() {
             '/pr/data/add',
             {form_key: form_key, table: table},
             function(data){
-                $('<input type="text" size="75">').attr('id',data).focusout(function(){
-                    $.post('/pr/data/update/'+this.id, {value: this.value})
+                $('<input type="text" size="75">').attr('id',data).focusout(
+                        function(){
+                                $.post('/pr/data/update/'+this.id,
+                                        {value: this.value})
                 }).insertBefore(button)
             }
         )
@@ -53,15 +70,10 @@ $(document).ready(function() {
 {% endblock %}
 
 {% block content %}
+<div id="info">
 <p>Performance Review Form for {{emp.first_name}} {{emp.last_name}}</p>
-<p>Manager: {{author.first_name}} {{author.last_name}}</p>
 <p>date: {{date}}</p>
-
-<div id="">
-
 </div>
-
-
 
 <div id="project" class="input_div">
     <p>Please list all projects and initiatives you participated in during this performance review period.</p>
@@ -200,14 +212,14 @@ $(document).ready(function() {
     {% endif %}
 </div>
 
-<div>
+<div class="input_div">
     <p>Attached files:</p>
     {% if file_name%}
         <a href="/serve/{{file_key}}">{{file_name}}</a>
     {% endif %}
 </div>
 
-<div>
+<div class="input_div">
     <form action="{{upload_url}}" method="POST" enctype="multipart/form-data">
         <input type='hidden' name='key' value={{key}}>
         <input type="file" name="file"><br>
@@ -215,7 +227,11 @@ $(document).ready(function() {
     </form>
 </div>
 
-<div>
-    <input type="button" id="submit" value="submit">
+<div class="input_div">
+    {% ifequal status 'draft' %}
+        <input type="button" id='submit' value="submit">
+    {% else %}
+        <input type="button" id='approve' value="approve">
+    {% endifequal %}
 </div>
 {% endblock %}

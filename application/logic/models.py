@@ -41,7 +41,10 @@ class PerformanceReview(db.Model):
 class PerformanceReviewForm(db.Model):
     pr = db.ReferenceProperty(PerformanceReview, collection_name='forms')
     type = db.StringProperty(choices=('manager','employee'))
-    status = db.StringProperty(default='draft', choices=('draft','submitted', 'approved'))
+    status = db.StringProperty(default='draft', choices=('draft',
+                                                         'submitted',
+                                                         'registered',
+                                                         'approved'))
     file_key = db.StringProperty()
     file_name = db.StringProperty()
 

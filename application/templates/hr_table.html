@@ -13,11 +13,22 @@
         $('.date').focusout(function(){
             var name = this.name;
             var key = this.title;
-            if (name == 'start'){$.post('pr/update', {'start': this.value, 'key': key})}
-            if (name == 'finish'){$.post('pr/update', {'finish': this.value, 'key': key})}
+            if (name == 'start'){$.post('pr/update',
+                                        {'start': this.value, 'key': key})}
+            if (name == 'finish'){$.post('pr/update',
+                                        {'finish': this.value, 'key': key})}
         })
         $('#period').click(function(){
             ('.result').load('/new_period')
+        })
+        $('.register').click(function(){
+            var button = $(this);
+            var key = this.title;
+            $.get('/pr/register/' + key, function(data){
+                if (data == 'ok'){
+                    button.attr('disabled', 'disabled')
+                }
+            })
         })
     })
 </script>
@@ -30,7 +41,10 @@
                 <td>manager</td>
                 <td>start date</td>
                 <td>finish date</td>
-                <td>status</td>
+                <td>type</td>
+                <td>employee form status</td>
+                <td>manager form status</td>
+                <td>registration</td>
             </tr>
             {% for pr in prs %}
                 <tr>
@@ -38,8 +52,24 @@
                     <td>{{pr.manager.email}}</td>
                     <td><input type="text" title="{{pr.key}}" name="start" class="date" value="{{pr.start_date}}"></td>
                     <td><input type="text" title="{{pr.key}}" class="date" name="finish" value="{{pr.finish_date}}"></td>
-                    <td>type: {{type}}</td>
-                    <td>status</td>
+                    <td>type: {{pr.type}}</td>
+                    <td>
+
+                            {{pr.employee_form.status}}
+
+                    </td>
+                    <td>{% ifequal pr.manager_form.status 'submitted' %}
+                            <a href="/pr/get/manager/{{pr.key}}">check</a>
+                        {% else %}
+                            {{pr.manager_form.status}}
+                        {% endifequal %}
+                    </td>
+                    <td>{% ifequal pr.manager_form.status 'registered' %}
+                            <p>registered</p>
+                        {% else %}
+                            <input type="button" class='register' title="{{pr.key}}" value="register">
+                        {% endifequal %}
+                    </td>
                 </tr>
             {% endfor %}
         </table>

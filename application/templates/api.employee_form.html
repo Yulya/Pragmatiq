@@ -31,7 +31,10 @@ $(document).ready(function() {
 
     $('.grade').click(function() {
         var id = $(this).parent().attr('id');
-        $.post('/pr/data/update/'+id, {'grade': this.value}, function(data){alert(data)})
+        $.post('/pr/data/update/'+id,
+                {'grade': this.value},
+                function(data){
+                    alert(data)})
     });
 
     $('.add_button').click(function() {
@@ -41,8 +44,10 @@ $(document).ready(function() {
             '/pr/data/add',
             {form_key: form_key, table: table},
             function(data){
-                $('<input type="text" size="75">').attr('id',data).focusout(function(){
-                    $.post('/pr/data/update/'+this.id, {value: this.value})
+                $('<input type="text" size="75">').attr('id',data).focusout(
+                        function(){
+                            $.post('/pr/data/update/'+this.id,
+                                    {value: this.value})
                 }).insertBefore(button)
             }
         )
