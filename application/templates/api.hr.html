@@ -25,7 +25,7 @@
             }
             else {alert('incorrect date')}
 
-        })
+        });
 
         $('.check_all').click(function(){
             $(this).parent().find(':checkbox').attr('checked', this.checked);
@@ -36,7 +36,7 @@
 {% endblock %}
 
 {% block content %}
-
+    <h1>Create New Performance Review Period:</h1>
     <div>
         start date:
         <input type="text" id="start" class="date">
