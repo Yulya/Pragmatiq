@@ -247,24 +247,13 @@ class CreatePR(RequestHandler):
             return
 
         for employee in employees:
-
             user = Model.get(employee)
-
-            if user.manager is not None:
-                pr = PerformanceReview(employee=user,
-                                       manager=user.manager,
-                                       type=type,
-                                       start_date=start,
-                                       finish_date=finish)
-                pr.put()
-            else:
-                pr = PerformanceReview(employee=user,
-                                       type=type,
-                                       start_date=start,
-                                       finish_date=finish)
-                pr.put()
-
-
+            pr = PerformanceReview(employee=user,
+                                   manager=user.manager,
+                                   type=type,
+                                   start_date=start,
+                                   finish_date=finish)
+            pr.put()
 
         self.response.out.write('ok')
 
