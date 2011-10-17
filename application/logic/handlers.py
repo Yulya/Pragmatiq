@@ -887,9 +887,10 @@ class Authentication(object):
             
 
             try:
-                current_role = environ["current_role"]
-            except KeyError:
                 environ["current_role"] = Model.get(user_info.role[0]).value
+            except IndexError:
+                environ["current_role"] = ''
+
 
         resp = req.get_response(self.app)
         return resp(environ, start_response)
