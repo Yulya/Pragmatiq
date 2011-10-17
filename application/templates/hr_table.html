@@ -42,9 +42,8 @@
                 <td>start date</td>
                 <td>finish date</td>
                 <td>type</td>
-                <td>employee form status</td>
-                <td>manager form status</td>
-                <td>registration</td>
+                <td>manager form</td>
+                <td>status</td>
             </tr>
             {% for pr in prs %}
                 <tr>
@@ -53,20 +52,22 @@
                     <td><input type="text" title="{{pr.key}}" name="start" class="date" value="{{pr.start_date}}"></td>
                     <td><input type="text" title="{{pr.key}}" class="date" name="finish" value="{{pr.finish_date}}"></td>
                     <td>type: {{pr.type}}</td>
-                    <td>
-
-                            {{pr.employee_form.status}}
-
-                    </td>
                     <td>{% ifequal pr.manager_form.status 'submitted' %}
-                            <a href="/pr/get/manager/{{pr.key}}">check</a>
+                            <a href="/pr/get/manager/{{pr.key}}">{{pr.employee.first_name}} {{pr.employee.last_name}} form</a>
                         {% else %}
                             {{pr.manager_form.status}}
                         {% endifequal %}
                     </td>
                     <td>{% ifequal pr.manager_form.status 'registered' %}
                             <p>registered</p>
-                        {% else %}
+                        {% endifequal %}
+                        {% ifequal pr.manager_form.status 'approved' %}
+                            <p>approved</p>
+                        {% endifequal %}
+                        {% ifequal pr.manager_form.status 'draft' %}
+                            <p>draft</p>
+                        {% endifequal %}
+                        {% ifequal pr.manager_form.status 'submitted' %}
                             <input type="button" class='register' title="{{pr.key}}" value="register">
                         {% endifequal %}
                     </td>

@@ -22,12 +22,14 @@ $(document).ready(function() {
     }
     if ('{{status}}' == 'registered'){
         
-        $('#grade').attr('readonly', 'readonly');
-        $('#salary').attr('readonly', 'readonly');
+        $('#{{salary.key}}').attr('readonly', 'readonly');
+        $('#{{grade.key}}').attr('readonly', 'readonly');
     }
 
     $('#approve').click(function(){
-        $.get('/pr/manager/submit/' +form_key);
+        $.get('/pr/manager/approve/' +form_key);
+        $('input:text').attr('readonly', 'readonly');
+        $('.add_button').attr('disabled', 'disabled')
     })
 
     $('#submit').click(function(){

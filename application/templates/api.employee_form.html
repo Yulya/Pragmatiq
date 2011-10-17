@@ -16,7 +16,7 @@ $(document).ready(function() {
         $('input:text').attr('readonly', 'readonly');
         $('.add_button').attr('disabled', 'disabled')
     }
-
+    
     $('#submit').click(function(){
         $.get('/pr/employee/submit/'+form_key, function(data){
             if (data == 'ok'){
