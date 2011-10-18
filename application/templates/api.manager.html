@@ -1,29 +1,41 @@
 {% extends "_api_base.html" %}
 
 {% block content %}
-<table>
-    {% if not prs %}
-        No reviews currently available
-    {% endif %}
-    {% for pr in prs %}
-        <tr>
-            <td>{{pr.employee.first_name}} {{pr.employee.last_name}}</td>
-            <td>
-                {% if pr.manager_form %}
-                    <input type="button" value="mark" onclick="load('pr/get/manager/{{pr.key}}')">
-                {% else %}
-                    <input type="button" value="add" onclick="load('/pr/add/manager/{{pr.employee.key}}')">
-                {% endif %}
-            </td>
-
-            <td>
-                {% ifequal pr.self_form.status "submitted" %}
-                    <input type="button" value="show" onclick="load('/pr/get/employee/{{pr.key}}')">
-                {% else %}
-                    <p>none</p>
+{% if not periods %}
+    No reviews currently available
+{% else %}
+    {% for period in periods %}
+        <h1>Performance review: {{period.description}}</h1>
+        <table>
+            <thead>
+                <tr>
+                    <td>Employee</td>
+                    <td>Manager&nbsp;form</td>
+                    <td>Employee&nbsp;form</td>
+                </tr>
+            </thead>
+            {% for pr in period.performance_reviews %}
+                {% ifequal pr.manager.email current_user %}
+                <tr>
+                    <td>{{pr.employee.first_name}}&nbsp;{{pr.employee.last_name}}</td>
+                    <td>
+                        {% if pr.manager_form %}
+                            <input type="button" value="mark" onclick="load('pr/get/manager/{{pr.key}}')">
+                        {% else %}
+                            <input type="button" value="add" onclick="load('/pr/add/manager/{{pr.employee.key}}')">
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% ifequal pr.self_form.status "submitted" %}
+                            <input type="button" value="show" onclick="load('/pr/get/employee/{{pr.key}}')">
+                        {% else %}
+                            <p>none</p>
+                        {% endifequal %}
+                    </td>
+                </tr>
                 {% endifequal %}
-            </td>
-        </tr>
+            {% endfor %}
+        </table>
     {% endfor %}
-</table>
+{% endif %}
 {% endblock %}

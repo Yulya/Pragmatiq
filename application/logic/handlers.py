@@ -178,7 +178,7 @@ class GetAllEmployees(RequestHandler):
 
     def get(self):
 
-        prs = PerformanceReviewPeriod.all().filter('finish_date >=',
+        prs = PerformanceReviewPeriod.all().filter('date >=',
                                              datetime.date.today()).fetch(1000)
 
         ###this is definitely we don't want to do
@@ -200,13 +200,15 @@ class GetPrs(RequestHandler):
 
         user = self.request.environ['current_user']
 
-        login_url = users.create_login_url(self.request.uri)
-        logout_url = users.create_logout_url(login_url)
+        prs = PerformanceReview.all().filter('manager', user).order("-date").fetch(1000)
 
-        prs = PerformanceReview.all().filter('manager', user).fetch(1000)
+        #todo: find another solution
+        periods = list()
+        for pr in prs:
+            periods.append(pr.period)
 
-        template_values = {'prs': prs,
-                           'url': logout_url}
+        template_values = {'periods': periods,
+                           'current_user': user.email}
 
         path = 'templates/api.manager.html'
         self.response.out.write(template.render(path, template_values))
