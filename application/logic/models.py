@@ -29,14 +29,25 @@ class Phone(db.Model):
       choices=('home', 'work', 'fax', 'mobile', 'other'))
     number = db.PhoneNumberProperty()
 
+class PerformanceReviewPeriod(db.Model):
+    description = db.StringProperty()
+    start_date = db.DateProperty()
+    finish_date = db.DateProperty()
+    type = db.StringProperty(choices=('main','intermediate'))
 
 class PerformanceReview(db.Model):
     employee = db.ReferenceProperty(User, collection_name='self_pr')
     manager = db.ReferenceProperty(User, collection_name='managed_pr')
-    type = db.StringProperty(choices=('main','intermediate'))
-    start_date = db.DateProperty()
-    finish_date = db.DateProperty()
+    date = db.DateProperty()
+    period = db.ReferenceProperty(PerformanceReviewPeriod, collection_name='performance_reviews')
 
+    @property
+    def employee_form(self):
+        return self.forms.filter('type', 'employee').get()
+
+    @property
+    def manager_form(self):
+        return self.forms.filter('type', 'manager').get()
 
 class PerformanceReviewForm(db.Model):
     pr = db.ReferenceProperty(PerformanceReview, collection_name='forms')

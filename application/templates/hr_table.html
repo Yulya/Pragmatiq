@@ -10,8 +10,6 @@
         $('.date').focusout(function(){
             var name = this.name;
             var key = this.getAttribute("_key");
-            if (name == 'start'){$.post('pr/update',
-                                        {'start': this.value, 'key': key})}
             if (name == 'finish'){$.post('pr/update',
                                         {'finish': this.value, 'key': key})}
         });
@@ -32,28 +30,26 @@
 {% endblock %}
 
 {% block content %}
+    {% for period in periods %}
+        <h2>{{period.description}}</h2>
+        Type: {{period.type}}
+        Start: {{period.start_date}}
+        Finish: {{period.finish_date}}
         <table>
             <tr>
                 <td>employee</td>
                 <td>manager</td>
-                <td>start&nbsp;date</td>
-                <td>finish&nbsp;date</td>
-                <td>type</td>
+                <td>date</td>
                 <td>MAF</td>
                 <td>status</td>
             </tr>
-            {% for pr in prs %}
+            {% for pr in period.performance_reviews %}
                 <tr>
                     <td>{{pr.employee.email}}</td>
                     <td>{{pr.manager.email}}</td>
-                    <td><input type="text" _key="{{pr.key}}" name="start" class="date" value="{{pr.start_date}}"></td>
-                    <td><input type="text" _key="{{pr.key}}" class="date" name="finish" value="{{pr.finish_date}}"></td>
-                    <td>{{pr.type}}</td>
-                    <td>{% ifequal pr.manager_form.status 'submitted' %}
-                            <a href="/pr/get/manager/{{pr.key}}">{{pr.employee.first_name}} {{pr.employee.last_name}} form</a>
-                        {% else %}
-                            {{pr.manager_form.status}}
-                        {% endifequal %}
+                    <td><input type="text" _key="{{pr.key}}" class="date" name="finish" value="{{pr.date}}"></td>
+                    <td>
+                        <a href="/pr/get/manager/{{pr.key}}">{{pr.employee.first_name}} {{pr.employee.last_name}} form</a>
                     </td>
                     <td>
                         {% ifequal pr.manager_form.status 'submitted' %}
@@ -65,5 +61,6 @@
                 </tr>
             {% endfor %}
         </table>
+    {% endfor %}
         <a href="/new_period">Create New PR Period</a>
 {% endblock %}

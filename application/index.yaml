@@ -14,28 +14,6 @@ indexes:
   properties:
   - name: employee
   - name: date
-
-- kind: PerformanceReview
-  properties:
-  - name: employee
-  - name: date
-    direction: desc
-
-- kind: PerformanceReview
-  properties:
-  - name: employee
-  - name: finish_date
-    direction: desc
-
-- kind: PerformanceReview
-  properties:
-  - name: employee
-  - name: start_date
-
-- kind: PerformanceReview
-  properties:
-  - name: employee
-  - name: start_date
     direction: desc
 
 - kind: PerformanceReview

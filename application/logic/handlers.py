@@ -11,7 +11,7 @@ from google.appengine.ext.webapp import RequestHandler
 from logic import models
 from logic.func import check_password, send_message
 from logic.models import User, PerformanceReviewForm, PerformanceReview,\
-    Role, Dept, NextGoals, Salary
+    Role, Dept, NextGoals, Salary, PerformanceReviewPeriod
 
 
 class MainHandler(RequestHandler):
@@ -163,9 +163,9 @@ class GetSelfPR(RequestHandler):
         user = self.request.environ['current_user']
 
         pr = PerformanceReview.all().filter('employee', user).\
-                                     order('-start_date').get()
+                                     order('-date').get()
         try:
-            form = pr.forms.filter('type', 'employee').get()
+            form = pr.employee_form
         except AttributeError:
             self.response.out.write('pr not created')
             return
@@ -178,15 +178,15 @@ class GetAllEmployees(RequestHandler):
 
     def get(self):
 
-        prs = PerformanceReview.all().filter('finish_date >=',
+        prs = PerformanceReviewPeriod.all().filter('finish_date >=',
                                              datetime.date.today()).fetch(1000)
 
-        for pr in prs:
-            pr.employee_form = pr.forms.filter('type', 'employee').get()
-            pr.manager_form = pr.forms.filter('type', 'manager').get()
+        ###this is definitely we don't want to do
+        #for pr in prs:
+        #    pr.employee_form = pr.forms.filter('type', 'employee').get()
+        #    pr.manager_form = pr.forms.filter('type', 'manager').get()
 
-
-        template_values = {'prs': prs}
+        template_values = {'periods': prs}
 
         path = 'templates/hr_table.html'
         self.response.out.write(template.render(path, template_values))
@@ -203,13 +203,7 @@ class GetPrs(RequestHandler):
         login_url = users.create_login_url(self.request.uri)
         logout_url = users.create_logout_url(login_url)
 
-        prs = PerformanceReview.all().filter('manager',
-                                            user).filter('finish_date >=',
-                                                         datetime.date.today()).fetch(1000)
-
-        for pr in prs:
-            pr.self_form = pr.forms.filter('type', 'employee').get()
-            pr.manager_form = pr.forms.filter('type', 'manager').get()
+        prs = PerformanceReview.all().filter('manager', user).fetch(1000)
 
         template_values = {'prs': prs,
                            'url': logout_url}
@@ -246,13 +240,20 @@ class CreatePR(RequestHandler):
             self.error(403)
             return
 
+        description = "PR %s: %s-%s" % (type, start_str, finish_str)
+        period = PerformanceReviewPeriod(type=type,
+                                         description=description,
+                                         start_date=start,
+                                         finish_date=finish)
+        period.put()
+
         for employee in employees:
             user = Model.get(employee)
             pr = PerformanceReview(employee=user,
                                    manager=user.manager,
-                                   type=type,
-                                   start_date=start,
-                                   finish_date=finish)
+                                   period=period,
+                                   date=start
+                                   )
             pr.put()
 
         self.response.out.write('ok')
@@ -398,22 +399,22 @@ class AddManagerForm(RequestHandler):
         emp = Model.get(key)
 
         pr = PerformanceReview.all().filter('employee', emp).\
-                                    order('-finish_date').get()
+                                    order('-date').get()
 
-        pr_form = pr.forms.filter('type', type).get()
+        pr_form = pr.manager_form
 
         if pr_form is None:
             pr_form = PerformanceReviewForm(pr=pr, type=type, status='draft')
             pr_form.put()
 
-        prev_pr = PerformanceReview.all().order('-start_date').\
-                                        filter('start_date <', pr.start_date).\
+        prev_pr = PerformanceReview.all().order('-date').\
+                                        filter('date <', pr.date).\
                                         filter('employee', pr.employee).get()
 
         prev_goals = []
 
         try:
-            prev_form = prev_pr.forms.filter('type', type).get()
+            prev_form = prev_pr.manager_form
             prev_goals = prev_form.next_goals
         except AttributeError:
             prev_goals = []
@@ -421,7 +422,7 @@ class AddManagerForm(RequestHandler):
         upload_url = blobstore.create_upload_url('/upload')
 
 
-        if pr.type == 'intermediate':
+        if pr.period.type == 'intermediate':
 
             for goal in prev_goals:
                 next_goal = NextGoals(form=pr_form,value=goal.value).put()
@@ -430,7 +431,7 @@ class AddManagerForm(RequestHandler):
         template_values = {'key': pr_form.key(),
                            'emp': emp,
                            'date': pr.finish_date,
-                           'type': pr.type,
+                           'type': pr.period.type,
                            'status': pr_form.status,
                            'prev_goals': prev_goals,
                            'next_goals': pr_form.next_goals,
@@ -459,7 +460,7 @@ class AddEmployeeForm(RequestHandler):
         emp = Model.get(key)
 
         pr = PerformanceReview.all().filter('employee', emp).\
-                                    order('-start_date').get()
+                                    order('-date').get()
 
         pr_form = pr.forms.filter('type', type).get()
 
@@ -467,8 +468,8 @@ class AddEmployeeForm(RequestHandler):
             pr_form = PerformanceReviewForm(pr=pr, type=type, status='draft')
             pr_form.put()
 
-        prev_pr = PerformanceReview.all().order('-start_date').\
-                                        filter('start_date <', pr.start_date).\
+        prev_pr = PerformanceReview.all().order('-date').\
+                                        filter('date <', pr.date).\
                                         filter('employee', pr.employee).get()
 
         prev_goals = []
@@ -482,7 +483,7 @@ class AddEmployeeForm(RequestHandler):
         upload_url = blobstore.create_upload_url('/upload')
 
 
-        if pr.type == 'intermediate':
+        if pr.period.type == 'intermediate':
 
             for goal in prev_goals:
                 next_goal = NextGoals(form=pr_form,value=goal.value).put()
@@ -491,8 +492,8 @@ class AddEmployeeForm(RequestHandler):
         template_values = {'key': pr_form.key(),
                            'status': pr_form.status,
                            'emp': emp,
-                           'date': pr.finish_date,
-                           'type': pr.type,
+                           'date': pr.date,
+                           'type': pr.period.type,
                            'prev_goals': prev_goals,
                            'next_goals': pr_form.next_goals,
                            'author': user,  #todo: rename author to manager
@@ -520,14 +521,14 @@ class GetEmployeeForm(RequestHandler):
             self.error(405)
             return
 
-        form = pr.forms.filter('type', 'employee').get()
+        form = pr.employee_form
 
-        prev_pr = PerformanceReview.all().order('-start_date').\
-                                        filter('start_date <', pr.start_date).\
+        prev_pr = PerformanceReview.all().order('-date').\
+                                        filter('date <', pr.date).\
                                         filter('employee', pr.employee).get()
 
         try:
-            prev_form = prev_pr.forms.filter('type', 'employee').get()
+            prev_form = prev_pr.employee_form
             prev_goals = prev_form.next_goals
         except AttributeError:
             prev_goals = []
@@ -550,10 +551,10 @@ class GetEmployeeForm(RequestHandler):
                            'key': form.key(),
                            'status': form.status,
                            'user': user,
-                           'date': pr.finish_date,
+                           'date': pr.date,
 #                           'author': form.author, #todo: rename to manager
                            'emp': form.pr.employee,
-                           'type': form.pr.type,
+                           'type': form.pr.period.type,
                            'file_key': form.file_key,
                            'file_name': form.file_name,
                            'upload_url': upload_url,
@@ -591,14 +592,14 @@ class GetManagerForm(RequestHandler):
             self.error(405)
             return
 
-        form = pr.forms.filter('type', 'manager').get()
+        form = pr.manager_form
 
-        prev_pr = PerformanceReview.all().order('-start_date').\
-                                        filter('start_date <', pr.start_date).\
+        prev_pr = PerformanceReview.all().order('-date').\
+                                        filter('date <', pr.date).\
                                         filter('employee', pr.employee).get()
 
         try:
-            prev_form = prev_pr.forms.filter('type', 'manager').get()
+            prev_form = prev_pr.manager_form
             prev_goals = prev_form.next_goals
         except AttributeError:
             prev_goals = []
@@ -641,10 +642,10 @@ class GetManagerForm(RequestHandler):
                            'key': form.key(),
                            'status': form.status,
                            'user': user,
-                           'date': pr.finish_date,
+                           'date': pr.date,
 #                           'author': form.author, #todo: rename to manager
                            'emp': form.pr.employee,
-                           'type': form.pr.type,
+                           'type': form.pr.period.type,
                            'file_key': form.file_key,
                            'file_name': form.file_name,
                            'upload_url': upload_url,
