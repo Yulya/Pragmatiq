@@ -178,7 +178,7 @@ class GetAllEmployees(RequestHandler):
 
     def get(self):
 
-        prs = PerformanceReviewPeriod.all().filter('finish_date >=',
+        prs = PerformanceReviewPeriod.all().filter('date >=',
                                              datetime.date.today()).fetch(1000)
 
         ###this is definitely we don't want to do
@@ -205,6 +205,94 @@ class GetDetailedReport(RequestHandler):
         self.response.out.write(template.render(path, {'prs': prs}))
 
 
+class GetSummaryReport(RequestHandler):
+
+    def get(self):
+
+        depts = Dept.all()
+
+        summary = []
+
+        for dept in depts:
+
+            all_dept_prs = filter(lambda x:
+                                  x.self_pr.get().period.finish_date >
+                                            datetime.date.today(),
+                                  dept.users)
+            employees = len(all_dept_prs)
+
+            clean_manager_form = filter(lambda x:
+                                        not x.self_pr.get().manager_form,
+                                        dept.users)
+            clean_employee_form = filter(lambda x:
+                                         not x.self_pr.get().employee_form,
+                                         dept.users)
+
+            clean_draft = len(clean_employee_form) + len(clean_manager_form)
+
+            not_clean_manager_form = filter(lambda x:
+                                            x.self_pr.get().manager_form,
+                                            dept.users)
+            not_clean_employee_form = filter(lambda x:
+                                             x.self_pr.get().employee_form,
+                                             dept.users)
+            
+            man_draft_in_work = filter(lambda x:
+                                       x.self_pr.get().manager_form.status ==
+                                       'draft',
+                                       not_clean_manager_form)
+            emp_draft_in_work = filter(lambda x:
+                                       x.self_pr.get().employee_form.status ==
+                                       'draft', not_clean_employee_form)
+
+            in_work = len(man_draft_in_work) + len(emp_draft_in_work)
+
+            registered_pr = filter(lambda x:
+                                   x.self_pr.get().manager_form.status ==
+                                   'registered', not_clean_manager_form)
+
+            reg_pr = len(registered_pr)
+
+            submitted_by_employee = filter(lambda x:
+                                           x.self_pr.get().employee_form.status
+                                           ==  'submitted',
+                                           not_clean_employee_form)
+            emp_submit = len(submitted_by_employee)
+
+            submitted_by_manager = filter(lambda x:
+                                          x.self_pr.get().manager_form.status
+                                          ==  'submitted',
+                                          not_clean_manager_form)
+            man_submit = len(submitted_by_manager)
+
+            approved_pr = filter(lambda x:
+                                 x.self_pr.get().manager_form.status ==
+                                 'approved', not_clean_manager_form)
+            
+            approved = len(approved_pr)
+
+            all_draft = clean_draft + in_work + emp_submit + man_submit
+
+            dept_info = {'name': dept.name,
+                         'employees': employees,
+                         'clean': clean_draft,
+                         'in_work': in_work,
+                         'all_draft': all_draft,
+                         'reg': reg_pr,
+                         'approved': approved,
+                         'emp_submit': emp_submit,
+                         'man_submit': man_submit}
+
+            summary.append(dept_info)
+
+        template_values = {'summary': summary}
+
+        path = 'templates/summary_report.html'
+        self.response.out.write(template.render(path, template_values))
+
+                
+
+
 class GetPrs(RequestHandler):
 
     #selects all PR objects for current user's subs and returns them
@@ -213,13 +301,15 @@ class GetPrs(RequestHandler):
 
         user = self.request.environ['current_user']
 
-        login_url = users.create_login_url(self.request.uri)
-        logout_url = users.create_logout_url(login_url)
+        prs = PerformanceReview.all().filter('manager', user).order("-date").fetch(1000)
 
-        prs = PerformanceReview.all().filter('manager', user).fetch(1000)
+        #todo: find another solution
+        periods = dict()
+        for pr in prs:
+            periods[pr.period] = 1
 
-        template_values = {'prs': prs,
-                           'url': logout_url}
+        template_values = {'periods': periods.keys(),
+                           'current_user': user.email}
 
         path = 'templates/api.manager.html'
         self.response.out.write(template.render(path, template_values))

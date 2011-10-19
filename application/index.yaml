@@ -31,4 +31,10 @@ indexes:
 - kind: PerformanceReview
   properties:
   - name: manager
+  - name: date
+    direction: desc
+
+- kind: PerformanceReview
+  properties:
+  - name: manager
   - name: finish_date

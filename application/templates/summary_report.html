@@ -1,0 +1,38 @@
+{% extends "_api_base.html" %}
+
+{% block content %}
+
+
+            <table>
+                <tr>
+                    <td>Department</td>
+                    <td>Estimated employees</td>
+                    <td>Draft(all)</td>
+                    <td>Draft(clean)</td>
+                    <td>Draft in work</td>
+                    <td>Draft submitted by employee</td>
+                    <td>Draft submitted by manager</td>
+                    <!--<td>Under consideration</td>-->
+                    <td>Registered</td>
+                    <td>Approved</td>
+                </tr>
+
+    {% for dept_info in summary %}
+                <tr>
+                    <td>{{dept_info.name}}</td>
+                    <td>{{dept_info.employees}}</td>
+                    <td>{{dept_info.all_draft}}</td>
+                    <td>{{dept_info.clean}}</td>
+                    <td>{{dept_info.in_work}}</td>
+                    <td>{{dept_info.emp_submit}}</td>
+                    <td>{{dept_info.man_submit}}</td>
+                    <td>{{dept_info.reg}}</td>
+                    <td>{{dept_info.approved}}</td>
+
+                </tr>
+
+    {% endfor %}
+           </table>
+
+
+{% endblock %}
