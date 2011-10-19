@@ -203,11 +203,11 @@ class GetPrs(RequestHandler):
         prs = PerformanceReview.all().filter('manager', user).order("-date").fetch(1000)
 
         #todo: find another solution
-        periods = list()
+        periods = dict()
         for pr in prs:
-            periods.append(pr.period)
+            periods[pr.period] = 1
 
-        template_values = {'periods': periods,
+        template_values = {'periods': periods.keys(),
                            'current_user': user.email}
 
         path = 'templates/api.manager.html'
