@@ -1,4 +1,4 @@
-{% extends "_base.html" %}
+{% extends "_api_base.html" %}
 
 {% block script %}
 <script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
@@ -54,18 +54,17 @@
     </div>
 <p></p>
     {% for dept in depts %}
-        <div id="dept">
             <input id="{{dept.name}}" class="check_all"  type="checkbox">
             {{dept.name}}
             <br>
             <div id="list">
             {% for employee in dept.users %}
                 <input name="employees" type="checkbox" class="{{dept}}" value="{{employee.key}}">
-                {{employee.first_name}}{{employee.last_name}}
+                {{employee.first_name}}&nbsp;{{employee.last_name}}
                 <br>
             {% endfor %}
             </div>
-        </div>
+        <!--</div>-->
     {% endfor %}
 <input type='button' id='submit' value="create PR">
 

@@ -31,3 +31,7 @@ def send_message(receiver, subject, text):
 
     mail.check_email_valid(receiver, message.to)
     message.send()
+
+
+    
+    

@@ -192,6 +192,19 @@ class GetAllEmployees(RequestHandler):
         self.response.out.write(template.render(path, template_values))
 
 
+class GetDetailedReport(RequestHandler):
+
+    def get(self):
+
+        prs = PerformanceReview.all()
+
+        prs = filter(lambda x: x.period.finish_date > datetime.date.today(), prs)
+        prs = sorted(prs, key=lambda x: x.employee.dept.name)
+
+        path = 'templates/detailed_report.html'
+        self.response.out.write(template.render(path, {'prs': prs}))
+
+
 class GetPrs(RequestHandler):
 
     #selects all PR objects for current user's subs and returns them
@@ -430,7 +443,7 @@ class AddManagerForm(RequestHandler):
 
         template_values = {'key': pr_form.key(),
                            'emp': emp,
-                           'date': pr.finish_date,
+                           'date': pr.period.finish_date,
                            'type': pr.period.type,
                            'status': pr_form.status,
                            'prev_goals': prev_goals,
@@ -496,7 +509,6 @@ class AddEmployeeForm(RequestHandler):
                            'type': pr.period.type,
                            'prev_goals': prev_goals,
                            'next_goals': pr_form.next_goals,
-                           'author': user,  #todo: rename author to manager
                            'upload_url': upload_url,
                            'user': user,
                            'url': logout_url}
@@ -533,16 +545,7 @@ class GetEmployeeForm(RequestHandler):
         except AttributeError:
             prev_goals = []
 
-        next_goals = form.next_goals
-        challenges = form.challenges
-        achievements = form.achievements
-        projects = form.projects
-        responsibilities = form.responsibilities
-        skills = form.skills
-        careers = form.careers
-        issues = form.issues
-        complaints = form.complaints
-        manager_helps = form.manager_helps
+        data = form.get_all_data
 
         upload_url = blobstore.create_upload_url('/upload')
 
@@ -552,24 +555,14 @@ class GetEmployeeForm(RequestHandler):
                            'status': form.status,
                            'user': user,
                            'date': pr.date,
-#                           'author': form.author, #todo: rename to manager
                            'emp': form.pr.employee,
                            'type': form.pr.period.type,
                            'file_key': form.file_key,
                            'file_name': form.file_name,
                            'upload_url': upload_url,
                            'prev_goals': prev_goals,
-                           'next_goals': next_goals,
-                           'challenges': challenges,
-                           'careers': careers,
-                           'achievements': achievements,
-                           'projects': projects,
-                           'responsibilities': responsibilities,
-                           'skills': skills,
-                           'issues': issues,
-                           'complaints': complaints,
-                           'manager_helps': manager_helps
-                        }
+                           'data': data
+                            }
 
 
         path = 'templates/api.employee_form.html'
@@ -611,29 +604,7 @@ class GetManagerForm(RequestHandler):
                                                     'status': form.status}))
             return
 
-        next_goals = form.next_goals
-        challenges = form.challenges
-        achievements = form.achievements
-        projects = form.projects
-        responsibilities = form.responsibilities
-        skills = form.skills
-        careers = form.careers
-        issues = form.issues
-        complaints = form.complaints
-        manager_helps = form.manager_helps
-
-        try:
-            salary = form.salary[0]
-        except IndexError:
-            salary = None
-        try:
-            grade = form.grade[0]
-        except IndexError:
-            grade = None
-        try:
-            conclusion = form.conclusion[0]
-        except IndexError:
-            conclusion = None
+        data = form.get_all_data
 
         upload_url = blobstore.create_upload_url('/upload')
 
@@ -643,32 +614,18 @@ class GetManagerForm(RequestHandler):
                            'status': form.status,
                            'user': user,
                            'date': pr.date,
-#                           'author': form.author, #todo: rename to manager
                            'emp': form.pr.employee,
                            'type': form.pr.period.type,
                            'file_key': form.file_key,
                            'file_name': form.file_name,
                            'upload_url': upload_url,
                            'prev_goals': prev_goals,
-                           'next_goals': next_goals,
-                           'challenges': challenges,
-                           'conclusion': conclusion,
-                           'careers': careers,
-                           'achievements': achievements,
-                           'projects': projects,
-                           'responsibilities': responsibilities,
-                           'skills': skills,
-                           'issues': issues,
-                           'salary': salary,
-                           'grade': grade,
-                           'complaints': complaints,
-                           'manager_helps': manager_helps
-                        }
-
+                           'data': data
+                           }
 
         path = 'templates/api.manager_form.html'
         self.response.out.write(template.render(path, template_values))
-        
+
 
 class UpdateData(RequestHandler):
 

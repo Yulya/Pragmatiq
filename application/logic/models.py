@@ -1,4 +1,4 @@
-from google.appengine.ext import db, blobstore
+from google.appengine.ext import db
 
 
 class Role(db.Model):
@@ -59,6 +59,24 @@ class PerformanceReviewForm(db.Model):
     file_key = db.StringProperty()
     file_name = db.StringProperty()
 
+    @property
+    def get_all_data(self):
+
+        data = {'next_goals' : self.next_goals,
+                'challenges' : self.challenges,
+                'achievements' : self.achievements,
+                'projects' : self.projects,
+                'responsibilities' : self.responsibilities,
+                'skills' : self.skills,
+                'careers' : self.careers,
+                'issues' : self.issues,
+                'complaints' : self.complaints,
+                'manager_helps' : self.manager_helps,
+                'salary': self.salary.get(),
+                'grade': self.grade.get(),
+                'conclusion': self.conclusion.get()}
+        return data
+    
 
 class Project(db.Model):
     form = db.ReferenceProperty(PerformanceReviewForm,

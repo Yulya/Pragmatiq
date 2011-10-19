@@ -49,7 +49,7 @@
                     <td>{{pr.manager.email}}</td>
                     <td><input type="text" _key="{{pr.key}}" class="date" name="finish" value="{{pr.date}}"></td>
                     <td>
-                        <a href="/pr/get/manager/{{pr.key}}">{{pr.employee.first_name}} {{pr.employee.last_name}} form</a>
+                        <a href="/pr/get/manager/{{pr.key}}">{{pr.employee.first_name}}&nbsp;{{pr.employee.last_name}} form</a>
                     </td>
                     <td>
                         {% ifequal pr.manager_form.status 'submitted' %}
@@ -57,10 +57,14 @@
                         {% else %}
                             {{pr.manager_form.status}}
                         {% endifequal %}
+                        {% if not pr.manager_form.status %}
+                            none
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}
         </table>
     {% endfor %}
-        <a href="/new_period">Create New PR Period</a>
+        <input type="button" value="Create New PR Period" onclick="load('/new_period')">
+        <input type="button" value="Show detail report" onclick="load('/hr/report/detailed')">
 {% endblock %}

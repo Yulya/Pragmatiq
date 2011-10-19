@@ -1,13 +1,14 @@
 {% extends "_api_base.html" %}
 
 {% block content %}
+{% if not prs %}
+    No reviews currently available
+{% endif %}
 <table>
-    {% if not prs %}
-        No reviews currently available
-    {% endif %}
+
     {% for pr in prs %}
         <tr>
-            <td>{{pr.employee.first_name}} {{pr.employee.last_name}}</td>
+            <td>{{pr.employee.first_name}}&nbsp;{{pr.employee.last_name}}</td>
             <td>
                 {% if pr.manager_form %}
                     <input type="button" value="mark" onclick="load('pr/get/manager/{{pr.key}}')">
