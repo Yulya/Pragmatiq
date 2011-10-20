@@ -54,6 +54,7 @@
     </div>
 <p></p>
     {% for dept in depts %}
+        <div>
             <input id="{{dept.name}}" class="check_all"  type="checkbox">
             {{dept.name}}
             <br>
@@ -64,6 +65,7 @@
                 <br>
             {% endfor %}
             </div>
+        </div>
         <!--</div>-->
     {% endfor %}
 <input type='button' id='submit' value="create PR">

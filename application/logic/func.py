@@ -2,6 +2,7 @@ import hashlib
 import random
 import string
 from google.appengine.api import mail, users
+from logic.models import PerformanceReview
 
 
 def make_password(password):
@@ -32,6 +33,13 @@ def send_message(receiver, subject, text):
     mail.check_email_valid(receiver, message.to)
     message.send()
 
+def get_prev_pr(pr):
+
+    prev_pr = PerformanceReview.all().order('-date').\
+                                        filter('date <', pr.date).\
+                                        filter('employee', pr.employee).get()
+
+    return prev_pr
 
     
     

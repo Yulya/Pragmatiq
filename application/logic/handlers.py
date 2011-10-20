@@ -9,7 +9,7 @@ from google.appengine.ext.db import Model
 from google.appengine.ext.webapp import template, blobstore_handlers
 from google.appengine.ext.webapp import RequestHandler
 from logic import models
-from logic.func import check_password, send_message
+from logic.func import check_password, send_message, get_prev_pr
 from logic.models import User, PerformanceReviewForm, PerformanceReview,\
     Role, Dept, NextGoals, Salary, PerformanceReviewPeriod
 
@@ -170,7 +170,6 @@ class GetSelfPR(RequestHandler):
             self.response.out.write('pr not created')
             return
         if form is not None:
-            
             self.response.out.write(pr.key())
 
 
@@ -178,14 +177,8 @@ class GetAllEmployees(RequestHandler):
 
     def get(self):
 
-        prs = PerformanceReviewPeriod.all().filter('date >=',
+        prs = PerformanceReviewPeriod.all().filter('finish_date >=',
                                              datetime.date.today()).fetch(1000)
-
-        ###this is definitely we don't want to do
-        #for pr in prs:
-        #    pr.employee_form = pr.forms.filter('type', 'employee').get()
-        #    pr.manager_form = pr.forms.filter('type', 'manager').get()
-
         template_values = {'periods': prs}
 
         path = 'templates/hr_table.html'
@@ -198,8 +191,23 @@ class GetDetailedReport(RequestHandler):
 
         prs = PerformanceReview.all()
 
-        prs = filter(lambda x: x.period.finish_date > datetime.date.today(), prs)
+        prs = filter(lambda x: x.period.finish_date > datetime.date.today(),
+                     prs)
         prs = sorted(prs, key=lambda x: x.employee.dept.name)
+
+        for pr in prs:
+            prev_pr = PerformanceReview.all().order('-date').get()
+            prev_form = prev_pr.manager_form
+            
+        try:
+            salary = pr.manager_form.get_all_data['salary']
+            if prev_form.get_all_data['salary'] == salary:
+                pr.manager_form.salary.highlight = '1'
+            grade = pr.manager_form.get_all_data['grade']
+            if prev_pr.manager_form.get_all_data['grade'] == grade:
+                pr.manager_form.grade.highlight = '1'
+        except AttributeError:
+                pass
 
         path = 'templates/detailed_report.html'
         self.response.out.write(template.render(path, {'prs': prs}))
@@ -236,7 +244,7 @@ class GetSummaryReport(RequestHandler):
             not_clean_employee_form = filter(lambda x:
                                              x.self_pr.get().employee_form,
                                              dept.users)
-            
+
             man_draft_in_work = filter(lambda x:
                                        x.self_pr.get().manager_form.status ==
                                        'draft',
@@ -255,20 +263,20 @@ class GetSummaryReport(RequestHandler):
 
             submitted_by_employee = filter(lambda x:
                                            x.self_pr.get().employee_form.status
-                                           ==  'submitted',
+                                           == 'submitted',
                                            not_clean_employee_form)
             emp_submit = len(submitted_by_employee)
 
             submitted_by_manager = filter(lambda x:
                                           x.self_pr.get().manager_form.status
-                                          ==  'submitted',
+                                          == 'submitted',
                                           not_clean_manager_form)
             man_submit = len(submitted_by_manager)
 
             approved_pr = filter(lambda x:
                                  x.self_pr.get().manager_form.status ==
                                  'approved', not_clean_manager_form)
-            
+
             approved = len(approved_pr)
 
             all_draft = clean_draft + in_work + emp_submit + man_submit
@@ -290,25 +298,31 @@ class GetSummaryReport(RequestHandler):
         path = 'templates/summary_report.html'
         self.response.out.write(template.render(path, template_values))
 
-                
-
 
 class GetPrs(RequestHandler):
 
     #selects all PR objects for current user's subs and returns them
-
     def get(self):
 
         user = self.request.environ['current_user']
 
-        prs = PerformanceReview.all().filter('manager', user).order("-date").fetch(1000)
+        prs = PerformanceReview.all().filter('manager',
+                                             user).order("-date").fetch(1000)
+#        periods = PerformanceReviewPeriod.all()
+#        periods = []
+#
+#        for pr in prs:
+#            if pr.period not in periods:
+#                periods.append(pr.period)
 
         #todo: find another solution
         periods = dict()
         for pr in prs:
-            periods[pr.period] = 1
+            periods[pr.period.key()] = pr.period
 
-        template_values = {'periods': periods.keys(),
+        template_values = {
+            'periods': periods.values(),
+#                           'periods': periods,
                            'current_user': user.email}
 
         path = 'templates/api.manager.html'
@@ -355,8 +369,7 @@ class CreatePR(RequestHandler):
             pr = PerformanceReview(employee=user,
                                    manager=user.manager,
                                    period=period,
-                                   date=start
-                                   )
+                                   date=start)
             pr.put()
 
         self.response.out.write('ok')
@@ -381,7 +394,8 @@ class UpdatePR(RequestHandler):
 
         if start_str:
             try:
-                start = datetime.datetime.strptime(start_str, '%Y-%m-%d').date()
+                start = datetime.datetime.strptime(start_str,
+                                                   '%Y-%m-%d').date()
                 pr.start_date = start
             except ValueError:
                 self.response.out.write('incorrect date')
@@ -390,7 +404,8 @@ class UpdatePR(RequestHandler):
 
         if finish_str:
             try:
-                finish = datetime.datetime.strptime(finish_str, '%Y-%m-%d').date()
+                finish = datetime.datetime.strptime(finish_str,
+                                                    '%Y-%m-%d').date()
                 pr.finish_date = finish
             except ValueError:
                 self.response.out.write('incorrect date')
@@ -461,7 +476,6 @@ class ManagerFormApprove(RequestHandler):
 
     def get(self, key):
 
-
         user = self.request.environ['current_user']
 
         form = PerformanceReviewForm.get(key)
@@ -524,12 +538,10 @@ class AddManagerForm(RequestHandler):
 
         upload_url = blobstore.create_upload_url('/upload')
 
-
         if pr.period.type == 'intermediate':
 
             for goal in prev_goals:
-                next_goal = NextGoals(form=pr_form,value=goal.value).put()
-
+                next_goal = NextGoals(form=pr_form, value=goal.value).put()
 
         template_values = {'key': pr_form.key(),
                            'emp': emp,
@@ -538,14 +550,13 @@ class AddManagerForm(RequestHandler):
                            'status': pr_form.status,
                            'prev_goals': prev_goals,
                            'next_goals': pr_form.next_goals,
-                           'author': user,  #todo: rename author to manager
+                           'author': user,  # todo: rename author to manager
                            'upload_url': upload_url,
                            'user': user,
                            'url': logout_url}
 
         path = 'templates/api.manager_form.html'
         self.response.out.write(template.render(path, template_values))
-
 
 
 class AddEmployeeForm(RequestHandler):
@@ -585,12 +596,10 @@ class AddEmployeeForm(RequestHandler):
 
         upload_url = blobstore.create_upload_url('/upload')
 
-
         if pr.period.type == 'intermediate':
 
             for goal in prev_goals:
-                next_goal = NextGoals(form=pr_form,value=goal.value).put()
-
+                next_goal = NextGoals(form=pr_form, value=goal.value).put()
 
         template_values = {'key': pr_form.key(),
                            'status': pr_form.status,
@@ -608,14 +617,13 @@ class AddEmployeeForm(RequestHandler):
 
 
 class GetEmployeeForm(RequestHandler):
-    
+
     def get(self, key):
 
         user = self.request.environ['current_user']
 
         login_url = users.create_login_url(self.request.uri)
         logout_url = users.create_logout_url(login_url)
-
 
         try:
             pr = PerformanceReview.get(key)
@@ -639,7 +647,6 @@ class GetEmployeeForm(RequestHandler):
 
         upload_url = blobstore.create_upload_url('/upload')
 
-
         template_values = {'url': logout_url,
                            'key': form.key(),
                            'status': form.status,
@@ -651,9 +658,7 @@ class GetEmployeeForm(RequestHandler):
                            'file_name': form.file_name,
                            'upload_url': upload_url,
                            'prev_goals': prev_goals,
-                           'data': data
-                            }
-
+                           'data': data}
 
         path = 'templates/api.employee_form.html'
         self.response.out.write(template.render(path, template_values))
@@ -667,7 +672,6 @@ class GetManagerForm(RequestHandler):
 
         login_url = users.create_login_url(self.request.uri)
         logout_url = users.create_logout_url(login_url)
-        
 
         try:
             pr = PerformanceReview.get(key)
@@ -698,7 +702,6 @@ class GetManagerForm(RequestHandler):
 
         upload_url = blobstore.create_upload_url('/upload')
 
-        
         template_values = {'url': logout_url,
                            'key': form.key(),
                            'status': form.status,
@@ -710,8 +713,7 @@ class GetManagerForm(RequestHandler):
                            'file_name': form.file_name,
                            'upload_url': upload_url,
                            'prev_goals': prev_goals,
-                           'data': data
-                           }
+                           'data': data}
 
         path = 'templates/api.manager_form.html'
         self.response.out.write(template.render(path, template_values))
@@ -720,7 +722,6 @@ class GetManagerForm(RequestHandler):
 class UpdateData(RequestHandler):
 
     def post(self, object_key):
-
 
         try:
             obj = Model.get(object_key)
@@ -737,14 +738,14 @@ class UpdateData(RequestHandler):
 
         if self.request.get('grade'):
             obj.grade = int(self.request.get('grade'))
-            
+
         obj.put()
 
 
 class UploadHandler(blobstore_handlers.BlobstoreUploadHandler):
 
     def post(self):
-        
+
         upload_files = self.get_uploads('file')
         key = self.request.get('key')
         blob_info = upload_files[0]
@@ -755,14 +756,14 @@ class UploadHandler(blobstore_handlers.BlobstoreUploadHandler):
         form.put()
         self.redirect('/')
 
+
 class ServeHandler(blobstore_handlers.BlobstoreDownloadHandler):
-    
+
     def get(self, resource):
 
         resource = str(urllib.unquote(resource))
         blob_info = blobstore.BlobInfo.get(resource)
         self.send_blob(blob_info)
-
 
 
 class AddData(RequestHandler):
@@ -846,11 +847,11 @@ class CheckDate(RequestHandler):
 
 
 class HR(RequestHandler):
-    
+
     def get(self):
 
         depts = Dept.all()
-        
+
         template_values = {'depts': depts}
 
         path = 'templates/api.hr.html'
@@ -867,7 +868,6 @@ class Show(RequestHandler):
 
         path = 'templates/pr.html'
         self.response.out.write(template.render(path, template_values))
-
 
 
 class Authentication(object):
@@ -921,13 +921,10 @@ class Authentication(object):
 
             environ["current_user"] = user_info
 
-            
-
             try:
                 environ["current_role"] = Model.get(user_info.role[0]).value
             except IndexError:
                 environ["current_role"] = ''
-
 
         resp = req.get_response(self.app)
         return resp(environ, start_response)
