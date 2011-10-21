@@ -11,7 +11,7 @@ from google.appengine.ext.webapp import RequestHandler
 from logic import models
 from logic.func import check_password, send_message, get_prev_pr
 from logic.models import User, PerformanceReviewForm, PerformanceReview,\
-    Role, Dept, NextGoals, Salary, PerformanceReviewPeriod
+    Role, Dept, NextGoals, Salary, PerformanceReviewPeriod, Comment
 
 
 class MainHandler(RequestHandler):
@@ -354,6 +354,7 @@ class CreatePR(RequestHandler):
             return
 
         description = "PR %s: %s-%s" % (type, start_str, finish_str)
+
         period = PerformanceReviewPeriod(type=type,
                                          description=description,
                                          start_date=start,
@@ -361,8 +362,11 @@ class CreatePR(RequestHandler):
         period.put()
 
         for employee in employees:
+            comment = Comment()
+            comment.put()
             user = Model.get(employee)
             pr = PerformanceReview(employee=user,
+                                   comment=comment,
                                    manager=user.manager,
                                    period=period,
                                    date=start)

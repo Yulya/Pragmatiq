@@ -35,11 +35,18 @@ class PerformanceReviewPeriod(db.Model):
     finish_date = db.DateProperty()
     type = db.StringProperty(choices=('main','intermediate'))
 
+
+class Comment(db.Model):
+    value = db.StringProperty()
+    
+
 class PerformanceReview(db.Model):
     employee = db.ReferenceProperty(User, collection_name='self_pr')
     manager = db.ReferenceProperty(User, collection_name='managed_pr')
     date = db.DateProperty()
-    period = db.ReferenceProperty(PerformanceReviewPeriod, collection_name='performance_reviews')
+    period = db.ReferenceProperty(PerformanceReviewPeriod,
+                                  collection_name='performance_reviews')
+    comment = db.ReferenceProperty(Comment, collection_name='performance_review')
 
     @property
     def employee_form(self):
@@ -48,6 +55,7 @@ class PerformanceReview(db.Model):
     @property
     def manager_form(self):
         return self.forms.filter('type', 'manager').get()
+
 
 class PerformanceReviewForm(db.Model):
     pr = db.ReferenceProperty(PerformanceReview, collection_name='forms')
