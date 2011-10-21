@@ -219,27 +219,28 @@ class GetSummaryReport(RequestHandler):
 
         for dept in depts:
 
-            all_dept_prs = filter(lambda x:
-                                  x.self_pr.get().period.finish_date >
+            existed_pr = filter(lambda x: x.self_pr.get(), dept.users)
+
+            all_dept_prs = filter(lambda x: x.self_pr.get().period.finish_date >
                                             datetime.date.today(),
-                                  dept.users)
+                                  existed_pr)
             employees = len(all_dept_prs)
 
             clean_manager_form = filter(lambda x:
                                         not x.self_pr.get().manager_form,
-                                        dept.users)
+                                        existed_pr)
             clean_employee_form = filter(lambda x:
                                          not x.self_pr.get().employee_form,
-                                         dept.users)
+                                         existed_pr)
 
             clean_draft = len(clean_employee_form) + len(clean_manager_form)
 
             not_clean_manager_form = filter(lambda x:
                                             x.self_pr.get().manager_form,
-                                            dept.users)
+                                            existed_pr)
             not_clean_employee_form = filter(lambda x:
                                              x.self_pr.get().employee_form,
-                                             dept.users)
+                                             existed_pr)
 
             man_draft_in_work = filter(lambda x:
                                        x.self_pr.get().manager_form.status ==
