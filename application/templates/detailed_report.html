@@ -10,7 +10,7 @@
                     <td>Manager</td>
                     <td>Status</td>
                     <td>Conclusion</td>
-                    <td>Finally</td>
+                    
                     <td>Salary</td>
                     <td>Grade</td>
                     <td>Start date</td>
@@ -30,7 +30,7 @@
                         {% endif %}
                     </td>
                     <td>{{pr.manager_form.get_all_data.conclusion.value}}</td>
-                    <td>Finally</td>
+
                     <td{% if pr.salary_highlight %} bgcolor="#cccccc" {% endif %}> {{pr.manager_form.get_all_data.salary.value}}</td>
                     <td{% if pr.grade_highlight %} bgcolor="#cccccc" {% endif %}>{{pr.manager_form.get_all_data.grade.value}}</td>
                     <td>{{pr.period.start_date}}</td>
