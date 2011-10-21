@@ -189,25 +189,21 @@ class GetDetailedReport(RequestHandler):
 
     def get(self):
 
-        prs = PerformanceReview.all()
+        prs = PerformanceReview.all().fetch(1000)
 
         prs = filter(lambda x: x.period.finish_date > datetime.date.today(),
                      prs)
         prs = sorted(prs, key=lambda x: x.employee.dept.name)
 
         for pr in prs:
-            prev_pr = PerformanceReview.all().order('-date').get()
-            prev_form = prev_pr.manager_form
-            
-        try:
-            salary = pr.manager_form.get_all_data['salary']
-            if prev_form.get_all_data['salary'] == salary:
-                pr.manager_form.salary.highlight = '1'
-            grade = pr.manager_form.get_all_data['grade']
-            if prev_pr.manager_form.get_all_data['grade'] == grade:
-                pr.manager_form.grade.highlight = '1'
-        except AttributeError:
-                pass
+            if get_prev_pr(pr):
+                if get_prev_pr(pr).manager_form.get_all_data['salary'].value \
+                != pr.manager_form.get_all_data['salary'].value:
+                    pr.salary_highlight = 'highlight'
+
+                if get_prev_pr(pr).manager_form.get_all_data['grade'].value \
+                != pr.manager_form.get_all_data['grade'].value:
+                    pr.grade_highlight = 'highlight'
 
         path = 'templates/detailed_report.html'
         self.response.out.write(template.render(path, {'prs': prs}))

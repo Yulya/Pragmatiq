@@ -31,10 +31,11 @@
                     </td>
                     <td>{{pr.manager_form.get_all_data.conclusion.value}}</td>
                     <td>Finally</td>
-                    <td>{{ pr.manager_form.salary.highlight }} {{pr.manager_form.get_all_data.salary.value}}</td>
-                    <td{% if pr.manager_form.grade.highlight %} bgcolor="red" {% endif %}>{{pr.manager_form.get_all_data.grade.value}}</td>
+                    <td{% if pr.salary_highlight %} bgcolor="#cccccc" {% endif %}> {{pr.manager_form.get_all_data.salary.value}}</td>
+                    <td{% if pr.grade_highlight %} bgcolor="#cccccc" {% endif %}>{{pr.manager_form.get_all_data.grade.value}}</td>
                     <td>{{pr.period.start_date}}</td>
                     <td>Comment</td>
+                    <td>aaa{{pr.salary}}</td>
                 </tr>
 
     {% endfor %}
