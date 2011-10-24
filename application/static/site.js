@@ -29,3 +29,13 @@ function load(url) {
     $('.result').css('display', 'block');
     $('.result').load(url);
 }
+
+function set_result(id, value) {
+        $.post('/pr/data/update/'+id,
+                {'result': value})
+        }
+
+
+function send_value(id, value) {
+   $.post('/pr/data/update/'+ id, {value: value});
+}

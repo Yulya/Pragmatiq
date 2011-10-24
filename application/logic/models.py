@@ -153,7 +153,7 @@ class NextGoals(db.Model):
                                 collection_name='next_goals')
     value = db.StringProperty()
     comment = db.StringProperty()
-    grade = db.IntegerProperty(default=2, choices=(1, 2, 3))
+    result = db.IntegerProperty(default=2, choices=(1, 2, 3))
 
 
 class Achievements(db.Model):

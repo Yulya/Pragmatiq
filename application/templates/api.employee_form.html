@@ -6,10 +6,6 @@
 var form_key= '{{key}}';
 var form_type='{{type}}';
 
-function send_value(id, value) {
-   $.post('/pr/data/update/'+ id, {value: value});
-}
-
 $(document).ready(function() {
 
     if ('{{status}}' != 'draft'){
@@ -122,7 +118,7 @@ $(document).ready(function() {
         <tr>
             <td>{{prev_goal.value}}</td>
             <td>
-                <select id="{{prev_goal.key}}">
+                <select id="{{prev_goal.key}}" onchange="set_result(this.id, this.options[selectedIndex].value)">
                     <option value="1" class="grade">below expectations</option>
                     <option value="2" class="grade">meet expectations</option>
                     <option value="3" class="grade">above expectations</option>

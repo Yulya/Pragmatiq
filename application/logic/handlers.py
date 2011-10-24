@@ -197,13 +197,16 @@ class GetDetailedReport(RequestHandler):
 
         for pr in prs:
             if get_prev_pr(pr):
-                if get_prev_pr(pr).manager_form.get_all_data['salary'].value \
-                != pr.manager_form.get_all_data['salary'].value:
-                    pr.salary_highlight = 'highlight'
+                try:
+                    if get_prev_pr(pr).manager_form.get_all_data['salary'].value \
+                    != pr.manager_form.get_all_data['salary'].value:
+                        pr.salary_highlight = 'highlight'
 
-                if get_prev_pr(pr).manager_form.get_all_data['grade'].value \
-                != pr.manager_form.get_all_data['grade'].value:
-                    pr.grade_highlight = 'highlight'
+                    if get_prev_pr(pr).manager_form.get_all_data['grade'].value \
+                    != pr.manager_form.get_all_data['grade'].value:
+                        pr.grade_highlight = 'highlight'
+                except AttributeError:
+                    pr.grade_highlight = None
 
         path = 'templates/detailed_report.html'
         self.response.out.write(template.render(path, {'prs': prs}))
@@ -221,57 +224,57 @@ class GetSummaryReport(RequestHandler):
 
             existed_pr = filter(lambda x: x.self_pr.get(), dept.users)
 
-            all_dept_prs = filter(lambda x: x.self_pr.get().period.finish_date >
+            all_dept_prs = filter(lambda x: x.self_pr.order('-date').get().period.finish_date >
                                             datetime.date.today(),
                                   existed_pr)
             employees = len(all_dept_prs)
 
             clean_manager_form = filter(lambda x:
-                                        not x.self_pr.get().manager_form,
+                                        not x.self_pr.order('-date').get().manager_form,
                                         existed_pr)
             clean_employee_form = filter(lambda x:
-                                         not x.self_pr.get().employee_form,
+                                         not x.self_pr.order('-date').get().employee_form,
                                          existed_pr)
 
             clean_draft = len(clean_employee_form) + len(clean_manager_form)
 
             not_clean_manager_form = filter(lambda x:
-                                            x.self_pr.get().manager_form,
+                                            x.self_pr.order('-date').get().manager_form,
                                             existed_pr)
             not_clean_employee_form = filter(lambda x:
-                                             x.self_pr.get().employee_form,
+                                             x.self_pr.order('-date').get().employee_form,
                                              existed_pr)
 
             man_draft_in_work = filter(lambda x:
-                                       x.self_pr.get().manager_form.status ==
+                                       x.self_pr.order('-date').get().manager_form.status ==
                                        'draft',
                                        not_clean_manager_form)
             emp_draft_in_work = filter(lambda x:
-                                       x.self_pr.get().employee_form.status ==
+                                       x.self_pr.order('-date').get().employee_form.status ==
                                        'draft', not_clean_employee_form)
 
             in_work = len(man_draft_in_work) + len(emp_draft_in_work)
 
             registered_pr = filter(lambda x:
-                                   x.self_pr.get().manager_form.status ==
+                                   x.self_pr.order('-date').get().manager_form.status ==
                                    'registered', not_clean_manager_form)
 
             reg_pr = len(registered_pr)
 
             submitted_by_employee = filter(lambda x:
-                                           x.self_pr.get().employee_form.status
+                                           x.self_pr.order('-date').get().employee_form.status
                                            == 'submitted',
                                            not_clean_employee_form)
             emp_submit = len(submitted_by_employee)
 
             submitted_by_manager = filter(lambda x:
-                                          x.self_pr.get().manager_form.status
+                                          x.self_pr.order('-date').get().manager_form.status
                                           == 'submitted',
                                           not_clean_manager_form)
             man_submit = len(submitted_by_manager)
 
             approved_pr = filter(lambda x:
-                                 x.self_pr.get().manager_form.status ==
+                                 x.self_pr.order('-date').get().manager_form.status ==
                                  'approved', not_clean_manager_form)
 
             approved = len(approved_pr)
@@ -728,8 +731,8 @@ class UpdateData(RequestHandler):
         if self.request.get('value'):
             obj.value = self.request.get('value')
 
-        if self.request.get('grade'):
-            obj.grade = int(self.request.get('grade'))
+        if self.request.get('result'):
+            obj.result = int(self.request.get('result'))
 
         obj.put()
 
