@@ -305,12 +305,6 @@ class GetPrs(RequestHandler):
 
         prs = PerformanceReview.all().filter('manager',
                                              user).order("-date").fetch(1000)
-#        periods = PerformanceReviewPeriod.all()
-#        periods = []
-#
-#        for pr in prs:
-#            if pr.period not in periods:
-#                periods.append(pr.period)
 
         #todo: find another solution
         periods = dict()
@@ -318,8 +312,7 @@ class GetPrs(RequestHandler):
             periods[pr.period.key()] = pr.period
 
         template_values = {
-            'periods': periods.values(),
-#                           'periods': periods,
+                           'periods': periods.values(),
                            'current_user': user.email}
 
         path = 'templates/api.manager.html'
@@ -634,9 +627,7 @@ class GetEmployeeForm(RequestHandler):
 
         form = pr.employee_form
 
-        prev_pr = PerformanceReview.all().order('-date').\
-                                        filter('date <', pr.date).\
-                                        filter('employee', pr.employee).get()
+        prev_pr = get_prev_pr(pr)
 
         try:
             prev_form = prev_pr.employee_form

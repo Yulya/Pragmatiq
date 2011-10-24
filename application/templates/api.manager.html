@@ -27,11 +27,11 @@
                         {% endif %}
                     </td>
                     <td>
-                        {% ifequal pr.self_form.status "submitted" %}
-                            <input type="button" value="show" onclick="load('/pr/get/employee/{{pr.key}}')">
+                        {% ifnotequal pr.employee_form.status 'draft' %}
+                            <a href="#" onclick="load('/pr/get/employee/{{pr.key}}')">load employee form</a>
                         {% else %}
                             <p>none</p>
-                        {% endifequal %}
+                        {% endifnotequal %}
                     </td>
                 </tr>
                 {% endifequal %}
