@@ -111,23 +111,25 @@ class CreateUser(RequestHandler):
             manager = None
 
         roles = self.request.get('role')[:-1].split(',')
-        try:
-            user = User(first_name=first_name,
-                        email=email,
-                        last_name=last_name,
-                        dept=dept_ref,
-                        manager=manager)
+        if User.all().filter('email', email).get() is None:
+            try:
+                user = User(first_name=first_name,
+                            email=email,
+                            last_name=last_name,
+                            dept=dept_ref,
+                            manager=manager)
 
-            for role in roles:
-                role_key = Role.gql("WHERE value = :role",
-                                    role=role).get().key()
-                user.role.append(role_key)
+                for role in roles:
+                    role_key = Role.gql("WHERE value = :role",
+                                        role=role).get().key()
+                    user.role.append(role_key)
 
-            user.put()
-        except ValueError:
-            self.response.out.write('error')
-            return
-        self.response.out.write('ok')
+                user.put()
+            except ValueError:
+                self.response.out.write('error')
+                return
+            self.response.out.write('ok')
+        else: self.response.out.write('user with this email already exist')
 
 
 class GetPreviousGoals(RequestHandler):
