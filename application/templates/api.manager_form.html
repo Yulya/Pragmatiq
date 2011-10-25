@@ -6,28 +6,6 @@
 var form_key= '{{key}}';
 var form_type='{{type}}';
 
-function make_input(object){
-    var obj = $(document).find(object);
-    var input_text = $('<input type="text" size="75">');
-    input_text.attr('id', obj.attr('id'));
-    input_text.attr('value', obj.html());
-    input_text.focusout(function(){
-        $.post('/pr/data/update/'+ this.id,{value: this.value});
-        make_text(this)
-
-    });
-    obj.replaceWith(input_text)
-}
-function make_text(object){
-    var obj = $(document).find(object);
-    var text = $('<p></p>');
-    text.attr('id', obj.id);
-    text.html(obj.val());
-    text.click(function(){
-        make_input(this)
-    });
-    obj.replaceWith(text)
-}
 $(document).ready(function() {
 
     $('.add_button').click(function() {
@@ -37,7 +15,9 @@ $(document).ready(function() {
             '/pr/data/add',
             {form_key: form_key, table: table},
             function(data){
-                $('<input type="text" size="75">').attr('id',data).focusout(function(){make_text(this)}).insertBefore(button);
+                $('<input type="text" size="75">').attr('id',data).focusout(function(){
+                    $.post('/pr/data/update/'+ this.id,{value: this.value});
+                    make_text(this)}).insertBefore(button);
             })
 
             })
@@ -75,7 +55,7 @@ $(document).ready(function() {
             }
         })
     })
-})
+
 </script>
 {% endblock %}
 
@@ -127,7 +107,8 @@ $(document).ready(function() {
 </div>
 
 <div id="prev_goals" class="input_div">
-    <p>Previous Goals:</p>
+    <a href="#" onclick="$(this).find('div').css('display', 'block')">Previous Goals:</a>
+    <div class="hidden">
     <table>
         <thead>
             <tr>
@@ -151,20 +132,25 @@ $(document).ready(function() {
         </tr>
     {% endfor %}
     </table>
+    </div>
 </div>
 
 <div id="prev_challenges">
-    <p>Previous challenges</p>
+    <a href="#">Previous challenges</a>
+    <div class='hidden'>
         {% for challenge in prev_challenges %}
             <p>{{challenge.value}}</p>
         {% endfor %}
+    </div>
 </div>
 
 <div id="prev_achievements">
-    <p>Previous achievements</p>
+    <a href="#">Previous achievements</a>
+    <div class='hidden'>
         {% for achievement in prev_achievements %}
             <p>{{achievement.value}}</p>
         {% endfor %}
+    </div>
 </div>
 
 <div id="next_goals" class="input_div">
