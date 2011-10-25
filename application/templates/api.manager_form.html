@@ -6,7 +6,43 @@
 var form_key= '{{key}}';
 var form_type='{{type}}';
 
+function make_input(object){
+    var obj = $(document).find(object);
+    var input_text = $('<input type="text" size="75">');
+    input_text.attr('id', obj.attr('id'));
+    input_text.attr('value', obj.html());
+    input_text.focusout(function(){
+        $.post('/pr/data/update/'+ this.id,{value: this.value});
+        make_text(this)
+
+    });
+    obj.replaceWith(input_text)
+}
+function make_text(object){
+    var obj = $(document).find(object);
+    var text = $('<p></p>');
+    text.attr('id', obj.id);
+    text.html(obj.val());
+    text.click(function(){
+        make_input(this)
+    });
+    obj.replaceWith(text)
+}
 $(document).ready(function() {
+
+    $('.add_button').click(function() {
+        var button = $(this);
+        var table = button.parent().attr('id');
+        $.post(
+            '/pr/data/add',
+            {form_key: form_key, table: table},
+            function(data){
+                $('<input type="text" size="75">').attr('id',data).focusout(
+                        function(){
+                                   make_text(this)
+            })})
+
+    })
 
     if ('{{status}}' == 'approved'){
         $('input:text').attr('readonly', 'readonly');
@@ -39,22 +75,6 @@ $(document).ready(function() {
             }
         })
     })
-
-    $('.add_button').click(function() {
-        var button = $(this);
-        var table = button.parent().attr('id');
-        $.post(
-            '/pr/data/add',
-            {form_key: form_key, table: table},
-            function(data){
-                $('<input type="text" size="75">').attr('id',data).focusout(
-                        function(){
-                                $.post('/pr/data/update/'+this.id,
-                                        {value: this.value})
-                }).insertBefore(button)
-            }
-        )
-    });
 })
 </script>
 {% endblock %}
@@ -68,7 +88,7 @@ $(document).ready(function() {
 <div id="project" class="input_div">
     <p>Please list all projects and initiatives you participated in during this performance review period.</p>
     {% for project in data.projects %}
-        <input type="text" size="75" id="{{project.key}}" value="{{project.value}}" onblur="send_value(id, value)">
+        <p class='text_field' onclick="make_input(this)" id="{{project.key}}">{{project.value}}</p>
     {% endfor %}
     <input type="button" class="add_button" value="add" >
 </div>
@@ -76,7 +96,7 @@ $(document).ready(function() {
 <div id="achievements" class="input_div">
     <p>What do you consider to be your key accomplishments since your last review?</p>
     {% for ach in data.achievements %}
-        <input type="text" size="75" id="{{ach.key}}" value="{{ach.value}}" onblur="send_value(id, value)">
+        <p class='text_field' onclick="make_input(this)" id="{{ach.key}}">{{ach.value}}</p>
     {% endfor %}
     <input type="button" class="add_button" value="add" >
 </div>
@@ -84,16 +104,15 @@ $(document).ready(function() {
 <div id="responsibility" class="input_div">
     <p>List your key job responsibilities during your performance period. Please comment on your job performance assessment.</p>
     {% for responsibility in data.responsibilities %}
-        <input type="text" size="75" id="{{responsibility.key}}" value="{{responsibility.value}}" onblur="send_value(id, value)">
+        <p class='text_field' onclick="make_input(this)" id="{{responsibility.key}}">{{responsibility.value}}</p>
     {% endfor %}
     <input type="button" class="add_button" value="add" >
 </div>
-
 <div id="challenges" class="input_div">
     <p>If you have experienced challenges, please specify the areas where you need to focus and improve. </p>
     {% for challenge in data.challenges %}
         <!-- todo: use css class instead of properties -->
-        <input type="text" size="75" id="{{challenge.key}}" value="{{challenge.value}}" onblur="send_value(id, value)">
+        <p class='text_field' onclick="make_input(this)" id="{{challenge.key}}">{{challenge.value}}</p>
     {% endfor %}
     <input type="button" class="add_button" value="add" >
 </div>
@@ -102,7 +121,7 @@ $(document).ready(function() {
     <p>Please mention what skills and/or knowledge do you need for further development to contribute to your overall job success.</p>
     {% for skill in data.skills %}
         <!-- todo: use css class instead of properties -->
-        <input type="text" size="75" id="{{skill.key}}" value="{{skill.value}}" onblur="send_value(id, value)">
+        <p class='text_field' onclick="make_input(this)" id="{{skill.key}}" >{{skill.value}}</p>
     {% endfor %}
     <input type="button" class="add_button" value="add" >
 </div>
@@ -134,10 +153,24 @@ $(document).ready(function() {
     </table>
 </div>
 
+<div id="prev_challenges">
+    <p>Previous challenges</p>
+        {% for challenge in prev_challenges %}
+            <p>{{challenge.value}}</p>
+        {% endfor %}
+</div>
+
+<div id="prev_achievements">
+    <p>Previous achievements</p>
+        {% for achievement in prev_achievements %}
+            <p>{{achievement.value}}</p>
+        {% endfor %}
+</div>
+
 <div id="next_goals" class="input_div">
     <p>Goals for the next period:</p>
     {% for goal in data.next_goals %}
-        <input type="text" size="75" id="{{goal.key}}" value="{{goal.value}}" onblur="send_value(id, value)">
+        <p class='text_field' onclick="make_input(this)" id="{{goal.key}}" >{{goal.value}}</p>
     {% endfor %}
     <input type="button" class="add_button" value="add" >
 </div>
@@ -145,7 +178,7 @@ $(document).ready(function() {
 <div id="career" class="input_div">
     <p>What are your professional interests and long-term career objectives, and what are you plans to accomplish these objectives?  </p>
     {% for career in data.careers %}
-        <input type="text" size="75" id="{{career.key}}" value="{{career.value}}" onblur="send_value(id, value)">
+        <p class='text_field' onclick="make_input(this)" id="{{career.key}}" >{{career.value}}</p>
     {% endfor %}
     <input type="button" class="add_button" value="add" >
 </div>
@@ -153,7 +186,7 @@ $(document).ready(function() {
 <div id="issue" class="input_div">
     <p>Do you see any issues with your role within the company and/or your project(s)?</p>
     {% for issue in data.issues %}
-        <input type="text" size="75" id="{{issue.key}}" value="{{issue.value}}" onblur="send_value(id, value)">
+        <p class='text_field' onclick="make_input(this)" id="{{issue.key}}" >{{issue.value}}</p>
     {% endfor %}
     <input type="button" class="add_button" value="add" >
 </div>
@@ -161,7 +194,7 @@ $(document).ready(function() {
 <div id="complaint" class="input_div">
     <p>Do you have any complaints?</p>
     {% for complaint in data.complaints %}
-        <input type="text" size="75" id="{{complaint.key}}" value="{{complaint.value}}" onblur="send_value(id, value)">
+        <p class='text_field' onclick="make_input(this)" id="{{complaint.key}}" >{{complaint.value}}</p>
     {% endfor %}
     <input type="button" class="add_button" value="add" >
 </div>
@@ -169,7 +202,7 @@ $(document).ready(function() {
 <div id="manager_help" class="input_div">
     <p>Is there anything your manager could do to help you do a better job? </p>
     {% for manager_help in data.manager_helps %}
-        <input type="text" size="75" id="{{manager_help.key}}" value="{{manager_help.value}}" onblur="send_value(id, value)">
+        <p class='text_field' onclick="make_input(this)" id="{{manager_help.key}}" >{{manager_help.value}}</p>
     {% endfor %}
     <input type="button" class="add_button" value="add" >
 </div>
@@ -177,7 +210,7 @@ $(document).ready(function() {
 <div id='salary' class="input_div">
     <p>Salary:</p>
         {% if data.salary %}
-            <input type="text" id="{{data.salary.key}}" value="{{data.salary.value}}" onblur="send_value(id, value)">
+            <p class='text_field' onclick="make_input(this)" id="{{data.salary.key}}" >{{data.salary.value}}</p>
         {% else %}
             <input type="button" class="add_button" value="add" >
         {% endif %}
@@ -186,7 +219,7 @@ $(document).ready(function() {
 <div id='grade' class="input_div">
     <p>Grade:</p>
     {% if data.grade %}
-        <input type="text" id="{{data.grade.key}}" value="{{data.grade.value}}" onblur="send_value(id, value)">
+        <p class='text_field' onclick="make_input(this)"  id="{{data.grade.key}}" >{{data.grade.value}}</p>
     {% else %}
         <input type="button" class="add_button" value="add" >
     {% endif %}
@@ -196,7 +229,7 @@ $(document).ready(function() {
 <div id='conclusion' class="input_div">
     <p>Conclusion:</p>
     {% if data.conclusion %}
-        <input type="text" id="{{data.conclusion.key}}" value="{{data.conclusion.value}}" onblur="send_value(id, value)">
+        <p class='text_field' onclick="make_input(this)" id="{{data.conclusion.key}}" >{{data.conclusion.value}}</p>
     {% else %}
         <input type="button" class="add_button" value="add" >
     {% endif %}
