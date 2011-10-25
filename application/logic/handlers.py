@@ -528,14 +528,25 @@ class AddManagerForm(RequestHandler):
         prev_goals = []
 
         try:
-            prev_form = prev_pr.manager_form
+            prev_form = prev_pr.forms.filter('type', type).get()
+        except AttributeError:
+            prev_form = None
+        try:
             prev_goals = prev_form.next_goals
         except AttributeError:
             prev_goals = []
+        try:
+            prev_challenges = prev_form.challenges
+        except AttributeError:
+            prev_challenges = []
+        try:
+            prev_achievements = prev_form.achievements
+        except AttributeError:
+            prev_achievements = []
 
         upload_url = blobstore.create_upload_url('/upload')
 
-        if pr.period.type == 'intermediate':
+        if pr.period.type == 'semi-annual':
 
             for goal in prev_goals:
                 next_goal = NextGoals(form=pr_form, value=goal.value).put()
@@ -546,6 +557,8 @@ class AddManagerForm(RequestHandler):
                            'type': pr.period.type,
                            'status': pr_form.status,
                            'prev_goals': prev_goals,
+                           'prev_challenges': prev_challenges,
+                           'prev_achievements': prev_achievements,
                            'next_goals': pr_form.next_goals,
                            'author': user,  # todo: rename author to manager
                            'upload_url': upload_url,
@@ -583,17 +596,27 @@ class AddEmployeeForm(RequestHandler):
                                         filter('date <', pr.date).\
                                         filter('employee', pr.employee).get()
 
-        prev_goals = []
 
         try:
             prev_form = prev_pr.forms.filter('type', type).get()
+        except AttributeError:
+            prev_form = None
+        try:
             prev_goals = prev_form.next_goals
         except AttributeError:
             prev_goals = []
+        try:
+            prev_challenges = prev_form.challenges
+        except AttributeError:
+            prev_challenges = []
+        try:
+            prev_achievements = prev_form.achievements
+        except AttributeError:
+            prev_achievements = []
 
         upload_url = blobstore.create_upload_url('/upload')
 
-        if pr.period.type == 'intermediate':
+        if pr.period.type == 'semi-annual':
 
             for goal in prev_goals:
                 next_goal = NextGoals(form=pr_form, value=goal.value).put()
@@ -604,6 +627,8 @@ class AddEmployeeForm(RequestHandler):
                            'date': pr.date,
                            'type': pr.period.type,
                            'prev_goals': prev_goals,
+                           'prev_challenges': prev_challenges,
+                           'prev_achievements': prev_achievements,
                            'next_goals': pr_form.next_goals,
                            'upload_url': upload_url,
                            'user': user,
@@ -619,6 +644,7 @@ class GetEmployeeForm(RequestHandler):
 
         user = self.request.environ['current_user']
 
+        type = 'employee'
         login_url = users.create_login_url(self.request.uri)
         logout_url = users.create_logout_url(login_url)
 
@@ -633,10 +659,21 @@ class GetEmployeeForm(RequestHandler):
         prev_pr = get_prev_pr(pr)
 
         try:
-            prev_form = prev_pr.employee_form
+            prev_form = prev_pr.forms.filter('type', type).get()
+        except AttributeError:
+            prev_form = None
+        try:
             prev_goals = prev_form.next_goals
         except AttributeError:
             prev_goals = []
+        try:
+            prev_challenges = prev_form.challenges
+        except AttributeError:
+            prev_challenges = []
+        try:
+            prev_achievements = prev_form.achievements
+        except AttributeError:
+            prev_achievements = []
 
         data = form.get_all_data
 
@@ -653,6 +690,8 @@ class GetEmployeeForm(RequestHandler):
                            'file_name': form.file_name,
                            'upload_url': upload_url,
                            'prev_goals': prev_goals,
+                           'prev_challenges': prev_challenges,
+                           'prev_achievements': prev_achievements,
                            'data': data}
 
         path = 'templates/api.employee_form.html'
@@ -664,6 +703,8 @@ class GetManagerForm(RequestHandler):
     def get(self, key):
 
         user = self.request.environ['current_user']
+
+        type = 'manager'
 
         login_url = users.create_login_url(self.request.uri)
         logout_url = users.create_logout_url(login_url)
@@ -681,10 +722,21 @@ class GetManagerForm(RequestHandler):
                                         filter('employee', pr.employee).get()
 
         try:
-            prev_form = prev_pr.manager_form
+            prev_form = prev_pr.forms.filter('type', type).get()
+        except AttributeError:
+            prev_form = None
+        try:
             prev_goals = prev_form.next_goals
         except AttributeError:
             prev_goals = []
+        try:
+            prev_challenges = prev_form.challenges
+        except AttributeError:
+            prev_challenges = []
+        try:
+            prev_achievements = prev_form.achievements
+        except AttributeError:
+            prev_achievements = []
 
         if form.status == 'submitted' and user.email == form.pr.manager.email:
             path = 'templates/api.manager_form.html'
@@ -708,6 +760,8 @@ class GetManagerForm(RequestHandler):
                            'file_name': form.file_name,
                            'upload_url': upload_url,
                            'prev_goals': prev_goals,
+                           'prev_challenges': prev_challenges,
+                           'prev_achievements': prev_achievements,
                            'data': data}
 
         path = 'templates/api.manager_form.html'

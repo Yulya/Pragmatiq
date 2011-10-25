@@ -33,7 +33,7 @@ class PerformanceReviewPeriod(db.Model):
     description = db.StringProperty()
     start_date = db.DateProperty()
     finish_date = db.DateProperty()
-    type = db.StringProperty(choices=('main','intermediate'))
+    type = db.StringProperty(choices=('annual','semi-annual'))
 
 
 class Comment(db.Model):
