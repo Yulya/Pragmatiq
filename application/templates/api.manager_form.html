@@ -6,6 +6,18 @@
 var form_key= '{{key}}';
 var form_type='{{type}}';
 
+function display(obj){
+    var obj = $(document).find(obj);
+    obj.parent().find('div').css('display', 'block');
+    obj.click(function(){
+        obj.parent().find('div').css('display', 'none');
+        obj.click(function(){
+            display(this);
+        })
+    });
+}
+
+
 $(document).ready(function() {
 
     $('.add_button').click(function() {
@@ -107,8 +119,9 @@ $(document).ready(function() {
 </div>
 
 <div id="prev_goals" class="input_div">
-    <a href="#" onclick="$(this).find('div').css('display', 'block')">Previous Goals:</a>
+    <a href="#" onclick="display(this)">Previous Goals:</a>
     <div class="hidden">
+        ghfhfh
     <table>
         <thead>
             <tr>
@@ -136,7 +149,7 @@ $(document).ready(function() {
 </div>
 
 <div id="prev_challenges">
-    <a href="#">Previous challenges</a>
+    <a href="#" onclick="display(this)">Previous challenges</a>
     <div class='hidden'>
         {% for challenge in prev_challenges %}
             <p>{{challenge.value}}</p>
@@ -145,7 +158,7 @@ $(document).ready(function() {
 </div>
 
 <div id="prev_achievements">
-    <a href="#">Previous achievements</a>
+    <a href="#" onclick="display(this)">Previous achievements</a>
     <div class='hidden'>
         {% for achievement in prev_achievements %}
             <p>{{achievement.value}}</p>
