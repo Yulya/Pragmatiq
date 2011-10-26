@@ -18,6 +18,12 @@ class User(db.Model):
     dept = db.ReferenceProperty(collection_name='users')
 
 
+class Event(db.Model):
+    start_date = db.DateProperty()
+    finish_date = db.DateProperty()
+    type = db.StringProperty()
+
+
 class Dept(db.Model):
     name = db.StringProperty()
 

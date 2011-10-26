@@ -1,0 +1,39 @@
+{% extends "_api_base.html" %}
+
+{% block script %}
+<script type="text/javascript">
+        $(document).ready(function(){
+        $('.date').datepicker({ dateFormat: 'yy-mm-dd' });})
+</script>
+{% endblock %}
+
+{% block content %}
+
+        <div id="events">
+        <a href="#" onclick="display(this)">Automatic creation PR events:</a>
+        <div class='hidden'>
+        {% for event in events %}
+        <div id="{{event.type}}">
+            <p>{{event.type}}:</p>
+
+        start date:
+        <input type="text" name="start" class="date" value="{{event.start_date}}">
+
+        finish date:
+        <input type="text" name="finish" value="{{event.finish_date}}" class="date"><br>
+            <input type='button' onclick="update_event(this)" value="change">
+        </div>
+        {% endfor %}
+        <div>
+        <p>new event:</p>
+        <table>
+        <tr><td>type:</td><td><input type="text" name="type" ></td></tr>
+        <tr><td>start date:</td><td><input type="text" name="start" class="date" ></td></tr>
+        <tr><td>finish date:</td><td><input type="text" name="finish" class="date"></td></tr>
+        </table>
+        <input type='button' onclick="create_event(this)" value="create">
+        </div>
+        </div>
+    </div>
+
+{% endblock %}

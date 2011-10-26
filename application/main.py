@@ -23,7 +23,7 @@ from logic.handlers import MainHandler, CreateUser,\
     GetPreviousGoals, GetSelfPR, GetManagers, CheckDate, HR, Show,\
     UploadHandler, ServeHandler, UrlHandler, GetAllEmployees, UpdatePR, \
     GetManagerForm, GetEmployeeForm, AddManagerForm, AddEmployeeForm, \
-    ManagerFormSubmit, EmployeeFormSubmit, RegisterPerformanceReview, ManagerFormApprove, GetDetailedReport, GetSummaryReport
+    ManagerFormSubmit, EmployeeFormSubmit, RegisterPerformanceReview, ManagerFormApprove, GetDetailedReport, GetSummaryReport, UpdateEvent, GetSettings, AutomaticPerformanceReview
 from logic.postdeploy import PostDeploy
 
 def main():
@@ -38,6 +38,9 @@ def main():
                                           ('/create_role', CreateRoles),
                                           ('/new_user', GetManagers),
                                           ('/check', CheckDate),
+                                          ('/pr/automatic', AutomaticPerformanceReview),
+                                          ('/event/update', UpdateEvent),
+                                          ('/hr/settings', GetSettings),
                                           ('/pr/create', CreatePR),
                                           ('/pr/update', UpdatePR),
                                           ('/pr/prev_goals/(.*)',GetPreviousGoals),
@@ -54,7 +57,6 @@ def main():
                                           ('/hr/report/summary', GetSummaryReport),
                                           ('/pr/register/(.*)', RegisterPerformanceReview),
                                           ('/pr/data/update/(.*)', UpdateData),
-#                                          ('/pr/get/(.*)', GetPrForm),
                                           ('/manager',GetPrs),
                                           ('/hr', GetAllEmployees),
                                           ('/new_period', HR),

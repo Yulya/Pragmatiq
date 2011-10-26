@@ -32,7 +32,7 @@
             <tr>
                 <td>{{username}}</td>
                 <td>Current role:
-                    <select onchange="load_role(
+                    <select class="select_role" onchange="load_role(
                                 this.options[selectedIndex].value,
                                 '{{user.key}}');">
                         {% for role in roles %}
@@ -40,6 +40,7 @@
                         {% endfor %}
                     </select>
                 </td>
+                <td id="settings" onclick="load('/hr/settings'); return false;" style="display: none;"><a href="/hr/settings">settings</a></td>
                 <td><a href="/logout">Logout</a></td>
             </tr>
         </table>

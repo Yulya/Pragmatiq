@@ -4,6 +4,7 @@
 <script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript">
+
     $(document).ready(function(){
         $('.date').datepicker({ dateFormat: 'yy-mm-dd' });
         $('#submit').click(function(){
@@ -14,7 +15,7 @@
             $('input[name="employees"]:checked').each(function(){
                     employees = employees + this.value + ',';})
 
-            re = /^\d{4}\-\d{1,2}\-\d{1,2}$/;
+            var re = /^\d{4}\-\d{1,2}\-\d{1,2}$/;
 
             if (start != '' && start.match(re) && finish != '' && finish.match(re)){
                 $.post('/pr/create', {'employees': employees,
@@ -69,5 +70,7 @@
         <!--</div>-->
     {% endfor %}
 <input type='button' id='submit' value="create PR">
+
+
 
 {% endblock %}

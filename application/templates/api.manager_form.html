@@ -6,17 +6,6 @@
 var form_key= '{{key}}';
 var form_type='{{type}}';
 
-function display(obj){
-    var obj = $(document).find(obj);
-    obj.parent().find('div').css('display', 'block');
-    obj.click(function(){
-        obj.parent().find('div').css('display', 'none');
-        obj.click(function(){
-            display(this);
-        })
-    });
-}
-
 
 $(document).ready(function() {
 
@@ -85,6 +74,15 @@ $(document).ready(function() {
     <input type="button" class="add_button" value="add" >
 </div>
 
+<div id="prev_achievements">
+    <a href="#" onclick="display(this)">Previous achievements</a>
+    <div class='hidden'>
+        {% for achievement in prev_achievements %}
+            <p>{{achievement.value}}</p>
+        {% endfor %}
+    </div>
+</div>
+
 <div id="achievements" class="input_div">
     <p>What do you consider to be your key accomplishments since your last review?</p>
     {% for ach in data.achievements %}
@@ -100,6 +98,16 @@ $(document).ready(function() {
     {% endfor %}
     <input type="button" class="add_button" value="add" >
 </div>
+
+<div id="prev_challenges">
+    <a href="#" onclick="display(this)">Previous challenges</a>
+    <div class='hidden'>
+        {% for challenge in prev_challenges %}
+            <p>{{challenge.value}}</p>
+        {% endfor %}
+    </div>
+</div>
+
 <div id="challenges" class="input_div">
     <p>If you have experienced challenges, please specify the areas where you need to focus and improve. </p>
     {% for challenge in data.challenges %}
@@ -121,7 +129,6 @@ $(document).ready(function() {
 <div id="prev_goals" class="input_div">
     <a href="#" onclick="display(this)">Previous Goals:</a>
     <div class="hidden">
-        ghfhfh
     <table>
         <thead>
             <tr>
@@ -145,24 +152,6 @@ $(document).ready(function() {
         </tr>
     {% endfor %}
     </table>
-    </div>
-</div>
-
-<div id="prev_challenges">
-    <a href="#" onclick="display(this)">Previous challenges</a>
-    <div class='hidden'>
-        {% for challenge in prev_challenges %}
-            <p>{{challenge.value}}</p>
-        {% endfor %}
-    </div>
-</div>
-
-<div id="prev_achievements">
-    <a href="#" onclick="display(this)">Previous achievements</a>
-    <div class='hidden'>
-        {% for achievement in prev_achievements %}
-            <p>{{achievement.value}}</p>
-        {% endfor %}
     </div>
 </div>
 

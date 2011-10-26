@@ -1,5 +1,6 @@
 function load_role(a, user_key){
     if (a == 'manager'){
+        $('#settings').css('display','none');
         $('.result').load('/manager');
         $('.result').css('display', 'block');
     }
@@ -16,9 +17,11 @@ function load_role(a, user_key){
                         }}
                     else {$('.result').load('pr/add/employee/' + user_key)}
         $('.result').css('display', 'block');
+        $('#settings').css('display','none');
         })
     }
     if (a == 'hr'){
+        $('#settings').css('display','table-cell');
         $('.result').css('display', 'block');
         $('.result').load('/hr');
 
@@ -61,4 +64,31 @@ function make_text(object){
         make_input(this)
     });
     obj.replaceWith(text)
+}
+
+function display(obj){
+    var object = $(document).find(obj);
+    object.parent().find('div').css('display', 'block');
+    object.attr('onclick', 'hide(this)');
+}
+function hide(obj){
+    var object = $(document).find(obj);
+    object.parent().find('div').css('display', 'none');
+    object.attr('onclick', 'display(this)');
+}
+function update_event(obj){
+    var object = $(document).find(obj);
+    var type = object.parent().attr('id');
+    var start = object.parent().find('[name="start"]').val();
+    var finish = object.parent().find('[name="finish"]').val();
+    $.post('/event/update', {'type': type, 'start': start, 'finish': finish}, function(data){alert(data)})
+
+}
+function create_event(obj){
+    var object = $(document).find(obj);
+    var type = object.parent().find('[name="type"]').val();
+    var start = object.parent().find('[name="start"]').val();
+    var finish = object.parent().find('[name="finish"]').val();
+    $.post('/event/update', {'type': type, 'start': start, 'finish': finish}, function(data){alert(data)})
+
 }

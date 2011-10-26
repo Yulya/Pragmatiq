@@ -11,7 +11,7 @@ from google.appengine.ext.webapp import RequestHandler
 from logic import models
 from logic.func import check_password, send_message, get_prev_pr
 from logic.models import User, PerformanceReviewForm, PerformanceReview,\
-    Role, Dept, NextGoals, Salary, PerformanceReviewPeriod, Comment
+    Role, Dept, NextGoals, Salary, PerformanceReviewPeriod, Comment, Event
 
 
 class MainHandler(RequestHandler):
@@ -322,6 +322,34 @@ class GetPrs(RequestHandler):
 
         path = 'templates/api.manager.html'
         self.response.out.write(template.render(path, template_values))
+
+
+class UpdateEvent(RequestHandler):
+
+    def post(self):
+
+        type = self.request.get('type')
+        start = self.request.get('start')
+        finish = self.request.get('finish')
+
+        event = Event.all().filter('type', type).get()
+
+        if event is None:
+            event = Event()
+
+        try:
+            event.start_date = datetime.datetime.strptime(start, '%Y-%m-%d').date()
+        except ValueError:
+            self.response.out.write('bad start date')
+            return
+        try:
+            event.finish_date = datetime.datetime.strptime(finish, '%Y-%m-%d').date()
+        except ValueError:
+            self.response.out.write('bad finish date')
+            return
+        event.type = type
+        event.put()
+        self.response.out.write('ok')
 
 
 class CreatePR(RequestHandler):
@@ -903,10 +931,47 @@ class HR(RequestHandler):
 
         depts = Dept.all()
 
-        template_values = {'depts': depts}
+        template_values = {'depts': depts,
+                           }
 
         path = 'templates/api.hr.html'
         self.response.out.write(template.render(path, template_values))
+
+
+class GetSettings(RequestHandler):
+
+    def get(self):
+
+        events = Event.all()
+
+        template_values = {
+                           'events': events}
+
+        path = 'templates/settings.html'
+        self.response.out.write(template.render(path, template_values))
+
+
+class AutomaticPerformanceReview(RequestHandler):
+
+    def get(self):
+        today = datetime.date.today()
+        events = Event.all().filter('start_date', today)
+        employees = User.all()
+        for event in events:
+            description = "PR %s: %s-%s" % (event.type, event.start_date, event.finish_date)
+
+            period = PerformanceReviewPeriod(type=event.type,
+                                             description=description,
+                                             start_date=event.start_date,
+                                             finish_date=event.finish_date)
+            period.put()
+            for employee in employees:
+                pr = PerformanceReview(employee=employee,
+                                       manager=employee.manager,
+                                       date=period.start_date,
+                                       period=period)
+                pr.put()
+
 
 
 class Show(RequestHandler):
