@@ -12,7 +12,6 @@
                     <td>Conclusion</td>
                     <td>Salary</td>
                     <td>Grade</td>
-                    <td>Comment</td>
                 </tr>
 
     {% for pr in prs %}
@@ -31,9 +30,7 @@
 
                     <td{% if pr.salary_highlight %} bgcolor="#cccccc" {% endif %}> {{pr.manager_form.get_all_data.salary.value}}</td>
                     <td{% if pr.grade_highlight %} bgcolor="#cccccc" {% endif %}>{{pr.manager_form.get_all_data.grade.value}}</td>
-                    <td>{{pr.period.start_date}}</td>
-                    <td>Comment</td>
-                    
+
                 </tr>
 
     {% endfor %}
