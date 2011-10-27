@@ -26,12 +26,15 @@
                             <a href="#" onclick="load('/pr/add/manager/{{pr.employee.key}}'); return false;">create</a>
                         {% endif %}
                     </td>
-                    <td>
-                        {% ifnotequal pr.employee_form.status 'draft' %}
-                            <a href="#" onclick="load('/pr/get/employee/{{pr.key}}')">load employee form</a>
+                    <td>{% if pr.employee_form %}
+                            {% ifnotequal pr.employee_form.status 'draft' %}
+                                <a href="#" onclick="load('/pr/get/employee/{{pr.key}}')">load employee form</a>
+                            {% else %}
+                                <p>none</p>
+                            {% endifnotequal %}
                         {% else %}
-                            <p>none</p>
-                        {% endifnotequal %}
+                                <p>none</p>
+                        {% endif %}
                     </td>
                 </tr>
                 {% endifequal %}

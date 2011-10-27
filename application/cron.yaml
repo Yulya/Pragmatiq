@@ -3,7 +3,6 @@ cron:
   url: /check
   schedule: every 24 hours
 
-cron:
 - description: automatic creation of performance review
   url: /pr/automatic
   schedule: every 24 hours

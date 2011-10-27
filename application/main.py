@@ -20,10 +20,12 @@ from google.appengine.ext.webapp import util
 from logic.handlers import MainHandler, CreateUser,\
 	Authentication, UpdateData,\
     AddData, CreateRoles, GetPrs, UserTable, CreatePR,\
-    GetPreviousGoals, GetSelfPR, GetManagers, CheckDate, HR, Show,\
+    GetSelfPR, GetManagers, CheckDate, HR,\
     UploadHandler, ServeHandler, UrlHandler, GetAllEmployees, UpdatePR, \
     GetManagerForm, GetEmployeeForm, AddManagerForm, AddEmployeeForm, \
-    ManagerFormSubmit, EmployeeFormSubmit, RegisterPerformanceReview, ManagerFormApprove, GetDetailedReport, GetSummaryReport, UpdateEvent, GetSettings, AutomaticPerformanceReview
+    ManagerFormSubmit, EmployeeFormSubmit, RegisterPerformanceReview,\
+    ManagerFormApprove, GetDetailedReport, GetSummaryReport, UpdateEvent, \
+    GetSettings, AutomaticPerformanceReview
 from logic.postdeploy import PostDeploy
 
 def main():
@@ -43,7 +45,6 @@ def main():
                                           ('/hr/settings', GetSettings),
                                           ('/pr/create', CreatePR),
                                           ('/pr/update', UpdatePR),
-                                          ('/pr/prev_goals/(.*)',GetPreviousGoals),
                                           ('/pr/get/self', GetSelfPR),
                                           ('/pr/get/manager/(.*)', GetManagerForm),
                                           ('/pr/get/employee/(.*)', GetEmployeeForm),
@@ -61,8 +62,7 @@ def main():
                                           ('/hr', GetAllEmployees),
                                           ('/new_period', HR),
                                           ('/upload', UploadHandler),
-                                          ('/serve/([^/]+)?', ServeHandler),
-                                          ('/show',Show)
+                                          ('/serve/([^/]+)?', ServeHandler)
 
                                          ],
                                          debug=True)
