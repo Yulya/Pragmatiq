@@ -213,6 +213,15 @@ $(document).ready(function() {
     {% endif %}
 </div>
 
+<div id='position' class="input_div">
+    <p>Current Position: {{emp.position}}</p>
+    <p>New position:</p>
+    {% if data.position %}
+        <p class='text_field' onclick="make_input(this)"  id="{{data.position.key}}" >{{data.position.value}}</p>
+    {% else %}
+        <input type="button" class="add_button" value="add" >
+    {% endif %}
+</div>
 
 <div id='conclusion' class="input_div">
     <p>Conclusion:</p>
@@ -223,7 +232,16 @@ $(document).ready(function() {
     {% endif %}
 </div>
 
-<div class="input_div">
+{% if comment %}
+<div id='comment' class="input_div">
+    <p>Comment:</p>
+        <p class='text_field' onclick="make_input(this)" id="{{comment.key}}" >{{comment.value}}</p>
+    {% else %}
+        <input type="button" class="add_button" value="add" >
+</div>
+{% endif %}
+
+<div id="file" class="input_div">
     <p>Attached files:</p>
     {% if file_name%}
         <a href="/serve/{{file_key}}">{{file_name}}</a>
@@ -242,7 +260,7 @@ $(document).ready(function() {
     {% ifequal status 'draft' %}
         <input type="button" id='submit' value="submit">
     {% else %}
-        <input type="button" id='approve' value="approve">
+        <input type="button" id='approve' onclick="check_form()" value="approve">
     {% endifequal %}
 </div>
 {% endblock %}

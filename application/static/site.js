@@ -92,3 +92,7 @@ function create_event(obj){
     $.post('/event/update', {'type': type, 'start': start, 'finish': finish}, function(data){alert(data)})
 
 }
+
+function check_form(){
+    
+}

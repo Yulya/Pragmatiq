@@ -8,6 +8,7 @@
                     <td>Department</td>
                     <td>Employee</td>
                     <td>Manager</td>
+                    <td>Position</td>
                     <td>Status</td>
                     <td>Conclusion</td>
                     <td>Salary</td>
@@ -19,6 +20,7 @@
                     <td>{{pr.employee.dept.name}}</td>
                     <td>{{pr.employee.first_name}}&nbsp;{{pr.employee.last_name}}</td>
                     <td>{{pr.manager.first_name}}&nbsp;{{pr.manager.last_name}}</td>
+                    <td>{{pr.employee.position}}</td>
                     <td>
                         {% if not pr.manager_form.status %}
                             none

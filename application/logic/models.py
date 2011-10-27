@@ -9,8 +9,7 @@ class User(db.Model):
     first_name = db.StringProperty()
     last_name = db.StringProperty()
     email = db.StringProperty()
-    salary = db.IntegerProperty()
-    first_date = db.DateProperty()
+    position = db.StringProperty()
     username = db.StringProperty()
     password = db.StringProperty()
     role = db.ListProperty(db.Key)
@@ -42,17 +41,12 @@ class PerformanceReviewPeriod(db.Model):
     type = db.StringProperty(choices=('annual','semi-annual'))
 
 
-class Comment(db.Model):
-    value = db.StringProperty()
-    
-
 class PerformanceReview(db.Model):
     employee = db.ReferenceProperty(User, collection_name='self_pr')
     manager = db.ReferenceProperty(User, collection_name='managed_pr')
     date = db.DateProperty()
     period = db.ReferenceProperty(PerformanceReviewPeriod,
                                   collection_name='performance_reviews')
-    comment = db.ReferenceProperty(Comment, collection_name='performance_review')
 
     @property
     def employee_form(self):
@@ -77,6 +71,7 @@ class PerformanceReviewForm(db.Model):
     def get_all_data(self):
 
         data = {'next_goals' : self.next_goals,
+                'comment': self.comment.get(),
                 'challenges' : self.challenges,
                 'achievements' : self.achievements,
                 'projects' : self.projects,
@@ -86,10 +81,20 @@ class PerformanceReviewForm(db.Model):
                 'issues' : self.issues,
                 'complaints' : self.complaints,
                 'manager_helps' : self.manager_helps,
+                'position': self.position.get(),
                 'salary': self.salary.get(),
                 'grade': self.grade.get(),
                 'conclusion': self.conclusion.get()}
         return data
+
+
+class Position(db.Model):
+    value = db.StringProperty
+
+class Comment(db.Model):
+    value = db.StringProperty()
+    form = db.ReferenceProperty(PerformanceReviewForm,
+                                collection_name='comment')
     
 
 class Project(db.Model):

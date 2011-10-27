@@ -98,6 +98,7 @@ class CreateUser(RequestHandler):
         email = self.request.get('email')
         last_name = self.request.get('last_name')
         dept = self.request.get('dept')
+        position = self.request.get('position')
 
         dept_ref = Dept.all().filter('name', dept).get()
 
@@ -117,6 +118,7 @@ class CreateUser(RequestHandler):
                             email=email,
                             last_name=last_name,
                             dept=dept_ref,
+                            position=position,
                             manager=manager)
 
                 for role in roles:
