@@ -296,12 +296,15 @@ class GetSummaryReport(RequestHandler):
 
             all_draft = clean_draft + in_work + emp_submit + man_submit
 
+            percent = approved/employees*100
+
             dept_info = {'name': dept.name,
                          'employees': employees,
                          'clean': clean_draft,
                          'in_work': in_work,
                          'all_draft': all_draft,
                          'reg': reg_pr,
+                         'percent': percent,
                          'approved': approved,
                          'emp_submit': emp_submit,
                          'man_submit': man_submit}
