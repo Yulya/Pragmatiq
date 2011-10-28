@@ -90,6 +90,9 @@ class PerformanceReviewForm(db.Model):
 
 class Position(db.Model):
     value = db.StringProperty
+    form = db.ReferenceProperty(PerformanceReviewForm,
+                                collection_name='position')
+
 
 class Comment(db.Model):
     value = db.StringProperty()

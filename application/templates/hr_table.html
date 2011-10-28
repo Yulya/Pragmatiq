@@ -4,7 +4,13 @@
 <script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript">
-    $(document).ready(function(){
+
+
+        $(document).ready(function(){
+
+        $('.checkall').click(function(){
+            $(this).parent().parent().parent().find(':checkbox').attr('checked', this.checked);
+	    });
 
         $('.comment').focusout(function(){
             $.post('pr/data/update/' + this.name, {'value': this.value });
@@ -21,14 +27,12 @@
             ('.result').load('/new_period')
         });
         $('.register').click(function(){
-            var button = $(this);
-            var key = this.title;
-            $.get('/pr/register/' + key, function(data){
-                if (data == 'ok'){
-                    button.attr('disabled', 'disabled')
-                }
+            var keys = '';
+            $('input[name="check"]:checked').each(function(){
+                    keys = keys + this.value + ',';});
+            $.post('/pr/register',{'keys': keys});
             })
-        })
+        
     })
 </script>
 {% endblock %}
@@ -41,6 +45,7 @@
         Finish: {{period.finish_date}}
         <table>
             <tr>
+                <td><input type="checkbox" class="checkall"></td>
                 <td>employee</td>
                 <td>manager</td>
                 <td>date</td>
@@ -49,6 +54,7 @@
             </tr>
             {% for pr in period.performance_reviews %}
                 <tr>
+                    <td><input type="checkbox" value={{pr.key}} name="check"></td>
                     <td>{{pr.employee.email}}</td>
                     <td>{{pr.manager.email}}</td>
                     <td><input type="text" _key="{{pr.key}}" class="date" name="finish" value="{{pr.date}}"></td>
@@ -57,12 +63,9 @@
                     </td>
 
                     <td>
-                        {% ifequal pr.manager_form.status 'submitted' %}
-                            <input type="button" class='register' title="{{pr.key}}" value="register">
-                        {% else %}
+                        {% if pr.manager_form.status %}
                             {{pr.manager_form.status}}
-                        {% endifequal %}
-                        {% if not pr.manager_form.status %}
+                        {% else %}
                             none
                         {% endif %}
                     </td>
@@ -71,7 +74,8 @@
             {% endfor %}
         </table>
     {% endfor %}
-        <input type="button" value="Create New PR Period" onclick="load('/new_period')">
-        <input type="button" value="Show detail report" onclick="load('/hr/report/detailed')">
-        <input type="button" value="Show summary report" onclick="load('/hr/report/summary')">
+        <input type="button" class='register' value="register">
+        <input type="button" value="Create New PR Period" onclick="load('/new_period')"><br>
+        <input type="button" value="Show detail report" onclick="load('/hr/report/detailed')"><br>
+        <input type="button" value="Show summary report" onclick="load('/hr/report/summary')"><br>
 {% endblock %}

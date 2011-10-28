@@ -17,7 +17,7 @@
 import logging
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
-from logic.handlers import MainHandler, CreateUser,\
+from logic.web_handlers.handlers import MainHandler, CreateUser,\
 	Authentication, UpdateData,\
     AddData, CreateRoles, GetPrs, UserTable, CreatePR,\
     GetSelfPR, GetManagers, CheckDate, HR,\
@@ -56,7 +56,7 @@ def main():
                                           ('/pr/employee/submit/(.*)', EmployeeFormSubmit),
                                           ('/hr/report/detailed', GetDetailedReport),
                                           ('/hr/report/summary', GetSummaryReport),
-                                          ('/pr/register/(.*)', RegisterPerformanceReview),
+                                          ('/pr/register', RegisterPerformanceReview),
                                           ('/pr/data/update/(.*)', UpdateData),
                                           ('/manager',GetPrs),
                                           ('/hr', GetAllEmployees),
