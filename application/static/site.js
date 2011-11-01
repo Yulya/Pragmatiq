@@ -38,6 +38,30 @@ function set_result(id, value) {
                 {'result': value})
         }
 
+function add_data(obj, form_key){
+     var object = $(document).find(obj);
+     var table = object.parent().attr('id');
+     $.post(
+            '/pr/data/add',
+            {form_key: form_key, table: table},
+            function(data){
+                $('<input type="text" size="75">').attr('id',data).focusout(function(){
+                    $.post('/pr/data/update/'+ this.id,{value: this.value});
+                    make_text(this)}).insertBefore(object);})
+     }
+
+function add_data_once(){
+    alert('hjhjg');
+//     var object = $(document).find(obj);
+//     var table = object.parent().attr('id');
+//     $.post(
+//            '/pr/data/add',
+//            {form_key: form_key, table: table},
+//            function(data){
+//                $('<input type="text" size="75">').attr('id',data).focusout(function(){
+//                    $.post('/pr/data/update/'+ this.id,{value: this.value});
+//                    make_text(this)}).insertBefore(object);})
+     }
 
 function send_value(id, value) {
    $.post('/pr/data/update/'+ id, {value: value});

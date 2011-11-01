@@ -22,11 +22,13 @@ from logic.web_handlers.handlers import MainHandler, CreateUser,\
     AddData, CreateRoles, GetPrs, UserTable, CreatePR,\
     GetSelfPR, GetManagers, CheckDate, HR,\
     UploadHandler, ServeHandler, UrlHandler, GetAllEmployees, UpdatePR, \
-    GetManagerForm, GetEmployeeForm, AddManagerForm, AddEmployeeForm, \
+    GetManagerForm, GetEmployeeForm, AddEmployeeForm, \
     ManagerFormSubmit, EmployeeFormSubmit, RegisterPerformanceReview,\
     ManagerFormApprove, GetDetailedReport, GetSummaryReport, UpdateEvent, \
     GetSettings, AutomaticPerformanceReview
 from logic.postdeploy import PostDeploy
+from logic.web_handlers.hr_maf_handler import HRManagerForm
+from logic.web_handlers.add_maf_handler import AddManagerForm
 
 def main():
     #run post deploy scripts
@@ -58,6 +60,7 @@ def main():
                                           ('/hr/report/summary', GetSummaryReport),
                                           ('/pr/register', RegisterPerformanceReview),
                                           ('/pr/data/update/(.*)', UpdateData),
+                                          ('/hr/get/(.*)', HRManagerForm),
                                           ('/manager',GetPrs),
                                           ('/hr', GetAllEmployees),
                                           ('/new_period', HR),

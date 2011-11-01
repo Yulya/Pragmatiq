@@ -71,7 +71,6 @@ class PerformanceReviewForm(db.Model):
     def get_all_data(self):
 
         data = {'next_goals' : self.next_goals,
-                'comment': self.comment.get(),
                 'challenges' : self.challenges,
                 'achievements' : self.achievements,
                 'projects' : self.projects,
@@ -81,6 +80,7 @@ class PerformanceReviewForm(db.Model):
                 'issues' : self.issues,
                 'complaints' : self.complaints,
                 'manager_helps' : self.manager_helps,
+                'comment': self.comment.get(),
                 'position': self.position.get(),
                 'salary': self.salary.get(),
                 'grade': self.grade.get(),
@@ -88,16 +88,15 @@ class PerformanceReviewForm(db.Model):
         return data
 
 
-class Position(db.Model):
-    value = db.StringProperty
-    form = db.ReferenceProperty(PerformanceReviewForm,
-                                collection_name='position')
-
-
 class Comment(db.Model):
     value = db.StringProperty()
     form = db.ReferenceProperty(PerformanceReviewForm,
                                 collection_name='comment')
+
+class Position(db.Model):
+    value = db.StringProperty()
+    form = db.ReferenceProperty(PerformanceReviewForm,
+                                collection_name='position')
     
 
 class Project(db.Model):

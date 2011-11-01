@@ -45,20 +45,21 @@ class MainHandler(RequestHandler):
 class UserTable(RequestHandler):
 
     #selects all users and returns them
+    path = 'templates/users.html'
+    template_values = {}
+
 
     def get(self):
-
         users = User.all().fetch(1000)
         for user in users:
             user.roles = ''
             for role in user.role:
                 user.roles = user.roles + Model.get(role).value + ' '
 
-        template_values = {'users': users,
-                           }
-
-        path = 'templates/users.html'
-        self.response.out.write(template.render(path, template_values))
+        self.template_values.update({'users': users})
+        
+#        path = 'templates/users.html'
+        self.response.out.write(template.render(self.path, self.template_values))
 
 
 class GetManagers(RequestHandler):
@@ -546,75 +547,6 @@ class RegisterPerformanceReview(RequestHandler):
         self.response.out.write('ok')
 
 
-class AddManagerForm(RequestHandler):
-
-    def get(self, key):
-
-        type = 'manager'
-
-        login_url = users.create_login_url(self.request.uri)
-        logout_url = users.create_logout_url(login_url)
-
-        user = self.request.environ['current_user']
-        emp = Model.get(key)
-
-        pr = PerformanceReview.all().filter('employee', emp).\
-                                    order('-date').get()
-
-        pr_form = pr.manager_form
-
-        if pr_form is None:
-            pr_form = PerformanceReviewForm(pr=pr, type=type, status='draft')
-            pr_form.put()
-
-        prev_pr = PerformanceReview.all().order('-date').\
-                                        filter('date <', pr.date).\
-                                        filter('employee', pr.employee).get()
-
-        prev_goals = []
-
-        try:
-            prev_form = prev_pr.forms.filter('type', type).get()
-        except AttributeError:
-            prev_form = None
-        try:
-            prev_goals = prev_form.next_goals
-        except AttributeError:
-            prev_goals = []
-        try:
-            prev_challenges = prev_form.challenges
-        except AttributeError:
-            prev_challenges = []
-        try:
-            prev_achievements = prev_form.achievements
-        except AttributeError:
-            prev_achievements = []
-
-        upload_url = blobstore.create_upload_url('/upload')
-
-        if pr.period.type == 'semi-annual':
-
-            for goal in prev_goals:
-                next_goal = NextGoals(form=pr_form, value=goal.value).put()
-
-        template_values = {'key': pr_form.key(),
-                           'emp': emp,
-                           'date': pr.period.finish_date,
-                           'type': pr.period.type,
-                           'status': pr_form.status,
-                           'prev_goals': prev_goals,
-                           'prev_challenges': prev_challenges,
-                           'prev_achievements': prev_achievements,
-                           'next_goals': pr_form.next_goals,
-                           'author': user,  # todo: rename author to manager
-                           'upload_url': upload_url,
-                           'user': user,
-                           'url': logout_url}
-
-        path = 'templates/api.manager_form.html'
-        self.response.out.write(template.render(path, template_values))
-
-
 class AddEmployeeForm(RequestHandler):
 
     #gets employee's key, select employee's PR
@@ -746,6 +678,9 @@ class GetEmployeeForm(RequestHandler):
 
 class GetManagerForm(RequestHandler):
 
+    template_values = {}
+    path = 'templates/api.manager_form.html'
+
     def get(self, key):
 
         user = self.request.environ['current_user']
@@ -767,23 +702,6 @@ class GetManagerForm(RequestHandler):
                                         filter('date <', pr.date).\
                                         filter('employee', pr.employee).get()
 
-        try:
-            prev_form = prev_pr.forms.filter('type', type).get()
-        except AttributeError:
-            prev_form = None
-        try:
-            prev_goals = prev_form.next_goals
-        except AttributeError:
-            prev_goals = []
-        try:
-            prev_challenges = prev_form.challenges
-        except AttributeError:
-            prev_challenges = []
-        try:
-            prev_achievements = prev_form.achievements
-        except AttributeError:
-            prev_achievements = []
-
         if form.status == 'submitted' and user.email == form.pr.manager.email:
             path = 'templates/api.manager_form.html'
             self.response.out.write(template.render(path,
@@ -795,23 +713,15 @@ class GetManagerForm(RequestHandler):
 
         upload_url = blobstore.create_upload_url('/upload')
 
-        template_values = {'url': logout_url,
-                           'key': form.key(),
-                           'status': form.status,
-                           'user': user,
-                           'date': pr.date,
-                           'emp': form.pr.employee,
-                           'type': form.pr.period.type,
-                           'file_key': form.file_key,
-                           'file_name': form.file_name,
-                           'upload_url': upload_url,
-                           'prev_goals': prev_goals,
-                           'prev_challenges': prev_challenges,
-                           'prev_achievements': prev_achievements,
-                           'data': data}
+        self.template_values.update({'form': form,
+                                     'file_key': form.file_key,
+                                     'user': user,
+                                     'upload_url': upload_url,
+                                     'prev_pr': prev_pr,
+                                     'file_name': form.file_name})
 
-        path = 'templates/api.manager_form.html'
-        self.response.out.write(template.render(path, template_values))
+        self.response.out.write(template.render(self.path,
+                                                self.template_values))
 
 
 class UpdateData(RequestHandler):
@@ -870,7 +780,9 @@ class AddData(RequestHandler):
                 'achievements': 'Achievements',
                 'project': 'Project',
                 'skill': 'Skill',
+                'comment': 'Comment',
                 'conclusion': 'Conclusion',
+                'position': 'Position',
                 'responsibility': 'Responsibility',
                 'career': 'Career',
                 'manager_help': 'ManagerHelp',
