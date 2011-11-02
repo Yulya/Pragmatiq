@@ -3,14 +3,9 @@ from google.appengine.ext.db import Model
 from google.appengine.ext.webapp import RequestHandler
 from logic.models import PerformanceReview, PerformanceReviewForm
 
-class AddManagerForm(RequestHandler):
+class AddForm(RequestHandler):
 
-    template_values = {}
-    path = 'templates/api.manager_form.html'
-
-    def get(self, key):
-
-        type = 'manager'
+    def get(self, type, key):
 
         login_url = users.create_login_url(self.request.uri)
         logout_url = users.create_logout_url(login_url)
@@ -21,10 +16,10 @@ class AddManagerForm(RequestHandler):
         pr = PerformanceReview.all().filter('employee', emp).\
                                     order('-date').get()
 
-        pr_form = pr.manager_form
+        pr_form = pr.forms.filter('type', type).get()
 
         if pr_form is None:
             pr_form = PerformanceReviewForm(pr=pr, type=type, status='draft')
             pr_form.put()
 
-        self.redirect('/pr/get/manager/%s' % pr.key())
+        self.redirect('/pr/get/%(type)s/%(key)s' % {'type': type, 'key': pr.key()})

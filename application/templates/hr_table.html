@@ -59,7 +59,13 @@
                     <td>{{pr.manager.email}}</td>
                     <td><input type="text" _key="{{pr.key}}" class="date" name="finish" value="{{pr.date}}"></td>
                     <td>
+                        {% if pr.manager_form %}
+                            {% ifnotequal pr.manager_form.status 'draft' %}
                         <a href="#" onclick="load('/hr/get/{{pr.key}}')">{{pr.employee.first_name}}&nbsp;{{pr.employee.last_name}} form</a>
+                            {% endifnotequal %}
+                        {% else %}
+                            none
+                        {% endif %}
                     </td>
 
                     <td>

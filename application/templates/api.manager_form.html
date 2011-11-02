@@ -26,14 +26,14 @@ function submit(){
 
 function check_form(){
     $.get('pr/manager/check/' + form_key, function(data){
-        if (data){confirm('Unfilled fields: ' + data + '. Continue?');
-                  approve();
+        if (data){if (confirm('Unfilled fields: ' + data + '. Continue?')){
+                  approve();}
                  }
 
     })
 }
 
-//
+
 $(document).ready(function() {
 
     if ('{{form.status}}' == 'approved'){
@@ -49,24 +49,7 @@ $(document).ready(function() {
         $('#{{data.salary.key}}').attr('readonly', 'readonly');
         $('#{{data.grade.key}}').attr('readonly', 'readonly');
     }
-//
-////    $('#approve').click(function(){
-////        $.get('/pr/manager/approve/' + form_key);
-////        $('input:text').attr('readonly', 'readonly');
-////        $('.add_button').attr('disabled', 'disabled');
-////    });
-////
-////    $('#submit').click(function(){
-////        $.get('/pr/manager/submit/' + form_key, function(data){
-////            if (data == 'ok'){
-////                $('input:text').attr('readonly', 'readonly');
-////                $('.add_button').attr('disabled', 'disabled');
-////            }
-////            else{
-////                alert(data);
-////            }
-////        })
-////        })
+
     })
 
 

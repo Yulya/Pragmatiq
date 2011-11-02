@@ -18,18 +18,19 @@ import logging
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 from logic.web_handlers.check_form_content_handler import CheckFormContent
+from logic.web_handlers.get_eaf_handler import GetEmployeeForm
+from logic.web_handlers.get_maf_handler import GetManagerForm
 from logic.web_handlers.handlers import MainHandler, CreateUser,\
 	Authentication, UpdateData,\
     AddData, CreateRoles, GetPrs, UserTable, CreatePR,\
     GetSelfPR, GetManagers, CheckDate, HR,\
     UploadHandler, ServeHandler, UrlHandler, GetAllEmployees, UpdatePR, \
-    GetManagerForm, GetEmployeeForm, AddEmployeeForm, \
     ManagerFormSubmit, EmployeeFormSubmit, RegisterPerformanceReview,\
     ManagerFormApprove, GetDetailedReport, GetSummaryReport, UpdateEvent, \
     GetSettings, AutomaticPerformanceReview
 from logic.postdeploy import PostDeploy
 from logic.web_handlers.hr_maf_handler import HRManagerForm
-from logic.web_handlers.add_maf_handler import AddManagerForm
+from logic.web_handlers.add_maf_handler import AddForm
 
 def main():
     #run post deploy scripts
@@ -51,8 +52,7 @@ def main():
                                           ('/pr/get/self', GetSelfPR),
                                           ('/pr/get/manager/(.*)', GetManagerForm),
                                           ('/pr/get/employee/(.*)', GetEmployeeForm),
-                                          ('/pr/add/manager/(.*)', AddManagerForm),
-                                          ('/pr/add/employee/(.*)', AddEmployeeForm),
+                                          ('/pr/add/(.*)/(.*)', AddForm),
                                           ('/pr/data/add', AddData),
                                           ('/pr/manager/submit/(.*)', ManagerFormSubmit),
                                           ('/pr/manager/approve/(.*)', ManagerFormApprove),

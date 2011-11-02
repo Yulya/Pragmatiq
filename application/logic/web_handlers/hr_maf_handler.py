@@ -1,4 +1,4 @@
-from logic.web_handlers.handlers import GetManagerForm
+from logic.web_handlers.get_maf_handler import GetManagerForm
 
 class HRManagerForm(GetManagerForm):
 
