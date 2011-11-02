@@ -17,6 +17,7 @@
 import logging
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
+from logic.web_handlers.check_form_content_handler import CheckFormContent
 from logic.web_handlers.handlers import MainHandler, CreateUser,\
 	Authentication, UpdateData,\
     AddData, CreateRoles, GetPrs, UserTable, CreatePR,\
@@ -61,6 +62,7 @@ def main():
                                           ('/pr/register', RegisterPerformanceReview),
                                           ('/pr/data/update/(.*)', UpdateData),
                                           ('/hr/get/(.*)', HRManagerForm),
+                                          ('/pr/manager/check/(.*)', CheckFormContent),
                                           ('/manager',GetPrs),
                                           ('/hr', GetAllEmployees),
                                           ('/new_period', HR),

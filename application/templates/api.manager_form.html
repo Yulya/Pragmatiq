@@ -7,6 +7,33 @@ var form_key= '{{form.key}}';
 var form_type='{{form.pr.period.type}}';
 
 
+function approve(){
+    $.get('/pr/manager/approve/' + form_key);
+    $('input:text').attr('readonly', 'readonly');
+    $('.add_button').attr('disabled', 'disabled');
+}
+function submit(){
+            $.get('/pr/manager/submit/' + form_key, function(data){
+            if (data == 'ok'){
+                $('input:text').attr('readonly', 'readonly');
+                $('.add_button').attr('disabled', 'disabled');
+            }
+            else{
+                alert(data);
+            }
+            })
+}
+
+function check_form(){
+    $.get('pr/manager/check/' + form_key, function(data){
+        if (data){confirm('Unfilled fields: ' + data + '. Continue?');
+                  approve();
+                 }
+
+    })
+}
+
+//
 $(document).ready(function() {
 
     if ('{{form.status}}' == 'approved'){
@@ -18,28 +45,28 @@ $(document).ready(function() {
         $('#info').append('<p>form temporary unavailable</p>');
     }
     if ('{{form.status}}' == 'registered'){
-        
+
         $('#{{data.salary.key}}').attr('readonly', 'readonly');
         $('#{{data.grade.key}}').attr('readonly', 'readonly');
     }
-
-    $('#approve').click(function(){
-        $.get('/pr/manager/approve/' + form_key);
-        $('input:text').attr('readonly', 'readonly');
-        $('.add_button').attr('disabled', 'disabled');
-    });
-
-    $('#submit').click(function(){
-        $.get('/pr/manager/submit/' + form_key, function(data){
-            if (data == 'ok'){
-                $('input:text').attr('readonly', 'readonly');
-                $('.add_button').attr('disabled', 'disabled');
-            }
-            else{
-                alert(data);
-            }
-        })
-        })
+//
+////    $('#approve').click(function(){
+////        $.get('/pr/manager/approve/' + form_key);
+////        $('input:text').attr('readonly', 'readonly');
+////        $('.add_button').attr('disabled', 'disabled');
+////    });
+////
+////    $('#submit').click(function(){
+////        $.get('/pr/manager/submit/' + form_key, function(data){
+////            if (data == 'ok'){
+////                $('input:text').attr('readonly', 'readonly');
+////                $('.add_button').attr('disabled', 'disabled');
+////            }
+////            else{
+////                alert(data);
+////            }
+////        })
+////        })
     })
 
 
@@ -218,14 +245,14 @@ $(document).ready(function() {
     {% endif %}
 </div>
 
-<div id="file" class="input_div">
+<div id="file">
     <p>Attached files:</p>
     {% if file_name%}
         <a href="/serve/{{file_key}}">{{file_name}}</a>
     {% endif %}
 </div>
 
-<div class="input_div">
+<div>
     <form action="{{upload_url}}" method="POST" enctype="multipart/form-data">
         <input type='hidden' name='key' value={{key}}>
         <input type="file" name="file"><br>
@@ -233,9 +260,9 @@ $(document).ready(function() {
     </form>
 </div>
 
-<div class="input_div">
+<div>
     {% ifequal form.status 'draft' %}
-        <input type="button" id='submit' value="submit">
+        <input type="button" id='submit' onclick="submit()" value="submit">
     {% else %}
         <input type="button" id='approve' onclick="check_form()" value="approve">
     {% endifequal %}
