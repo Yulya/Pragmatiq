@@ -1,0 +1,26 @@
+from google.appengine.api.datastore_errors import BadKeyError
+from google.appengine.ext.db import Model
+from google.appengine.ext.webapp import RequestHandler
+from logic.models import Salary
+
+class UpdateData(RequestHandler):
+
+    def post(self, object_key):
+
+        try:
+            obj = Model.get(object_key)
+        except BadKeyError:
+            self.error(405)
+            return
+
+        if isinstance(obj, Salary):
+            if not self.request.get('value').isdigit():
+                return
+
+        if self.request.get('value'):
+            obj.value = self.request.get('value')
+
+        if self.request.get('result'):
+            obj.result = int(self.request.get('result'))
+
+        obj.put()

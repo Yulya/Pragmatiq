@@ -1,9 +1,4 @@
-from google.appengine.api import users
-from google.appengine.ext import blobstore
-from google.appengine.ext.db import BadKeyError
-from google.appengine.ext.webapp import RequestHandler, template
-from logic.func import get_prev_pr
-from logic.models import PerformanceReview
+from google.appengine.ext.webapp import template
 from logic.web_handlers.base_form_handler import BaseFormHandler
 
 

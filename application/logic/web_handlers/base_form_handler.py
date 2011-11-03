@@ -1,7 +1,7 @@
 from google.appengine.api import users
 from google.appengine.ext import blobstore
 from google.appengine.ext.db import BadKeyError
-from google.appengine.ext.webapp import RequestHandler, template
+from google.appengine.ext.webapp import RequestHandler
 from logic.models import PerformanceReview
 
 class BaseFormHandler(RequestHandler):

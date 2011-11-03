@@ -17,20 +17,39 @@
 import logging
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
+from logic.authentication_middleware import Authentication
+from logic.web_handlers.add_data_handler import AddData
+from logic.web_handlers.automatic_creation_pr_handler import AutomaticPerformanceReview
 from logic.web_handlers.check_form_content_handler import CheckFormContent
+from logic.web_handlers.check_pr_date import CheckDate
+from logic.web_handlers.create_pr_handler import CreatePR
+from logic.web_handlers.create_roles_handler import CreateRoles
+from logic.web_handlers.create_user_handler import CreateUser
+from logic.web_handlers.detailed_report_handler import GetDetailedReport
+from logic.web_handlers.employee_form_submit_handler import EmployeeFormSubmit
+from logic.web_handlers.get_all_departments import HR
+from logic.web_handlers.get_all_employees import GetAllEmployees
+from logic.web_handlers.get_all_managers_handler import GetManagers
 from logic.web_handlers.get_eaf_handler import GetEmployeeForm
 from logic.web_handlers.get_maf_handler import GetManagerForm
-from logic.web_handlers.handlers import MainHandler, CreateUser,\
-	Authentication, UpdateData,\
-    AddData, CreateRoles, GetPrs, UserTable, CreatePR,\
-    GetSelfPR, GetManagers, CheckDate, HR,\
-    UploadHandler, ServeHandler, UrlHandler, GetAllEmployees, UpdatePR, \
-    ManagerFormSubmit, EmployeeFormSubmit, RegisterPerformanceReview,\
-    ManagerFormApprove, GetDetailedReport, GetSummaryReport, UpdateEvent, \
-    GetSettings, AutomaticPerformanceReview
 from logic.postdeploy import PostDeploy
+from logic.web_handlers.get_manager_prs import GetPrs
+from logic.web_handlers.get_self_pr_handler import GetSelfPR
 from logic.web_handlers.hr_maf_handler import HRManagerForm
 from logic.web_handlers.add_form_handler import AddForm
+from logic.web_handlers.main_handler import MainHandler
+from logic.web_handlers.manager_form_approve_handler import ManagerFormApprove
+from logic.web_handlers.manager_form_submit_handler import ManagerFormSubmit
+from logic.web_handlers.register_performance_review import RegisterPerformanceReview
+from logic.web_handlers.serve_handler import ServeHandler
+from logic.web_handlers.summary_report_handler import GetSummaryReport
+from logic.web_handlers.system_settings_handler import GetSettings
+from logic.web_handlers.update_data_handler import UpdateData
+from logic.web_handlers.update_event_handler import UpdateEvent
+from logic.web_handlers.update_pr_handler import UpdatePR
+from logic.web_handlers.upload_handler import UploadHandler
+from logic.web_handlers.url_handler import UrlHandler
+from logic.web_handlers.user_table_handler import UserTable
 
 def main():
     #run post deploy scripts
