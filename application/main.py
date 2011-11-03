@@ -30,7 +30,7 @@ from logic.web_handlers.handlers import MainHandler, CreateUser,\
     GetSettings, AutomaticPerformanceReview
 from logic.postdeploy import PostDeploy
 from logic.web_handlers.hr_maf_handler import HRManagerForm
-from logic.web_handlers.add_maf_handler import AddForm
+from logic.web_handlers.add_form_handler import AddForm
 
 def main():
     #run post deploy scripts
@@ -61,7 +61,7 @@ def main():
                                           ('/hr/report/summary', GetSummaryReport),
                                           ('/pr/register', RegisterPerformanceReview),
                                           ('/pr/data/update/(.*)', UpdateData),
-                                          ('/hr/get/(.*)', HRManagerForm),
+                                          ('/hr/get/(.*)/(.*)', HRManagerForm),
                                           ('/pr/manager/check/(.*)', CheckFormContent),
                                           ('/manager',GetPrs),
                                           ('/hr', GetAllEmployees),

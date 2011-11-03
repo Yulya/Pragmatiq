@@ -3,12 +3,12 @@
 {% block script %}
 <script type="text/javascript">
 
-var form_key= '{{key}}';
-var form_type='{{type}}';
+var form_key= '{{form.key}}';
+var form_type='{{form.type}}';
 
 $(document).ready(function() {
 
-    if ('{{status}}' != 'draft'){
+    if ('{{form.status}}' != 'draft'){
         $('input:text').attr('readonly', 'readonly');
         $('.add_button').attr('disabled', 'disabled')
     }
@@ -25,89 +25,81 @@ $(document).ready(function() {
         })
     })
 
-    $('.grade').click(function() {
-        var id = $(this).parent().attr('id');
-        $.post('/pr/data/update/'+id,
-                {'grade': this.value},
-                function(data){
-                    alert(data)})
-    });
-
-    $('.add_button').click(function() {
-        var button = $(this);
-        var table = button.parent().attr('id');
-        $.post(
-            '/pr/data/add',
-            {form_key: form_key, table: table},
-            function(data){
-                $('<input type="text" size="75">').attr('id',data).focusout(
-                        function(){
-                            $.post('/pr/data/update/'+this.id,
-                                    {value: this.value});
-                            make_text(this);
-                }).insertBefore(button)
-            }
-        )
-    });
 })
 </script>
 {% endblock %}
 
 {% block content %}
-<p>Performance Review Form for {{emp.first_name}}&nbsp;{{emp.last_name}}</p>
-<p>Manager: {{author.first_name}}&nbsp;{{author.last_name}}</p>
-<p>date: {{date}}</p>
-
-<div id="">
-
+        <h1>Employee form</h1>
+<div id="info">
+<p>Performance Review Form for {{form.pr.employee.first_name}}&nbsp;{{form.pr.employee.last_name}}</p>
+<p>Manager: {{form.pr.manager.first_name}}&nbsp;{{form.pr.manager.last_name}}</p>
+<p>date: {{form.pr.date}}</p>
 </div>
-
-
 
 <div id="project" class="input_div">
     <p>Please list all projects and initiatives you participated in during this performance review period.</p>
-    {% for project in data.projects %}
-        <p id="{{project.key}}" onclick="make_input(this)">{{project.value}}</p>
+    {% for project in form.projects %}
+        <p class='text_field' onclick="make_input(this)" id="{{project.key}}">{{project.value}}</p>
     {% endfor %}
-    <input type="button" class="add_button" value="add" >
+    <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
+</div>
+
+<div id="prev_achievements">
+    <a href="#" onclick="display(this)">Previous achievements</a>
+    <div class='hidden'>
+        {% for achievement in prev_form.achievements %}
+            <p>{{achievement.value}}</p>
+        {% endfor %}
+    </div>
 </div>
 
 <div id="achievements" class="input_div">
     <p>What do you consider to be your key accomplishments since your last review?</p>
-    {% for ach in data.achievements %}
-        <p id="{{ach.key}}" onclick="make_input(this)">{{ach.value}}</p>
+    {% for ach in form.achievements %}
+        <p class='text_field' onclick="make_input(this)" id="{{ach.key}}">{{ach.value}}</p>
     {% endfor %}
-    <input type="button" class="add_button" value="add" >
+    <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
 </div>
 
 <div id="responsibility" class="input_div">
     <p>List your key job responsibilities during your performance period. Please comment on your job performance assessment.</p>
-    {% for responsibility in data.responsibilities %}
-        <p id="{{responsibility.key}}" onclick="make_input(this)">{{responsibility.value}}</p>
+    {% for responsibility in form.responsibilities %}
+        <p class='text_field' onclick="make_input(this)" id="{{responsibility.key}}">{{responsibility.value}}</p>
     {% endfor %}
-    <input type="button" class="add_button" value="add" >
+    <input type="button" class="add_button" onclick="add_data(this,'{{form.key}}')" value="add" >
+</div>
+
+<div id="prev_challenges">
+    <a href="#" onclick="display(this)">Previous challenges</a>
+    <div class='hidden'>
+        {% for challenge in prev_form.challenges %}
+            <p>{{challenge.value}}</p>
+        {% endfor %}
+    </div>
 </div>
 
 <div id="challenges" class="input_div">
     <p>If you have experienced challenges, please specify the areas where you need to focus and improve. </p>
-    {% for challenge in data.challenges %}
-
-        <p id="{{challenge.key}}" onclick="make_input(this)">{{challenge.value}}</p>
+    {% for challenge in form.challenges %}
+        <!-- todo: use css class instead of properties -->
+        <p class='text_field' onclick="make_input(this)" id="{{challenge.key}}">{{challenge.value}}</p>
     {% endfor %}
-    <input type="button" class="add_button" value="add" >
+    <input type="button" class="add_button" onclick="add_data(this,'{{form.key}}')" value="add" >
 </div>
 
 <div id="skill" class="input_div">
     <p>Please mention what skills and/or knowledge do you need for further development to contribute to your overall job success.</p>
-    {% for skill in data.skills %}
+    {% for skill in form.skills %}
         <!-- todo: use css class instead of properties -->
-        <p id="{{skill.key}}" onclick="make_input(this)"> {{skill.value}}</p>
+        <p class='text_field' onclick="make_input(this)" id="{{skill.key}}" >{{skill.value}}</p>
     {% endfor %}
-    <input type="button" class="add_button" value="add" >
+    <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
 </div>
 
 <div id="prev_goals" class="input_div">
-    <p>Previous Goals:</p>
+    <a href="#" onclick="display(this)">Previous Goals:</a>
+    <div class="hidden">
     <table>
         <thead>
             <tr>
@@ -115,7 +107,7 @@ $(document).ready(function() {
                 <td>Value</td>
             </tr>
         </thead>
-    {% for prev_goal in prev_goals %}
+    {% for prev_goal in prev_form.next_goals %}
         <tr>
             <td>{{prev_goal.value}}</td>
             <td>
@@ -131,48 +123,48 @@ $(document).ready(function() {
         </tr>
     {% endfor %}
     </table>
+    </div>
 </div>
 
 <div id="next_goals" class="input_div">
     <p>Goals for the next period:</p>
-    {% for goal in data.next_goals %}
-        <p id="{{goal.key}}" onclick="make_input(this)">{{goal.value}}</p>
+    {% for goal in form.next_goals %}
+        <p class='text_field' onclick="make_input(this)" id="{{goal.key}}" >{{goal.value}}</p>
     {% endfor %}
-    <input type="button" class="add_button" value="add" >
+    <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
 </div>
 
 <div id="career" class="input_div">
     <p>What are your professional interests and long-term career objectives, and what are you plans to accomplish these objectives?  </p>
-    {% for career in data.careers %}
-        <p id="{{career.key}}" onclick="make_input(this)">{{career.value}}</p>
+    {% for career in form.careers %}
+        <p class='text_field' onclick="make_input(this)" id="{{career.key}}" >{{career.value}}</p>
     {% endfor %}
-    <input type="button" class="add_button" value="add" >
+    <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
 </div>
 
 <div id="issue" class="input_div">
     <p>Do you see any issues with your role within the company and/or your project(s)?</p>
-    {% for issue in data.issues %}
-        <p id="{{issue.key}}" onclick="make_input(this)">{{issue.value}}</p>
+    {% for issue in form.issues %}
+        <p class='text_field' onclick="make_input(this)" id="{{issue.key}}" >{{issue.value}}</p>
     {% endfor %}
-    <input type="button" class="add_button" value="add" >
+    <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
 </div>
 
 <div id="complaint" class="input_div">
     <p>Do you have any complaints?</p>
-    {% for complaint in data.complaints %}
-        <p id="{{complaint.key}}" onclick="make_input(this)">{{complaint.value}}</p>
+    {% for complaint in form.complaints %}
+        <p class='text_field' onclick="make_input(this)" id="{{complaint.key}}" >{{complaint.value}}</p>
     {% endfor %}
-    <input type="button" class="add_button" value="add" >
+    <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
 </div>
 
 <div id="manager_help" class="input_div">
     <p>Is there anything your manager could do to help you do a better job? </p>
-    {% for manager_help in data.manager_helps %}
-        <p id="{{manager_help.key}}" onclick="make_input(this)">{{manager_help.value}}</p>
+    {% for manager_help in form.manager_helps %}
+        <p class='text_field' onclick="make_input(this)" id="{{manager_help.key}}" >{{manager_help.value}}</p>
     {% endfor %}
-    <input type="button" class="add_button" value="add" >
+    <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
 </div>
-
 <div>
     <p>Attached files:</p>
     {% if file_name%}

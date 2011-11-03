@@ -57,6 +57,7 @@ $(document).ready(function() {
 {% endblock %}
 
 {% block content %}
+        <h1>Manager form</h1>
 <div id="info">
 <p>Performance Review Form for {{form.pr.employee.first_name}} {{form.pr.employee.last_name}}</p>
 <p>date: {{form.pr.date}}</p>
@@ -73,7 +74,7 @@ $(document).ready(function() {
 <div id="prev_achievements">
     <a href="#" onclick="display(this)">Previous achievements</a>
     <div class='hidden'>
-        {% for achievement in prev_pr.achievements %}
+        {% for achievement in prev_form.achievements %}
             <p>{{achievement.value}}</p>
         {% endfor %}
     </div>
@@ -98,7 +99,7 @@ $(document).ready(function() {
 <div id="prev_challenges">
     <a href="#" onclick="display(this)">Previous challenges</a>
     <div class='hidden'>
-        {% for challenge in prev_pr.challenges %}
+        {% for challenge in prev_form.challenges %}
             <p>{{challenge.value}}</p>
         {% endfor %}
     </div>
@@ -132,7 +133,7 @@ $(document).ready(function() {
                 <td>Value</td>
             </tr>
         </thead>
-    {% for prev_goal in prev_pr.goals %}
+    {% for prev_goal in prev_form.next_goals %}
         <tr>
             <td>{{prev_goal.value}}</td>
             <td>

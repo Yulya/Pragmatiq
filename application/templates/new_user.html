@@ -20,15 +20,16 @@
                 role = '';
                 $('input[name="role"]:checked').each(function(){
                     role = role + this.value + ',';
-                })
+                });
                 
                 $.post( url,
-                        {first_name: first_name,
-                        last_name: last_name,
-                        email: email,
-                        role: role,
-                        dept: dept,
-                        manager: manager},
+                        {'first_name': first_name,
+                        'last_name': last_name,
+                        'email': email,
+                        'role': role,
+                        'dept': dept,
+                        'position': position,
+                        'manager': manager},
                         function(data){
                             if (data == "ok"){
                                 window.location = "/users"

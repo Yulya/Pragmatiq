@@ -61,7 +61,9 @@
                     <td>
                         {% if pr.manager_form %}
                             {% ifnotequal pr.manager_form.status 'draft' %}
-                        <a href="#" onclick="load('/hr/get/{{pr.key}}')">{{pr.employee.first_name}}&nbsp;{{pr.employee.last_name}} form</a>
+                                <a href="#" onclick="load('/hr/get/manager/{{pr.key}}')">{{pr.employee.first_name}}&nbsp;{{pr.employee.last_name}} form</a>
+                            {% else %}
+                                form is in work
                             {% endifnotequal %}
                         {% else %}
                             none

@@ -45,19 +45,19 @@ class CheckFormContent(RequestHandler):
         except IndexError:
             unfilled_fields.append('issues')
         try:
-            form.salary.value
+            form.salary[0]
         except AttributeError:
             unfilled_fields.append('salary')
         try:
-            form.grade.value
+            form.grade[0]
         except AttributeError:
             unfilled_fields.append('grade')
         try:
-            form.position.value
+            form.position[0]
         except AttributeError:
             unfilled_fields.append('position')
         try:
-            form.conclusion.value
+            form.conclusion[0]
         except AttributeError:
             unfilled_fields.append('conclusion')
 
