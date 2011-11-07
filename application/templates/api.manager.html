@@ -28,7 +28,7 @@
                     </td>
                     <td>{% if pr.employee_form %}
                             {% ifnotequal pr.employee_form.status 'draft' %}
-                                <a href="#" onclick="load('/pr/get/employee/{{pr.key}}')">load employee form</a>
+                                <a href="#" onclick="load('/pr/get/employee/{{pr.key}}')">load</a>
                             {% else %}
                                 <p>none</p>
                             {% endifnotequal %}
