@@ -6,8 +6,7 @@ class GetAllEmployees(RequestHandler):
 
     def get(self):
 
-        prs = PerformanceReviewPeriod.all().filter('finish_date >=',
-                                             datetime.date.today()).fetch(1000)
+        prs = PerformanceReviewPeriod.all()
         template_values = {'periods': prs}
 
         path = 'templates/hr_table.html'
