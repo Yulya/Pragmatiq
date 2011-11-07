@@ -5,9 +5,10 @@ class HRManagerForm(BaseFormHandler):
 
     template_values = {}
     path = 'templates/api.hr_maf.html'
+    type = 'manager'
 
-    def get(self, type, key):
-        super(HRManagerForm, self).get(type, key)
+    def get(self, key):
+        super(HRManagerForm, self).get(key)
 
         if self.template_values['form'].status == 'draft':
             self.response.out.write('form is in work')

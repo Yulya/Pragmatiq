@@ -13,10 +13,6 @@ class UpdateData(RequestHandler):
             self.error(405)
             return
 
-        if isinstance(obj, Salary):
-            if not self.request.get('value').isdigit():
-                return
-
         if self.request.get('value'):
             obj.value = self.request.get('value')
 
@@ -24,3 +20,8 @@ class UpdateData(RequestHandler):
             obj.result = int(self.request.get('result'))
 
         obj.put()
+
+        if obj.value is None:
+            obj.delete()
+            
+

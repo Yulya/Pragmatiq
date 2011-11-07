@@ -80,7 +80,7 @@ def main():
                                           ('/hr/report/summary', GetSummaryReport),
                                           ('/pr/register', RegisterPerformanceReview),
                                           ('/pr/data/update/(.*)', UpdateData),
-                                          ('/hr/get/(.*)/(.*)', HRManagerForm),
+                                          ('/hr/get/manager/(.*)', HRManagerForm),
                                           ('/pr/manager/check/(.*)', CheckFormContent),
                                           ('/manager',GetPrs),
                                           ('/hr', GetAllEmployees),
