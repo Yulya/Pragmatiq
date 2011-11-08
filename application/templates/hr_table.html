@@ -8,6 +8,8 @@
 
         $(document).ready(function(){
 
+        
+
         $('.checkall').click(function(){
             $(this).parent().parent().parent().find(':checkbox').attr('checked', this.checked);
 	    });
@@ -26,19 +28,21 @@
         $('#period').click(function(){
             ('.result').load('/new_period')
         });
-        $('.register').click(function(){
-            var keys = '';
-            $('input[name="check"]:checked').each(function(){
-                    keys = keys + this.value + ',';});
-            $.post('/pr/register',{'keys': keys});
-            })
-        
+
     })
 </script>
 {% endblock %}
 
 {% block content %}
     {% for period in periods %}
+        <script type="text/javascript">
+            $('<input type="button" value="register">').insertBefore($('#new_period')).click(function(){
+            var keys = '';
+            $('input[name="check"]:checked').each(function(){
+                    keys = keys + this.value + ',';});
+            $.post('/pr/register',{'keys': keys});
+            })
+            </script>
         <h2>{{period.description}}</h2>
         Type: {{period.type}}
         Start: {{period.start_date}}
@@ -82,10 +86,7 @@
             {% endfor %}
         </table>
     {% endfor %}
-        {% if periods %}
-            <input type="button" class='register' value="register">
-        {% endif %}
-        <input type="button" value="Create New PR Period" onclick="load('/new_period')"><br>
-        <input type="button" value="Show detail report" onclick="load('/hr/report/detailed')"><br>
-        <input type="button" value="Show summary report" onclick="load('/hr/report/summary')"><br>
+        <p id="new_period" ><input type="button" value="Create New PR Period" onclick="load('/new_period')"></p>
+        <p><input type="button" value="Show detail report" onclick="load('/hr/report/detailed')"></p>
+        <p><input type="button" value="Show summary report" onclick="load('/hr/report/summary')"></p>
 {% endblock %}

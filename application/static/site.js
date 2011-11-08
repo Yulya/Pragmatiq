@@ -74,7 +74,11 @@ function make_text(object){
     text.click(function(){
         make_input(this)
     });
-    obj.replaceWith(text)
+    if (obj.val() == ''){
+        obj.replaceWith('');
+    }
+    else{obj.replaceWith(text)}
+    
 }
 
 function display(obj){
