@@ -45,9 +45,14 @@ function add_data(obj, form_key){
             '/pr/data/add',
             {form_key: form_key, table: table},
             function(data){
-                $('<input type="text" size="75">').attr('id',data).focusout(function(){
+                var input = $('<input type="text" size="75">');
+                input.attr('id',data);
+                input.focusout(function(){
                     $.post('/pr/data/update/'+ this.id,{value: this.value});
-                    make_text(this)}).insertBefore(object);})
+                    make_text(this)}).insertBefore(object);
+                    input.focus();
+                    });
+
      }
 
 function send_value(id, value) {
@@ -64,7 +69,8 @@ function make_input(object){
         make_text(this)
 
     });
-    obj.replaceWith(input_text)
+    obj.replaceWith(input_text);
+    input_text.focus();
 }
 function make_text(object){
     var obj = $(document).find(object);
