@@ -194,39 +194,24 @@ $(document).ready(function() {
 
 <div id='salary' class="input_div">
     <p>Salary:</p>
-        {% if form.get_all_data.salary %}
-            <p class='text_field' onclick="make_input(this)" id="{{form.get_all_data.salary.key}}" >{{form.get_all_data.salary.value}}</p>
-        {% else %}
-            <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}'); $(this).css('display','none')" value="add" >
-        {% endif %}
+        <p class='text_field' onclick="make_input(this)" id="{{form.get_all_data.salary.key}}" >{{form.get_all_data.salary.value}}</p>
+
 </div>
 
 <div id='grade' class="input_div">
     <p>Grade:</p>
-    {% if form.get_all_data.grade %}
         <p class='text_field' onclick="make_input(this)" id="{{form.get_all_data.grade.key}}" >{{form.get_all_data.grade.value}}</p>
-    {% else %}
-        <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}'); $(this).css('display','none')" value="add" >
-    {% endif %}
 </div>
 
 <div id='position' class="input_div">
     <p>Current Position: {{form.pr.employee.position}}</p>
     <p>New position:</p>
-    {% if form.get_all_data.position %}
         <p class='text_field' onclick="make_input(this)" id="{{form.get_all_data.position.key}}" >{{form.get_all_data.position.value}}</p>
-    {% else %}
-        <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}'); $(this).css('display','none')" value="add" >
-    {% endif %}
 </div>
 
 <div id='conclusion' class="input_div">
     <p>Conclusion:</p>
-    {% if form.get_all_data.conclusion %}
         <p class='text_field' onclick="make_input(this)" id="{{form.get_all_data.conclusion.key}}" >{{form.get_all_data.conclusion.value}}</p>
-    {% else %}
-        <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}'); $(this).css('display','none')" value="add" >
-    {% endif %}
 </div>
 
 <div id="file">

@@ -1,7 +1,7 @@
 import datetime
 from google.appengine.ext.db import Model
 from google.appengine.ext.webapp import RequestHandler
-from logic.models import Role, PerformanceReviewPeriod, Comment, PerformanceReview
+from logic.models import Role, PerformanceReviewPeriod, Comment, PerformanceReview, Salary
 
 class CreatePR(RequestHandler):
 

@@ -19,6 +19,8 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 from logic.authentication_middleware import Authentication
 from logic.web_handlers.add_data_handler import AddData
+from logic.web_handlers.add_form_handler import AddEmployeeForm
+from logic.web_handlers.add_manager_form_handler import AddManagerForm
 from logic.web_handlers.automatic_creation_pr_handler import AutomaticPerformanceReview
 from logic.web_handlers.check_form_content_handler import CheckFormContent
 from logic.web_handlers.check_pr_date import CheckDate
@@ -36,7 +38,6 @@ from logic.postdeploy import PostDeploy
 from logic.web_handlers.get_manager_prs import GetPrs
 from logic.web_handlers.get_self_pr_handler import GetSelfPR
 from logic.web_handlers.hr_maf_handler import HRManagerForm
-from logic.web_handlers.add_form_handler import AddForm
 from logic.web_handlers.main_handler import MainHandler
 from logic.web_handlers.manager_form_approve_handler import ManagerFormApprove
 from logic.web_handlers.manager_form_submit_handler import ManagerFormSubmit
@@ -71,7 +72,8 @@ def main():
                                           ('/pr/get/self', GetSelfPR),
                                           ('/pr/get/manager/(.*)', GetManagerForm),
                                           ('/pr/get/employee/(.*)', GetEmployeeForm),
-                                          ('/pr/add/(.*)/(.*)', AddForm),
+                                          ('/pr/add/manager/(.*)', AddManagerForm),
+                                          ('/pr/add/employee/(.*)', AddEmployeeForm),
                                           ('/pr/data/add', AddData),
                                           ('/pr/manager/submit/(.*)', ManagerFormSubmit),
                                           ('/pr/manager/approve/(.*)', ManagerFormApprove),
