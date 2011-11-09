@@ -41,6 +41,7 @@ function set_result(id, value) {
 function add_data(obj, form_key){
      var object = $(document).find(obj);
      var table = object.parent().attr('id');
+     var button = object.parent().find('.add_button');
      $.post(
             '/pr/data/add',
             {form_key: form_key, table: table},
@@ -49,7 +50,7 @@ function add_data(obj, form_key){
                 input.attr('id',data);
                 input.focusout(function(){
                     $.post('/pr/data/update/'+ this.id,{value: this.value});
-                    make_text(this)}).insertBefore(object);
+                    make_text(this)}).insertBefore(button);
                     input.focus();
                     });
 
@@ -66,7 +67,10 @@ function make_input(object){
     input_text.attr('value', obj.html());
     input_text.focusout(function(){
         $.post('/pr/data/update/'+ this.id,{value: this.value});
-        make_text(this)
+        make_text(this);
+    input_text.keydown(function (e){
+        alert('fgdfg');
+    })
 
     });
     obj.replaceWith(input_text);

@@ -11,12 +11,12 @@
         
 
         $('.checkall').click(function(){
-            $(this).parent().parent().parent().find(':checkbox').attr('checked', this.checked);
+            $(this).parent().parent().parent().find('input:checkbox:not(":disabled")').attr('checked', this.checked);
 	    });
 
         $('.comment').focusout(function(){
             $.post('pr/data/update/' + this.name, {'value': this.value });
-        })
+        });
 
         $('.date').datepicker({ dateFormat: 'yy-mm-dd' });
         $('.date').focusout(function(){
@@ -40,8 +40,10 @@
             var keys = '';
             $('input[name="check"]:checked').each(function(){
                     keys = keys + this.value + ',';});
-            $.post('/pr/register',{'keys': keys});
-            load("/hr");
+            $.post('/pr/register',{'keys': keys}, function(data){
+            });
+
+
             })
             </script>
     {% endifnotequal %}
@@ -53,20 +55,16 @@
         Finish: {{period.finish_date}}
         <table>
             <tr>
-                <td><input type="checkbox" class="checkall"></td>
+                <td><input type="checkbox" id="{{period.key}}" {{period.register}} class="checkall"></td>
                 <td>employee</td>
                 <td>manager</td>
                 <td>date</td>
                 <td>MAF</td>
                 <td>status</td>
             </tr>
-            {% for pr in period.performance_reviews %}
-                <tr>
-                    {% ifequal pr.manager_form.status 'submitted' %}
-                    <td><input type="checkbox" value={{pr.key}} name="check"></td>
-                    {% else %}
-                    <td></td>
-                    {% endifequal %}
+            {% for pr in period.pr %}
+                <tr id="{{pr.key}}">
+                    <td><input type="checkbox" {{pr.register}} value={{pr.key}} name="check"></td>
                     <td>{{pr.employee.email}}</td>
                     <td>{{pr.manager.email}}</td>
                     <td><input type="text" _key="{{pr.key}}" class="date" name="finish" value="{{pr.date}}"></td>
@@ -82,7 +80,7 @@
                         {% endif %}
                     </td>
 
-                    <td>
+                    <td name="status">
                         {% if pr.manager_form.status %}
                             {{pr.manager_form.status}}
                         {% else %}
