@@ -26,7 +26,7 @@ class AddManagerForm(AddEmployeeForm):
             prev_position = self.form.pr.employee.position
 
             if prev_salary:
-                salary = Salary(value=prev_salary,
+                salary = Salary(value=prev_salary.value,
                                 form=self.form)
             else:
                 salary = Salary(value='N/A',
@@ -34,7 +34,7 @@ class AddManagerForm(AddEmployeeForm):
             salary.put()
 
             if prev_grade:
-                grade = Grade(value=prev_grade,
+                grade = Grade(value=prev_grade.value,
                       form=self.form)
             else:
                 grade = Grade(value='N/A',

@@ -46,7 +46,7 @@ $(document).ready(function() {
 </div>
 
 <div id="prev_achievements">
-    <a href="#" onclick="display(this)">Previous achievements</a>
+    <p onclick="display(this)"><ins>Previous achievements</ins></p>
     <div class='hidden'>
         {% for achievement in prev_form.achievements %}
             <p>{{achievement.value}}</p>
@@ -71,7 +71,7 @@ $(document).ready(function() {
 </div>
 
 <div id="prev_challenges">
-    <a href="#" onclick="display(this)">Previous challenges</a>
+    <p onclick="display(this)"><ins>Previous challenges</ins></p>
     <div class='hidden'>
         {% for challenge in prev_form.challenges %}
             <p>{{challenge.value}}</p>
@@ -98,7 +98,7 @@ $(document).ready(function() {
 </div>
 
 <div id="prev_goals" class="input_div">
-    <a href="#" onclick="display(this)">Previous Goals:</a>
+    <p onclick="display(this)"><ins>Previous Goals:</ins></p>
     <div class="hidden">
     <table>
         <thead>
