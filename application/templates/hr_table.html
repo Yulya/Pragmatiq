@@ -34,15 +34,19 @@
 {% endblock %}
 
 {% block content %}
-    {% for period in periods %}
+    {% ifnotequal periods [] %}
         <script type="text/javascript">
             $('<input type="button" value="register">').insertBefore($('#new_period')).click(function(){
             var keys = '';
             $('input[name="check"]:checked').each(function(){
                     keys = keys + this.value + ',';});
             $.post('/pr/register',{'keys': keys});
+            load("/hr");
             })
             </script>
+    {% endifnotequal %}
+    {% for period in periods %}
+
         <h2>{{period.description}}</h2>
         Type: {{period.type}}
         Start: {{period.start_date}}
@@ -58,7 +62,11 @@
             </tr>
             {% for pr in period.performance_reviews %}
                 <tr>
+                    {% ifequal pr.manager_form.status 'submitted' %}
                     <td><input type="checkbox" value={{pr.key}} name="check"></td>
+                    {% else %}
+                    <td></td>
+                    {% endifequal %}
                     <td>{{pr.employee.email}}</td>
                     <td>{{pr.manager.email}}</td>
                     <td><input type="text" _key="{{pr.key}}" class="date" name="finish" value="{{pr.date}}"></td>
