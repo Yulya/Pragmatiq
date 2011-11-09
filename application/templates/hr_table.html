@@ -28,7 +28,7 @@
         $('#period').click(function(){
             ('.result').load('/new_period')
         });
-
+        
     })
 </script>
 {% endblock %}
@@ -36,7 +36,7 @@
 {% block content %}
     {% ifnotequal periods [] %}
         <script type="text/javascript">
-            $('<input type="button" value="register">').insertBefore($('#new_period')).click(function(){
+            $('<input type="button" {{button}} value="register">').insertBefore($('#new_period')).click(function(){
             var keys = '';
             $('input[name="check"]:checked').each(function(){
                     keys = keys + this.value + ',';});

@@ -6,7 +6,7 @@ class GetAllEmployees(RequestHandler):
     def get(self):
 
         periods = PerformanceReviewPeriod.all().fetch(1000)
-        template_values = {'periods': periods}
+        button = 'disabled'
 
         for period in periods:
             period.register = 'disabled'
@@ -17,7 +17,11 @@ class GetAllEmployees(RequestHandler):
                     if pr.manager_form.status == 'submitted':
                         period.register = ''
                         pr.register = ''
+                        button = ""
                 period.pr.append(pr)
+
+        template_values = {'periods': periods,
+                           'button': button}
 
         path = 'templates/hr_table.html'
         self.response.out.write(template.render(path, template_values))
