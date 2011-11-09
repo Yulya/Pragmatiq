@@ -17,6 +17,7 @@ function submit(){
             if (data == 'ok'){
                 $('input:text').attr('readonly', 'readonly');
                 $('.add_button').attr('disabled', 'disabled');
+                load('/pr/get/manager/{{form.pr.key}}')
             }
             else{
                 alert(data);
@@ -192,6 +193,8 @@ $(document).ready(function() {
     <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
 </div>
 
+    {% block salary %}
+
 <div id='salary' class="input_div">
     <p>Salary:</p>
         <p class='text_field' onclick="make_input(this)" id="{{form.get_all_data.salary.key}}" >{{form.get_all_data.salary.value}}</p>
@@ -208,7 +211,8 @@ $(document).ready(function() {
     <p>New position:</p>
         <p class='text_field' onclick="make_input(this)" id="{{form.get_all_data.position.key}}" >{{form.get_all_data.position.value}}</p>
 </div>
-
+    {% endblock %}
+        
 <div id='conclusion' class="input_div">
     <p>Conclusion:</p>
         <p class='text_field' onclick="make_input(this)" id="{{form.get_all_data.conclusion.key}}" >{{form.get_all_data.conclusion.value}}</p>
