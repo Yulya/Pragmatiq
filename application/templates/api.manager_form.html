@@ -210,7 +210,10 @@ $(document).ready(function() {
 </div>
 
 <div id='position' class="input_div">
-    <p>Current Position: {{form.pr.employee.position}}</p>
+    <p onclick="display(this)"><ins>Current position:</ins></p>
+    <div class="hidden">
+        <p>{{form.pr.employee.position}}</p>
+    </div>
     <p>New position:</p>
         <p class='text_field' onclick="make_input(this)" id="{{form.get_all_data.position.key}}" >{{form.get_all_data.position.value}}</p>
 </div>
