@@ -18,7 +18,7 @@ function submit(){
                 $('input:text').attr('readonly', 'readonly');
                 $('.add_button').attr('disabled', 'disabled');
                 load('/manager');
-                $('<p class="hint">{{form.pr.employee.first_name}} {{form.pr.employee.last_name}} form submitted</p>').insertBefore('.result');
+                $('#hint').html('{{form.pr.employee.first_name}} {{form.pr.employee.last_name}} form submitted');
             }
             else{
                 alert(data);

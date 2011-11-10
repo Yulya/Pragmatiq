@@ -1,5 +1,5 @@
 function load_role(a, user_key){
-    $('.hint').html('');
+    $('#hint').html('');
     if (a == 'manager'){
         $('#settings').css('display','none');
         $('.result').load('/manager');

@@ -22,7 +22,13 @@
                     'type':type,
                     'start': start,
                     'finish': finish},
-                        function(data){alert(data)})
+                        function(data){
+                            if (data == 'ok'){
+                                $('#hint').html('New period created');
+                                load('/hr');
+
+                            }
+                        })
             }
             else {alert('incorrect date')}
 
