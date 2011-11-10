@@ -46,3 +46,6 @@ div { margin: 20px; }
 .hidden{
     display: none;
 }
+.hint{
+    background-color: #C6DEFF;
+}

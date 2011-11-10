@@ -17,7 +17,8 @@ function submit(){
             if (data == 'ok'){
                 $('input:text').attr('readonly', 'readonly');
                 $('.add_button').attr('disabled', 'disabled');
-                load('/pr/get/manager/{{form.pr.key}}')
+                load('/manager');
+                $('<p class="hint">{{form.pr.employee.first_name}} {{form.pr.employee.last_name}} form submitted</p>').insertBefore('.result');
             }
             else{
                 alert(data);
