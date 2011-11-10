@@ -41,6 +41,10 @@
             $('input[name="check"]:checked').each(function(){
                     keys = keys + this.value + ',';});
             $.post('/pr/register',{'keys': keys}, function(data){
+                if (data == 'ok'){
+                    $('#hint').html('PR registered');
+                    load('/hr')
+                }
             });
 
 

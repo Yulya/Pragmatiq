@@ -7,7 +7,6 @@ class RegisterPerformanceReview(RequestHandler):
     def post(self):
 
         keys = self.request.get('keys')[:-1].split(',')
-        registered_pr_keys = []
 
         for key in keys:
             try:
@@ -15,8 +14,7 @@ class RegisterPerformanceReview(RequestHandler):
                 manager_form = pr.manager_form
                 manager_form.status = 'registered'
                 manager_form.put()
-                registered_pr_keys.append(pr.key())
             except BadKeyError, AttributeError:
                 self.error(404)
 
-        self.response.out.write(registered_pr_keys)
+        self.response.out.write('ok')
