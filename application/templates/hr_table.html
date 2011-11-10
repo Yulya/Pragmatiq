@@ -28,28 +28,40 @@
         $('#period').click(function(){
             ('.result').load('/new_period')
         });
-        
+        $('input[name="register"]').click(function(){
+            var keys = '';
+            $(this).parent().find($('input[name="check"]:checked')).each(function(){
+                    keys = keys + this.value + ',';});
+            $.post('/pr/register',{'keys': keys}, function(data){
+                if (data == 'ok'){
+                    $('#hint').html('PR registered');
+                    load('/hr');
+                }
+            })
+
+
+        })
     })
 </script>
 {% endblock %}
 
 {% block content %}
     {% ifnotequal periods [] %}
-        <script type="text/javascript">
-            $('<input type="button" {{button}} value="register">').insertBefore($('#new_period')).click(function(){
-            var keys = '';
-            $('input[name="check"]:checked').each(function(){
-                    keys = keys + this.value + ',';});
-            $.post('/pr/register',{'keys': keys}, function(data){
-                if (data == 'ok'){
-                    $('#hint').html('PR registered');
-                    load('/hr')
-                }
-            });
+        <!--<script type="text/javascript">-->
+            <!--$('<input type="button" {{button}} value="register">').insertBefore($('#new_period')).click(function(){-->
+            <!--var keys = '';-->
+            <!--$('input[name="check"]:checked').each(function(){-->
+                    <!--keys = keys + this.value + ',';});-->
+            <!--$.post('/pr/register',{'keys': keys}, function(data){-->
+                <!--if (data == 'ok'){-->
+                    <!--$('#hint').html('PR registered');-->
+                    <!--load('/hr')-->
+                <!--}-->
+            <!--});-->
 
 
-            })
-            </script>
+            <!--})-->
+            <!--</script>-->
     {% endifnotequal %}
     {% for period in periods %}
 
@@ -57,6 +69,10 @@
         Type: {{period.type}}
         Start: {{period.start_date}}
         Finish: {{period.finish_date}}
+        <div align="right">
+        <a href="#" onclick='load("hr/report/detailed/{{period.key}}")'>detailed report</a> |
+        <a href="#" onclick='load("hr/report/summary/{{period.key}}")'>summary report</a>
+        </div>
         <table>
             <tr>
                 <td><input type="checkbox" id="{{period.key}}" {{period.register}} class="checkall"></td>
@@ -95,6 +111,8 @@
                 </tr>
             {% endfor %}
         </table>
+        <input type="button" {{period.register}} name="register" value="register">
+        <hr >
     {% endfor %}
         <p id="new_period" ><input type="button" value="Create New PR Period" onclick="load('/new_period')"></p>
         <p><input type="button" value="Show detail report" onclick="load('/hr/report/detailed')"></p>

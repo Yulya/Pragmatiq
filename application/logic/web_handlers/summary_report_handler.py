@@ -1,12 +1,13 @@
 import datetime
 from google.appengine.ext.webapp import RequestHandler, template
-from logic.models import Dept
+from logic.models import Dept, PerformanceReviewPeriod
 
 class GetSummaryReport(RequestHandler):
 
-    def get(self):
+    def get(self, key):
 
         depts = Dept.all()
+        period = PerformanceReviewPeriod.get(key)
 
         summary = []
 
@@ -14,9 +15,7 @@ class GetSummaryReport(RequestHandler):
 
             existed_pr = filter(lambda x: x.self_pr.get(), dept.users)
 
-            all_dept_prs = filter(lambda x: x.self_pr.order('-date').get().
-                                            period.finish_date >
-                                            datetime.date.today(),
+            all_dept_prs = filter(lambda x: x.self_pr.filter('period', period).get(),
                                   existed_pr)
             employees = len(all_dept_prs)
 
