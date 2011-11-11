@@ -49,6 +49,11 @@ function add_data(obj, form_key){
             function(data){
                 var input = $('<input type="text" size="75">');
                 input.attr('id',data);
+                input.keypress(function(e){
+                    if (e.keyCode == '13'){
+                        add_data(input, form_key);
+                    }
+                });
                 input.focusout(function(){
                     $.post('/pr/data/update/'+ this.id,{value: this.value});
                     make_text(this)}).insertBefore(button);
@@ -69,11 +74,12 @@ function make_input(object){
     input_text.focusout(function(){
         $.post('/pr/data/update/'+ this.id,{value: this.value});
         make_text(this);
-    input_text.keydown(function (e){
-        alert('fgdfg');
-    })
-
     });
+    input_text.keypress(function(e){
+                    if (e.keyCode == '13'){
+                        add_data(input, form_key);
+                    }
+                });
     obj.replaceWith(input_text);
     input_text.focus();
 }
