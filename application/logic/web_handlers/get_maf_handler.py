@@ -12,9 +12,8 @@ class GetManagerForm(BaseFormHandler):
         super(GetManagerForm, self).get(key)
 
         if self.template_values['form'].status == 'submitted':
-            self.response.out.write('form is temporary unavailable')
-            return
-
+            self.path = 'templates/api.readonly_maf.html'
+            
         if self.template_values['form'].status == 'registered':
             self.path = 'templates/api.registered_maf.html'
             
