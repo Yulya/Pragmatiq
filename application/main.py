@@ -89,7 +89,6 @@ def main():
                                           ('/new_period', HR),
                                           ('/upload', UploadHandler),
                                           ('/serve/([^/]+)?', ServeHandler)
-
                                          ],
                                          debug=True)
 

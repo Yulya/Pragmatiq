@@ -1,7 +1,7 @@
 from google.appengine.api import users
 from google.appengine.ext.db import Model
 from google.appengine.ext.webapp import RequestHandler
-from logic.models import PerformanceReview, PerformanceReviewForm
+from logic.models import PerformanceReview, PerformanceReviewForm, JobAssessment
 
 class AddEmployeeForm(RequestHandler):
 
@@ -27,6 +27,10 @@ class AddEmployeeForm(RequestHandler):
             pr_form.put()
             
         self.form = pr_form
+
+        if self.flag:
+            job_assessment = JobAssessment(form=pr_form)
+            job_assessment.put()
 
         if self.flag:
             self.redirect('/pr/get/%(type)s/%(key)s' % {'type': self.type, 'key': pr.key()})

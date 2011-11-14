@@ -84,6 +84,7 @@ class PerformanceReviewForm(db.Model):
                 'position': self.position.get(),
                 'salary': self.salary.get(),
                 'grade': self.grade.get(),
+                'job_assessment': self.job_assessment.get(),
                 'conclusion': self.conclusion.get()}
         return data
 
@@ -97,7 +98,11 @@ class Position(db.Model):
     value = db.StringProperty()
     form = db.ReferenceProperty(PerformanceReviewForm,
                                 collection_name='position')
-    
+
+class JobAssessment(db.Model):
+    value = db.StringProperty(default='5', choices=('1','2','3','4','5','6','7','8','9','10'))
+    form = db.ReferenceProperty(PerformanceReviewForm,
+                                collection_name='job_assessment')
 
 class Project(db.Model):
     form = db.ReferenceProperty(PerformanceReviewForm,

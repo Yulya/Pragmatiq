@@ -180,6 +180,24 @@ $(document).ready(function() {
     </form>
 </div>
 
+<div id='conclusion' class="input_div">
+    <p>Conclusion:</p>
+        <select id="{{form.get_all_data.job_assessment.key}}" onchange="send_value(this.id, this.options[selectedIndex].value)">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        <script type="text/javascript" language="JavaScript">
+                    $("#{{form.get_all_data.job_assessment.key}}").val("{{form.get_all_data.job_assessment.value}}");
+        </script>
+</div>
 <div>
     <input type="button" id="submit" value="submit">
 </div>

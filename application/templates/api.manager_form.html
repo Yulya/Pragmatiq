@@ -220,7 +220,14 @@ $(document).ready(function() {
         
 <div id='conclusion' class="input_div">
     <p>Conclusion:</p>
-        <p class='text_field' onclick="make_input(this)" id="{{form.get_all_data.conclusion.key}}" >{{form.get_all_data.conclusion.value}}</p>
+        <select id="{{form.get_all_data.conclusion.key}}" onchange="send_value(this.id, this.options[selectedIndex].value)">
+            <option value="below expectation">below expectation</option>
+            <option value="meet expectation">meet expectation</option>
+            <option value="above expectation">above expectation</option>
+        </select>
+        <script type="text/javascript" language="JavaScript">
+                    $("#{{form.get_all_data.conclusion.key}}").val("{{form.get_all_data.conclusion.value}}");
+        </script>
 </div>
 
 <div id="file">

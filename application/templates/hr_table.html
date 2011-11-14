@@ -46,23 +46,7 @@
 {% endblock %}
 
 {% block content %}
-    {% ifnotequal periods [] %}
-        <!--<script type="text/javascript">-->
-            <!--$('<input type="button" {{button}} value="register">').insertBefore($('#new_period')).click(function(){-->
-            <!--var keys = '';-->
-            <!--$('input[name="check"]:checked').each(function(){-->
-                    <!--keys = keys + this.value + ',';});-->
-            <!--$.post('/pr/register',{'keys': keys}, function(data){-->
-                <!--if (data == 'ok'){-->
-                    <!--$('#hint').html('PR registered');-->
-                    <!--load('/hr')-->
-                <!--}-->
-            <!--});-->
 
-
-            <!--})-->
-            <!--</script>-->
-    {% endifnotequal %}
     {% for period in periods %}
 
         <h2>{{period.description}}</h2>
@@ -114,5 +98,5 @@
         <input type="button" {{period.register}} name="register" value="register">
         <hr >
     {% endfor %}
-        <p id="new_period" ><input type="button" value="Create New PR Period" onclick="load('/new_period')"></p>
+        <p id="new_period" ><a href="#" onclick="load('/new_period')">Create New PR Period</a></p>
 {% endblock %}
