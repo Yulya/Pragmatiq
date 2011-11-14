@@ -31,11 +31,11 @@ div { margin: 20px; }
     margin: auto;
     border: 1px solid #cccccc;
     padding: 10px;
-    padding-bottom: 60px;   /* Height of the footer */
+    /*padding-bottom: 60px;    Height of the footer*/
 }
 
 #footer {
-    position: absolute;
+    /*position: absolute;*/
     bottom: 0;
     height: 60px;   /* Height of the footer */
     width: 100%;

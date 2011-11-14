@@ -42,12 +42,13 @@ class CreatePR(RequestHandler):
         for employee in employees:
             comment = Comment()
             comment.put()
-            user = Model.get(employee)
-            pr = PerformanceReview(employee=user,
-                                   comment=comment,
-                                   manager=user.manager,
-                                   period=period,
-                                   date=start)
-            pr.put()
+            if employee != '':
+                user = Model.get(employee)
+                pr = PerformanceReview(employee=user,
+                                       comment=comment,
+                                       manager=user.manager,
+                                       period=period,
+                                       date=start)
+                pr.put()
 
         self.response.out.write('ok')

@@ -8,12 +8,12 @@
     $(document).ready(function(){
         $('.date').datepicker({ dateFormat: 'yy-mm-dd' });
         $('#submit').click(function(){
-            var employees = '';
+            var employees = new Array();
             var start = $('#start').val();
             var finish = $('#finish').val();
             var type = $('#type').val();
             $('input[name="employees"]:checked').each(function(){
-                    employees = employees + this.value + ',';})
+                    employees = employees + this.value + ',';});
 
             var re = /^\d{4}\-\d{1,2}\-\d{1,2}$/;
 

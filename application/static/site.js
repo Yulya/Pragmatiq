@@ -86,7 +86,7 @@ function make_input(object){
 function make_text(object){
     var obj = $(document).find(object);
     var text = $('<p></p>');
-    text.attr('id', obj.id);
+    text.attr('id', obj.attr('id'));
     text.html(obj.val());
     text.click(function(){
         make_input(this)

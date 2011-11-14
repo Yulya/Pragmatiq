@@ -12,8 +12,11 @@ class UpdateData(RequestHandler):
             self.error(405)
             return
 
-        if self.request.get('value') != '':
-            obj.value = self.request.get('value')
+        if self.request.get('value') == '':
+            obj.delete()
+            return
+
+        obj.value = self.request.get('value')
 
         if self.request.get('result'):
             obj.result = int(self.request.get('result'))
