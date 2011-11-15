@@ -49,8 +49,10 @@ from logic.web_handlers.update_data_handler import UpdateData
 from logic.web_handlers.update_event_handler import UpdateEvent
 from logic.web_handlers.update_pr_handler import UpdatePR
 from logic.web_handlers.upload_handler import UploadHandler
+from logic.web_handlers.upload_xls import UploadXlsHandler
 from logic.web_handlers.url_handler import UrlHandler
 from logic.web_handlers.user_table_handler import UserTable
+from logic.web_handlers.xls_parsing_handler import XlsParseHandler
 
 def main():
     #run post deploy scripts
@@ -88,6 +90,7 @@ def main():
                                           ('/hr', GetAllEmployees),
                                           ('/new_period', HR),
                                           ('/upload', UploadHandler),
+                                          ('/parse_xls', XlsParseHandler),
                                           ('/serve/([^/]+)?', ServeHandler)
                                          ],
                                          debug=True)
