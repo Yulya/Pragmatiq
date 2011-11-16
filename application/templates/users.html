@@ -1,6 +1,16 @@
 {% extends "_base.html" %}
 
 {% block content %}
+<div>
+    Update user information by uploading .xls file:
+    <form action="{{upload_url}}" method="POST" enctype="multipart/form-data">
+        <input type='hidden' name='key' value={{form.key}}>
+        <input type="file" name="file"><br>
+        <input type="submit" name="submit" value="Update">
+    </form>
+</div>
+
+<div><a href="/new_user">Add user</a></div>
 
 <div>
     <p>Users:</p>
@@ -15,6 +25,7 @@
                     <td> Roles </td>
                     <td> Department </td>
                     <td> Position </td>
+                    <td> Login </td>
                 </tr>
             </thead>
         {% endif %}
@@ -27,11 +38,11 @@
                 <td>{{user.roles}}</td>
                 <td>{{user.dept.name}}</td>
                 <td>{{user.position}}</td>
+                <td>{{user.login}}</td>
             </tr>
         {% endfor %}
     </table>
 
 </div>
-<a href="/new_user">Add user</a>
 
 {% endblock %}

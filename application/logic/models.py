@@ -5,6 +5,10 @@ class Role(db.Model):
     value = db.StringProperty()
 
 
+class Dept(db.Model):
+    name = db.StringProperty()
+
+
 class User(db.Model):
     first_name = db.StringProperty()
     last_name = db.StringProperty()
@@ -14,7 +18,7 @@ class User(db.Model):
     password = db.StringProperty()
     role = db.ListProperty(db.Key)
     manager = db.SelfReferenceProperty(collection_name='subs')
-    dept = db.ReferenceProperty(collection_name='users')
+    dept = db.ReferenceProperty(Dept, collection_name='users')
 
 
 class Event(db.Model):
@@ -22,17 +26,10 @@ class Event(db.Model):
     finish_date = db.DateProperty()
     type = db.StringProperty()
 
+    
+class ContactXlsFile(db.Model):
+    file_key = db.StringProperty()
 
-class Dept(db.Model):
-    name = db.StringProperty()
-
-
-class Phone(db.Model):
-    employee = db.ReferenceProperty(User,
-                                 collection_name='phone_numbers')
-    phone_type = db.StringProperty(
-      choices=('home', 'work', 'fax', 'mobile', 'other'))
-    number = db.PhoneNumberProperty()
 
 class PerformanceReviewPeriod(db.Model):
     description = db.StringProperty()

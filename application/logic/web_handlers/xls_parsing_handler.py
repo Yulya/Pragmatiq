@@ -1,15 +1,19 @@
+import re
 from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import RequestHandler
-from logic.models import ContactXlsFile, User, Dept
+from logic.models import User, Dept, ContactXlsFile
 import xlrd
-import os.path
 
 
 class XlsParseHandler(RequestHandler):
 
     def get(self):
 
-        wb = xlrd.open_workbook(os.path.dirname(__file__) + '/contacts.xls')
+        file_key = ContactXlsFile.all().get().file_key
+        blob_info = blobstore.BlobInfo.get(file_key)
+        file = blob_info.open().read()
+        
+        wb = xlrd.open_workbook(file_contents=file)
         wb.sheet_names()
         sh = wb.sheet_by_index(0)
 
@@ -18,60 +22,60 @@ class XlsParseHandler(RequestHandler):
                      'dept': 2,
                      'position': 3,
                      'email': 4,
-#                     'skype': 5,
-#                     'internal_number': 6,
-#                     'phone_number': 7,
-#                     'tariff_table': 8,
-#                     'tariff_level': 9,
                      'login': 10,
-#                     'city': 11,
                      'manager': 12
-        }
+                    }
         manager_dict = {}
+
+        reg = "^\s+|\n|\r|\s+$"
 
         for rownum in range(sh.nrows)[6:]:
 
-            login = sh.cell_value(rownum,cols_dict['login'])
-
+            login = sh.cell_value(rownum,cols_dict['login']).replace(' ','')
             user = User().all().filter('login', login).get()
-
             if user is None:
-                user = User()
-            manager_str = ''
+                user = User(login=login)
+                user.put()
 
-            for key in cols_dict.keys():
+            string_fields = ['first_name',
+                             'last_name',
+                             'position',
+                             'email']
 
-                value = sh.cell_value(rownum,cols_dict[key])
-                if key == 'last_name' or key == 'first_name':
-                    value = value.replace(' ','')
-                if key == 'dept':
-                    department = Dept().all().filter('name', value).get()
-                    if department is None:
-                        department = Dept(name=value)
-                        department.put()
-                    value = department
-                if key == 'manager':
-                    manager_str = value
-                try:
-                    user.__setattr__(key, value)
-                except AttributeError:
-                    pass
+            for field in string_fields:
+                value = re.sub(reg, '', sh.cell_value(rownum,cols_dict[field]))
+                user.__setattr__(field, value)
+
+            department_str = re.sub(reg,
+                                    '',
+                                    sh.cell_value(rownum,cols_dict['dept']))
+            department = Dept().all().filter('name', department_str).get()
+            if department is None:
+                department = Dept(name=department_str)
+                department.put()
+            user.dept = department
+
             user.put()
+
+            manager_str = re.sub(reg,
+                                 '',
+                                 sh.cell_value(rownum,cols_dict['manager']))
             manager_dict.update({user: manager_str})
 
         for user in manager_dict.keys():
-            manager_str = manager_dict[user]
+            manager_str = manager_dict[user].replace('  ',' ')
             if manager_str != '':
                 last_name = manager_str.split(' ')[0]
-                last_name = last_name.replace(' ','')
                 first_name = manager_str.split(' ')[1]
-                manager = User.all().filter('last_name', last_name).get()
-                if manager is None:
-                    self.response.out.write('@'+ last_name+'@\n')
+                manager = User.all().filter('last_name',
+                                            last_name).filter('first_name',
+                                                              first_name).get()
             else:
                 manager = None
+
             user.manager = manager
             user.put()
+
 
 
         self.redirect('/users')
