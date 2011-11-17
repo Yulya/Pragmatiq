@@ -15,75 +15,78 @@ class GetSummaryReport(RequestHandler):
 
             existed_pr = filter(lambda x: x.self_pr.get(), dept.users)
 
-            all_dept_prs = filter(lambda x: x.self_pr.filter('period', period).get(),
+            all_dept_prs = filter(lambda x: x.self_pr.filter('period',
+                                                             period).get(),
                                   existed_pr)
-            employees = len(all_dept_prs)
 
-            clean_manager_form = filter(lambda x:
-                                        not x.self_pr.order('-date').get().
-                                        manager_form,
-                                        existed_pr)
-            clean_employee_form = filter(lambda x:
-                                         not x.self_pr.order('-date').get().
-                                         employee_form,
-                                         existed_pr)
+            if all_dept_prs:
+                employees = len(all_dept_prs)
 
-            clean_draft = len(clean_employee_form) + len(clean_manager_form)
-
-            not_clean_manager_form = filter(lambda x:
-                                            x.self_pr.order('-date').get().
+                clean_manager_form = filter(lambda x:
+                                            not x.self_pr.order('-date').get().
                                             manager_form,
                                             existed_pr)
-            not_clean_employee_form = filter(lambda x:
-                                             x.self_pr.order('-date').get().
+                clean_employee_form = filter(lambda x:
+                                             not x.self_pr.order('-date').get().
                                              employee_form,
                                              existed_pr)
 
-            man_draft_in_work = filter(lambda x:
-                                       x.self_pr.order('-date').get().
-                                       manager_form.status ==
-                                       'draft',
-                                       not_clean_manager_form)
-            emp_draft_in_work = filter(lambda x:
-                                       x.self_pr.order('-date').get().
-                                       employee_form.status ==
-                                       'draft', not_clean_employee_form)
+                clean_draft = len(clean_employee_form) + len(clean_manager_form)
 
-            in_work = len(man_draft_in_work) + len(emp_draft_in_work)
+                not_clean_manager_form = filter(lambda x:
+                                                x.self_pr.order('-date').get().
+                                                manager_form,
+                                                existed_pr)
+                not_clean_employee_form = filter(lambda x:
+                                                 x.self_pr.order('-date').get().
+                                                 employee_form,
+                                                 existed_pr)
 
-            registered_pr = filter(lambda x:
-                                   x.self_pr.order('-date').get().manager_form.
-                                   status ==
-                                   'registered', not_clean_manager_form)
-
-            reg_pr = len(registered_pr)
-
-            submitted_by_employee = filter(lambda x:
+                man_draft_in_work = filter(lambda x:
                                            x.self_pr.order('-date').get().
-                                           employee_form.status
-                                           == 'submitted',
-                                           not_clean_employee_form)
-            emp_submit = len(submitted_by_employee)
+                                           manager_form.status ==
+                                           'draft',
+                                           not_clean_manager_form)
+                emp_draft_in_work = filter(lambda x:
+                                           x.self_pr.order('-date').get().
+                                           employee_form.status ==
+                                           'draft', not_clean_employee_form)
 
-            submitted_by_manager = filter(lambda x:
-                                          x.self_pr.order('-date').get().
-                                          manager_form.status
-                                          == 'submitted',
-                                          not_clean_manager_form)
-            man_submit = len(submitted_by_manager)
+                in_work = len(man_draft_in_work) + len(emp_draft_in_work)
 
-            approved_pr = filter(lambda x:
-                                 x.self_pr.order('-date').get().manager_form
-                                 .status ==
-                                 'approved', not_clean_manager_form)
+                registered_pr = filter(lambda x:
+                                       x.self_pr.order('-date').get().manager_form.
+                                       status ==
+                                       'registered', not_clean_manager_form)
 
-            approved = len(approved_pr)
+                reg_pr = len(registered_pr)
 
-            all_draft = clean_draft + in_work + emp_submit + man_submit
+                submitted_by_employee = filter(lambda x:
+                                               x.self_pr.order('-date').get().
+                                               employee_form.status
+                                               == 'submitted',
+                                               not_clean_employee_form)
+                emp_submit = len(submitted_by_employee)
 
-            percent = (approved*100)/employees
+                submitted_by_manager = filter(lambda x:
+                                              x.self_pr.order('-date').get().
+                                              manager_form.status
+                                              == 'submitted',
+                                              not_clean_manager_form)
+                man_submit = len(submitted_by_manager)
 
-            dept_info = {'name': dept.name,
+                approved_pr = filter(lambda x:
+                                     x.self_pr.order('-date').get().manager_form
+                                     .status ==
+                                     'approved', not_clean_manager_form)
+
+                approved = len(approved_pr)
+
+                all_draft = clean_draft + in_work + emp_submit + man_submit
+
+                percent = (approved*100)/employees
+
+                dept_info = {'name': dept.name,
                          'employees': employees,
                          'clean': clean_draft,
                          'in_work': in_work,
@@ -94,7 +97,7 @@ class GetSummaryReport(RequestHandler):
                          'emp_submit': emp_submit,
                          'man_submit': man_submit}
 
-            summary.append(dept_info)
+                summary.append(dept_info)
 
         template_values = {'summary': summary}
 

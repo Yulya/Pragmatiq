@@ -47,8 +47,8 @@ class Authentication(object):
                     resp = Response(status="401")
                     return resp(environ, start_response)
             else:
-                user_info = User.gql("WHERE email = :email",
-                                     email=current_user.email()).get()
+                user_info = User.all().filter('email', current_user.email()).get()
+                
                 if user_info is None:
                     user_info = User(
                         email=current_user.email())
