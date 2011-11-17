@@ -14,55 +14,69 @@
 
 <div id="project" class="input_div">
     <p>Please list all projects and initiatives you participated in during this performance review period.</p>
+    <ul>
     {% for project in form.projects %}
-        <p>{{project.value}}</p>
+        <li>{{project.value}}</li>
     {% endfor %}
+    </ul>
 </div>
 
 <div id="prev_achievements">
     <p onclick="display(this)"><ins>Previous achievements</ins></p>
     <div class='hidden'>
-        {% for achievement in prev_pr.achievements %}
-            <p>{{achievement.value}}</p>
+        <ul>
+        {% for achievement in prev_form.achievements %}
+            <li>{{achievement.value}}</li>
         {% endfor %}
+        </ul>
     </div>
 </div>
 
 <div id="achievements" class="input_div">
     <p>What do you consider to be your key accomplishments since your last review?</p>
+    <ul>
     {% for ach in form.achievements %}
-        <p>{{ach.value}}</p>
+        <li>{{ach.value}}</li>
     {% endfor %}
+    </ul>
 </div>
 
 <div id="responsibility" class="input_div">
     <p>List your key job responsibilities during your performance period. Please comment on your job performance assessment.</p>
+    <ul>
     {% for responsibility in form.responsibilities %}
-        <p>{{responsibility.value}}</p>
+        <li>{{responsibility.value}}</li>
     {% endfor %}
+    </ul>
 </div>
 
 <div id="prev_challenges">
     <p onclick="display(this)"><ins>Previous challenges</ins></p>
     <div class='hidden'>
-        {% for challenge in prev_pr.challenges %}
-            <p>{{challenge.value}}</p>
+        <ul>
+        {% for challenge in prev_form.challenges %}
+            <li>{{challenge.value}}</li>
         {% endfor %}
+        </ul>
     </div>
 </div>
 
 <div id="challenges" class="input_div">
     <p>If you have experienced challenges, please specify the areas where you need to focus and improve. </p>
+    <ul>
     {% for challenge in form.challenges %}
-        <p>{{challenge.value}}</p>
+        <li>{{challenge.value}}</li>
     {% endfor %}
+    </ul>
 </div>
 
 <div id="skill" class="input_div">
     <p>Please mention what skills and/or knowledge do you need for further development to contribute to your overall job success.</p>
+    <ul>
     {% for skill in form.skills %}
-        <p>{{skill.value}}</p>
+        <li>{{skill.value}}</li>
     {% endfor %}
+    </ul>
 </div>
 
 <div id="prev_goals" class="input_div">
@@ -75,7 +89,7 @@
                 <td>Value</td>
             </tr>
         </thead>
-    {% for prev_goal in prev_pr.goals %}
+    {% for prev_goal in prev_form.goals %}
         <tr>
             <td>{{prev_goal.value}}</td>
             <td>{{prev_goal.result}}</td>
@@ -87,37 +101,47 @@
 
 <div id="next_goals" class="input_div">
     <p>Goals for the next period:</p>
+    <ul>
     {% for goal in form.next_goals %}
-        <p>{{goal.value}}</p>
+        <li>{{goal.value}}</li>
     {% endfor %}
+    </ul>
 </div>
 
 <div id="career" class="input_div">
     <p>What are your professional interests and long-term career objectives, and what are you plans to accomplish these objectives?  </p>
+    <ul>
     {% for career in form.careers %}
-        <p>{{career.value}}</p>
+        <li>{{career.value}}</li>
     {% endfor %}
+    </ul>
 </div>
 
 <div id="issue" class="input_div">
     <p>Do you see any issues with your role within the company and/or your project(s)?</p>
+    <ul>
     {% for issue in form.issues %}
-        <p>{{issue.value}}</p>
+        <li>{{issue.value}}</li>
     {% endfor %}
+    </ul>
 </div>
 
 <div id="complaint" class="input_div">
     <p>Do you have any complaints?</p>
+    <ul>
     {% for complaint in form.complaints %}
-        <p>{{complaint.value}}</p>
+        <li>{{complaint.value}}</li>
     {% endfor %}
+    </ul>
 </div>
 
 <div id="manager_help" class="input_div">
     <p>Is there anything your manager could do to help you do a better job? </p>
+    <ul>
     {% for manager_help in form.manager_helps %}
-        <p>{{manager_help.value}}</p>
+        <li>{{manager_help.value}}</li>
     {% endfor %}
+    </ul>
 </div>
 
 

@@ -49,61 +49,73 @@ $(document).ready(function(){
 </div>
 <div id="project" class="input_div">
     <p>Please list all projects and initiatives you participated in during this performance review period.</p>
+    <ul>
     {% for project in form.projects %}
-        <p class='text_field' onclick="make_input(this)" id="{{project.key}}">{{project.value}}</p>
+        <li class='text_field' onclick="make_input(this)" id="{{project.key}}">{{project.value}}</li>
     {% endfor %}
+    </ul>
     <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
 </div>
 
 <div id="prev_achievements">
     <p onclick="display(this)"><ins>Previous achievements</ins></p>
     <div class='hidden'>
+        <ul>
         {% for achievement in prev_form.achievements %}
-            <p>{{achievement.value}}</p>
+            <li>{{achievement.value}}</li>
         {% endfor %}
+        </ul>
     </div>
 </div>
 
 <div id="achievements" class="input_div">
     <p>What do you consider to be your key accomplishments since your last review?</p>
+    <ul>
     {% for ach in form.achievements %}
-        <p class='text_field' onclick="make_input(this)" id="{{ach.key}}">{{ach.value}}</p>
+        <li class='text_field' onclick="make_input(this)" id="{{ach.key}}">{{ach.value}}</li>
     {% endfor %}
+    </ul>
     <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
 </div>
 
 <div id="responsibility" class="input_div">
     <p>List your key job responsibilities during your performance period. Please comment on your job performance assessment.</p>
+    <ul>
     {% for responsibility in form.responsibilities %}
-        <p class='text_field' onclick="make_input(this)" id="{{responsibility.key}}">{{responsibility.value}}</p>
+        <li class='text_field' onclick="make_input(this)" id="{{responsibility.key}}">{{responsibility.value}}</li>
     {% endfor %}
+    </ul>
     <input type="button" class="add_button" onclick="add_data(this,'{{form.key}}')" value="add" >
 </div>
 
 <div id="prev_challenges">
     <p onclick="display(this)"><ins>Previous challenges</ins></p>
     <div class='hidden'>
+        <ul>
         {% for challenge in prev_form.challenges %}
-            <p>{{challenge.value}}</p>
+            <li>{{challenge.value}}</li>
         {% endfor %}
+        </ul>
     </div>
 </div>
 
 <div id="challenges" class="input_div">
     <p>If you have experienced challenges, please specify the areas where you need to focus and improve. </p>
+    <ul>
     {% for challenge in form.challenges %}
-        <!-- todo: use css class instead of properties -->
-        <p class='text_field' onclick="make_input(this)" id="{{challenge.key}}">{{challenge.value}}</p>
+        <li class='text_field' onclick="make_input(this)" id="{{challenge.key}}">{{challenge.value}}</li>
     {% endfor %}
+    </ul>
     <input type="button" class="add_button" onclick="add_data(this,'{{form.key}}')" value="add" >
 </div>
 
 <div id="skill" class="input_div">
     <p>Please mention what skills and/or knowledge do you need for further development to contribute to your overall job success.</p>
+    <ul>
     {% for skill in form.skills %}
-        <!-- todo: use css class instead of properties -->
-        <p class='text_field' onclick="make_input(this)" id="{{skill.key}}" >{{skill.value}}</p>
+        <li class='text_field' onclick="make_input(this)" id="{{skill.key}}" >{{skill.value}}</li>
     {% endfor %}
+    </ul>
     <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
 </div>
 
@@ -138,41 +150,51 @@ $(document).ready(function(){
 
 <div id="next_goals" class="input_div">
     <p>Goals for the next period:</p>
+    <ul>
     {% for goal in form.next_goals %}
-        <p class='text_field' onclick="make_input(this)" id="{{goal.key}}" >{{goal.value}}</p>
+        <li class='text_field' onclick="make_input(this)" id="{{goal.key}}" >{{goal.value}}</li>
     {% endfor %}
+    </ul>
     <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
 </div>
 
 <div id="career" class="input_div">
     <p>What are your professional interests and long-term career objectives, and what are you plans to accomplish these objectives?  </p>
+    <ul>
     {% for career in form.careers %}
-        <p class='text_field' onclick="make_input(this)" id="{{career.key}}" >{{career.value}}</p>
+        <li class='text_field' onclick="make_input(this)" id="{{career.key}}" >{{career.value}}</li>
     {% endfor %}
+    </ul>
     <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
 </div>
 
 <div id="issue" class="input_div">
     <p>Do you see any issues with your role within the company and/or your project(s)?</p>
+    <ul>
     {% for issue in form.issues %}
-        <p class='text_field' onclick="make_input(this)" id="{{issue.key}}" >{{issue.value}}</p>
+        <li class='text_field' onclick="make_input(this)" id="{{issue.key}}" >{{issue.value}}</li>
     {% endfor %}
+    </ul>
     <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
 </div>
 
 <div id="complaint" class="input_div">
     <p>Do you have any complaints?</p>
+    <ul>
     {% for complaint in form.complaints %}
-        <p class='text_field' onclick="make_input(this)" id="{{complaint.key}}" >{{complaint.value}}</p>
+        <li class='text_field' onclick="make_input(this)" id="{{complaint.key}}" >{{complaint.value}}</li>
     {% endfor %}
+    </ul>
     <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
 </div>
 
 <div id="manager_help" class="input_div">
     <p>Is there anything your manager could do to help you do a better job? </p>
+    <ul>
     {% for manager_help in form.manager_helps %}
-        <p class='text_field' onclick="make_input(this)" id="{{manager_help.key}}" >{{manager_help.value}}</p>
+        <li class='text_field' onclick="make_input(this)" id="{{manager_help.key}}" >{{manager_help.value}}</li>
     {% endfor %}
+    </ul>
     <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
 </div>
 

@@ -43,6 +43,7 @@ function add_data(obj, form_key){
      var object = $(document).find(obj);
      var table = object.parent().attr('id');
      var button = object.parent().find('.add_button');
+     var ul =  object.parent().find('ul');
      $.post(
             '/pr/data/add',
             {form_key: form_key, table: table},
@@ -51,12 +52,12 @@ function add_data(obj, form_key){
                 input.attr('id',data);
                 input.keypress(function(e){
                     if (e.keyCode == '13'){
-                        add_data(input, form_key);
+                        add_data(input.parent(), form_key);
                     }
                 });
                 input.focusout(function(){
                     $.post('/pr/data/update/'+ this.id,{value: this.value});
-                    make_text(this)}).insertBefore(button);
+                    make_text(this)}).appendTo(ul);
                     input.focus();
                     });
 
@@ -85,7 +86,7 @@ function make_input(object){
 }
 function make_text(object){
     var obj = $(document).find(object);
-    var text = $('<p></p>');
+    var text = $('<li></li>');
     text.attr('id', obj.attr('id'));
     text.html(obj.val());
     text.click(function(){
