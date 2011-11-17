@@ -1,0 +1,64 @@
+<mockup version="1.0" skin="sketch" measuredW="676" measuredH="361" mockupW="610" mockupH="331">
+  <controls>
+    <control controlID="30" controlTypeID="__group__" x="66" y="97" w="610" h="264" measuredW="610" measuredH="264" zOrder="0" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="__group__" x="0" y="0" w="610" h="264" measuredW="610" measuredH="264" zOrder="0" locked="false" isInGroup="30">
+          <groupChildrenDescriptors>
+            <control controlID="0" controlTypeID="__group__" x="0" y="0" w="610" h="264" measuredW="610" measuredH="264" zOrder="0" locked="false" isInGroup="0">
+              <groupChildrenDescriptors>
+                <control controlID="0" controlTypeID="com.balsamiq.mockups::Accordion" x="0" y="0" w="610" h="264" measuredW="194" measuredH="283" zOrder="0" locked="false" isInGroup="0">
+                  <controlProperties>
+                    <selectedIndex>0</selectedIndex>
+                    <text>Projects%20and%20initiatives%0AAchievements%20and%20challenges%0AProfessional%20development%20plan%0APerformance%20conclusion%0AMisc</text>
+                  </controlProperties>
+                </control>
+                <control controlID="1" controlTypeID="com.balsamiq.mockups::TextInput" x="22" y="83" w="567" h="-1" measuredW="129" measuredH="27" zOrder="1" locked="false" isInGroup="0">
+                  <controlProperties>
+                    <text>Some%20other%20project</text>
+                  </controlProperties>
+                </control>
+                <control controlID="2" controlTypeID="com.balsamiq.mockups::Button" x="21" y="114" w="-1" h="-1" measuredW="46" measuredH="28" zOrder="2" locked="false" isInGroup="0">
+                  <controlProperties>
+                    <text>Add</text>
+                  </controlProperties>
+                </control>
+              </groupChildrenDescriptors>
+            </control>
+            <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="10" y="36" w="594" h="22" measuredW="584" measuredH="23" zOrder="1" locked="false" isInGroup="0">
+              <controlProperties>
+                <text>Please%20list%20all%20projects%20and%20initiatives%20you%20participated%20in%20during%20this%20performance%20review%20period.</text>
+              </controlProperties>
+            </control>
+          </groupChildrenDescriptors>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::RoundButton" x="24" y="65" w="10" h="10" measuredW="32" measuredH="32" zOrder="1" locked="false" isInGroup="30">
+          <controlProperties>
+            <color>3355443</color>
+            <text/>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="40" y="58" w="-1" h="-1" measuredW="66" measuredH="23" zOrder="2" locked="false" isInGroup="30">
+          <controlProperties>
+            <text>Pragmatiq</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="31" controlTypeID="com.balsamiq.mockups::Label" x="66" y="30" w="-1" h="-1" measuredW="334" measuredH="29" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>18</size>
+        <text>Manager%20assessment%20form%20for%20Jane%20Doe</text>
+      </controlProperties>
+    </control>
+    <control controlID="32" controlTypeID="com.balsamiq.mockups::Label" x="66" y="59" w="-1" h="-1" measuredW="120" measuredH="23" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Manager%3A%20John%20Doe</text>
+      </controlProperties>
+    </control>
+    <control controlID="34" controlTypeID="com.balsamiq.mockups::Label" x="556" y="58" w="120" h="23" measuredW="110" measuredH="23" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Date%3A%202011/12/24</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
