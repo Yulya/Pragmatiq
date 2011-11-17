@@ -8,20 +8,19 @@ var form_type='{{form.pr.period.type}}';
 
 
 function approve(){
-    $.get('/pr/manager/approve/' + form_key);
-    $('input:text').attr('readonly', 'readonly');
-    $('.add_button').attr('disabled', 'disabled');
+    $.get('/pr/manager/approve/' + form_key, function(data){
+        if (data == 'ok'){
+            load('/manager');
+            $('#hint').html('{{form.pr.employee.first_name}} {{form.pr.employee.last_name}} form approved');
+        }
+    });
+
 }
 function submit(){
             $.get('/pr/manager/submit/' + form_key, function(data){
             if (data == 'ok'){
-                $('input:text').attr('readonly', 'readonly');
-                $('.add_button').attr('disabled', 'disabled');
                 load('/manager');
                 $('#hint').html('{{form.pr.employee.first_name}} {{form.pr.employee.last_name}} form submitted');
-            }
-            else{
-                alert(data);
             }
             })
 }
@@ -35,27 +34,9 @@ function check_form(){
 
     })
 }
-
-
-$(document).ready(function() {
-
-    if ('{{form.status}}' == 'approved'){
-        $('input:text').attr('readonly', 'readonly');
-        $('.add_button').attr('disabled', 'disabled');
-    }
-    if ('{{form.status}}' == 'submitted'){
-        $('.input_div').html('');
-        $('#info').append('<p>form temporary unavailable</p>');
-    }
-    if ('{{form.status}}' == 'registered'){
-
-        $('#{{data.salary.key}}').attr('readonly', 'readonly');
-        $('#{{data.grade.key}}').attr('readonly', 'readonly');
-    }
-    
-    })
-
-
+$(document).ready(function(){
+    $('#hint').html('')
+})
 
 </script>
 {% endblock %}

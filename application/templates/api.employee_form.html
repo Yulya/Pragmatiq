@@ -6,26 +6,14 @@
 var form_key= '{{form.key}}';
 var form_type='{{form.type}}';
 
-$(document).ready(function() {
-
-    if ('{{form.status}}' != 'draft'){
-        $('input:text').attr('readonly', 'readonly');
-        $('.add_button').attr('disabled', 'disabled')
-    }
-    
-    $('#submit').click(function(){
-        $.get('/pr/employee/submit/'+form_key, function(data){
+function submit(){
+            $.get('/pr/employee/submit/' + form_key, function(data){
             if (data == 'ok'){
-                $('input:text').attr('readonly', 'readonly');
-                $('.add_button').attr('disabled', 'disabled')
+                window.location = '/';
             }
-            else{
-                alert(data)
-            }
-        })
-    })
+            })
+}
 
-})
 </script>
 {% endblock %}
 
@@ -199,6 +187,6 @@ $(document).ready(function() {
         </script>
 </div>
 <div>
-    <input type="button" id="submit" value="submit">
+    <input type="button" id="submit" onclick="submit()" value="submit">
 </div>
 {% endblock %}

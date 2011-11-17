@@ -13,6 +13,9 @@ class GetManagerForm(BaseFormHandler):
 
         if self.template_values['form'].status == 'submitted':
             self.path = 'templates/api.readonly_maf.html'
+
+        if self.template_values['form'].status == 'approved':
+            self.path = 'templates/api.readonly_maf.html'
             
         if self.template_values['form'].status == 'registered':
             self.path = 'templates/api.registered_maf.html'
