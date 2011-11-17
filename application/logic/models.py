@@ -26,7 +26,7 @@ class Event(db.Model):
     finish_date = db.DateProperty()
     type = db.StringProperty()
 
-    
+
 class ContactXlsFile(db.Model):
     file_key = db.StringProperty()
 

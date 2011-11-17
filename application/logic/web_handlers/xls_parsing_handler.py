@@ -1,7 +1,7 @@
 import re
 from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import RequestHandler
-from logic.models import User, Dept, ContactXlsFile
+from logic.models import User, Dept, ContactXlsFile, Role
 import xlrd
 
 
@@ -29,6 +29,10 @@ class XlsParseHandler(RequestHandler):
 
         reg = "^\s+|\n|\r|\s+$"
 
+        manager_role = Role.all().filter('value', 'manager').get().key()
+        employee_role = Role.all().filter('value', 'employee').get().key()
+
+
         for rownum in range(sh.nrows)[6:]:
 
             login = sh.cell_value(rownum,cols_dict['login']).replace(' ','')
@@ -36,6 +40,9 @@ class XlsParseHandler(RequestHandler):
             if user is None:
                 user = User(login=login)
                 user.put()
+
+            if not len(user.role):
+                user.role.append(employee_role)
 
             string_fields = ['first_name',
                              'last_name',
@@ -72,11 +79,13 @@ class XlsParseHandler(RequestHandler):
                                                               first_name).get()
             else:
                 manager = None
+            if manager is not None:
+                if manager_role not in manager.role:
+                    manager.role.append(manager_role)
+                    manager.put()
 
             user.manager = manager
             user.put()
-
-
 
         self.redirect('/users')
 
