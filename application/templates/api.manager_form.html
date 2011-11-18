@@ -224,9 +224,9 @@ $(document).ready(function(){
 <div id='conclusion' class="input_div">
     <p>Conclusion:</p>
         <select id="{{form.get_all_data.conclusion.key}}" onchange="send_value(this.id, this.options[selectedIndex].value)">
-            <option value="below expectation">below expectation</option>
-            <option value="meet expectation">meet expectation</option>
-            <option value="above expectation">above expectation</option>
+            <option value="below expectations">below expectations</option>
+            <option value="meet expectations">meet expectations</option>
+            <option value="above expectations">above expectations</option>
         </select>
         <script type="text/javascript" language="JavaScript">
                     $("#{{form.get_all_data.conclusion.key}}").val("{{form.get_all_data.conclusion.value}}");
