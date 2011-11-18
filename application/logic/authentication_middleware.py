@@ -17,7 +17,7 @@ class Authentication(object):
 
         req = Request(environ)
 
-        non_auth_urls = ['/create_role', '/users', '/add_emp', '/new_user']
+        non_auth_urls = ['/create_role', '/users', '/add_emp', '/new_user', '/upload_contacts', '/parse_xls']
         if environ['PATH_INFO'] not in non_auth_urls:
 
             if current_user is None:
@@ -47,7 +47,7 @@ class Authentication(object):
                     resp = Response(status="401")
                     return resp(environ, start_response)
             else:
-                user_info = User.all().filter('email', current_user.email()).get()
+                user_info = User.all().filter('email', str(current_user.email())).get()
                 
                 if user_info is None:
                     user_info = User(
