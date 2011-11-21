@@ -28,6 +28,7 @@ class CreateUser(RequestHandler):
 
         roles = self.request.get('role')[:-1].split(',')
         if User.all().filter('email', email).get() is None:
+
             try:
                 user = User(first_name=first_name,
                             email=email,

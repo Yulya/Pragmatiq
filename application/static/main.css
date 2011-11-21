@@ -18,14 +18,17 @@ table, td {
     border: 1px solid #cccccc;
     border-collapse:collapse;
 }
-
 p { margin: 0; padding: 0; }
 div { margin: 20px; }
 
 #header {
     margin-left: 60%;
 }
-
+.link{
+    color: #0b559b;
+    cursor: pointer;
+    text-decoration: underline;
+}
 #body {
     width: 900px;
     margin: auto;
@@ -48,4 +51,8 @@ div { margin: 20px; }
 }
 #hint{
     background-color: #C6DEFF;
+}
+.block-header{
+    height: 30px;
+    border:  1px solid #cccccc;
 }

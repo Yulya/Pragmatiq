@@ -1,11 +1,16 @@
 {% extends "_api_base.html" %}
 
 {% block script %}
+<script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript">
 
 var form_key= '{{form.key}}';
 var form_type='{{form.pr.period.type}}';
 
+$(function() {
+		$( "#accordion" ).accordion();
+	});
 
 function approve(){
     $.get('/pr/manager/approve/' + form_key, function(data){
@@ -44,209 +49,229 @@ $(document).ready(function(){
 {% block content %}
         <h1>Manager form</h1>
 <div id="info">
-<p>Performance Review Form for {{form.pr.employee.first_name}} {{form.pr.employee.last_name}}</p>
+<p>Manager Assessment Form for {{form.pr.employee.first_name}} {{form.pr.employee.last_name}}</p>
 <p>date: {{form.pr.date}}</p>
 </div>
-<div id="project" class="input_div">
-    <p>Please list all projects and initiatives you participated in during this performance review period.</p>
-    <ul>
-    {% for project in form.projects %}
-        <li class='text_field' onclick="make_input(this)" id="{{project.key}}">{{project.value}}</li>
-    {% endfor %}
-    </ul>
-    <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
-</div>
-
-<div id="prev_achievements">
-    <p onclick="display(this)"><ins>Previous achievements</ins></p>
-    <div class='hidden'>
+<div id='accordion'>
+<h3><a href="#">Projects and Initiatives</a></h3>
+    <div>
+        <div id="project">
+        <p>Please list all projects and initiatives you participated in during this performance review period.</p>
         <ul>
-        {% for achievement in prev_form.achievements %}
-            <li>{{achievement.value}}</li>
+        {% for project in form.projects %}
+            <li class='text_field' onclick="make_input(this)" id="{{project.key}}">{{project.value}}</li>
         {% endfor %}
         </ul>
-    </div>
-</div>
-
-<div id="achievements" class="input_div">
-    <p>What do you consider to be your key accomplishments since your last review?</p>
-    <ul>
-    {% for ach in form.achievements %}
-        <li class='text_field' onclick="make_input(this)" id="{{ach.key}}">{{ach.value}}</li>
-    {% endfor %}
-    </ul>
     <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
 </div>
-
-<div id="responsibility" class="input_div">
-    <p>List your key job responsibilities during your performance period. Please comment on your job performance assessment.</p>
-    <ul>
-    {% for responsibility in form.responsibilities %}
-        <li class='text_field' onclick="make_input(this)" id="{{responsibility.key}}">{{responsibility.value}}</li>
-    {% endfor %}
-    </ul>
-    <input type="button" class="add_button" onclick="add_data(this,'{{form.key}}')" value="add" >
-</div>
-
-<div id="prev_challenges">
-    <p onclick="display(this)"><ins>Previous challenges</ins></p>
-    <div class='hidden'>
-        <ul>
-        {% for challenge in prev_form.challenges %}
-            <li>{{challenge.value}}</li>
-        {% endfor %}
-        </ul>
     </div>
-</div>
+<h3><a href="#">Achievements and Challenges</a></h3>
+    <div>
+        <div id="prev_achievements">
+            <p class="link" onclick="display(this)">Previous achievements</p>
+            <div class='hidden'>
+                <ul>
+                {% for achievement in prev_form.achievements %}
+                    <li>{{achievement.value}}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
 
-<div id="challenges" class="input_div">
-    <p>If you have experienced challenges, please specify the areas where you need to focus and improve. </p>
-    <ul>
-    {% for challenge in form.challenges %}
-        <li class='text_field' onclick="make_input(this)" id="{{challenge.key}}">{{challenge.value}}</li>
-    {% endfor %}
-    </ul>
-    <input type="button" class="add_button" onclick="add_data(this,'{{form.key}}')" value="add" >
-</div>
+        <div id="achievements" class="input_div">
+            <p>What do you consider to be your key accomplishments since your last review?</p>
+            <ul>
+            {% for ach in form.achievements %}
+                <li class='text_field' onclick="make_input(this)" id="{{ach.key}}">{{ach.value}}</li>
+            {% endfor %}
+            </ul>
+            <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
+        </div>
 
-<div id="skill" class="input_div">
-    <p>Please mention what skills and/or knowledge do you need for further development to contribute to your overall job success.</p>
-    <ul>
-    {% for skill in form.skills %}
-        <li class='text_field' onclick="make_input(this)" id="{{skill.key}}" >{{skill.value}}</li>
-    {% endfor %}
-    </ul>
-    <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
-</div>
+        <div id="responsibility" class="input_div">
+            <p>List your key job responsibilities during your performance period. Please comment on your job performance assessment.</p>
+            <ul>
+            {% for responsibility in form.responsibilities %}
+                <li class='text_field' onclick="make_input(this)" id="{{responsibility.key}}">{{responsibility.value}}</li>
+            {% endfor %}
+            </ul>
+            <input type="button" class="add_button" onclick="add_data(this,'{{form.key}}')" value="add" >
+        </div>
 
-<div id="prev_goals" class="input_div">
-    <p onclick="display(this)"><ins>Previous Goals:</ins></p>
-    <div class="hidden">
-    <table>
-        <thead>
-            <tr>
-                <td>Goal</td>
-                <td>Value</td>
-            </tr>
-        </thead>
-    {% for prev_goal in prev_form.next_goals %}
-        <tr>
-            <td>{{prev_goal.value}}</td>
-            <td>
-                <select id="{{prev_goal.key}}" onchange="set_result(this.id, this.options[selectedIndex].value)">
-                    <option value="1" class="grade">below expectations</option>
-                    <option value="2" class="grade">meet expectations</option>
-                    <option value="3" class="grade">above expectations</option>
+        <div id="prev_challenges" >
+            <p class="link" style="color:#15317E" onclick="display(this)">Previous challenges</p>
+            <div class='hidden'>
+                <ul>
+                {% for challenge in prev_form.challenges %}
+                    <li>{{challenge.value}}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+
+        <div id="challenges" class="input_div">
+            <p>If you have experienced challenges, please specify the areas where you need to focus and improve. </p>
+            <ul>
+            {% for challenge in form.challenges %}
+                <li class='text_field' onclick="make_input(this)" id="{{challenge.key}}">{{challenge.value}}</li>
+            {% endfor %}
+            </ul>
+            <input type="button" class="add_button" onclick="add_data(this,'{{form.key}}')" value="add" >
+        </div>
+    </div>
+    <h3><a href="#">Professional development plan</a></h3>
+    <div>
+        <div id="career" class="input_div">
+            <p>What are your professional interests and long-term career objectives, and what are you plans to accomplish these objectives?  </p>
+            <ul>
+            {% for career in form.careers %}
+                <li class='text_field' onclick="make_input(this)" id="{{career.key}}" >{{career.value}}</li>
+            {% endfor %}
+            </ul>
+            <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
+        </div>
+    </div>
+<h3><a href="#">Goals</a></h3>
+    <div>
+        <div id="prev_goals" class="prev_data">
+            <p class="link" style="color:#15317E" onclick="display(this)">Previous Goals:</p>
+            <div class="hidden">
+            <table>
+                <thead>
+                    <tr>
+                        <td>Goal</td>
+                        <td>Value</td>
+                    </tr>
+                </thead>
+            {% for prev_goal in prev_form.next_goals %}
+                <tr>
+                    <td>{{prev_goal.value}}</td>
+                    <td>
+                        <select id="{{prev_goal.key}}" onchange="set_result(this.id, this.options[selectedIndex].value)">
+                            <option value="1" class="grade">below expectations</option>
+                            <option value="2" class="grade">meet expectations</option>
+                            <option value="3" class="grade">above expectations</option>
+                        </select>
+                        <script type="text/javascript" language="JavaScript">
+                            $("#{{prev_goal.key}}").val("{{prev_goal.result}}");
+                        </script>
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+            </div>
+        </div>
+
+        <div id="next_goals" class="input_div">
+            <p>Goals for the next period:</p>
+            <ul>
+            {% for goal in form.next_goals %}
+                <li class='text_field' onclick="make_input(this)" id="{{goal.key}}" >{{goal.value}}</li>
+            {% endfor %}
+            </ul>
+            <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
+        </div>
+    </div>
+<h3><a href="#">Performance conclusion</a></h3>
+    <div>
+        {% block salary %}
+
+        <div id='salary' class="input_div">
+            <p>Salary:</p>
+                <p class='text_field' onclick="make_input(this)" id="{{form.get_all_data.salary.key}}" >{{form.get_all_data.salary.value}}</p>
+
+        </div>
+
+        <div id='grade' class="input_div">
+            <p>Grade:</p>
+                <p class='text_field' onclick="make_input(this)" id="{{form.get_all_data.grade.key}}" >{{form.get_all_data.grade.value}}</p>
+        </div>
+
+        <div id='position' class="input_div">
+            <p class="link" style="color:#15317E" onclick="display(this)">Current position:</p>
+            <div class="hidden">
+                <p>{{form.pr.employee.position}}</p>
+            </div>
+            <p>New position:</p>
+                <p class='text_field' onclick="make_input(this)" id="{{form.get_all_data.position.key}}" >{{form.get_all_data.position.value}}</p>
+        </div>
+        {% endblock %}
+
+        <div id='conclusion' class="prev_data">
+            <p>Conclusion:</p>
+                <select id="{{form.get_all_data.conclusion.key}}" onchange="send_value(this.id, this.options[selectedIndex].value)">
+                    <option value="below expectations">below expectations</option>
+                    <option value="meet expectations">meet expectations</option>
+                    <option value="above expectations">above expectations</option>
                 </select>
                 <script type="text/javascript" language="JavaScript">
-                    $("#{{prev_goal.key}}").val("{{prev_goal.result}}");
+                            $("#{{form.get_all_data.conclusion.key}}").val("{{form.get_all_data.conclusion.value}}");
                 </script>
-            </td>
-        </tr>
-    {% endfor %}
-    </table>
+        </div>
+    </div>
+<h3><a href="#">Misc</a></h3>
+    <div>
+        <div id="skill" class="input_div">
+            <p>Please mention what skills and/or knowledge do you need for further development to contribute to your overall job success.</p>
+            <ul>
+            {% for skill in form.skills %}
+                <li class='text_field' onclick="make_input(this)" id="{{skill.key}}" >{{skill.value}}</li>
+            {% endfor %}
+            </ul>
+            <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
+        </div>
+
+        <div id="issue" class="input_div">
+            <p>Do you see any issues with your role within the company and/or your project(s)?</p>
+            <ul>
+            {% for issue in form.issues %}
+                <li class='text_field' onclick="make_input(this)" id="{{issue.key}}" >{{issue.value}}</li>
+            {% endfor %}
+            </ul>
+            <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
+        </div>
+
+        <div id="complaint" class="input_div">
+            <p>Do you have any complaints?</p>
+            <ul>
+            {% for complaint in form.complaints %}
+                <li class='text_field' onclick="make_input(this)" id="{{complaint.key}}" >{{complaint.value}}</li>
+            {% endfor %}
+            </ul>
+            <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
+        </div>
+
+        <div id="manager_help" class="input_div">
+            <p>Is there anything your manager could do to help you do a better job? </p>
+            <ul>
+            {% for manager_help in form.manager_helps %}
+                <li class='text_field' onclick="make_input(this)" id="{{manager_help.key}}" >{{manager_help.value}}</li>
+            {% endfor %}
+            </ul>
+            <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
+        </div>
+
+
+
+        <div id="file">
+            <p>Attached files:</p>
+            {% if file_name%}
+                <a href="/serve/{{file_key}}">{{file_name}}</a>
+            {% endif %}
+        </div>
+
+        <div>
+            <form action="{{upload_url}}" method="POST" enctype="multipart/form-data">
+                <input type='hidden' name='key' value={{form.key}}>
+                <input type="file" name="file"><br>
+                <input type="submit" name="submit" value="attach">
+            </form>
+        </div>
     </div>
 </div>
 
-<div id="next_goals" class="input_div">
-    <p>Goals for the next period:</p>
-    <ul>
-    {% for goal in form.next_goals %}
-        <li class='text_field' onclick="make_input(this)" id="{{goal.key}}" >{{goal.value}}</li>
-    {% endfor %}
-    </ul>
-    <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
-</div>
 
-<div id="career" class="input_div">
-    <p>What are your professional interests and long-term career objectives, and what are you plans to accomplish these objectives?  </p>
-    <ul>
-    {% for career in form.careers %}
-        <li class='text_field' onclick="make_input(this)" id="{{career.key}}" >{{career.value}}</li>
-    {% endfor %}
-    </ul>
-    <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
-</div>
-
-<div id="issue" class="input_div">
-    <p>Do you see any issues with your role within the company and/or your project(s)?</p>
-    <ul>
-    {% for issue in form.issues %}
-        <li class='text_field' onclick="make_input(this)" id="{{issue.key}}" >{{issue.value}}</li>
-    {% endfor %}
-    </ul>
-    <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
-</div>
-
-<div id="complaint" class="input_div">
-    <p>Do you have any complaints?</p>
-    <ul>
-    {% for complaint in form.complaints %}
-        <li class='text_field' onclick="make_input(this)" id="{{complaint.key}}" >{{complaint.value}}</li>
-    {% endfor %}
-    </ul>
-    <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
-</div>
-
-<div id="manager_help" class="input_div">
-    <p>Is there anything your manager could do to help you do a better job? </p>
-    <ul>
-    {% for manager_help in form.manager_helps %}
-        <li class='text_field' onclick="make_input(this)" id="{{manager_help.key}}" >{{manager_help.value}}</li>
-    {% endfor %}
-    </ul>
-    <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
-</div>
-
-    {% block salary %}
-
-<div id='salary' class="input_div">
-    <p>Salary:</p>
-        <p class='text_field' onclick="make_input(this)" id="{{form.get_all_data.salary.key}}" >{{form.get_all_data.salary.value}}</p>
-
-</div>
-
-<div id='grade' class="input_div">
-    <p>Grade:</p>
-        <p class='text_field' onclick="make_input(this)" id="{{form.get_all_data.grade.key}}" >{{form.get_all_data.grade.value}}</p>
-</div>
-
-<div id='position' class="input_div">
-    <p onclick="display(this)"><ins>Current position:</ins></p>
-    <div class="hidden">
-        <p>{{form.pr.employee.position}}</p>
-    </div>
-    <p>New position:</p>
-        <p class='text_field' onclick="make_input(this)" id="{{form.get_all_data.position.key}}" >{{form.get_all_data.position.value}}</p>
-</div>
-    {% endblock %}
-        
-<div id='conclusion' class="input_div">
-    <p>Conclusion:</p>
-        <select id="{{form.get_all_data.conclusion.key}}" onchange="send_value(this.id, this.options[selectedIndex].value)">
-            <option value="below expectations">below expectations</option>
-            <option value="meet expectations">meet expectations</option>
-            <option value="above expectations">above expectations</option>
-        </select>
-        <script type="text/javascript" language="JavaScript">
-                    $("#{{form.get_all_data.conclusion.key}}").val("{{form.get_all_data.conclusion.value}}");
-        </script>
-</div>
-
-<div id="file">
-    <p>Attached files:</p>
-    {% if file_name%}
-        <a href="/serve/{{file_key}}">{{file_name}}</a>
-    {% endif %}
-</div>
-
-<div>
-    <form action="{{upload_url}}" method="POST" enctype="multipart/form-data">
-        <input type='hidden' name='key' value={{form.key}}>
-        <input type="file" name="file"><br>
-        <input type="submit" name="submit" value="attach">
-    </form>
-</div>
 
 <div>
     {% ifequal form.status 'draft' %}
