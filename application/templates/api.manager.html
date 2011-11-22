@@ -21,14 +21,14 @@
                     <td>{{pr.employee.first_name}}&nbsp;{{pr.employee.last_name}}</td>
                     <td>
                         {% if pr.manager_form %}
-                            <a href="#" onclick="load('pr/get/manager/{{pr.key}}'); return false;">load</a>
+                            <a href="#/pr/get/manager/{{pr.key}}">load</a>
                         {% else %}
-                            <a href="#" onclick="load('/pr/add/manager/{{pr.employee.key}}'); return false;">create</a>
+                            <a href="#/pr/add/manager/{{pr.employee.key}}">create</a>
                         {% endif %}
                     </td>
                     <td>{% if pr.employee_form %}
                             {% ifnotequal pr.employee_form.status 'draft' %}
-                                <a href="#" onclick="load('/pr/get/employee/{{pr.key}}')">load</a>
+                                <a href="#/pr/get/employee/{{pr.key}}">load</a>
                             {% else %}
                                 <p>none</p>
                             {% endifnotequal %}

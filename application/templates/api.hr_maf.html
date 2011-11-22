@@ -17,7 +17,7 @@
 </div>
 
 <div id="prev_achievements">
-    <a href="#" onclick="display(this)">Previous achievements</a>
+    <a href="#" onclick="display(this); return false">Previous achievements</a>
     <div class='hidden'>
         {% for achievement in prev_pr.achievements %}
             <p>{{achievement.value}}</p>
@@ -40,7 +40,7 @@
 </div>
 
 <div id="prev_challenges">
-    <a href="#" onclick="display(this)">Previous challenges</a>
+    <a href="#" onclick="display(this); return false">Previous challenges</a>
     <div class='hidden'>
         {% for challenge in prev_pr.challenges %}
             <p>{{challenge.value}}</p>
@@ -63,7 +63,7 @@
 </div>
 
 <div id="prev_goals" class="input_div">
-    <a href="#" onclick="display(this)">Previous Goals:</a>
+    <a href="#" onclick="display(this); return false">Previous Goals:</a>
     <div class="hidden">
     <table>
         <thead>

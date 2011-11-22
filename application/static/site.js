@@ -2,8 +2,9 @@ function load_role(a, user_key){
     $('#hint').html('');
     if (a == 'manager'){
         $('#settings').css('display','none');
-        $('.result').load('/manager');
-        $('.result').css('display', 'block');
+//        $('.result').load('/manager');
+//        $('.result').css('display', 'block');
+        window.location = '/#/manager'
     }
     if (a == 'employee'){
         $.get('/pr/get/self',
@@ -23,8 +24,9 @@ function load_role(a, user_key){
     }
     if (a == 'hr'){
         $('#settings').css('display','table-cell');
-        $('.result').css('display', 'block');
-        $('.result').load('/hr');
+//        $('.result').css('display', 'block');
+//        $('.result').load('/hr');
+        window.location = '/#/hr'
 
     }
 }

@@ -10,43 +10,10 @@
     </form>
 </div>
 
-<div><a href="/new_user">Add user</a></div>
+<div><a href="#/new_user">Add user</a></div>
 
 <div>
-    <p>Managers({{len}}):</p>
-    <table>
-        {% if managers %}
-            <thead>
-                <tr>
-                    <td> First Name </td>
-                    <td> Last Name </td>
-                    <td> Email </td>
-                    <td> Manager </td>
-                    <td> Roles </td>
-                    <td> Department </td>
-                    <td> Position </td>
-                    <td> Login </td>
-                </tr>
-            </thead>
-        {% endif %}
-	    {% for user in managers %}
-            <tr>
-                <td>{{user.first_name}}</td>
-                <td>{{user.last_name}}</td>
-                <td>{{user.email}}</td>
-                <td>{{user.manager.first_name}} {{user.manager.last_name}}</td>
-                <td>{{user.roles}}</td>
-                <td>{{user.dept.name}}</td>
-                <td>{{user.position}}</td>
-                <td>{{user.login}}</td>
-            </tr>
-        {% endfor %}
-    </table>
-
-</div>
-
-<div>
-    <p>Users({{len_users}}):</p>
+    <p>Users:</p>
     <table>
         {% if users %}
             <thead>

@@ -7,9 +7,7 @@
 
 
         $(document).ready(function(){
-
-        
-
+      
         $('.checkall').click(function(){
             $(this).parent().parent().parent().find('input:checkbox:not(":disabled")').attr('checked', this.checked);
 	    });
@@ -54,8 +52,8 @@
         Start: {{period.start_date}}
         Finish: {{period.finish_date}}
         <div align="right">
-        <a href="#" onclick='load("hr/report/detailed/{{period.key}}")'>detailed report</a> |
-        <a href="#" onclick='load("hr/report/summary/{{period.key}}")'>summary report</a>
+        <a class="nav" href="#/hr/report/detailed/{{period.key}}">detailed report</a> |
+        <a class="nav" href="#/hr/report/summary/{{period.key}}">summary report</a>
         </div>
         <table>
             <tr>
@@ -75,7 +73,7 @@
                     <td>
                         {% if pr.manager_form %}
                             {% ifnotequal pr.manager_form.status 'draft' %}
-                                <a href="#" onclick="load('/hr/get/manager/{{pr.key}}')">{{pr.employee.first_name}}&nbsp;{{pr.employee.last_name}} form</a>
+                                <a href="#/hr/get/manager/{{pr.key}}" class="nav">{{pr.employee.first_name}}&nbsp;{{pr.employee.last_name}} form</a>
                             {% else %}
                                 form is in work
                             {% endifnotequal %}
@@ -98,5 +96,5 @@
         <input type="button" {{period.register}} name="register" value="register">
         <hr >
     {% endfor %}
-        <p id="new_period" ><a href="#" onclick="load('/new_period')">Create New PR Period</a></p>
+        <p id="new_period" ><a href="#/new_period">Create New PR Period</a></p>
 {% endblock %}
