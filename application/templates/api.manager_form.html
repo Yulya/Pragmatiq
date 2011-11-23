@@ -68,7 +68,7 @@ $(document).ready(function(){
 <h3><a href="#">Achievements and Challenges</a></h3>
     <div>
         <div id="prev_achievements">
-            <p class="link" onclick="display(this)">Previous achievements</p>
+            <p class="link" onclick="display(this)">Show previous achievements</p>
             <div class='hidden'>
                 <ul>
                 {% for achievement in prev_form.achievements %}
@@ -86,6 +86,17 @@ $(document).ready(function(){
             {% endfor %}
             </ul>
             <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
+        </div>
+
+        <div id="prev_responsibilities">
+            <p class="link" onclick="display(this)">Show previous responsibilities</p>
+            <div class='hidden'>
+                <ul>
+                {% for responsibility in prev_form.responsibilities %}
+                    <li>{{responsibility.value}}</li>
+                {% endfor %}
+                </ul>
+            </div>
         </div>
 
         <div id="responsibility" class="input_div">
@@ -120,10 +131,13 @@ $(document).ready(function(){
             <input type="button" class="add_button" onclick="add_data(this,'{{form.key}}')" value="add" >
         </div>
     </div>
+
     <h3><a href="#">Professional development plan</a></h3>
     <div>
         <div id="career" class="input_div">
-            <p>What are your professional interests and long-term career objectives, and what are you plans to accomplish these objectives?  </p>
+            <p>To be filled in during the performance review session.
+                The plan contains short term professional development activities.
+            It can be split into self-development activities and trainings, courses or internship programs sponsored by the Company. </p>
             <ul>
             {% for career in form.careers %}
                 <li class='text_field' onclick="make_input(this)" id="{{career.key}}" >{{career.value}}</li>
@@ -135,8 +149,10 @@ $(document).ready(function(){
 <h3><a href="#">Goals</a></h3>
     <div>
         <div id="prev_goals" class="prev_data">
-            <p class="link" style="color:#15317E" onclick="display(this)">Previous Goals:</p>
-            <div class="hidden">
+            <p>Goals from the previous performance review and their evaluation.
+                This section compares the goals and results achieved during the previous performance period.
+                Actual examples of performance should be given whenever possible.</p>
+
             <table>
                 <thead>
                     <tr>
@@ -160,11 +176,11 @@ $(document).ready(function(){
                 </tr>
             {% endfor %}
             </table>
-            </div>
+
         </div>
 
         <div id="next_goals" class="input_div">
-            <p>Goals for the next period:</p>
+            <p>Set measurable goals for the employee for the next performance review period.</p>
             <ul>
             {% for goal in form.next_goals %}
                 <li class='text_field' onclick="make_input(this)" id="{{goal.key}}" >{{goal.value}}</li>
@@ -178,28 +194,25 @@ $(document).ready(function(){
         {% block salary %}
 
         <div id='salary' class="input_div">
-            <p>Salary:</p>
-                <p class='text_field' onclick="make_input(this)" id="{{form.get_all_data.salary.key}}" >{{form.get_all_data.salary.value}}</p>
+            New salary:
+            <input type="text" id="{{form.get_all_data.salary.key}}" value="{{form.get_all_data.salary.value}}" onblur="update_data(this.id,this.value)" >
+                <!--<p class='text_field' onclick="make_input(this)" id="{{form.get_all_data.salary.key}}" >{{form.get_all_data.salary.value}}</p>-->
 
         </div>
 
         <div id='grade' class="input_div">
-            <p>Grade:</p>
-                <p class='text_field' onclick="make_input(this)" id="{{form.get_all_data.grade.key}}" >{{form.get_all_data.grade.value}}</p>
+            Grade:
+                <input type="text" id="{{form.get_all_data.grade.key}}" value="{{form.get_all_data.grade.value}}" onblur="update_data(this.id,this.value)">
         </div>
 
-        <div id='position' class="input_div">
-            <p class="link" style="color:#15317E" onclick="display(this)">Current position:</p>
-            <div class="hidden">
-                <p>{{form.pr.employee.position}}</p>
-            </div>
-            <p>New position:</p>
-                <p class='text_field' onclick="make_input(this)" id="{{form.get_all_data.position.key}}" >{{form.get_all_data.position.value}}</p>
+        <div>
+            New position:
+                <input type="text" id="{{form.get_all_data.position.key}}" value="{{form.get_all_data.position.value}}" onblur="update_data(this.id,this.value)">
         </div>
         {% endblock %}
 
         <div id='conclusion' class="prev_data">
-            <p>Conclusion:</p>
+            Conclusion:
                 <select id="{{form.get_all_data.conclusion.key}}" onchange="send_value(this.id, this.options[selectedIndex].value)">
                     <option value="below expectations">below expectations</option>
                     <option value="meet expectations">meet expectations</option>
@@ -212,47 +225,15 @@ $(document).ready(function(){
     </div>
 <h3><a href="#">Misc</a></h3>
     <div>
-        <div id="skill" class="input_div">
-            <p>Please mention what skills and/or knowledge do you need for further development to contribute to your overall job success.</p>
+        <div id="manager_comment" class="input_div">
+            <p>Fill any comments on this particular form.</p>
             <ul>
-            {% for skill in form.skills %}
-                <li class='text_field' onclick="make_input(this)" id="{{skill.key}}" >{{skill.value}}</li>
+            {% for manager_comment in form.manager_comments %}
+                <li class='text_field' onclick="make_input(this)" id="{{manager_comment.key}}" >{{manager_comment.value}}</li>
             {% endfor %}
             </ul>
             <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
         </div>
-
-        <div id="issue" class="input_div">
-            <p>Do you see any issues with your role within the company and/or your project(s)?</p>
-            <ul>
-            {% for issue in form.issues %}
-                <li class='text_field' onclick="make_input(this)" id="{{issue.key}}" >{{issue.value}}</li>
-            {% endfor %}
-            </ul>
-            <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
-        </div>
-
-        <div id="complaint" class="input_div">
-            <p>Do you have any complaints?</p>
-            <ul>
-            {% for complaint in form.complaints %}
-                <li class='text_field' onclick="make_input(this)" id="{{complaint.key}}" >{{complaint.value}}</li>
-            {% endfor %}
-            </ul>
-            <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
-        </div>
-
-        <div id="manager_help" class="input_div">
-            <p>Is there anything your manager could do to help you do a better job? </p>
-            <ul>
-            {% for manager_help in form.manager_helps %}
-                <li class='text_field' onclick="make_input(this)" id="{{manager_help.key}}" >{{manager_help.value}}</li>
-            {% endfor %}
-            </ul>
-            <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
-        </div>
-
-
 
         <div id="file">
             <p>Attached files:</p>
@@ -270,8 +251,6 @@ $(document).ready(function(){
         </div>
     </div>
 </div>
-
-
 
 <div>
     {% ifequal form.status 'draft' %}

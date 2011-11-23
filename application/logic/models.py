@@ -77,7 +77,6 @@ class PerformanceReviewForm(db.Model):
                 'issues' : self.issues,
                 'complaints' : self.complaints,
                 'manager_helps' : self.manager_helps,
-                'comment': self.comment.get(),
                 'position': self.position.get(),
                 'salary': self.salary.get(),
                 'grade': self.grade.get(),
@@ -86,10 +85,15 @@ class PerformanceReviewForm(db.Model):
         return data
 
 
-class Comment(db.Model):
+class HrComment(db.Model):
     value = db.StringProperty()
     form = db.ReferenceProperty(PerformanceReviewForm,
-                                collection_name='comment')
+                                collection_name='hr_comments')
+
+class ManagerComment(db.Model):
+    value = db.StringProperty()
+    form = db.ReferenceProperty(PerformanceReviewForm,
+                                collection_name='manager_comments')
 
 class Position(db.Model):
     value = db.StringProperty()

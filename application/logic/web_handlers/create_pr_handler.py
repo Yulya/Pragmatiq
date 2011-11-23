@@ -1,7 +1,7 @@
 import datetime
 from google.appengine.ext.db import Model
 from google.appengine.ext.webapp import RequestHandler
-from logic.models import Role, PerformanceReviewPeriod, Comment, PerformanceReview, Salary
+from logic.models import Role, PerformanceReviewPeriod, PerformanceReview, Salary
 
 class CreatePR(RequestHandler):
 
@@ -40,12 +40,9 @@ class CreatePR(RequestHandler):
         period.put()
 
         for employee in employees:
-            comment = Comment()
-            comment.put()
             if employee != '':
                 user = Model.get(employee)
                 pr = PerformanceReview(employee=user,
-                                       comment=comment,
                                        manager=user.manager,
                                        period=period,
                                        date=start)

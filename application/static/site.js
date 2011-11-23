@@ -41,6 +41,10 @@ function set_result(id, value) {
                 {'result': value})
         }
 
+function update_data(id,value){
+    $.post('/pr/data/update/'+ id, {value: value});
+}
+
 function add_data(obj, form_key){
      var object = $(document).find(obj);
      var table = object.parent().attr('id');
@@ -58,7 +62,8 @@ function add_data(obj, form_key){
                     }
                 });
                 input.focusout(function(){
-                    $.post('/pr/data/update/'+ this.id,{value: this.value});
+                    update_data(this.id,this.value);
+//                    $.post('/pr/data/update/'+ this.id,{value: this.value});
                     make_text(this)}).appendTo(ul);
                     input.focus();
                     });
