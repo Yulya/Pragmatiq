@@ -4,7 +4,7 @@
     <view zooming-state="default:2" id="gantt-chart"/>
     <view id="resource-table">
         <field id="0" name="Name" width="55" order="0"/>
-        <field id="1" name="Default role" width="44" order="0"/>
+        <field id="1" name="Default role" width="44" order="1"/>
     </view>
     <!-- -->
     <calendars>
@@ -90,8 +90,8 @@
         <allocation task-id="9" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
         <allocation task-id="12" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
         <allocation task-id="13" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
-        <allocation task-id="10" resource-id="2" function="SoftwareDevelopment:5" responsible="false" load="50.0"/>
         <allocation task-id="10" resource-id="1" function="Default:1" responsible="true" load="25.0"/>
+        <allocation task-id="10" resource-id="2" function="SoftwareDevelopment:5" responsible="false" load="50.0"/>
         <allocation task-id="11" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
         <allocation task-id="15" resource-id="0" function="SoftwareDevelopment:2" responsible="true" load="100.0"/>
     </allocations>
