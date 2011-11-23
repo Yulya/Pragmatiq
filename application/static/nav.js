@@ -40,16 +40,15 @@ if (/WebKit/i.test(navigator.userAgent)) {
 // others
 window.onload = init;
 
+
 //On load page, init the timer which check if the there are anchor changes each 300 ms
 init(function(){
     setInterval("checkAnchor()", 100);
 });
 
-var currentAnchor = null;
+var currentAnchor = '';
 //Function which check if there are anchor changes, if there are, sends the ajax petition
 function checkAnchor(){
-    var container = document.getElementById("content");
-
     //Check if it has changes
     if(currentAnchor != document.location.hash){
         if (currentAnchor == null) {

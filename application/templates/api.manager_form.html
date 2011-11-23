@@ -68,7 +68,7 @@ $(document).ready(function(){
 <h3><a href="#">Achievements and Challenges</a></h3>
     <div>
         <div id="prev_achievements">
-            <p class="link" onclick="display(this)">Show previous achievements</p>
+            <a href="#" onclick="display(this); return false">Show previous achievements</a>
             <div class='hidden'>
                 <ul>
                 {% for achievement in prev_form.achievements %}
@@ -89,7 +89,7 @@ $(document).ready(function(){
         </div>
 
         <div id="prev_responsibilities">
-            <p class="link" onclick="display(this)">Show previous responsibilities</p>
+            <a href="#" onclick="display(this); return false">Show previous responsibilities</a>
             <div class='hidden'>
                 <ul>
                 {% for responsibility in prev_form.responsibilities %}
@@ -110,7 +110,7 @@ $(document).ready(function(){
         </div>
 
         <div id="prev_challenges" >
-            <p class="link" style="color:#15317E" onclick="display(this)">Previous challenges</p>
+            <a href="#" onclick="display(this); return false">Previous challenges</a>
             <div class='hidden'>
                 <ul>
                 {% for challenge in prev_form.challenges %}
