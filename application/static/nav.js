@@ -45,7 +45,6 @@ window.onload = init;
 init(function(){
     setInterval("checkAnchor()", 100);
 });
-
 var currentAnchor = '';
 //Function which check if there are anchor changes, if there are, sends the ajax petition
 function checkAnchor(){
@@ -59,6 +58,8 @@ currentAnchor = document.location.hash;
         }
 
 var url = currentAnchor.replace('#','');
+var role = url.split('/')[1];
+$('.select_role').val(role);
 load(url);
 
     }

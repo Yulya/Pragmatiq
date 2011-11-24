@@ -36,7 +36,7 @@ function submit(){
 </div>
 
 <div id="prev_achievements">
-    <p onclick="display(this)"><ins>Previous achievements</ins></p>
+    <a href="#" onclick="display(this); return false">Previous achievements</a>
     <div class='hidden'>
         <ul>
         {% for achievement in prev_form.achievements %}
@@ -67,7 +67,7 @@ function submit(){
 </div>
 
 <div id="prev_challenges">
-    <p onclick="display(this)"><ins>Previous challenges</ins></p>
+    <a href="#" onclick="display(this); return false">Previous challenges</a>
     <div class='hidden'>
         <ul>
         {% for challenge in prev_form.challenges %}
@@ -98,7 +98,7 @@ function submit(){
 </div>
 
 <div id="prev_goals" class="input_div">
-    <p onclick="display(this)"><ins>Previous Goals:</ins></p>
+    <a href="#" onclick="display(this); return false">Previous Goals:</a>
     <div class="hidden">
     <table>
         <thead>

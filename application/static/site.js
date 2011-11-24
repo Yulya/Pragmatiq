@@ -1,9 +1,6 @@
 function load_role(a, user_key){
-    $('#hint').html('');
     if (a == 'manager'){
         $('#settings').css('display','none');
-//        $('.result').load('/manager');
-//        $('.result').css('display', 'block');
         window.location = '/#/manager'
     }
     if (a == 'employee'){
@@ -24,8 +21,6 @@ function load_role(a, user_key){
     }
     if (a == 'hr'){
         $('#settings').css('display','table-cell');
-//        $('.result').css('display', 'block');
-//        $('.result').load('/hr');
         window.location = '/#/hr'
 
     }
@@ -65,7 +60,6 @@ function add_data(obj, form_key){
                 });
                 input.focusout(function(){
                     update_data(this.id,this.value);
-//                    $.post('/pr/data/update/'+ this.id,{value: this.value});
                     make_text(this)}).appendTo(ul);
                     input.focus();
                     });

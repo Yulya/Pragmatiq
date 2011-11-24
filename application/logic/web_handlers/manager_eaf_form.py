@@ -2,7 +2,7 @@ from google.appengine.ext.webapp import template
 from logic.web_handlers.base_form_handler import BaseFormHandler
 
 
-class GetEmployeeForm(BaseFormHandler):
+class ManagerEmployeeForm(BaseFormHandler):
 
     template_values = {}
     path = 'templates/api.readonly_eaf.html'
@@ -10,14 +10,7 @@ class GetEmployeeForm(BaseFormHandler):
 
     def get(self, key):
 
-        super(GetEmployeeForm, self).get(key)
-
-        user = self.template_values['user']
-        employee = self.template_values['form'].pr.employee
-        status = self.template_values['form'].status
-
-        if status == 'draft':
-            self.path = 'templates/api.employee_form.html'
+        super(ManagerEmployeeForm, self).get(key)
 
         self.response.out.write(template.render(self.path,
                                                 self.template_values))

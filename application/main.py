@@ -39,6 +39,7 @@ from logic.web_handlers.get_manager_prs import GetPrs
 from logic.web_handlers.get_self_pr_handler import GetSelfPR
 from logic.web_handlers.hr_maf_handler import HRManagerForm
 from logic.web_handlers.main_handler import MainHandler
+from logic.web_handlers.manager_eaf_form import ManagerEmployeeForm
 from logic.web_handlers.manager_form_approve_handler import ManagerFormApprove
 from logic.web_handlers.manager_form_submit_handler import ManagerFormSubmit
 from logic.web_handlers.register_performance_review import RegisterPerformanceReview
@@ -73,8 +74,9 @@ def main():
                                           ('/pr/create', CreatePR),
                                           ('/pr/update', UpdatePR),
                                           ('/pr/get/self', GetSelfPR),
-                                          ('/pr/get/manager/(.*)', GetManagerForm),
-                                          ('/pr/get/employee/(.*)', GetEmployeeForm),
+                                          ('/manager/get/manager/(.*)', GetManagerForm),
+                                          ('/employee/get/employee/(.*)', GetEmployeeForm),
+                                          ('/manager/get/employee/(.*)', ManagerEmployeeForm),
                                           ('/pr/add/manager/(.*)', AddManagerForm),
                                           ('/pr/add/employee/(.*)', AddEmployeeForm),
                                           ('/pr/data/add', AddData),
