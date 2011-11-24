@@ -28,14 +28,16 @@
         });
         $('input[name="register"]').click(function(){
             var keys = '';
+            var description = '';
             $(this).parent().find($('input[name="check"]:checked')).each(function(){
+                    description = description + ', '+ this.title;
                     keys = keys + this.value + ',';});
-            $.post('/pr/register',{'keys': keys}, function(data){
-                if (data == 'ok'){
-                    $('#hint').html('PR registered');
-                    load('/hr');
-                }
-            })
+            $.post('/pr/register',{'keys': keys});
+
+            message = 'registered';
+            load('/hr');
+
+
 
 
         })
@@ -66,7 +68,7 @@
             </tr>
             {% for pr in period.pr %}
                 <tr id="{{pr.key}}">
-                    <td><input type="checkbox" {{pr.register}} value={{pr.key}} name="check"></td>
+                    <td><input type="checkbox" {{pr.register}} value={{pr.key}} title="{{pr.employee.email}}" name="check"></td>
                     <td>{{pr.employee.email}}</td>
                     <td>{{pr.manager.email}}</td>
                     <td><input type="text" _key="{{pr.key}}" class="date" name="finish" value="{{pr.date}}"></td>

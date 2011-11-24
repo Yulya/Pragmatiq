@@ -32,6 +32,8 @@ function load_role(a, user_key){
 }
 
 function load(url) {
+    $('#hint').html(message);
+    message = '';
     $('.result').css('display', 'block');
     $('.result').load(url);
 }

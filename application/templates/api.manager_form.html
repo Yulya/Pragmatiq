@@ -15,8 +15,8 @@ $(function() {
 function approve(){
     $.get('/pr/manager/approve/' + form_key, function(data){
         if (data == 'ok'){
-            load('/manager');
-            $('#hint').html('{{form.pr.employee.first_name}} {{form.pr.employee.last_name}} form approved');
+            message = 'You have approved {{form.pr.employee.first_name}} {{form.pr.employee.last_name}} form ';
+            window.location.href = "/#/manager";
         }
     });
 
@@ -24,8 +24,8 @@ function approve(){
 function submit(){
             $.get('/pr/manager/submit/' + form_key, function(data){
             if (data == 'ok'){
-                load('/manager');
-                $('#hint').html('{{form.pr.employee.first_name}} {{form.pr.employee.last_name}} form submitted');
+                message = 'You have submitted {{form.pr.employee.first_name}} {{form.pr.employee.last_name}} form ';
+                window.location.href = "/#/manager";
             }
             })
 }
