@@ -13,6 +13,7 @@
                 first_name = $form.find( 'input[name="first_name"]' ).val(),
                 last_name = $form.find( 'input[name="last_name"]' ).val(),
                 email = $form.find( 'input[name="email"]' ).val(),
+                login = $form.find( 'input[name="login"]' ).val(),
                 dept = $form.find( 'input[name="dept"]' ).val(),
                 position = $form.find( 'input[name="position"]' ).val(),
                 manager = $form.find( 'select[name="manager"]' ).val(),
@@ -25,6 +26,7 @@
                 $.post( url,
                         {'first_name': first_name,
                         'last_name': last_name,
+                        'login': login,
                         'email': email,
                         'role': role,
                         'dept': dept,
@@ -60,6 +62,10 @@
     <p>add new:</p>
     <form action="/add_emp" id="user_form" method="post">
         <table>
+            <tr>
+                <td><label>login:</label></td>
+                <td><input type="text" name="login"><br></td>
+            </tr>
             <tr>
                 <td><label>first_name:</label></td>
                 <td><input type="text" name="first_name"><br></td>

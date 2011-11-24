@@ -9,9 +9,10 @@ class CreateUser(RequestHandler):
 
     def post(self):
 
-        first_name = self.request.get('first_name')
-        email = self.request.get('email')
-        last_name = self.request.get('last_name')
+        first_name = self.request.get('first_name').strip()
+        login = self.request.get('login').strip()
+        email = self.request.get('email').strip()
+        last_name = self.request.get('last_name').strip()
         dept = self.request.get('dept')
         position = self.request.get('position')
 
@@ -27,10 +28,11 @@ class CreateUser(RequestHandler):
             manager = None
 
         roles = self.request.get('role')[:-1].split(',')
-        if User.all().filter('email', email).get() is None:
+        if User.all().filter('login', login).get() is None:
 
             try:
-                user = User(first_name=first_name,
+                user = User(login=login,
+                            first_name=first_name,
                             email=email,
                             last_name=last_name,
                             dept=dept_ref,
@@ -47,4 +49,4 @@ class CreateUser(RequestHandler):
                 self.response.out.write('error')
                 return
             self.response.out.write('ok')
-        else: self.response.out.write('user with this email already exist')
+        else: self.response.out.write('user with this login already exist')
