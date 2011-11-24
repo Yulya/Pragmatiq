@@ -4,6 +4,22 @@
 <script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript">
+    function draft(){
+    $.get('/pr/manager/draft/' + form_key, function(data){
+            if (data == 'ok'){
+                message = 'You have cancelled submitting {{form.pr.employee.first_name}} {{form.pr.employee.last_name}} form ';
+                window.location.href = "/#/manager";
+            }
+            })
+}
+        function register(){
+    $.get('/pr/manager/register/' + form_key, function(data){
+            if (data == 'ok'){
+                message = 'You have cancelled approving {{form.pr.employee.first_name}} {{form.pr.employee.last_name}} form ';
+                window.location.href = "/#/manager";
+            }
+            })
+}
     $(function() {
             $( "#accordion" ).accordion();
         });
@@ -211,14 +227,13 @@
             {% endif %}
         </div>
 
-        <div>
-            <form action="{{upload_url}}" method="POST" enctype="multipart/form-data">
-                <input type='hidden' name='key' value={{form.key}}>
-                <input type="file" name="file"><br>
-                <input type="submit" name="submit" value="attach">
-            </form>
-        </div>
+
     </div>
+    {% ifequal form.status 'submitted' %}
+    <input type="button" value="undo submit" onclick="draft()">
+    {% else %}
+    <input type="button" value="undo approve" onclick="register()">
+    {% endifequal %}
 </div>
 
 {% endblock %}

@@ -28,6 +28,7 @@ from logic.web_handlers.create_pr_handler import CreatePR
 from logic.web_handlers.create_roles_handler import CreateRoles
 from logic.web_handlers.create_user_handler import CreateUser
 from logic.web_handlers.detailed_report_handler import GetDetailedReport
+from logic.web_handlers.employee_form_draft import EmployeeFormDraft
 from logic.web_handlers.employee_form_submit_handler import EmployeeFormSubmit
 from logic.web_handlers.get_all_departments import HR
 from logic.web_handlers.get_all_employees import GetAllEmployees
@@ -41,6 +42,8 @@ from logic.web_handlers.hr_maf_handler import HRManagerForm
 from logic.web_handlers.main_handler import MainHandler
 from logic.web_handlers.manager_eaf_form import ManagerEmployeeForm
 from logic.web_handlers.manager_form_approve_handler import ManagerFormApprove
+from logic.web_handlers.manager_form_draft import ManagerFormDraft
+from logic.web_handlers.manager_form_register import ManagerFormRegister
 from logic.web_handlers.manager_form_submit_handler import ManagerFormSubmit
 from logic.web_handlers.register_performance_review import RegisterPerformanceReview
 from logic.web_handlers.serve_handler import ServeHandler
@@ -74,15 +77,18 @@ def main():
                                           ('/pr/create', CreatePR),
                                           ('/pr/update', UpdatePR),
                                           ('/pr/get/self', GetSelfPR),
-                                          ('/manager/get/manager/(.*)', GetManagerForm),
-                                          ('/employee/get/employee/(.*)', GetEmployeeForm),
-                                          ('/manager/get/employee/(.*)', ManagerEmployeeForm),
-                                          ('/pr/add/manager/(.*)', AddManagerForm),
-                                          ('/pr/add/employee/(.*)', AddEmployeeForm),
+                                          ('/manager/pr/get/manager/(.*)', GetManagerForm),
+                                          ('/employee/pr/get/employee/(.*)', GetEmployeeForm),
+                                          ('/manager/pr/get/employee/(.*)', ManagerEmployeeForm),
+                                          ('/manager/pr/add/manager/(.*)', AddManagerForm),
+                                          ('/employee/pr/add/employee/(.*)', AddEmployeeForm),
                                           ('/pr/data/add', AddData),
                                           ('/pr/manager/submit/(.*)', ManagerFormSubmit),
                                           ('/pr/manager/approve/(.*)', ManagerFormApprove),
+                                          ('/pr/manager/draft/(.*)', ManagerFormDraft),
+                                          ('/pr/manager/register/(.*)', ManagerFormRegister),
                                           ('/pr/employee/submit/(.*)', EmployeeFormSubmit),
+                                          ('/pr/employee/draft/(.*)', EmployeeFormDraft),
                                           ('/hr/report/detailed/(.*)', GetDetailedReport),
                                           ('/hr/report/summary/(.*)', GetSummaryReport),
                                           ('/pr/register', RegisterPerformanceReview),

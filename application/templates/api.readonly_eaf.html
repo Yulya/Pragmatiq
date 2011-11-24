@@ -2,7 +2,14 @@
 
 {% block script %}
 <script type="text/javascript">
-
+    function draft(){
+    $.get('/pr/employee/draft/' + form_key, function(data){
+            if (data == 'ok'){
+                message = 'You have cancelled submitting form ';
+                window.location.href = "/#/employee";
+            }
+            })
+}
 </script>
 {% endblock %}
 
@@ -150,6 +157,9 @@
     {% if file_name%}
         <a href="/serve/{{file_key}}">{{file_name}}</a>
     {% endif %}
+</div>
+<div>
+    <input type="button" id="undo submit" onclick="draft()" value="submit">
 </div>
 
 {% endblock %}

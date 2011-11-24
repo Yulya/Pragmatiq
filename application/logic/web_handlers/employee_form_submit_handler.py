@@ -4,7 +4,6 @@ from logic.models import PerformanceReviewForm
 class EmployeeFormSubmit(RequestHandler):
 
     status = 'submitted'
-    redirect_url = '/'
 
     def get(self, key):
 

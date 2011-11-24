@@ -11,7 +11,14 @@ var form_type='{{form.pr.period.type}}';
 $(function() {
 		$( "#accordion" ).accordion();
 	});
-
+    function draft(){
+    $.get('/pr/manager/draft/' + form_key, function(data){
+            if (data == 'ok'){
+                message = 'You have cancelled submitting {{form.pr.employee.first_name}} {{form.pr.employee.last_name}} form ';
+                window.location.href = "/#/manager";
+            }
+            })
+}
 function approve(){
     $.get('/pr/manager/approve/' + form_key, function(data){
         if (data == 'ok'){
@@ -29,7 +36,6 @@ function submit(){
             }
             })
 }
-
 function check_form(){
     $.get('pr/manager/check/' + form_key, function(data){
         if (data){if (confirm('Unfilled fields: ' + data + '. Continue?')){
@@ -255,6 +261,7 @@ $(document).ready(function(){
     {% ifequal form.status 'draft' %}
         <input type="button" id='submit' onclick="submit()" value="submit">
     {% else %}
+        <input type="button" value="undo submit" onclick="draft()">
         <input type="button" id='approve' onclick="check_form()" value="approve">
     {% endifequal %}
 </div>

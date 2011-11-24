@@ -53,6 +53,6 @@ class AddManagerForm(AddEmployeeForm):
                                     form=self.form)
             conclusion.put()
 
-            self.redirect('/pr/get/%(type)s/%(key)s' % {'type': self.type, 'key': self.form.pr.key()})
+            self.redirect('/manager/pr/get/%(type)s/%(key)s' % {'type': self.type, 'key': self.form.pr.key()})
 
   
