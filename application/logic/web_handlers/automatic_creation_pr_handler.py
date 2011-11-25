@@ -21,6 +21,7 @@ class AutomaticPerformanceReview(RequestHandler):
             for employee in employees:
                 pr = PerformanceReview(employee=employee,
                                        manager=employee.manager,
+                                       first_effective_date = event.first_effective_date,
                                        date=period.start_date,
                                        period=period)
                 pr.put()

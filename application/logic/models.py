@@ -24,6 +24,7 @@ class User(db.Model):
 class Event(db.Model):
     start_date = db.DateProperty()
     finish_date = db.DateProperty()
+    first_effective_date = db.DateProperty()
     type = db.StringProperty()
 
 
@@ -42,6 +43,7 @@ class PerformanceReview(db.Model):
     employee = db.ReferenceProperty(User, collection_name='self_pr')
     manager = db.ReferenceProperty(User, collection_name='managed_pr')
     date = db.DateProperty()
+    first_effective_date = db.DateProperty()
     period = db.ReferenceProperty(PerformanceReviewPeriod,
                                   collection_name='performance_reviews')
 

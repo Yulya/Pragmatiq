@@ -46,7 +46,7 @@ function check_form(){
     })
 }
 $(document).ready(function(){
-    $('#hint').html('')
+    $('.date').datepicker({ dateFormat: 'yy-mm-dd' });
 })
 
 </script>
@@ -213,6 +213,11 @@ $(document).ready(function(){
         <div>
             New position:
                 <input type="text" id="{{form.get_all_data.position.key}}" value="{{form.get_all_data.position.value}}" onblur="update_data(this.id,this.value)">
+        </div>
+         <div>
+            First effective date:
+                <input type="text" class="date" id="{{form.pr.first_effective_date}}" value="{{form.pr.first_effective_date}}" onchange="$.post('/pr/update',
+                {'key': '{{form.pr.key}}','first_date': this.value})">
         </div>
         {% endblock %}
 

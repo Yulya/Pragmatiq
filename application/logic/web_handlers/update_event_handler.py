@@ -9,6 +9,7 @@ class UpdateEvent(RequestHandler):
         type = self.request.get('type')
         start = self.request.get('start')
         finish = self.request.get('finish')
+        first_date = self.request.get('first_date')
 
         event = Event.all().filter('type', type).get()
 
@@ -26,6 +27,12 @@ class UpdateEvent(RequestHandler):
                                                            '%Y-%m-%d').date()
         except ValueError:
             self.response.out.write('bad finish date')
+            return
+        try:
+            event.first_effective_date = datetime.datetime.strptime(first_date,
+                                                           '%Y-%m-%d').date()
+        except ValueError:
+            self.response.out.write('bad first effective date')
             return
         event.type = type
         event.put()

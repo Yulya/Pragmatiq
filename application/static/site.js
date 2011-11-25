@@ -117,7 +117,8 @@ function update_event(obj){
     var type = object.parent().attr('id');
     var start = object.parent().find('[name="start"]').val();
     var finish = object.parent().find('[name="finish"]').val();
-    $.post('/event/update', {'type': type, 'start': start, 'finish': finish}, function(data){alert(data)})
+    var first_date = object.parent().find('[name="first_date"]').val();
+    $.post('/event/update', {'type': type, 'start': start, 'finish': finish, 'first_date': first_date}, function(data){alert(data)})
 
 }
 function create_event(obj){
@@ -125,6 +126,7 @@ function create_event(obj){
     var type = object.parent().find('[name="type"]').val();
     var start = object.parent().find('[name="start"]').val();
     var finish = object.parent().find('[name="finish"]').val();
-    $.post('/event/update', {'type': type, 'start': start, 'finish': finish}, function(data){alert(data)})
+    var first_date = object.parent().find('[name="first_date"]').val();
+    $.post('/event/update', {'type': type, 'start': start, 'finish': finish, 'first_date': first_date}, function(data){alert(data)})
 
 }
