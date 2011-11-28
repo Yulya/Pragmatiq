@@ -12,7 +12,6 @@ class Dept(db.Model):
 class User(db.Model):
     first_name = db.StringProperty()
     last_name = db.StringProperty()
-    login = db.StringProperty()
     email = db.StringProperty()
     position = db.StringProperty()
     password = db.StringProperty()

@@ -6,7 +6,10 @@
 
 
     $(document).ready(function(){
-                    
+            {% for role in roles %}
+                $('input[value = "{{role}}"]').attr('checked', 'checked');
+            {% endfor %}
+
         $('#send').click(function(){
 
             var $form = $('#user_form'),
@@ -24,7 +27,8 @@
                 });
                 
                 $.post( url,
-                        {'first_name': first_name,
+                        {'key': '{{user.key}}',
+                         'first_name': first_name,
                         'last_name': last_name,
                         'login': login,
                         'email': email,
@@ -62,31 +66,31 @@
     <p>add new:</p>
     <form action="/add_emp" id="user_form" method="post">
         <table>
-            <tr>
-                <td><label>login:</label></td>
-                <td><input type="text" name="login"><br></td>
-            </tr>
+           
             <tr>
                 <td><label>first_name:</label></td>
-                <td><input type="text" name="first_name"><br></td>
+                <td><input type="text" value="{{user.first_name}}" name="first_name"><br></td>
             </tr>
             <tr>
                 <td><label>last_name:</label></td>
-                <td><input type="text" name="last_name"><br></td>
+                <td><input type="text" value="{{user.last_name}}" name="last_name"><br></td>
             </tr>
             <tr>
-                <td><label>e_mail:</label></td>
-                <td><input type="text" name="email"><br></td>
+                <td><label>email:</label></td>
+                <td><input type="text" value="{{user.email}}" name="email"><br></td>
             </tr>
             <tr>
                 <td><label>department:</label></td>
-                <td><input type="text" name="dept"><br></td>
+                <td><input type="text" value="{{user.dept.name}}" name="dept"><br></td>
             </tr>
             <tr>
                 <td><label>position:</label></td>
-                <td><input type="text" name="position"><br></td>
+                <td><input type="text" value="{{user.position}}" name="position"><br></td>
             </tr>
             <tr>
+            <script type="text/javascript">
+
+            </script>
                 <td><label>select role:</label></td>
                 <td><input type="checkbox" name="role" value="employee">employee<br>
                     <input type="checkbox" name="role" value="manager">manager<br>
@@ -94,16 +98,19 @@
             </tr>
             <tr>
                 <td><label>manager:</label></td>
-                <td><select name="manager">
+                <td><select id="select_manager" name="manager">
                         <option value="">None</option>
                     {% for manager in managers %}
                         <option value="{{manager.key}}">{{manager.email}}</option>
                     {% endfor %}
                     </select><br>
+                    <script type="text/javascript" language="JavaScript">
+                        $("#select_manager").val("{{user.manager.key}}");
+                    </script>
                 </td>
             </tr>
         </table>
-                <input type="button" id="send" value="add">
+                <input type="button" id="send" value="update">
 
     </form>
 

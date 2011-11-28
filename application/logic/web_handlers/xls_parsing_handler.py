@@ -23,7 +23,6 @@ class XlsParseHandler(RequestHandler):
                      'dept': 2,
                      'position': 3,
                      'email': 4,
-                     'login': 10,
                      'manager': 12
                     }
         manager_dict = {}

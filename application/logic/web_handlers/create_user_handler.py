@@ -9,44 +9,50 @@ class CreateUser(RequestHandler):
 
     def post(self):
 
-        first_name = self.request.get('first_name').strip()
-        login = self.request.get('login').strip()
-        email = self.request.get('email').strip()
-        last_name = self.request.get('last_name').strip()
-        dept = self.request.get('dept')
-        position = self.request.get('position')
+        key = self.request.get('key')
 
+        email = self.request.get('email').strip()
+
+        if key:
+            user = User.get(key)
+        else:
+            if User.all().filter('email', email).get() is not None:
+                self.response.out.write('user with this login already exist')
+                return
+            user = User()
+
+        user.email = email
+
+        first_name = self.request.get('first_name').strip()
+        user.first_name = first_name
+
+        last_name = self.request.get('last_name').strip()
+        user.last_name = last_name
+
+        position = self.request.get('position')
+        user.position = position
+
+        dept = self.request.get('dept')
         dept_ref = Dept.all().filter('name', dept).get()
 
         if dept_ref is None:
             dept_ref = Dept(name=dept)
             dept_ref.put()
 
+        user.dept = dept_ref
         try:
             manager = Model.get(self.request.get('manager'))
         except BadKeyError:
             manager = None
+        user.manager = manager
 
         roles = self.request.get('role')[:-1].split(',')
-        if User.all().filter('login', login).get() is None:
-
-            try:
-                user = User(login=login,
-                            first_name=first_name,
-                            email=email,
-                            last_name=last_name,
-                            dept=dept_ref,
-                            position=position,
-                            manager=manager)
-
-                for role in roles:
+        for role in roles:
                     role_key = Role.gql("WHERE value = :role",
                                         role=role).get().key()
-                    user.role.append(role_key)
+                    if role_key not in user.role:
+                        user.role.append(role_key)
 
-                user.put()
-            except ValueError:
-                self.response.out.write('error')
-                return
-            self.response.out.write('ok')
-        else: self.response.out.write('user with this login already exist')
+        user.put()
+
+        self.response.out.write('ok')
