@@ -81,7 +81,7 @@ function make_input(object){
     });
     input_text.keypress(function(e){
                     if (e.keyCode == '13'){
-                        add_data(input, form_key);
+                        make_text(this);
                     }
                 });
     obj.replaceWith(input_text);
