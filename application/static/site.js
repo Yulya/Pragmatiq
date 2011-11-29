@@ -127,6 +127,11 @@ function create_event(obj){
     var start = object.parent().find('[name="start"]').val();
     var finish = object.parent().find('[name="finish"]').val();
     var first_date = object.parent().find('[name="first_date"]').val();
-    $.post('/event/update', {'type': type, 'start': start, 'finish': finish, 'first_date': first_date}, function(data){alert(data)})
+    $.post('/event/update', {'type': type, 'start': start, 'finish': finish, 'first_date': first_date}, function(data){
+        if (data == 'ok'){
+        message = "You've created new event";
+        load('/hr/settings');
+        message = ""}
+    })
 
 }

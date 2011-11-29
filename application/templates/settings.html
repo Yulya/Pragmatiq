@@ -31,7 +31,14 @@
         <div>
         <p>new event:</p>
         <table>
-        <tr><td>type:</td><td><input type="text" name="type" ></td></tr>
+        <tr><td>type:</td>
+            <td>
+            <select name="type">
+                <option value="annual">annual</option>
+                <option value="semi-annual">semi-annual</option>
+            </select>
+            </td>
+        </tr>
         <tr><td>start date:</td><td><input type="text" name="start" class="date" ></td></tr>
         <tr><td>finish date:</td><td><input type="text" name="finish" class="date"></td></tr>
         <tr><td>first effective date:</td><td><input type="text" name="first_date" class="date"></td></tr>
