@@ -1,4 +1,4 @@
-from google.appengine.ext.webapp import RequestHandler
+from google.appengine.ext.webapp import RequestHandler, template
 from logic.models import PerformanceReview
 
 class GetSelfPR(RequestHandler):
@@ -14,5 +14,8 @@ class GetSelfPR(RequestHandler):
         except AttributeError:
             self.response.out.write('pr not created')
             return
-        if form is not None:
-            self.response.out.write(pr.key())
+
+        template_values = {'pr': pr}
+
+        path = 'templates/api.employee.html'
+        self.response.out.write(template.render(path, template_values))

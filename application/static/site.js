@@ -4,21 +4,9 @@ function load_role(a, user_key){
         window.location = '/#/manager'
     }
     if (a == 'employee'){
-        $.get('/pr/get/self',
-                function(data){
-                    if (data){
-                        if (data == 'pr not created'){
-                            $('.result').css('display', 'block');
-                            $('.result').html(data);
-                        }
-                        else{
-                        $('.result').load('pr/get/employee/' + data);
-                        }}
-                    else {$('.result').load('pr/add/employee/' + user_key)}
-        $('.result').css('display', 'block');
-        $('#settings').css('display','none');
-        })
-    }
+        $('#settings').css('display','table-cell');
+        window.location = '/#/employee';}
+    
     if (a == 'hr'){
         $('#settings').css('display','table-cell');
         window.location = '/#/hr'

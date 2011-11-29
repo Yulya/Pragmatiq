@@ -33,4 +33,4 @@ class AddEmployeeForm(RequestHandler):
             job_assessment.put()
 
         if self.flag:
-            self.redirect('/pr/get/%(type)s/%(key)s' % {'type': self.type, 'key': pr.key()})
+            self.redirect('/%(type)s/pr/get/%(type)s/%(key)s' % {'type': self.type, 'key': pr.key()})

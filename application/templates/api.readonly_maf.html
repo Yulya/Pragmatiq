@@ -227,13 +227,15 @@
             {% endif %}
         </div>
 
-
+{% block buttons %}
     </div>
+
     {% ifequal form.status 'submitted' %}
     <input type="button" value="undo submit" onclick="draft()">
     {% else %}
     <input type="button" value="undo approve" onclick="register()">
     {% endifequal %}
 </div>
+{% endblock %}
 
 {% endblock %}
