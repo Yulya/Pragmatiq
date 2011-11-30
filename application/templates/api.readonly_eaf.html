@@ -1,7 +1,13 @@
 {% extends "_api_base.html" %}
 
 {% block script %}
+<script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript">
+    $(function() {
+		$( "#accordion" ).accordion();
+	});
+    
     function draft(){
     $.get('/pr/employee/draft/' + form_key, function(data){
             if (data == 'ok'){
@@ -18,16 +24,21 @@
 <p>Performance Review Form for {{form.pr.employee.first_name}} {{form.pr.employee.last_name}}</p>
 <p>date: {{form.pr.date}}</p>
 </div>
+<div id='accordion'>
 
+<h3><a href="#">Projects and Initiatives</a></h3>
 <div id="project" class="input_div">
     <p>Please list all projects and initiatives you participated in during this performance review period.</p>
     <ul>
     {% for project in form.projects %}
-        <li>{{project.value}}</li>
+        <li  id="{{project.key}}">{{project.value}}</li>
     {% endfor %}
     </ul>
+    
 </div>
 
+<h3><a href="#">Achievements</a></h3>
+<div>
 <div id="prev_achievements">
     <a href="#" onclick="display(this); return false">Previous achievements</a>
     <div class='hidden'>
@@ -43,18 +54,23 @@
     <p>What do you consider to be your key accomplishments since your last review?</p>
     <ul>
     {% for ach in form.achievements %}
-        <li>{{ach.value}}</li>
+        <li  id="{{ach.key}}">{{ach.value}}</li>
     {% endfor %}
     </ul>
+    
+</div>
 </div>
 
+<h3><a href="#">Evaluation of job responsibilities</a></h3>
+<div>
 <div id="responsibility" class="input_div">
     <p>List your key job responsibilities during your performance period. Please comment on your job performance assessment.</p>
     <ul>
     {% for responsibility in form.responsibilities %}
-        <li>{{responsibility.value}}</li>
+        <li  id="{{responsibility.key}}">{{responsibility.value}}</li>
     {% endfor %}
     </ul>
+
 </div>
 
 <div id="prev_challenges">
@@ -72,20 +88,26 @@
     <p>If you have experienced challenges, please specify the areas where you need to focus and improve. </p>
     <ul>
     {% for challenge in form.challenges %}
-        <li>{{challenge.value}}</li>
+        <li  id="{{challenge.key}}">{{challenge.value}}</li>
     {% endfor %}
     </ul>
+    
 </div>
+
 
 <div id="skill" class="input_div">
     <p>Please mention what skills and/or knowledge do you need for further development to contribute to your overall job success.</p>
     <ul>
     {% for skill in form.skills %}
-        <li>{{skill.value}}</li>
+        <li  id="{{skill.key}}" >{{skill.value}}</li>
     {% endfor %}
     </ul>
+    
+</div>
 </div>
 
+<h3><a href="#">Goals</a></h3>
+<div>
 <div id="prev_goals" class="input_div">
     <a href="#" onclick="display(this); return false">Previous Goals:</a>
     <div class="hidden">
@@ -96,10 +118,19 @@
                 <td>Value</td>
             </tr>
         </thead>
-    {% for prev_goal in prev_form.goals %}
+    {% for prev_goal in prev_form.next_goals %}
         <tr>
             <td>{{prev_goal.value}}</td>
-            <td>{{prev_goal.result}}</td>
+            <td>
+                <select id="{{prev_goal.key}}" onchange="set_result(this.id, this.options[selectedIndex].value)">
+                    <option value="1" class="grade">below expectations</option>
+                    <option value="2" class="grade">meet expectations</option>
+                    <option value="3" class="grade">above expectations</option>
+                </select>
+                <script type="text/javascript" language="JavaScript">
+                    $("#{{prev_goal.key}}").val("{{prev_goal.result}}");
+                </script>
+            </td>
         </tr>
     {% endfor %}
     </table>
@@ -110,53 +141,85 @@
     <p>Goals for the next period:</p>
     <ul>
     {% for goal in form.next_goals %}
-        <li>{{goal.value}}</li>
+        <li  id="{{goal.key}}" >{{goal.value}}</li>
     {% endfor %}
     </ul>
+    
+</div>
 </div>
 
+<h3><a href="#">Long-term Career Objectives</a></h3>
 <div id="career" class="input_div">
     <p>What are your professional interests and long-term career objectives, and what are you plans to accomplish these objectives?  </p>
     <ul>
     {% for career in form.careers %}
-        <li>{{career.value}}</li>
+        <li  id="{{career.key}}" >{{career.value}}</li>
     {% endfor %}
     </ul>
+    
 </div>
 
+<h3><a href="#">Overall Job Satisfaction</a></h3>
+<div>
 <div id="issue" class="input_div">
     <p>Do you see any issues with your role within the company and/or your project(s)?</p>
     <ul>
     {% for issue in form.issues %}
-        <li>{{issue.value}}</li>
+        <li  id="{{issue.key}}" >{{issue.value}}</li>
     {% endfor %}
     </ul>
+    
 </div>
 
 <div id="complaint" class="input_div">
     <p>Do you have any complaints?</p>
     <ul>
     {% for complaint in form.complaints %}
-        <li>{{complaint.value}}</li>
+        <li  id="{{complaint.key}}" >{{complaint.value}}</li>
     {% endfor %}
     </ul>
+    
 </div>
 
 <div id="manager_help" class="input_div">
     <p>Is there anything your manager could do to help you do a better job? </p>
     <ul>
     {% for manager_help in form.manager_helps %}
-        <li>{{manager_help.value}}</li>
+        <li  id="{{manager_help.key}}" >{{manager_help.value}}</li>
     {% endfor %}
     </ul>
+    
 </div>
-
-
-<div id="file" class="input_div">
+<div id='conclusion' class="input_div">
+    <p>Conclusion:</p>
+        <select id="{{form.get_all_data.job_assessment.key}}" disabled>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        <script type="text/javascript" language="JavaScript">
+                    $("#{{form.get_all_data.job_assessment.key}}").val("{{form.get_all_data.job_assessment.value}}");
+        </script>
+</div>
+</div>
+<h3><a href="#">Misc</a></h3>
+<div>
+<div>
     <p>Attached files:</p>
     {% if file_name%}
         <a href="/serve/{{file_key}}">{{file_name}}</a>
     {% endif %}
+</div>
+
+</div>
+
 </div>
 <div>
     <input type="button" id="undo submit" onclick="draft()" value="submit">

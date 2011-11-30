@@ -1,10 +1,16 @@
 {% extends "_api_base.html" %}
 
 {% block script %}
+<script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript">
 
 var form_key= '{{form.key}}';
 var form_type='{{form.type}}';
+
+$(function() {
+		$( "#accordion" ).accordion();
+	});
 
 function submit(){
             $.get('/pr/employee/submit/' + form_key, function(data){
@@ -24,7 +30,9 @@ function submit(){
 <p>Manager: {{form.pr.manager.first_name}}&nbsp;{{form.pr.manager.last_name}}</p>
 <p>date: {{form.pr.date}}</p>
 </div>
+<div id='accordion'>
 
+<h3><a href="#">Projects and Initiatives</a></h3>
 <div id="project" class="input_div">
     <p>Please list all projects and initiatives you participated in during this performance review period.</p>
     <ul>
@@ -35,6 +43,8 @@ function submit(){
     <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
 </div>
 
+<h3><a href="#">Achievements</a></h3>
+<div>
 <div id="prev_achievements">
     <a href="#" onclick="display(this); return false">Previous achievements</a>
     <div class='hidden'>
@@ -55,7 +65,10 @@ function submit(){
     </ul>
     <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
 </div>
+</div>
 
+<h3><a href="#">Evaluation of job responsibilities</a></h3>
+<div>
 <div id="responsibility" class="input_div">
     <p>List your key job responsibilities during your performance period. Please comment on your job performance assessment.</p>
     <ul>
@@ -87,6 +100,7 @@ function submit(){
     <input type="button" class="add_button" onclick="add_data(this,'{{form.key}}')" value="add" >
 </div>
 
+
 <div id="skill" class="input_div">
     <p>Please mention what skills and/or knowledge do you need for further development to contribute to your overall job success.</p>
     <ul>
@@ -96,7 +110,10 @@ function submit(){
     </ul>
     <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
 </div>
+</div>
 
+<h3><a href="#">Goals</a></h3>
+<div>
 <div id="prev_goals" class="input_div">
     <a href="#" onclick="display(this); return false">Previous Goals:</a>
     <div class="hidden">
@@ -135,7 +152,9 @@ function submit(){
     </ul>
     <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
 </div>
+</div>
 
+<h3><a href="#">Long-term Career Objectives</a></h3>
 <div id="career" class="input_div">
     <p>What are your professional interests and long-term career objectives, and what are you plans to accomplish these objectives?  </p>
     <ul>
@@ -146,6 +165,8 @@ function submit(){
     <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
 </div>
 
+<h3><a href="#">Overall Job Satisfaction</a></h3>
+<div>
 <div id="issue" class="input_div">
     <p>Do you see any issues with your role within the company and/or your project(s)?</p>
     <ul>
@@ -175,22 +196,6 @@ function submit(){
     </ul>
     <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
 </div>
-
-<div>
-    <p>Attached files:</p>
-    {% if file_name%}
-        <a href="/serve/{{file_key}}">{{file_name}}</a>
-    {% endif %}
-</div>
-
-<div>
-    <form action="{{upload_url}}" method="POST" enctype="multipart/form-data">
-        <input type='hidden' name='key' value={{key}}>
-        <input type="file" name="file"><br>
-        <input type="submit" name="submit" value="attach">
-    </form>
-</div>
-
 <div id='conclusion' class="input_div">
     <p>Conclusion:</p>
         <select id="{{form.get_all_data.job_assessment.key}}" onchange="send_value(this.id, this.options[selectedIndex].value)">
@@ -208,6 +213,26 @@ function submit(){
         <script type="text/javascript" language="JavaScript">
                     $("#{{form.get_all_data.job_assessment.key}}").val("{{form.get_all_data.job_assessment.value}}");
         </script>
+</div>
+</div>
+<h3><a href="#">Misc</a></h3>
+<div>
+<div>
+    <p>Attached files:</p>
+    {% if file_name%}
+        <a href="/serve/{{file_key}}">{{file_name}}</a>
+    {% endif %}
+</div>
+
+<div>
+    <form action="{{upload_url}}" method="POST" enctype="multipart/form-data">
+        <input type='hidden' name='key' value={{key}}>
+        <input type="file" name="file"><br>
+        <input type="submit" name="submit" value="attach">
+    </form>
+</div>
+</div>
+
 </div>
 <div>
     <input type="button" id="submit" onclick="submit()" value="submit">
