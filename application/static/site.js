@@ -29,7 +29,47 @@ function set_result(id, value) {
 function update_data(id,value){
     $.post('/pr/data/update/'+ id, {value: value});
 }
+function add_textarea(obj, form_key){
+     var object = $(document).find(obj);
+     var table = object.parent().attr('id');
+     var button = object.parent().find('.add_button');
+     var ul =  object.parent().find('ul');
+     $.post(
+            '/pr/data/add',
+            {form_key: form_key, table: table},
+            function(data){
+                var input = $('<textarea rows="4" cols="40"></textarea>');
+                input.attr('id',data);
+                input.keypress(function(e){
+                    if (e.keyCode == '13'){
+                        add_data(input, form_key);
+                    }
+                });
+                input.focusout(function(){
+                    update_data(this.id,this.value);
+                    make_text(this)});
+                input.insertBefore(button);
+                input.focus();
+                    });
 
+     }
+function make_textarea(object){
+    var obj = $(document).find(object);
+    var input_text = $('<textarea rows="4" cols="40"></textarea>');
+    input_text.attr('id', obj.attr('id'));
+    input_text.html(obj.html());
+    input_text.focusout(function(){
+        $.post('/pr/data/update/'+ this.id,{value: this.value});
+        make_text(this);
+    });
+    input_text.keypress(function(e){
+                    if (e.keyCode == '13'){
+                        make_text(this);
+                    }
+                });
+    obj.replaceWith(input_text);
+    input_text.focus();
+}
 function add_data(obj, form_key){
      var object = $(document).find(obj);
      var table = object.parent().attr('id');
@@ -75,6 +115,7 @@ function make_input(object){
     obj.replaceWith(input_text);
     input_text.focus();
 }
+
 function make_text(object){
     var obj = $(document).find(object);
     var text = $('<li></li>');

@@ -237,13 +237,15 @@ $(document).ready(function(){
     <div>
         <div id="manager_comment" class="input_div">
             <p>Fill any comments on this particular form.</p>
-            <ul>
+
             {% for manager_comment in form.manager_comments %}
-                <li class='text_field' onclick="make_input(this)" id="{{manager_comment.key}}" >{{manager_comment.value}}</li>
+                <p id="{{manager_comment.key}}" onclick="make_textarea(this)">{{manager_comment.value}}</p>
             {% endfor %}
-            </ul>
-            <input type="button" class="add_button" onclick="add_data(this, '{{form.key}}')" value="add" >
+
+            <input type="button" class="add_button" onclick="add_textarea(this, '{{form.key}}')" value="add" >
         </div>
+
+        
 
         <div id="file">
             <p>Attached files:</p>

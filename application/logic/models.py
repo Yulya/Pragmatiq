@@ -93,6 +93,7 @@ class HrComment(db.Model):
 
 class ManagerComment(db.Model):
     value = db.StringProperty()
+    manager = db.ReferenceProperty()
     form = db.ReferenceProperty(PerformanceReviewForm,
                                 collection_name='manager_comments')
 
