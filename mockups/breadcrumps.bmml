@@ -1,0 +1,37 @@
+<mockup version="1.0" skin="sketch" measuredW="672" measuredH="488" mockupW="622" mockupH="474">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="50" y="14" w="622" h="474" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Pragmatiq%20%0Ahttp%3A//pragmatiq.mirantis.com/%23pr/jane-doe</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::ComboBox" x="486" y="97" w="-1" h="-1" measuredW="84" measuredH="23" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>manager</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::Canvas" x="92" y="141" w="528" h="300" measuredW="100" measuredH="70" zOrder="2" locked="false" isInGroup="-1"/>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::BreadCrumbs" x="107" y="147" w="-1" h="-1" measuredW="235" measuredH="23" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Home%2C%20PR%2C%20CoE%20Group%2C%20Jane%20Doe</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Link" x="570" y="98" w="-1" h="-1" measuredW="50" measuredH="23" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Log%20out</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::Label" x="369" y="96" w="-1" h="-1" measuredW="117" measuredH="23" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>john@example.com</text>
+      </controlProperties>
+    </control>
+    <control controlID="11" controlTypeID="com.balsamiq.mockups::ScratchOut" x="128" y="216" w="465" h="71" measuredW="205" measuredH="107" zOrder="7" locked="false" isInGroup="-1"/>
+    <control controlID="12" controlTypeID="com.balsamiq.mockups::Accordion" x="128" y="187" w="465" h="239" measuredW="198" measuredH="324" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>0</selectedIndex>
+        <text>Projects%20and%20initiatives%0AAchievements%20and%20challenges%0AGoals%0AProfessional%20development%20plan%0APerformance%20conclusion%0AMisc</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
