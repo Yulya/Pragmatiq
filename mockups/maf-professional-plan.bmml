@@ -1,0 +1,50 @@
+<mockup version="1.0" skin="sketch" measuredW="762" measuredH="408" mockupW="704" mockupH="383">
+  <controls>
+    <control controlID="35" controlTypeID="com.balsamiq.mockups::Label" x="71" y="40" w="679" h="22" measuredW="234" measuredH="27" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>Professional%20Development%20Plan</text>
+        <underline>false</underline>
+      </controlProperties>
+    </control>
+    <control controlID="40" controlTypeID="com.balsamiq.mockups::Canvas" x="58" y="25" w="704" h="383" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="-1"/>
+    <control controlID="48" controlTypeID="com.balsamiq.mockups::Paragraph" x="85" y="84" w="646" h="65" measuredW="200" measuredH="140" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>To%20be%20filled%20in%20during%20the%20performance%20review%20session.%20The%20plan%20contains%20short%20term%20professional%20development%20activities.%20It%20can%20be%20split%20into%20self-development%20activities%20and%20trainings%2C%20courses%20or%20internship%20programs%2C%20sponsored%20by%20the%20Company.%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="49" controlTypeID="com.balsamiq.mockups::HRule" x="66" y="64" w="684" h="-1" measuredW="100" measuredH="5" zOrder="3" locked="false" isInGroup="-1"/>
+    <control controlID="50" controlTypeID="com.balsamiq.mockups::RoundButton" x="126" y="155" w="11" h="10" measuredW="32" measuredH="32" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>3355443</color>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="51" controlTypeID="com.balsamiq.mockups::Label" x="141" y="149" w="184" h="23" measuredW="166" measuredH="23" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>watch%20TV%20series%20in%20English</text>
+      </controlProperties>
+    </control>
+    <control controlID="52" controlTypeID="com.balsamiq.mockups::TextInput" x="126" y="202" w="567" h="-1" measuredW="79" measuredH="27" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="53" controlTypeID="com.balsamiq.mockups::Button" x="126" y="244" w="-1" h="-1" measuredW="48" measuredH="28" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Add</text>
+      </controlProperties>
+    </control>
+    <control controlID="80" controlTypeID="com.balsamiq.mockups::Label" x="141" y="171" w="184" h="23" measuredW="148" measuredH="23" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>visit%20Javascript%20courses</text>
+      </controlProperties>
+    </control>
+    <control controlID="81" controlTypeID="com.balsamiq.mockups::RoundButton" x="126" y="178" w="10" h="10" measuredW="32" measuredH="32" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>3355443</color>
+        <text/>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
