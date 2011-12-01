@@ -9,7 +9,7 @@
 	});
     
     function draft(){
-    $.get('/pr/employee/draft/' + form_key, function(data){
+    $.get('/pr/employee/draft/' + '{{form.key}}', function(data){
             if (data == 'ok'){
                 message = 'You have cancelled submitting form ';
                 window.location.href = "/#/employee";
@@ -222,7 +222,7 @@
 
 </div>
 <div>
-    <input type="button" id="undo submit" onclick="draft()" value="submit">
+    <input type="button" id="undo submit" onclick="draft()" value="undo submit">
 </div>
 
 {% endblock %}

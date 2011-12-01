@@ -45,8 +45,18 @@ function check_form(){
 
     })
 }
+
+function share(email){
+    $.post('/form/share',{'form_key': form_key, 'user_email': email}, function(data){
+        message = data;
+        load(document.location.hash.replace('#', ''))
+    })
+}
 $(document).ready(function(){
     $('.date').datepicker({ dateFormat: 'yy-mm-dd' });
+    $('#share_form_button').click(function(){
+        $('#share_form_input').css('display', '');
+    })
 })
 
 </script>
@@ -57,6 +67,13 @@ $(document).ready(function(){
 <div id="info">
 <p>Manager Assessment Form for {{form.pr.employee.first_name}} {{form.pr.employee.last_name}}</p>
 <p>date: {{form.pr.date}}</p>
+shared to:
+<ul>
+    {% for editor in form.editors %}
+        <li>{{editor.user.first_name}}{{editor.user.last_name}}</li>
+    {% endfor %}
+</ul>
+<div id="share_form"><input type="button" id="share_form_button" value="share"><input type="text" id="share_form_input" onblur="share(this.value)" style="display:none"></div>
 </div>
 <div id='accordion'>
 <h3><a href="#">Projects and Initiatives</a></h3>

@@ -86,6 +86,10 @@ class PerformanceReviewForm(db.Model):
         return data
 
 
+class SharedForm(db.Model):
+    form = db.ReferenceProperty(PerformanceReviewForm, collection_name='editors')
+    user = db.ReferenceProperty(User, collection_name='shared_forms')
+
 class HrComment(db.Model):
     value = db.StringProperty()
     form = db.ReferenceProperty(PerformanceReviewForm,
