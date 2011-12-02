@@ -1,5 +1,5 @@
 from google.appengine.ext.webapp import RequestHandler, template
-from logic.models import PerformanceReview
+from logic.models import PerformanceReview, SharedForm
 
 class GetPrs(RequestHandler):
 
@@ -16,9 +16,12 @@ class GetPrs(RequestHandler):
         for pr in prs:
             periods[pr.period.key()] = pr.period
 
+        shared_forms = SharedForm.all().filter('user', user).fetch(1000)
+
         template_values = {
                            'periods': periods.values(),
-                           'current_user': user.email}
+                           'current_user': user.email,
+                           'shared_forms': shared_forms}
 
         path = 'templates/api.manager.html'
         self.response.out.write(template.render(path, template_values))

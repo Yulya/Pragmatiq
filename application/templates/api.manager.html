@@ -42,4 +42,10 @@
         </table>
     {% endfor %}
 {% endif %}
+{% if shared_forms %}
+    <h1>Shared forms:</h1>
+        {% for shared_form in shared_forms %}
+        <a href="/#/manager/pr/get/manager/{{shared_form.form.pr.key}}">{{shared_form.form.pr.employee.first_name}}&nbsp;{{shared_form.form.pr.employee.last_name}}&nbsp;form</a>
+        {% endfor %}
+{% endif %}
 {% endblock %}
