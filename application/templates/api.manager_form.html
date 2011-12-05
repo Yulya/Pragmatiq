@@ -1,13 +1,53 @@
 {% extends "_api_base.html" %}
 
 {% block script %}
-<script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
-<script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript">
 
 var form_key= '{{form.key}}';
 var form_type='{{form.pr.period.type}}';
+var users_email = new Array();
 
+$(function() {
+		// a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
+		$( "#dialog:ui-dialog" ).dialog( "destroy" );
+
+		$( "#sharing-form" ).dialog({
+			autoOpen: false,
+			height: 500,
+			width: 500,
+			modal: true,
+            buttons: {"ok": function(){
+                        $( "#sharing-form" )
+                                .find('.users_email')
+                                .each(function(){
+                                 users_email.push($(this).html())
+                        });
+                        $( this ).dialog( "close" );
+                        $('#shared_users').html('');
+                        $.post('/form/share', {'form_key': form_key, 'users': users_email.join(',')}, function(data){
+                            message = data;
+                            load(window.location.hash.replace('#',''));
+                        })
+                        },
+                      "cancel": function(){$( this ).dialog( "close" );}}
+		});
+	});
+        $( "#share" )
+			.click(function() {
+				$( "#sharing-form" ).dialog( "open" );
+			});
+        $( "#users" ).autocomplete({
+			source: "/get_users",
+			minLength: 1,
+            select: function( event, ui ) {
+                $('#shared_users')
+                        .append("<div><p class='users_email'>"
+                        + ui.item.value +
+                        "</p><input type='button' value='&times;' onclick='parent_replace(this)'></div>");
+			}
+
+        });
+$( "#users" ).focusout(function(){$(this).val('')});
 $(function() {
 		$( "#accordion" ).accordion();
 	});
@@ -45,24 +85,25 @@ function check_form(){
 
     })
 }
-
-function share(email){
-    $.post('/form/share',{'form_key': form_key, 'user_email': email}, function(data){
-        message = data;
-        load(document.location.hash.replace('#', ''))
-    })
+function parent_replace(obj){
+    $(document).find(obj).parent().replaceWith('')
 }
+
 $(document).ready(function(){
     $('.date').datepicker({ dateFormat: 'yy-mm-dd' });
-    $('#share_form_button').click(function(){
-        $('#share_form_input').css('display', '');
-    })
 })
 
 </script>
 {% endblock %}
 
 {% block content %}
+
+<div id="sharing-form" title="Share form">
+	<p>Share to:</p>
+    <input type="text" id="users">
+    <div id="shared_users"></div>
+</div>
+
         <h1>Manager form</h1>
 <div id="info">
 <p>Manager Assessment Form for {{form.pr.employee.first_name}} {{form.pr.employee.last_name}}</p>
@@ -70,10 +111,10 @@ $(document).ready(function(){
 shared to:
 <ul>
     {% for editor in form.editors %}
-        <li>{{editor.user.first_name}}{{editor.user.last_name}}</li>
+        <li>{{editor.user.first_name}}&nbsp;{{editor.user.last_name}}</li>
     {% endfor %}
 </ul>
-<div id="share_form"><input type="button" id="share_form_button" value="share"><input type="text" id="share_form_input" onblur="share(this.value)" style="display:none"></div>
+<input type="button" id="share" value="share">
 </div>
 <div id='accordion'>
 <h3><a href="#">Projects and Initiatives</a></h3>

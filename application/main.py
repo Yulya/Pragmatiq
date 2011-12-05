@@ -21,6 +21,7 @@ from logic.authentication_middleware import Authentication
 from logic.web_handlers.add_data_handler import AddData
 from logic.web_handlers.add_form_handler import AddEmployeeForm
 from logic.web_handlers.add_manager_form_handler import AddManagerForm
+from logic.web_handlers.autocomplete_users import GetJSONUsers
 from logic.web_handlers.automatic_creation_pr_handler import AutomaticPerformanceReview
 from logic.web_handlers.check_form_content_handler import CheckFormContent
 from logic.web_handlers.check_pr_date import CheckDate
@@ -97,6 +98,7 @@ def main():
                                           ('/hr/get/manager/(.*)', HRManagerForm),
                                           ('/pr/manager/check/(.*)', CheckFormContent),
                                           ('/manager',GetPrs),
+                                          ('/get_users', GetJSONUsers),
                                           ('/hr', GetAllEmployees),
                                           ('/hr/new_period', HR),
                                           ('/upload', UploadHandler),

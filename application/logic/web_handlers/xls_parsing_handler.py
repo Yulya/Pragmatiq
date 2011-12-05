@@ -34,10 +34,10 @@ class XlsParseHandler(RequestHandler):
 
 
         for rownum in range(sh.nrows)[6:]:
-            login = sh.cell_value(rownum,cols_dict['login']).strip()
-            user = User.all().filter('login', login).get()
+            email = sh.cell_value(rownum,cols_dict['email']).strip()
+            user = User.all().filter('email', email).get()
             if user is None:
-                user = User(login=login)
+                user = User(email=email)
                 user.put()
 
             if not user.role:
@@ -46,7 +46,7 @@ class XlsParseHandler(RequestHandler):
             string_fields = ['first_name',
                              'last_name',
                              'position',
-                             'email']
+                             ]
 
             for field in string_fields:
                 value = re.sub(reg, '', sh.cell_value(rownum,cols_dict[field]))
