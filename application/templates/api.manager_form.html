@@ -8,7 +8,6 @@ var form_type='{{form.pr.period.type}}';
 var users_email = new Array();
 
 $(function() {
-		// a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
 		$( "#dialog:ui-dialog" ).dialog( "destroy" );
 
 		$( "#sharing-form" ).dialog({
@@ -95,7 +94,9 @@ $(document).ready(function(){
 
 </script>
 {% endblock %}
-
+{% block breadcrumps %}
+<a href="/#/manager">manager</a>/<a>{{form.pr.employee.first_name}}&nbsp;{{form.pr.employee.last_name}}&nbsp;form</a>/
+{% endblock %}
 {% block content %}
 
 <div id="sharing-form" title="Share form">
@@ -106,7 +107,7 @@ $(document).ready(function(){
 
         <h1>Manager form</h1>
 <div id="info">
-<p>Manager Assessment Form for {{form.pr.employee.first_name}} {{form.pr.employee.last_name}}</p>
+<p>Manager Assessment Form for {{form.pr.employee.first_name}}&nbsp;{{form.pr.employee.last_name}}</p>
 <p>date: {{form.pr.date}}</p>
 shared to:
 <ul>

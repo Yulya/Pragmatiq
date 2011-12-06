@@ -1,13 +1,14 @@
 {% extends "_api_base.html" %}
 
+{% block breadcrumps %}
+    <a>employee</a>/
+{% endblock %}
+
 {% block content %}
-
-{% if pr.employee_form %}
-<a href="/#/employee/pr/get/employee/{{pr.key}}">load self AF</a>
-{% else %}
-<a href="/#/employee/pr/add/employee/{{pr.employee.key}}">create self AF</a>
-{% endif %}
-
-
+    {% if pr.employee_form %}
+    <a href="/#/employee/pr/get/employee/{{pr.key}}">load self AF</a>
+    {% else %}
+    <a href="/#/employee/pr/add/employee/{{pr.employee.key}}">create self AF</a>
+    {% endif %}
 {% endblock %}
   

@@ -1,28 +1,30 @@
 {% extends "_api_base.html" %}
 
 {% block script %}
-<script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
-<script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
-<script type="text/javascript">
+    <script type="text/javascript">
 
-var form_key= '{{form.key}}';
-var form_type='{{form.type}}';
+        var form_key= '{{form.key}}';
+        var form_type='{{form.type}}';
 
-$(function() {
-		$( "#accordion" ).accordion();
-	});
+        $(function() {
+                $( "#accordion" ).accordion();
+            });
 
-function submit(){
-            $.get('/pr/employee/submit/' + form_key, function(data){
-            if (data == 'ok'){
-                window.location = '/';
-            }
-            })
-}
-
-</script>
+        function submit(){
+                    $.get('/pr/employee/submit/' + form_key,
+                            function(data){
+                                if (data == 'ok'){
+                                window.location = '/#/employee';
+                                }
+                        })
+                    }
+    
+    </script>
 {% endblock %}
 
+{% block breadcrumps %}
+<a href="employee">employee</a>/<a>self form</a>/
+{% endblock %}
 {% block content %}
         <h1>Employee form</h1>
 <div id="info">
