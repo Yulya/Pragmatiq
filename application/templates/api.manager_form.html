@@ -1,11 +1,28 @@
 {% extends "_api_base.html" %}
 
 {% block script %}
+<script type="text/javascript" src="/static/site.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript">
 
 var form_key= '{{form.key}}';
 var form_type='{{form.pr.period.type}}';
 var users_email = new Array();
+
+function send_request(){
+    $.get('/lock_form/' + form_key, function(data){
+        if (data != 'ok'){
+            message = data;
+            window.location.href = '/#/manager';
+        }
+    })
+}
+function lock_form(){
+    send_request();
+    setInterval('send_request()', 30000);
+}
+window.onload = lock_form();
 
 $(function() {
 		$( "#dialog:ui-dialog" ).dialog( "destroy" );
@@ -23,9 +40,11 @@ $(function() {
                         });
                         $( this ).dialog( "close" );
                         $('#shared_users').html('');
-                        $.post('/form/share', {'form_key': form_key, 'users': users_email.join(',')}, function(data){
-                            message = data;
-                            load(window.location.hash.replace('#',''));
+                        $.post('/form/share', {'form_key': form_key,
+                            'users': users_email.join(',')},
+                                function(data){
+                                    message = data;
+                                    load(window.location.hash.replace('#',''));
                         })
                         },
                       "cancel": function(){$( this ).dialog( "close" );}}
@@ -50,40 +69,7 @@ $( "#users" ).focusout(function(){$(this).val('')});
 $(function() {
 		$( "#accordion" ).accordion();
 	});
-    function draft(){
-    $.get('/pr/manager/draft/' + form_key, function(data){
-            if (data == 'ok'){
-                message = 'You have cancelled submitting {{form.pr.employee.first_name}} {{form.pr.employee.last_name}} form ';
-                window.location.href = "/#/manager";
-            }
-            })
-}
-function approve(){
-    $.get('/pr/manager/approve/' + form_key, function(data){
-        if (data == 'ok'){
-            message = 'You have approved {{form.pr.employee.first_name}} {{form.pr.employee.last_name}} form ';
-            window.location.href = "/#/manager";
-        }
-    });
 
-}
-function submit(){
-            $.get('/pr/manager/submit/' + form_key, function(data){
-            if (data == 'ok'){
-                message = 'You have submitted {{form.pr.employee.first_name}} {{form.pr.employee.last_name}} form ';
-                window.location.href = "/#/manager";
-            }
-            })
-}
-function check_form(){
-    $.get('pr/manager/check/' + form_key, function(data){
-        if (data){if (confirm('Unfilled fields: ' + data + '. Continue?')){
-                  approve();}
-                 }
-        else {approve()}
-
-    })
-}
 function parent_replace(obj){
     $(document).find(obj).parent().replaceWith('')
 }
@@ -325,9 +311,9 @@ shared to:
 
 <div>
     {% ifequal form.status 'draft' %}
-        <input type="button" id='submit' onclick="submit()" value="submit">
+        <input type="button" id='submit' onclick="maf_submit('{{form.pr.employee.first_name}} {{form.pr.employee.last_name}}')" value="submit">
     {% else %}
-        <input type="button" value="undo submit" onclick="draft()">
+        <input type="button" value="undo submit" onclick="maf_draft('{{form.pr.employee.first_name}} {{form.pr.employee.last_name}}')">
         <input type="button" id='approve' onclick="check_form()" value="approve">
     {% endifequal %}
 </div>

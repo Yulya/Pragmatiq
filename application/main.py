@@ -40,6 +40,7 @@ from logic.postdeploy import PostDeploy
 from logic.web_handlers.get_manager_prs import GetPrs
 from logic.web_handlers.get_self_pr_handler import GetSelfPR
 from logic.web_handlers.hr_maf_handler import HRManagerForm
+from logic.web_handlers.lock_form import LockFormHandler
 from logic.web_handlers.main_handler import MainHandler
 from logic.web_handlers.manager_eaf_form import ManagerEmployeeForm
 from logic.web_handlers.manager_form_approve_handler import ManagerFormApprove
@@ -79,6 +80,7 @@ def main():
                                           ('/pr/update', UpdatePR),
                                           ('/employee', GetSelfPR),
                                           ('/form/share', ShareForm),
+                                          ('/lock_form/(.*)', LockFormHandler),
                                           ('/manager/pr/get/manager/(.*)', GetManagerForm),
                                           ('/employee/pr/get/employee/(.*)', GetEmployeeForm),
                                           ('/manager/pr/get/employee/(.*)', ManagerEmployeeForm),

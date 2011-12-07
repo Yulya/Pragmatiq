@@ -8,14 +8,6 @@
 		$( "#accordion" ).accordion();
 	});
     
-    function draft(){
-    $.get('/pr/employee/draft/' + '{{form.key}}', function(data){
-            if (data == 'ok'){
-                message = 'You have cancelled submitting form ';
-                window.location.href = "/#/employee";
-            }
-            })
-}
 </script>
 {% endblock %}
 {% block breadcrumps %}
@@ -224,7 +216,7 @@
 
 </div>
 <div>
-    <input type="button" id="undo submit" onclick="draft()" value="undo submit">
+    <input type="button" id="undo submit" onclick="eaf_draft()" value="undo submit">
 </div>
 
 {% endblock %}

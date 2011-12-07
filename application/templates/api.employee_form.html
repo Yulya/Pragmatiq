@@ -9,24 +9,15 @@
         $(function() {
                 $( "#accordion" ).accordion();
             });
-
-        function submit(){
-                    $.get('/pr/employee/submit/' + form_key,
-                            function(data){
-                                if (data == 'ok'){
-                                window.location = '/#/employee';
-                                }
-                        })
-                    }
     
     </script>
 {% endblock %}
 
 {% block breadcrumps %}
-<a href="employee">employee</a>/<a>self form</a>/
+    <a href="employee">employee</a>/<a>self form</a>/
 {% endblock %}
 {% block content %}
-        <h1>Employee form</h1>
+<h1>Employee form</h1>
 <div id="info">
 <p>Performance Review Form for {{form.pr.employee.first_name}}&nbsp;{{form.pr.employee.last_name}}</p>
 <p>Manager: {{form.pr.manager.first_name}}&nbsp;{{form.pr.manager.last_name}}</p>
@@ -237,6 +228,6 @@
 
 </div>
 <div>
-    <input type="button" id="submit" onclick="submit()" value="submit">
+    <input type="button" id="submit" onclick="eaf_submit()" value="submit">
 </div>
 {% endblock %}

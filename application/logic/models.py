@@ -62,6 +62,8 @@ class PerformanceReviewForm(db.Model):
                                                          'submitted',
                                                          'registered',
                                                          'approved'))
+    lock_time = db.DateTimeProperty()
+    user_locked_form = db.ReferenceProperty(User)
     file_key = db.StringProperty()
     file_name = db.StringProperty()
 

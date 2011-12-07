@@ -4,22 +4,7 @@
 <script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript">
-    function draft(){
-    $.get('/pr/manager/draft/' + form_key, function(data){
-            if (data == 'ok'){
-                message = 'You have cancelled submitting {{form.pr.employee.first_name}} {{form.pr.employee.last_name}} form ';
-                window.location.href = "/#/manager";
-            }
-            })
-}
-        function register(){
-    $.get('/pr/manager/register/' + form_key, function(data){
-            if (data == 'ok'){
-                message = 'You have cancelled approving {{form.pr.employee.first_name}} {{form.pr.employee.last_name}} form ';
-                window.location.href = "/#/manager";
-            }
-            })
-}
+    
     $(function() {
             $( "#accordion" ).accordion();
         });
@@ -233,9 +218,9 @@
     </div>
 
     {% ifequal form.status 'submitted' %}
-    <input type="button" value="undo submit" onclick="draft()">
+    <input type="button" value="undo submit" onclick="maf_draft('{{form.pr.employee.first_name}} {{form.pr.employee.last_name}}')">
     {% else %}
-    <input type="button" value="undo approve" onclick="register()">
+    <input type="button" value="undo approve" onclick="register('{{form.pr.employee.first_name}} {{form.pr.employee.last_name}}')">
     {% endifequal %}
 </div>
 {% endblock %}
