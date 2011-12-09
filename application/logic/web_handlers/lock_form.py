@@ -15,14 +15,14 @@ class LockFormHandler(RequestHandler):
         user_locked_form = form.user_locked_form
         lock_time = form.lock_time
 
-        if user_locked_form.email == user.email:
+        if form.lock_time is None:
+            form.user_locked_form = user
             form.lock_time = current_time + minute
             form.put()
             self.response.out.write('ok')
             return
 
-        if form.lock_time is None:
-            form.user_locked_form = user
+        if user_locked_form.email == user.email:
             form.lock_time = current_time + minute
             form.put()
             self.response.out.write('ok')

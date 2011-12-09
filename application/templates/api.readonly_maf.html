@@ -4,15 +4,36 @@
 <script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript">
+
+    var form_key = '{{form.key}}';
     
     $(function() {
             $( "#accordion" ).accordion();
         });
 
-    $(document).ready(function(){
+</script>
+        {% ifequal form.status 'draft' %}
+            <script type="text/javascript">
+                function send_request(){
+                    $.get('/lock_form/' + form_key, function(data){
+                        if (data != 'ok'){
+                            $('#hint').html(data);
+                        }
+                        else{
+                            message = "form is unlocked";
+                            load(document.location.hash.replace('#',''));
+                            }
+                        })
+                }
+                function lock_form(){
+                    setInterval('send_request()', 30000);}
+                 $(document).ready(function(){
+                    lock_form();
+                    send_request();
     });
 
-</script>
+            </script>
+        {% endifequal %}
 {% endblock %}
 {% block breadcrumps %}
 <a href="/#/manager">manager</a>/<a>{{form.pr.employee.first_name}}&nbsp;{{form.pr.employee.last_name}}&nbsp;form</a>/
@@ -216,12 +237,14 @@
 
 {% block buttons %}
     </div>
-
+{% ifequal user.email form.pr.manager.email  %}
     {% ifequal form.status 'submitted' %}
     <input type="button" value="undo submit" onclick="maf_draft('{{form.pr.employee.first_name}} {{form.pr.employee.last_name}}')">
-    {% else %}
+    {% endifequal %}
+    {% ifequal form.status 'approved' %}
     <input type="button" value="undo approve" onclick="register('{{form.pr.employee.first_name}} {{form.pr.employee.last_name}}')">
     {% endifequal %}
+{% endifequal %}
 </div>
 {% endblock %}
 

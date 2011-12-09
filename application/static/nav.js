@@ -40,7 +40,7 @@ if (/WebKit/i.test(navigator.userAgent)) {
 // others
 window.onload = init;
 
-
+var message = '';
 //On load page, init the timer which check if the there are anchor changes each 300 ms
 init(function(){
     setInterval("checkAnchor()", 100);
@@ -60,7 +60,9 @@ currentAnchor = document.location.hash;
 
 var url = currentAnchor.replace('#','');
 var role = url.split('/')[1];
+//alert('gg');
 $('.select_role').val(role);
 load(url);
+
 }
 }

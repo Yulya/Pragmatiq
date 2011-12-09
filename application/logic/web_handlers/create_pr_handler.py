@@ -22,8 +22,11 @@ class CreatePR(RequestHandler):
         type = self.request.get('type')
 
         event = Event.all().filter('type',type).get()
-        first_date = event.first_effective_date
-
+        try:
+            first_date = event.first_effective_date
+        except AttributeError:
+            first_date = None
+            
         employees = self.request.get('employees')[:-1].split(',')
 
         try:

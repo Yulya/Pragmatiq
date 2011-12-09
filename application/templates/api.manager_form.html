@@ -14,15 +14,13 @@ function send_request(){
     $.get('/lock_form/' + form_key, function(data){
         if (data != 'ok'){
             message = data;
-            window.location.href = '/#/manager';
+            load(document.location.hash.replace('#',''));
         }
     })
 }
 function lock_form(){
-    send_request();
-    setInterval('send_request()', 30000);
+        setInterval('send_request()', 30000);
 }
-window.onload = lock_form();
 
 $(function() {
 		$( "#dialog:ui-dialog" ).dialog( "destroy" );
@@ -76,6 +74,8 @@ function parent_replace(obj){
 
 $(document).ready(function(){
     $('.date').datepicker({ dateFormat: 'yy-mm-dd' });
+    send_request();
+    lock_form();
 })
 
 </script>
@@ -310,11 +310,14 @@ shared to:
 </div>
 
 <div>
-    {% ifequal form.status 'draft' %}
-        <input type="button" id='submit' onclick="maf_submit('{{form.pr.employee.first_name}} {{form.pr.employee.last_name}}')" value="submit">
-    {% else %}
-        <input type="button" value="undo submit" onclick="maf_draft('{{form.pr.employee.first_name}} {{form.pr.employee.last_name}}')">
-        <input type="button" id='approve' onclick="check_form()" value="approve">
+    {% ifequal user.email form.pr.manager.email  %}
+        {% ifequal form.status 'draft' %}
+            <input type="button" id='submit' onclick="maf_submit('{{form.pr.employee.first_name}} {{form.pr.employee.last_name}}')" value="submit">
+        {% endifequal %}
+        {% ifequal form.status 'registered' %}
+            <input type="button" value="undo submit" onclick="maf_draft('{{form.pr.employee.first_name}} {{form.pr.employee.last_name}}')">
+            <input type="button" id='approve' onclick="check_form()" value="approve">
+        {% endifequal %}
     {% endifequal %}
 </div>
 {% endblock %}
