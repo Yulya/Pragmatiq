@@ -11,13 +11,15 @@ var form_type='{{form.pr.period.type}}';
 var users_email = new Array();
 
 function send_request(){
-    $.get('/lock_form/' + form_key, function(data){
+    if (flag){
+        $.get('/lock_form/' + form_key, function(data){
         if (data != 'ok'){
             message = data;
             load(document.location.hash.replace('#',''));
         }
     })
-}
+    }
+    }
 function lock_form(){
         setInterval('send_request()', 30000);
 }
@@ -74,6 +76,7 @@ function parent_replace(obj){
 
 $(document).ready(function(){
     $('.date').datepicker({ dateFormat: 'yy-mm-dd' });
+    flag = true;
     send_request();
     lock_form();
 })

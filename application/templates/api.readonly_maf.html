@@ -10,12 +10,12 @@
     $(function() {
             $( "#accordion" ).accordion();
         });
-
 </script>
         {% ifequal form.status 'draft' %}
             <script type="text/javascript">
                 function send_request(){
-                    $.get('/lock_form/' + form_key, function(data){
+                    if (flag){
+                        $.get('/lock_form/' + form_key, function(data){
                         if (data != 'ok'){
                             $('#hint').html(data);
                         }
@@ -23,7 +23,8 @@
                             message = "form is unlocked";
                             load(document.location.hash.replace('#',''));
                             }
-                        })
+                        })}
+
                 }
                 function lock_form(){
                     setInterval('send_request()', 30000);}
@@ -31,7 +32,10 @@
                     lock_form();
                     send_request();
     });
+        $(document).ready(function(){
+            flag = true;
 
+        })
             </script>
         {% endifequal %}
 {% endblock %}
