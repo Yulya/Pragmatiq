@@ -1,7 +1,7 @@
 function maf_draft(name){
     $.get('/pr/manager/draft/' + form_key, function(data){
             if (data == 'ok'){
-                message = 'You have cancelled submitting ' + name + ' form ';
+                message = 'You have successfully cancelled submitting ' + name + ' form ';
                 window.location.href = "/#/manager";
             }
             })
@@ -9,7 +9,7 @@ function maf_draft(name){
 function register(name){
     $.get('/pr/manager/register/' + form_key, function(data){
             if (data == 'ok'){
-                message = 'You have cancelled approving ' + name + ' form ';
+                message = 'You have successfully cancelled approving ' + name + ' form ';
                 window.location.href = "/#/manager";
             }
             })
@@ -18,7 +18,7 @@ function register(name){
 function approve(name){
     $.get('/pr/manager/approve/' + form_key, function(data){
         if (data == 'ok'){
-            message = 'You have approved ' + name + ' form ';
+            message = 'You have successfully approved ' + name + ' form ';
             window.location.href = "/#/manager";
         }
     });
@@ -27,7 +27,7 @@ function approve(name){
 function maf_submit(name){
             $.get('/pr/manager/submit/' + form_key, function(data){
             if (data == 'ok'){
-                message = 'You have submitted ' + name + ' form ';
+                message = 'You have  successfully submitted ' + name + ' form ';
                 window.location.href = "/#/manager";
             }
             })
@@ -52,7 +52,7 @@ function eaf_submit(){
 function eaf_draft(){
     $.get('/pr/employee/draft/' + form_key, function(data){
             if (data == 'ok'){
-                message = 'You have cancelled submitting form ';
+                message = 'You have successfully cancelled submitting form ';
                 window.location.href = "/#/employee";
             }
             })

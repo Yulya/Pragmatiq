@@ -18,6 +18,7 @@ function load(url) {
     $('.result').css('display', 'block');
     $('.result').load(url);
     $('#hint').html(message);
+    flag = false;
     message = '';
 }
 
