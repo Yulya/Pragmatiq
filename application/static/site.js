@@ -4,7 +4,7 @@ function load_role(a, user_key){
         window.location = '/#/manager'
     }
     if (a == 'employee'){
-        $('#settings').css('display','table-cell');
+        $('#settings').css('display','none');
         window.location = '/#/employee';}
     
     if (a == 'hr'){
@@ -13,13 +13,24 @@ function load_role(a, user_key){
 
     }
 }
+function hide_hint(){
+      $('#hint').css('display', 'none');
+    }
 
 function load(url) {
+    flag = false;
     $('.result').css('display', 'block');
     $('.result').load(url);
-    $('#hint').html(message);
-    flag = false;
-    message = '';
+    if (message){
+        $('#hint').find('.message').html(message);
+        message = '';
+        $('#hint').css('display', 'block');
+        setTimeout('hide_hint()', 30000);
+    }
+    else{
+        hide_hint()
+    }
+
 }
 
 function set_result(id, value) {

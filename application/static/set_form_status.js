@@ -32,12 +32,12 @@ function maf_submit(name){
             }
             })
 }
-function check_form(){
+function check_form(name){
     $.get('pr/manager/check/' + form_key, function(data){
         if (data){if (confirm('Unfilled fields: ' + data + '. Continue?')){
-                  approve();}
+                  approve(name);}
                  }
-        else {approve()}
+        else {approve(name)}
 
     })
 }

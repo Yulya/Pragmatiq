@@ -51,6 +51,9 @@ div { margin: 20px; }
 }
 #hint{
     background-color: #C6DEFF;
+    height: 40px;
+    display: none;
+    border: 1px dotted #555555;
 }
 .block-header{
     height: 30px;

@@ -293,8 +293,6 @@ shared to:
             <input type="button" class="add_button" onclick="add_textarea(this, '{{form.key}}')" value="add" >
         </div>
 
-        
-
         <div id="file">
             <p>Attached files:</p>
             {% if file_name%}
@@ -319,7 +317,7 @@ shared to:
         {% endifequal %}
         {% ifequal form.status 'registered' %}
             <input type="button" value="undo submit" onclick="maf_draft('{{form.pr.employee.first_name}} {{form.pr.employee.last_name}}')">
-            <input type="button" id='approve' onclick="check_form()" value="approve">
+            <input type="button" id='approve' onclick="check_form('{{form.pr.employee.first_name}} {{form.pr.employee.last_name}}')" value="approve">
         {% endifequal %}
     {% endifequal %}
 </div>
