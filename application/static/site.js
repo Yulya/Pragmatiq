@@ -1,7 +1,7 @@
 function load_role(a, user_key){
     if (a == 'manager'){
         $('#settings').css('display','none');
-        window.location = '/#/manager'
+        window.location = '/#/manager/get/all'
     }
     if (a == 'employee'){
         $('#settings').css('display','none');

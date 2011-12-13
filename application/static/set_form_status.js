@@ -2,7 +2,7 @@ function maf_draft(name){
     $.get('/pr/manager/draft/' + form_key, function(data){
             if (data == 'ok'){
                 message = 'You have successfully cancelled submitting ' + name + ' form ';
-                window.location.href = "/#/manager";
+                window.location.href = "/#/manager/get/all";
             }
             })
 }
@@ -10,7 +10,7 @@ function register(name){
     $.get('/pr/manager/register/' + form_key, function(data){
             if (data == 'ok'){
                 message = 'You have successfully cancelled approving ' + name + ' form ';
-                window.location.href = "/#/manager";
+                window.location.href = "/#/manager/get/all";
             }
             })
 }
@@ -19,7 +19,7 @@ function approve(name){
     $.get('/pr/manager/approve/' + form_key, function(data){
         if (data == 'ok'){
             message = 'You have successfully approved ' + name + ' form ';
-            window.location.href = "/#/manager";
+            window.location.href = "/#/manager/get/all";
         }
     });
 
@@ -28,7 +28,7 @@ function maf_submit(name){
             $.get('/pr/manager/submit/' + form_key, function(data){
             if (data == 'ok'){
                 message = 'You have  successfully submitted ' + name + ' form ';
-                window.location.href = "/#/manager";
+                window.location.href = "/#/manager/get/all";
             }
             })
 }

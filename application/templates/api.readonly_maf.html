@@ -41,7 +41,9 @@
 {% endblock %}
 
 {% block breadcrumps %}
-<a href="/#/manager">home</a>/<a>{{form.pr.employee.first_name}}&nbsp;{{form.pr.employee.last_name}}&nbsp;form</a>/
+<a href="#" onclick="return false">Home</a> > <a href="/#/manager/get/all">PR</a> >
+<a href="/#/manager/get/{{form.pr.employee.dept.name}}">{{form.pr.employee.dept.name}}</a> >
+<a>{{form.pr.employee.first_name}}&nbsp;{{form.pr.employee.last_name}}&nbsp;form</a>
 {% endblock %}
 
 {% block content %}

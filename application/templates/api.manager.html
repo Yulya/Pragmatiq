@@ -1,15 +1,21 @@
 {% extends "_api_base.html" %}
 
 {% block breadcrumps %}
-<a>/manager/</a>
+<a href="#" onclick="return false">Home</a> >
+{% ifnotequal dept 'all' %}
+<a href="/#/manager/get/all">PR</a> > <a>{{dept}}</a>
+{% else %}
+       <a>PR</a>
+{% endifnotequal %}
 {% endblock %}
 {% block content %}
 
-{% if not periods %}
+{% if not depts %}
     No reviews currently available
 {% else %}
-    {% for period in periods %}
-        <h1>Performance review: {{period.description}}</h1>
+    {% for dept in depts %}
+        {% if dept.prs %}
+        <h1 onclick="window.location.href = '/#/manager/get/{{dept.name}}'">Department: {{dept.name}}</h1>
         <table>
             <thead>
                 <tr>
@@ -18,7 +24,8 @@
                     <td>Employee&nbsp;form</td>
                 </tr>
             </thead>
-            {% for pr in period.performance_reviews %}
+            {% endif %}
+            {% for pr in dept.prs %}
                 {% ifequal pr.manager.email current_user %}
                 <tr>
                     <td>{{pr.employee.first_name}}&nbsp;{{pr.employee.last_name}}</td>
@@ -40,7 +47,9 @@
                         {% endif %}
                     </td>
                 </tr>
-                {% endifequal %}
+
+            {% endifequal %}
+            
             {% endfor %}
         </table>
     {% endfor %}

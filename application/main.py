@@ -99,7 +99,7 @@ def main():
                                           ('/pr/data/update/(.*)', UpdateData),
                                           ('/hr/get/manager/(.*)', HRManagerForm),
                                           ('/pr/manager/check/(.*)', CheckFormContent),
-                                          ('/manager',GetPrs),
+                                          ('/manager/get/(.*)',GetPrs),
                                           ('/get_users', GetJSONUsers),
                                           ('/hr', GetAllEmployees),
                                           ('/hr/new_period', HR),
