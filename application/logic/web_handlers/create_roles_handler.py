@@ -1,6 +1,7 @@
 from google.appengine.ext.webapp import RequestHandler
 from logic.models import Role
 
+
 class CreateRoles(RequestHandler):
 
     def post(self):

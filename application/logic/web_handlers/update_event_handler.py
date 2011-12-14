@@ -2,6 +2,7 @@ import datetime
 from google.appengine.ext.webapp import RequestHandler
 from logic.models import Event
 
+
 class UpdateEvent(RequestHandler):
 
     def post(self):

@@ -3,6 +3,7 @@ import urllib
 from google.appengine.ext.webapp import RequestHandler, template
 from logic.models import PerformanceReview, SharedForm, Dept
 
+
 class GetPrs(RequestHandler):
 
     #selects all PR objects for current user's subs and returns them
@@ -10,7 +11,7 @@ class GetPrs(RequestHandler):
 
         user = self.request.environ['current_user']
         dept = urllib.unquote(dept).decode('utf-8')
-        
+
         prs = PerformanceReview.all().filter('manager',
                                              user).order("-date").fetch(1000)
 
@@ -19,14 +20,16 @@ class GetPrs(RequestHandler):
             departments = Dept.all().fetch(1000)
 
             for department in departments:
-                department.prs = filter(lambda x: x.employee.dept.name == department.name, prs)
+                department.prs = filter(lambda x: x.employee.dept.name
+                == department.name, prs)
                 logging.debug(department.prs)
 
         else:
             departments = Dept.all().filter('name', dept).fetch(1000)
 
             for department in departments:
-                department.prs = filter(lambda x: x.employee.dept.name == department.name, prs)
+                department.prs = filter(lambda x: x.employee.dept.name
+                == department.name, prs)
 
         logging.debug(departments)
 

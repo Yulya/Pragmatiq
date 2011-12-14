@@ -2,11 +2,10 @@ from google.appengine.ext.db import Model
 from google.appengine.ext.webapp import RequestHandler, template
 from logic.models import User, Dept, Role
 
+
 class GetManagers(RequestHandler):
 
     def get(self, key):
-
-
 
         users = User.all()
         managers = []
@@ -25,8 +24,7 @@ class GetManagers(RequestHandler):
 
         template_values = {'managers': managers,
                            'user': user,
-                           'roles': roles
-                           }
+                           'roles': roles}
 
         path = 'templates/new_user.html'
         self.response.out.write(template.render(path, template_values))

@@ -1,6 +1,7 @@
 from google.appengine.ext.db import Model
 from google.appengine.ext.webapp import blobstore_handlers
 
+
 class UploadHandler(blobstore_handlers.BlobstoreUploadHandler):
 
     def post(self):

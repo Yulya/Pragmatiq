@@ -1,6 +1,7 @@
 from google.appengine.api import users
 from google.appengine.ext.webapp import RequestHandler
 
+
 class UrlHandler(RequestHandler):
 
     def get(self):

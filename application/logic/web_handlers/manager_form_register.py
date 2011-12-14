@@ -1,5 +1,6 @@
 from logic.web_handlers.employee_form_submit_handler import EmployeeFormSubmit
 
+
 class ManagerFormRegister(EmployeeFormSubmit):
 
     status = 'registered'
@@ -7,4 +8,3 @@ class ManagerFormRegister(EmployeeFormSubmit):
     def get(self, key):
 
         super(ManagerFormRegister, self).get(key)
-  

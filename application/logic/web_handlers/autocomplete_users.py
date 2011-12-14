@@ -2,6 +2,7 @@ import json
 from google.appengine.ext.webapp import RequestHandler
 from logic.models import User
 
+
 class GetJSONUsers(RequestHandler):
 
     def get(self):
@@ -16,7 +17,3 @@ class GetJSONUsers(RequestHandler):
 
         user_list_json = json.dumps(user_list)
         self.response.out.write(user_list_json)
-
-        
-
-  

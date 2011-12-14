@@ -2,6 +2,7 @@ from google.appengine.api.datastore_errors import BadKeyError
 from google.appengine.ext.db import Model
 from google.appengine.ext.webapp import RequestHandler
 
+
 class UpdateData(RequestHandler):
 
     def post(self, object_key):
@@ -25,5 +26,3 @@ class UpdateData(RequestHandler):
 
         if obj.value is None:
             obj.delete()
-            
-

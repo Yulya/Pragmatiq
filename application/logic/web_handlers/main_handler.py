@@ -2,6 +2,7 @@ from google.appengine.api import users
 from google.appengine.ext.db import Model
 from google.appengine.ext.webapp import RequestHandler, template
 
+
 class MainHandler(RequestHandler):
 
     #gets current user and returns his roles
@@ -28,4 +29,3 @@ class MainHandler(RequestHandler):
 
         path = 'templates/index.html'
         self.response.out.write(template.render(path, template_values))
-  

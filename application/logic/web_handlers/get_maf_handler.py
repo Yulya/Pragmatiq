@@ -2,6 +2,7 @@ import datetime
 from google.appengine.ext.webapp import template
 from logic.web_handlers.base_form_handler import BaseFormHandler
 
+
 class GetManagerForm(BaseFormHandler):
 
     template_values = {}
@@ -20,14 +21,15 @@ class GetManagerForm(BaseFormHandler):
 
         if form.status == 'approved':
             self.path = 'templates/api.readonly_maf.html'
-            
+
         if form.status == 'registered':
             self.path = 'templates/api.registered_maf.html'
 
         current_time = datetime.datetime.now()
 
         if form.lock_time:
-            if form.lock_time > current_time and form.user_locked_form.email != user.email:
+            if form.lock_time > current_time and \
+               form.user_locked_form.email != user.email:
                 self.path = 'templates/api.readonly_maf.html'
 
         self.response.out.write(template.render(self.path,

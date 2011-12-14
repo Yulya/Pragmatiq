@@ -2,6 +2,7 @@ import datetime
 from google.appengine.ext.webapp import RequestHandler, template
 from logic.models import Dept, PerformanceReviewPeriod
 
+
 class GetSummaryReport(RequestHandler):
 
     def get(self, key):
@@ -27,18 +28,21 @@ class GetSummaryReport(RequestHandler):
                                             manager_form,
                                             existed_pr)
                 clean_employee_form = filter(lambda x:
-                                             not x.self_pr.order('-date').get().
+                                             not x.self_pr.order('-date')
+                                             .get().
                                              employee_form,
                                              existed_pr)
 
-                clean_draft = len(clean_employee_form) + len(clean_manager_form)
+                clean_draft = len(clean_employee_form) + \
+                              len(clean_manager_form)
 
                 not_clean_manager_form = filter(lambda x:
                                                 x.self_pr.order('-date').get().
                                                 manager_form,
                                                 existed_pr)
                 not_clean_employee_form = filter(lambda x:
-                                                 x.self_pr.order('-date').get().
+                                                 x.self_pr.order('-date')
+                                                 .get().
                                                  employee_form,
                                                  existed_pr)
 
@@ -55,8 +59,8 @@ class GetSummaryReport(RequestHandler):
                 in_work = len(man_draft_in_work) + len(emp_draft_in_work)
 
                 registered_pr = filter(lambda x:
-                                       x.self_pr.order('-date').get().manager_form.
-                                       status ==
+                                       x.self_pr.order('-date').get()
+                                       .manager_form.status ==
                                        'registered', not_clean_manager_form)
 
                 reg_pr = len(registered_pr)
@@ -76,7 +80,8 @@ class GetSummaryReport(RequestHandler):
                 man_submit = len(submitted_by_manager)
 
                 approved_pr = filter(lambda x:
-                                     x.self_pr.order('-date').get().manager_form
+                                     x.self_pr.order('-date').get()
+                                     .manager_form
                                      .status ==
                                      'approved', not_clean_manager_form)
 
@@ -84,7 +89,7 @@ class GetSummaryReport(RequestHandler):
 
                 all_draft = clean_draft + in_work + emp_submit + man_submit
 
-                percent = (approved*100)/employees
+                percent = (approved * 100) / employees
 
                 dept_info = {'name': dept.name,
                          'employees': employees,

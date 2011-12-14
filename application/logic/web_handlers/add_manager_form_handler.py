@@ -2,6 +2,7 @@ from logic.func import get_prev_pr
 from logic.models import Salary, Grade, Position, Conclusion
 from logic.web_handlers.add_form_handler import AddEmployeeForm
 
+
 class AddManagerForm(AddEmployeeForm):
 
     type = "manager"
@@ -53,6 +54,6 @@ class AddManagerForm(AddEmployeeForm):
                                     form=self.form)
             conclusion.put()
 
-            self.redirect('/manager/pr/get/%(type)s/%(key)s' % {'type': self.type, 'key': self.form.pr.key()})
-
-  
+            self.redirect('/manager/pr/get/%(type)s/%(key)s'
+                            % {'type': self.type,
+                               'key': self.form.pr.key()})

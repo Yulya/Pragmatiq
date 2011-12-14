@@ -13,7 +13,7 @@ class XlsParseHandler(RequestHandler):
         file_key = ContactXlsFile.all().get().file_key
         blob_info = blobstore.BlobInfo.get(file_key)
         file = blob_info.open().read()
-        
+
         wb = xlrd.open_workbook(file_contents=file)
         wb.sheet_names()
         sh = wb.sheet_by_index(0)
@@ -23,18 +23,15 @@ class XlsParseHandler(RequestHandler):
                      'dept': 2,
                      'position': 3,
                      'email': 4,
-                     'manager': 12
-                    }
+                     'manager': 12}
         manager_dict = {}
 
         reg = "^\s+|\n|\r|\s+$"
 
-
         employee_role = Role.all().filter('value', 'employee').get().key()
 
-
         for rownum in range(sh.nrows)[6:]:
-            email = sh.cell_value(rownum,cols_dict['email']).strip()
+            email = sh.cell_value(rownum, cols_dict['email']).strip()
             user = User.all().filter('email', email).get()
             if user is None:
                 user = User(email=email)
@@ -49,12 +46,14 @@ class XlsParseHandler(RequestHandler):
                              ]
 
             for field in string_fields:
-                value = re.sub(reg, '', sh.cell_value(rownum,cols_dict[field]))
+                value = re.sub(reg,
+                               '',
+                               sh.cell_value(rownum, cols_dict[field]))
                 setattr(user, field, value)
 
             department_str = re.sub(reg,
                                     '',
-                                    sh.cell_value(rownum,cols_dict['dept']))
+                                    sh.cell_value(rownum, cols_dict['dept']))
             department = Dept.all().filter('name', department_str).get()
             if department is None:
                 department = Dept(name=department_str)
@@ -65,14 +64,14 @@ class XlsParseHandler(RequestHandler):
 
             manager_str = re.sub(reg,
                                  '',
-                                 sh.cell_value(rownum,cols_dict['manager']))
+                                 sh.cell_value(rownum, cols_dict['manager']))
             manager_dict[user.key()] = manager_str
 
         manager_role = Role.all().filter('value', 'manager').get().key()
 
         for user_key in manager_dict:
 
-            manager_str = manager_dict[user_key].replace('  ',' ')
+            manager_str = manager_dict[user_key].replace('  ', ' ')
 
             if manager_str:
                 last_name, first_name = manager_str.split(' ')[:2]
@@ -92,5 +91,3 @@ class XlsParseHandler(RequestHandler):
             user.put()
 
         self.redirect('/users')
-
-

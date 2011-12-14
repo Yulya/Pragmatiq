@@ -3,6 +3,7 @@ from google.appengine.api.datastore_errors import BadKeyError
 from google.appengine.ext.webapp import RequestHandler
 from logic.models import Dept, User, Role
 
+
 class CreateUser(RequestHandler):
 
     #gets data and puts them to DB

@@ -1,6 +1,7 @@
 from google.appengine.ext.webapp import blobstore_handlers
 from logic.models import ContactXlsFile
 
+
 class UploadXlsHandler(blobstore_handlers.BlobstoreUploadHandler):
 
     def post(self):
@@ -12,4 +13,3 @@ class UploadXlsHandler(blobstore_handlers.BlobstoreUploadHandler):
         file.put()
 
         self.redirect('/parse_xls')
-  

@@ -4,6 +4,7 @@ from google.appengine.ext.db import BadKeyError
 from google.appengine.ext.webapp import RequestHandler
 from logic.models import PerformanceReview
 
+
 class BaseFormHandler(RequestHandler):
 
     template_values = {}
@@ -40,5 +41,3 @@ class BaseFormHandler(RequestHandler):
                                      'upload_url': upload_url,
                                      'prev_form': prev_form,
                                      'file_name': form.file_name})
-
-  

@@ -1,7 +1,9 @@
 import datetime
 from google.appengine.ext.db import Model
 from google.appengine.ext.webapp import RequestHandler
-from logic.models import Role, PerformanceReviewPeriod, PerformanceReview, Salary, Event
+from logic.models import Role, PerformanceReviewPeriod, PerformanceReview, \
+    Salary, Event
+
 
 class CreatePR(RequestHandler):
 
@@ -21,12 +23,12 @@ class CreatePR(RequestHandler):
         finish_str = self.request.get('finish')
         type = self.request.get('type')
 
-        event = Event.all().filter('type',type).get()
+        event = Event.all().filter('type', type).get()
         try:
             first_date = event.first_effective_date
         except AttributeError:
             first_date = None
-            
+
         employees = self.request.get('employees')[:-1].split(',')
 
         try:

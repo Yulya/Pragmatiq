@@ -2,6 +2,7 @@ import datetime
 from google.appengine.ext.webapp import RequestHandler
 from logic.models import PerformanceReviewForm
 
+
 class LockFormHandler(RequestHandler):
 
     def get(self, form_key):
@@ -27,7 +28,7 @@ class LockFormHandler(RequestHandler):
             form.put()
             self.response.out.write('ok')
             return
-        
+
         if form.lock_time < current_time:
             form.user_locked_form = user
             form.lock_time = current_time + minute
@@ -36,4 +37,4 @@ class LockFormHandler(RequestHandler):
             return
 
         self.response.out.write('form is locked by %s'
-                                %form.user_locked_form.email)
+                                % form.user_locked_form.email)
