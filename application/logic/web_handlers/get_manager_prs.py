@@ -1,4 +1,5 @@
 import logging
+import urllib
 from google.appengine.ext.webapp import RequestHandler, template
 from logic.models import PerformanceReview, SharedForm, Dept
 
@@ -8,9 +9,8 @@ class GetPrs(RequestHandler):
     def get(self, dept):
 
         user = self.request.environ['current_user']
+        dept = urllib.unquote(dept).decode('utf-8')
         
-        logging.debug(dept)
-
         prs = PerformanceReview.all().filter('manager',
                                              user).order("-date").fetch(1000)
 
