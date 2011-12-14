@@ -241,9 +241,10 @@
                 <a href="/serve/{{file_key}}">{{file_name}}</a>
             {% endif %}
         </div>
-
+ </div>
+</div>
 {% block buttons %}
-    </div>
+
 {% ifequal user.email form.pr.manager.email  %}
     {% ifequal form.status 'submitted' %}
     <input type="button" value="undo submit" onclick="maf_draft('{{form.pr.employee.first_name}} {{form.pr.employee.last_name}}')">
@@ -252,7 +253,7 @@
     <input type="button" value="undo approve" onclick="register('{{form.pr.employee.first_name}} {{form.pr.employee.last_name}}')">
     {% endifequal %}
 {% endifequal %}
-</div>
+
 {% endblock %}
 
 {% endblock %}
