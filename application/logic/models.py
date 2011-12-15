@@ -4,12 +4,12 @@ from google.appengine.ext import db
 class Role(db.Model):
     value = db.StringProperty()
 
-
 class Dept(db.Model):
     name = db.StringProperty()
 
-class Project(db.Model):
-    name = db.StringProperty
+class WorkProject(db.Model):
+    name = db.StringProperty()
+    employees = db.ListProperty(db.Key)
 
 class User(db.Model):
     first_name = db.StringProperty()
@@ -20,16 +20,6 @@ class User(db.Model):
     role = db.ListProperty(db.Key)
     manager = db.SelfReferenceProperty(collection_name='subs')
     dept = db.ReferenceProperty(Dept, collection_name='users')
-    projects = db.ListProperty(db.Key)
-
-class ProjectManager(db.Model):
-    project = db.ReferenceProperty(Project)
-    manager = db.ReferenceProperty(User)
-
-
-class DepartmentManager(db.Model):
-    project = db.ReferenceProperty(Project)
-    manager = db.ReferenceProperty(User)
 
 
 class Event(db.Model):
