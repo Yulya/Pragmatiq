@@ -1,7 +1,7 @@
 {% extends "_api_base.html" %}
 
 {% block breadcrumps %}
-<a href="#" onclick="return false">Home</a> >
+<a href="/#/manager/get/all">Home</a> >
 {% ifnotequal dept 'all' %}
 <a href="/#/manager/get/all">PR</a> > <a>{{dept}}</a>
 {% else %}
@@ -15,7 +15,8 @@
 {% else %}
     {% for dept in depts %}
         {% if dept.prs %}
-        <h1 onclick="window.location.href = '/#/manager/get/{{dept.name}}'">Department: {{dept.name}}</h1>
+        <div>
+        <a href = '/#/manager/get/{{dept.name}}'>Department: {{dept.name}}</a></div>
         <table>
             <thead>
                 <tr>
