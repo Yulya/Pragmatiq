@@ -25,7 +25,7 @@
     $(document).ready(function(){
         var current_role = '{{current_role}}';
         if (current_role == 'manager'){
-            load('/manager/get/all')
+            load('/manager/home')
         }
         else{
         load('/' + current_role);}

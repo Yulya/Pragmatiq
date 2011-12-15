@@ -47,6 +47,7 @@ from logic.web_handlers.manager_form_approve_handler import ManagerFormApprove
 from logic.web_handlers.manager_form_draft import ManagerFormDraft
 from logic.web_handlers.manager_form_register import ManagerFormRegister
 from logic.web_handlers.manager_form_submit_handler import ManagerFormSubmit
+from logic.web_handlers.manager_home import ManagerHome
 from logic.web_handlers.register_performance_review import RegisterPerformanceReview
 from logic.web_handlers.serve_handler import ServeHandler
 from logic.web_handlers.share_form_handler import ShareForm
@@ -81,6 +82,7 @@ def main():
                                           ('/employee', GetSelfPR),
                                           ('/form/share', ShareForm),
                                           ('/lock_form/(.*)', LockFormHandler),
+                                          ('/manager/home', ManagerHome),
                                           ('/manager/pr/get/manager/(.*)', GetManagerForm),
                                           ('/employee/pr/get/employee/(.*)', GetEmployeeForm),
                                           ('/manager/pr/get/employee/(.*)', ManagerEmployeeForm),

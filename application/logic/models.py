@@ -51,10 +51,10 @@ class PerformanceReviewPeriod(db.Model):
 
     @property
     def is_open(self):
-        result = True
+        result = False
         for pr in self.performance_reviews:
-            if pr.manager_form.status != "approved":
-                result = False
+            if pr.is_open:
+                result = True
                 break
         return result
 
@@ -74,6 +74,14 @@ class PerformanceReview(db.Model):
     @property
     def manager_form(self):
         return self.forms.filter('type', 'manager').get()
+
+    @property
+    def is_open(self):
+        if self.manager_form is None:
+            return True
+        result = self.manager_form.status != "approved"
+        return result
+
 
 
 class PerformanceReviewForm(db.Model):
