@@ -49,6 +49,15 @@ class PerformanceReviewPeriod(db.Model):
     finish_date = db.DateProperty()
     type = db.StringProperty(choices=('annual','semi-annual'))
 
+    @property
+    def is_open(self):
+        result = True
+        for pr in self.performance_reviews:
+            if pr.manager_form.status != "approved":
+                result = False
+                break
+        return result
+
 
 class PerformanceReview(db.Model):
     employee = db.ReferenceProperty(User, collection_name='self_pr')
