@@ -15,7 +15,8 @@
 {% else %}
     {% for dept in depts %}
         {% if dept.prs %}
-        <h1 onclick="window.location.href = '/#/manager/get/{{dept.name}}'">Department: {{dept.name}}</h1>
+        <div>
+        <a href = '/#/manager/get/{{dept.name}}'>Department: {{dept.name}}</a></div>
         <table>
             <thead>
                 <tr>

@@ -21,6 +21,8 @@ from logic.authentication_middleware import Authentication
 from logic.web_handlers.add_data_handler import AddData
 from logic.web_handlers.add_form_handler import AddEmployeeForm
 from logic.web_handlers.add_manager_form_handler import AddManagerForm
+from logic.web_handlers.add_project_handler import AddProjects
+from logic.web_handlers.attach_employee_to_project import AttachEmployeeToProject
 from logic.web_handlers.autocomplete_users import GetJSONUsers
 from logic.web_handlers.automatic_creation_pr_handler import AutomaticPerformanceReview
 from logic.web_handlers.check_form_content_handler import CheckFormContent
@@ -38,6 +40,7 @@ from logic.web_handlers.get_eaf_handler import GetEmployeeForm
 from logic.web_handlers.get_maf_handler import GetManagerForm
 from logic.postdeploy import PostDeploy
 from logic.web_handlers.get_manager_prs import GetPrs
+from logic.web_handlers.get_projects_handler import GetProjects
 from logic.web_handlers.get_self_pr_handler import GetSelfPR
 from logic.web_handlers.hr_maf_handler import HRManagerForm
 from logic.web_handlers.lock_form import LockFormHandler
@@ -100,6 +103,9 @@ def main():
                                           ('/pr/register', RegisterPerformanceReview),
                                           ('/pr/data/update/(.*)', UpdateData),
                                           ('/hr/get/manager/(.*)', HRManagerForm),
+                                          ('/hr/get/projects', GetProjects),
+                                          ('/hr/project/add', AttachEmployeeToProject),
+                                          ('/hr/project/attach', AddProjects),
                                           ('/pr/manager/check/(.*)', CheckFormContent),
                                           ('/manager/get/(.*)',GetPrs),
                                           ('/get_users', GetJSONUsers),
