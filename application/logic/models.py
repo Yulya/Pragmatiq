@@ -7,10 +7,6 @@ class Role(db.Model):
 class Dept(db.Model):
     name = db.StringProperty()
 
-class WorkProject(db.Model):
-    name = db.StringProperty()
-    employees = db.ListProperty(db.Key)
-
 class User(db.Model):
     first_name = db.StringProperty()
     last_name = db.StringProperty()
@@ -21,6 +17,10 @@ class User(db.Model):
     manager = db.SelfReferenceProperty(collection_name='subs')
     dept = db.ReferenceProperty(Dept, collection_name='users')
 
+class WorkProject(db.Model):
+    name = db.StringProperty()
+    manager = db.ReferenceProperty(User, collection_name='projects')
+    employees = db.ListProperty(db.Key)
 
 class Event(db.Model):
     start_date = db.DateProperty()

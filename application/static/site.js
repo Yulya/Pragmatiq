@@ -13,6 +13,9 @@ function load_role(a, user_key){
 
     }
 }
+function parent_replace(obj){
+    $(document).find(obj).parent().replaceWith('')
+}
 function hide_hint(){
       $('#hint').css('display', 'none');
     }

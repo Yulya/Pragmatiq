@@ -27,5 +27,3 @@ class ManagerHome(RequestHandler):
 
         path = 'templates/api.manager.home.html'
         self.response.out.write(template.render(path, template_values))
-
-  
