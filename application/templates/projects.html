@@ -5,15 +5,32 @@
 <script type="text/javascript">
             function add(){
                 var name = $('#add_project').val();
-                $.post('/hr/project/add', {'name': name});
-                load(document.location.hash.replace('#', ''));
+                var project_manager = $('#project_manager').val();
+                $.post('/hr/project/add', {'name': name,'manager': project_manager},
+                function(data){
+                    message = data;
+                    load(document.location.hash.replace('#', ''));
+                });
+
             }
     $(document).ready(function(){
+        var employees_email = new Array();
+        
     $(function() {
 		$( "#dialog:ui-dialog" ).dialog( "destroy" );
 
-        var employees_email = new Array();
-
+        $( "#new_project_form" ).dialog({
+			autoOpen: false,
+			height: 350,
+			width: 500,
+			modal: true,
+            buttons: {"add": function(){
+                        add();
+                        $( this ).dialog( "close" );
+                        },
+                      "cancel": function(){$( this ).dialog( "close" );}}
+		});
+	});
 
 		$( "#attaching-form" ).dialog({
 			autoOpen: false,
@@ -28,7 +45,6 @@
                         });
                         $( this ).dialog( "close" );
                         $('#attached').html('');
-                        alert(project_key);
                         $.post('/hr/project/attach', {'project_key': project_key,
                             'employees': employees_email.join(',')},
                                 function(data){
@@ -44,29 +60,54 @@
                 project_key = $(this).parent().attr('id');
 				$( "#attaching-form" ).dialog( "open" );
 			});
+        $("#new_project").click(function(){
+            $( "#new_project_form" ).dialog( "open" );
+        });
+        $('#project_manager').autocomplete({
+          source: "/get_users",
+		  minLength: 1
+        });
+        $("#employees").focusin(function(){
+           $(this).val('');
+        });
         $( "#employees" ).autocomplete({
 			source: "/get_users",
 			minLength: 1,
             select: function( event, ui ) {
                 $('#attached')
-                        .append("<div><p class='employees_email'>"
+                        .append("<div><p style='float: left' class='employees_email'>"
                         + ui.item.value +
-                        "</p><input type='button' value='&times;' onclick='parent_replace(this)'></div>");
+                        "</p><input type='button' class='close' value='&times;' onclick='parent_replace(this)'></div>");
+                        $('.close').focus();
+
 			}
-        })
+
                 });
         </script>
 {% endblock %}
+{% block breadcrumps %}
+<a href="/#/hr" >Home</a>&nbsp;&gt;&nbsp;<a>Projects</a>
+{% endblock %}
 {% block content %}
-<div id="attaching-form" title="Attach employee">
-	<p>Attach to project:</p>
+<div id="attaching-form" title="Attach employee to project">
+	<p>Employee email:</p>
     <input type="text" id="employees">
     <div id="attached"></div>
 </div>
+<div id="new_project_form" title="Add new project">
+        <p>Project name:</p>
+        <input id="add_project" type='text'><br>
+        <p>Project manager:</p>
+        <input type="text" id="project_manager">
+</div>
+<input type="button" id="new_project" value="Create project">
+<hr>
 {% for project in projects %}
         <h2>{{project.name}}</h2>
+        <h4>manager: {{project.manager.first_name}}&nbsp;{{project.manager.last_name}}</h4>
         <div id="{{project.key}}">
         {% if project.employee_list %}
+            <p>Employees:</p>
             <table>
                 <tr>
                     <td>First name</td>
@@ -82,13 +123,9 @@
         {% endfor %}
             </table>
         {% endif %}
-        <input type="button" class="attach_employee" value='attach'>
+        <input type="button" class="attach_employee" value='Attach employee to project'>
         </div>
+        <hr>
 {% endfor %}
-        <a href="#" onclick="display(this); return false">Add project:</a>
-        <div class="hidden">
-        Project name:
-        <input id="add_project" type='text'>
-        <input type="button" onclick="add()" value="add">
-        </div>
+
 {% endblock %}

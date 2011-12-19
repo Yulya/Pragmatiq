@@ -61,5 +61,5 @@ div { margin: 20px; }
 }
 #breadcrumps{
     width: 100%;
-    margin: auto;
+    margin: auto auto 30px auto;
 }
