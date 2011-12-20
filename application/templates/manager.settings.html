@@ -1,0 +1,27 @@
+{% extends "_api_base.html" %}
+{% block script %}
+<script type="text/javascript">
+    $('input[name="options"]').each(function(){
+        if ($(this).val() == '{{manager.edit_sub_reviews}}'){
+            $(this).attr('checked', 'checked');
+        }
+    });
+    $('#save').click(function(){
+            var edit_sub_reviews = $('input[name="options"]:checked').val();
+            $.post('/manager/settings/update',
+                    {'edit_sub_reviews':
+                    edit_sub_reviews});
+            window.location.href = "/#/manager/home"
+    })
+</script>
+{% endblock %}
+
+{% block content %}
+<h1>Performance Review Settings</h1>
+<div>
+<p>Select:</p>
+<input type="radio" name="options" value='1'>See all<br>
+<input type="radio" name="options" value='0'>See just subs<br>
+<input type="button" id="save" value="save">
+</div>
+{% endblock %}

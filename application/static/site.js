@@ -1,6 +1,6 @@
 function load_role(a, user_key){
     if (a == 'manager'){
-        $('#settings').css('display','none');
+        $('#settings').css('display','table-cell');
         window.location = '/#/manager/home'
     }
     if (a == 'employee'){
@@ -22,6 +22,7 @@ function hide_hint(){
 
 function load(url) {
     editing_form_open = false;
+    
     $('.result').css('display', 'block');
     $('.result').load(url);
     if (lock_timer){

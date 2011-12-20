@@ -63,8 +63,11 @@ currentAnchor = document.location.hash;
 
 var url = currentAnchor.replace('#','');
 url = encodeURI(url);
+
 var role = url.split('/')[1];
+
 $('.select_role').val(role);
+
 load(url);
 
 }

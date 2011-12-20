@@ -51,6 +51,7 @@ from logic.web_handlers.manager_form_draft import ManagerFormDraft
 from logic.web_handlers.manager_form_register import ManagerFormRegister
 from logic.web_handlers.manager_form_submit_handler import ManagerFormSubmit
 from logic.web_handlers.manager_home import ManagerHome
+from logic.web_handlers.manager_settings import ManagerSettings
 from logic.web_handlers.register_performance_review import RegisterPerformanceReview
 from logic.web_handlers.serve_handler import ServeHandler
 from logic.web_handlers.share_form_handler import ShareForm
@@ -58,6 +59,7 @@ from logic.web_handlers.summary_report_handler import GetSummaryReport
 from logic.web_handlers.system_settings_handler import GetSettings
 from logic.web_handlers.update_data_handler import UpdateData
 from logic.web_handlers.update_event_handler import UpdateEvent
+from logic.web_handlers.update_manager_settings import UpdateManagerSettings
 from logic.web_handlers.update_pr_handler import UpdatePR
 from logic.web_handlers.upload_handler import UploadHandler
 from logic.web_handlers.upload_xls_handler import UploadXlsHandler
@@ -107,6 +109,8 @@ def main():
                                           ('/hr/project/add', AddProjects),
                                           ('/hr/project/attach', AttachEmployeeToProject),
                                           ('/pr/manager/check/(.*)', CheckFormContent),
+                                          ('/manager/settings', ManagerSettings),
+                                          ('/manager/settings/update', UpdateManagerSettings),
                                           ('/manager/get/(.*)',GetPrs),
                                           ('/get_users', GetJSONUsers),
                                           ('/hr', GetAllEmployees),

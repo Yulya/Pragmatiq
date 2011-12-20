@@ -31,8 +31,6 @@ class GetPrs(RequestHandler):
                 department.prs = filter(lambda x: x.employee.dept.name
                 == department.name, prs)
 
-        logging.debug(departments)
-
         shared_forms = SharedForm.all().filter('user', user).fetch(1000)
 
         template_values = {'dept': dept,
