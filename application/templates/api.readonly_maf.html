@@ -2,6 +2,7 @@
 
 {% block script %}
 <script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="/static/locking_form.js"></script>
 <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript">
 
@@ -10,33 +11,23 @@
     $(function() {
             $( "#accordion" ).accordion();
         });
-</script>
-        {% ifequal form.status 'draft' %}
-            <script type="text/javascript">
-                function send_request(){
-                    if (flag){
-                        $.get('/lock_form/' + form_key, function(data){
-                        if (data != 'ok'){
-                            $('#hint').html(data);
-                        }
-                        else{
-                            message = "form is unlocked";
-                            load(document.location.hash.replace('#',''));
-                            }
-                        })}
 
-                }
-                function lock_form(){
-                    setInterval('send_request()', 30000);}
-                 $(document).ready(function(){
-                    lock_form();
-                    send_request();
+</script>
+{% if form.pr.is_open %}
+{% ifnotequal form.status 'submitted' %}
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        editing_form_open= true;
+        send_unlock_request();
+        unlock_timer = unlock_form();
+
     });
-        $(document).ready(function(){
-            flag = true;
-        })
-            </script>
-        {% endifequal %}
+</script>
+{% endifnotequal %}
+{% endif %}
+
 {% endblock %}
 
 {% block breadcrumps %}
@@ -49,7 +40,9 @@
 <div id="info">
 <p>Performance Review Form for {{form.pr.employee.first_name}} {{form.pr.employee.last_name}}</p>
 <p>date: {{form.pr.date}}</p>
+<p id="lock_info"></p>
 </div>
+
 
 <div id='accordion'>
 <h3><a href="#">Projects and Initiatives</a></h3>

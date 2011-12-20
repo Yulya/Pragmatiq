@@ -2,6 +2,7 @@
 
 {% block script %}
 <script type="text/javascript" src="/static/site.js"></script>
+        <script type="text/javascript" src="/static/locking_form.js"></script>
     <script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
     <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript">
@@ -10,19 +11,6 @@ var form_key= '{{form.key}}';
 var form_type='{{form.pr.period.type}}';
 var users_email = new Array();
 
-function send_request(){
-    if (flag){
-        $.get('/lock_form/' + form_key, function(data){
-        if (data != 'ok'){
-            message = data;
-            load(document.location.hash.replace('#',''));
-        }
-    })
-    }
-    }
-function lock_form(){
-        setInterval('send_request()', 30000);
-}
 
 $(function() {
 		$( "#dialog:ui-dialog" ).dialog( "destroy" );
@@ -33,20 +21,26 @@ $(function() {
 			width: 500,
 			modal: true,
             buttons: {"ok": function(){
-                        $( "#sharing-form" )
-                                .find('.users_email')
-                                .each(function(){
-                                 users_email.push($(this).html())
-                        });
-                        $( this ).dialog( "close" );
-                        $('#shared_users').html('');
-                        $.post('/form/share', {'form_key': form_key,
-                            'users': users_email.join(',')},
-                                function(data){
-                                    message = data;
-                                    load(window.location.hash.replace('#',''));
-                        })
-                        },
+                                $( "#sharing-form" )
+                                    .find('.users_email')
+                                    .each(function(){
+                                    users_email.push($(this).html())
+                                       });
+
+                                    $( this ).dialog( "close" );
+
+                                    $('#shared_users').html('');
+
+                                    $.post('/form/share',
+                                            {'form_key': form_key,
+                                             'users': users_email.join(',')},
+                                              function(data){
+                                                message = data;
+                                                load(window.location.hash
+                                                        .replace('#',''));
+                                                            })
+                                        },
+                
                       "cancel": function(){$( this ).dialog( "close" );}}
 		});
 	});
@@ -65,16 +59,20 @@ $(function() {
 			}
 
         });
+
 $( "#users" ).focusout(function(){$(this).val('')});
+
 $(function() {
 		$( "#accordion" ).accordion();
 	});
 
 $(document).ready(function(){
+
     $('.date').datepicker({ dateFormat: 'yy-mm-dd' });
-    flag = true;
-    send_request();
-    lock_form();
+    editing_form_open = true;
+    send_lock_request();
+    lock_timer = lock_form();
+
 });
 
 </script>
@@ -96,6 +94,7 @@ $(document).ready(function(){
 <div id="info">
 <p>Manager Assessment Form for {{form.pr.employee.first_name}}&nbsp;{{form.pr.employee.last_name}}</p>
 <p>date: {{form.pr.date}}</p>
+<p id="lock_info"></p>
 shared to:
 <ul>
     {% for editor in form.editors %}

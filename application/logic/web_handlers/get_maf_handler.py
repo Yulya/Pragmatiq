@@ -19,10 +19,10 @@ class GetManagerForm(BaseFormHandler):
         if form.status == 'submitted':
             self.path = 'templates/api.readonly_maf.html'
 
-        if form.status == 'approved':
+        elif form.status == 'approved':
             self.path = 'templates/api.readonly_maf.html'
 
-        if form.status == 'registered':
+        elif form.status == 'registered':
             self.path = 'templates/api.registered_maf.html'
 
         current_time = datetime.datetime.now()

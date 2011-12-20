@@ -41,7 +41,9 @@ if (/WebKit/i.test(navigator.userAgent)) {
 window.onload = init;
 
 var message = '';
-var flag = false;
+var lock_timer = false;
+var unlock_timer = false;
+var editing_form_open = false;
 //On load page, init the timer which check if the there are anchor changes each 300 ms
 init(function(){
     setInterval("checkAnchor()", 100);

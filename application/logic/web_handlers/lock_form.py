@@ -12,9 +12,11 @@ class LockFormHandler(RequestHandler):
         current_time = datetime.datetime.now()
 
         user = self.request.environ['current_user']
-        minute = datetime.timedelta(seconds=60)
+        minute = datetime.timedelta(seconds=30)
         user_locked_form = form.user_locked_form
         lock_time = form.lock_time
+
+
 
         if form.lock_time is None:
             form.user_locked_form = user

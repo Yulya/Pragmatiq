@@ -55,6 +55,12 @@ div { margin: 20px; }
     display: none;
     border: 1px dotted #555555;
 }
+#lock_info{
+    background-color: #fcefa1;
+    height: 30px;
+    width: 400px;
+    display: none;
+}
 .block-header{
     height: 30px;
     border:  1px solid #cccccc;

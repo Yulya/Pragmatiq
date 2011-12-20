@@ -21,9 +21,15 @@ function hide_hint(){
     }
 
 function load(url) {
-    flag = false;
+    editing_form_open = false;
     $('.result').css('display', 'block');
     $('.result').load(url);
+    if (lock_timer){
+        clearInterval(lock_timer);
+    }
+    if (unlock_timer){
+        clearInterval(unlock_timer);
+    }
     if (message){
         $('#hint').find('.message').html(message);
         message = '';

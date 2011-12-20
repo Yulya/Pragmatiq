@@ -34,8 +34,10 @@ class AttachEmployeeToProject(RequestHandler):
                         existed_users.append(user.email)
         if attached_users:
             attached_users = (', ').join(attached_users)
-            self.response.out.write('You have attached to "%s" %s' % (project.name, attached_users))
+            self.response.out.write('You have attached to "%s" %s'
+                                    % (project.name, attached_users))
         if existed_users:
             existed_users = (', ').join(existed_users)
-            self.response.out.write('%s are already attached to "%s' % (existed_users, project.name))
+            self.response.out.write('%s are already attached to "%s'
+                                    % (existed_users, project.name))
 
