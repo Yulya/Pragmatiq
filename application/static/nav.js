@@ -66,6 +66,15 @@ url = encodeURI(url);
 
 var role = url.split('/')[1];
 
+if (role == 'manager'){
+    $('#settings').html('<a href="#/manager/settings">settings</a>').css('display','table-cell');
+}
+if (role == 'hr'){
+        $('#settings').html('<a href="#/hr/settings">settings</a>').css('display','table-cell');
+}
+if (role == 'employee'){
+    $('#settings').html('').css('display','none');
+}
 $('.select_role').val(role);
 
 load(url);

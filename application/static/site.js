@@ -1,14 +1,14 @@
-function load_role(a, user_key){
+function load_role(a){
     if (a == 'manager'){
-        $('#settings').css('display','table-cell');
+//        $('#settings').html('<a href="#/manager/settings">settings</a>').css('display','table-cell');
         window.location = '/#/manager/home'
     }
     if (a == 'employee'){
-        $('#settings').css('display','none');
+//        $('#settings').html('<a href="#/hr/settings">settings</a>').css('display','none');
         window.location = '/#/employee';}
     
     if (a == 'hr'){
-        $('#settings').css('display','table-cell');
+//        $('#settings').css('display','table-cell');
         window.location = '/#/hr'
 
     }

@@ -1,13 +1,15 @@
 {% extends "_api_base.html" %}
 {% block script %}
 <script type="text/javascript">
-    $('input[name="options"]').each(function(){
-        if ($(this).val() == '{{manager.edit_sub_reviews}}'){
-            $(this).attr('checked', 'checked');
+        if (!{{manager.edit_sub_reviews}}){
+            $('#check_option').attr('checked', 'checked')
         }
-    });
+
     $('#save').click(function(){
-            var edit_sub_reviews = $('input[name="options"]:checked').val();
+            var edit_sub_reviews = 1;
+            if ($('#check_option').is(':checked')){
+                edit_sub_reviews = 0;
+            }
             $.post('/manager/settings/update',
                     {'edit_sub_reviews':
                     edit_sub_reviews});
@@ -19,9 +21,7 @@
 {% block content %}
 <h1>Performance Review Settings</h1>
 <div>
-<p>Select:</p>
-<input type="radio" name="options" value='1'>See all<br>
-<input type="radio" name="options" value='0'>See just subs<br>
+<input type="checkbox" id="check_option" name="options">See just own MAF<br>
 <input type="button" id="save" value="save">
 </div>
 {% endblock %}

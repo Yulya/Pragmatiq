@@ -25,9 +25,8 @@
                     <td>Employee&nbsp;form</td>
                 </tr>
             </thead>
-            {% endif %}
-            {% for pr in dept.prs %}
-                {% ifequal pr.manager.email current_user %}
+        {% endif %}
+        {% for pr in dept.prs %}
                 <tr>
                     <td>{{pr.employee.first_name}}&nbsp;{{pr.employee.last_name}}</td>
                     <td>
@@ -49,9 +48,7 @@
                     </td>
                 </tr>
 
-            {% endifequal %}
-            
-            {% endfor %}
+        {% endfor %}
         </table>
     {% endfor %}
 {% endif %}

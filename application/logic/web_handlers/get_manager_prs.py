@@ -12,8 +12,37 @@ class GetPrs(RequestHandler):
         user = self.request.environ['current_user']
         dept = urllib.unquote(dept).decode('utf-8')
 
+        def get_sub_prs(manager, prs):
+
+            logging.debug('manager %s' % manager.email)
+            current_manager_prs = PerformanceReview.all().filter('manager',
+                                             manager).order("-date").fetch(1000)
+            for pr in current_manager_prs:
+                logging.debug('current %s' %pr.employee.email)
+
+            prs.extend(current_manager_prs)
+
+            for pr in prs:
+                logging.debug(': %s' %pr.employee.email)
+
+            for manager in manager.subs:
+                get_sub_prs(manager, prs)
+
+
+            return prs
+
         prs = PerformanceReview.all().filter('manager',
                                              user).order("-date").fetch(1000)
+
+#        for pr in prs:
+#            logging.debug('1: %s' % pr.employee.email)
+
+        if user.edit_sub_reviews:
+            prs = []
+            get_sub_prs(user, prs)
+#
+#        for pr in prs:
+#            logging.debug('2: %s' %pr.employee.email)
 
         if dept == 'all':
 
