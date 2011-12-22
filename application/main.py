@@ -30,6 +30,7 @@ from logic.web_handlers.check_pr_date import CheckDate
 from logic.web_handlers.create_pr_handler import CreatePR
 from logic.web_handlers.create_roles_handler import CreateRoles
 from logic.web_handlers.create_user_handler import CreateUser
+from logic.web_handlers.delete_pr import DeletePR
 from logic.web_handlers.detailed_report_handler import GetDetailedReport
 from logic.web_handlers.employee_form_draft import EmployeeFormDraft
 from logic.web_handlers.employee_form_submit_handler import EmployeeFormSubmit
@@ -103,6 +104,7 @@ def main():
                                           ('/hr/report/detailed/(.*)', GetDetailedReport),
                                           ('/hr/report/summary/(.*)', GetSummaryReport),
                                           ('/pr/register', RegisterPerformanceReview),
+                                          ('/pr/delete', DeletePR),
                                           ('/pr/data/update/(.*)', UpdateData),
                                           ('/hr/get/manager/(.*)', HRManagerForm),
                                           ('/hr/get/projects', GetProjects),

@@ -14,16 +14,10 @@ class GetPrs(RequestHandler):
 
         def get_sub_prs(manager, prs):
 
-            logging.debug('manager %s' % manager.email)
             current_manager_prs = PerformanceReview.all().filter('manager',
                                              manager).order("-date").fetch(1000)
-            for pr in current_manager_prs:
-                logging.debug('current %s' %pr.employee.email)
 
             prs.extend(current_manager_prs)
-
-            for pr in prs:
-                logging.debug(': %s' %pr.employee.email)
 
             for manager in manager.subs:
                 get_sub_prs(manager, prs)
@@ -34,15 +28,9 @@ class GetPrs(RequestHandler):
         prs = PerformanceReview.all().filter('manager',
                                              user).order("-date").fetch(1000)
 
-#        for pr in prs:
-#            logging.debug('1: %s' % pr.employee.email)
-
         if user.edit_sub_reviews:
             prs = []
             get_sub_prs(user, prs)
-#
-#        for pr in prs:
-#            logging.debug('2: %s' %pr.employee.email)
 
         if dept == 'all':
 
@@ -51,8 +39,6 @@ class GetPrs(RequestHandler):
             for department in departments:
                 department.prs = filter(lambda x: x.employee.dept.name
                 == department.name, prs)
-                logging.debug(department.prs)
-
         else:
             departments = Dept.all().filter('name', dept).fetch(1000)
 

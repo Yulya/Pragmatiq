@@ -10,8 +10,11 @@ class GetAllEmployees(RequestHandler):
 
         for period in periods:
             period.register = 'disabled'
+            period.delete = 'inline'
             period.pr = []
             for pr in period.performance_reviews:
+                if pr.manager_form or pr.employee_form:
+                    period.delete = 'none'
                 pr.register = 'disabled'
                 if pr.manager_form:
                     if pr.manager_form.status == 'submitted':

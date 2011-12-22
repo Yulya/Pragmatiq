@@ -1,17 +1,18 @@
 function load_role(a){
     if (a == 'manager'){
-//        $('#settings').html('<a href="#/manager/settings">settings</a>').css('display','table-cell');
         window.location = '/#/manager/home'
     }
     if (a == 'employee'){
-//        $('#settings').html('<a href="#/hr/settings">settings</a>').css('display','none');
         window.location = '/#/employee';}
     
     if (a == 'hr'){
-//        $('#settings').css('display','table-cell');
         window.location = '/#/hr'
 
     }
+}
+function delete_period(period_key){
+    $.post('/pr/delete', {'period_key': period_key});
+    load('/hr');
 }
 function parent_replace(obj){
     $(document).find(obj).parent().replaceWith('')

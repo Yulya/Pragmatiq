@@ -57,4 +57,4 @@ class CreatePR(RequestHandler):
                                        date=start)
                 pr.put()
 
-        self.response.out.write('ok')
+        self.response.out.write(period.key())

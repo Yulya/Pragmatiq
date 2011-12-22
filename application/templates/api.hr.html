@@ -22,20 +22,18 @@
                     'start': start,
                     'finish': finish},
                         function(data){
-                            if (data == 'ok'){
-                                message = "You've created new period";
+                            if (data){
+                                message = "You've created new period. <a href='#' onclick=\"delete_period('" + data + "'); return false\"'>Undo</a>";
                                 window.location.href = "/#/hr";
                             }
                         })
             }
             else {alert('incorrect date')}
-
         });
 
         $('.check_all').click(function(){
             $(this).parent().find(':checkbox').attr('checked', this.checked);
 	    });
-
     })
 </script>
 {% endblock %}
@@ -75,7 +73,5 @@
         </div>
     {% endfor %}
 <input type='button' id='submit' value="create PR">
-
-
 
 {% endblock %}

@@ -55,6 +55,7 @@
         Start: {{period.start_date}}
         Finish: {{period.finish_date}}
         <div align="right">
+        <p style="display: {{period.delete}}"><a class="nav" href="#"  onclick="delete_period('{{period.key}}'); return false">delete</a> |</p>
         <a class="nav" href="#/hr/report/detailed/{{period.key}}">detailed report</a> |
         <a class="nav" href="#/hr/report/summary/{{period.key}}">summary report</a>
         </div>
@@ -84,7 +85,6 @@
                             none
                         {% endif %}
                     </td>
-
                     <td name="status">
                         {% if pr.manager_form.status %}
                             {{pr.manager_form.status}}
@@ -100,4 +100,4 @@
         <hr >
     {% endfor %}
         <p id="new_period" ><a href="#/hr/new_period">Create New PR Period</a></p>
-{% endblock %}
+{% endblock %}.
