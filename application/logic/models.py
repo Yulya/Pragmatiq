@@ -16,6 +16,7 @@ class User(db.Model):
     role = db.ListProperty(db.Key)
     manager = db.SelfReferenceProperty(collection_name='subs')
     dept = db.ReferenceProperty(Dept, collection_name='users')
+    first_date = db.DateProperty()
     edit_sub_reviews = db.IntegerProperty(choices=(0, 1), default=0)
 
 class WorkProject(db.Model):
