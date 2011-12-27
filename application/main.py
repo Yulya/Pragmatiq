@@ -34,6 +34,7 @@ from logic.web_handlers.delete_pr import DeletePR
 from logic.web_handlers.detailed_report_handler import GetDetailedReport
 from logic.web_handlers.employee_form_draft import EmployeeFormDraft
 from logic.web_handlers.employee_form_submit_handler import EmployeeFormSubmit
+from logic.web_handlers.first_date_parse_handler import FirstDateParseHandler
 from logic.web_handlers.get_all_departments import HR
 from logic.web_handlers.get_all_employees import GetAllEmployees
 from logic.web_handlers.get_all_managers_handler import GetManagers
@@ -67,9 +68,11 @@ from logic.web_handlers.upload_xls_handler import UploadXlsHandler
 from logic.web_handlers.url_handler import UrlHandler
 from logic.web_handlers.user_table_handler import UserTable
 from logic.web_handlers.xls_parsing_handler import XlsParseHandler
+from logic.web_handlers.first_date_parse_handler import FirstDateParseHandler
 
 def main():
     #run post deploy scripts
+
     PostDeploy().post_deploy_routines()
 
     logging.getLogger().setLevel(logging.DEBUG)
@@ -119,6 +122,7 @@ def main():
                                           ('/hr/new_period', HR),
                                           ('/upload', UploadHandler),
                                           ('/upload_contacts', UploadXlsHandler),
+                                          ('/upload_first_date', FirstDateParseHandler),
                                           ('/parse_xls', XlsParseHandler),
                                           ('/serve/([^/]+)?', ServeHandler)
                                          ],

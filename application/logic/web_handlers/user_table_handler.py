@@ -16,10 +16,15 @@ class UserTable(RequestHandler):
             user.roles = ''
             for role in user.role:
                 user.roles = user.roles + Model.get(role).value + ' '
-
+                
+        upload_url_first_date = blobstore.create_upload_url('/upload_first_date')
         upload_url = blobstore.create_upload_url('/upload_contacts')
 
+
+
+
         self.template_values.update({'users': users,
+                                     'upload_url_first_date': upload_url_first_date,
                                      'upload_url': upload_url})
 
         self.response.out.write(template.render(self.path,

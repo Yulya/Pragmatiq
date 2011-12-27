@@ -15,6 +15,7 @@
             var $form = $('#user_form'),
                 first_name = $form.find( 'input[name="first_name"]' ).val(),
                 last_name = $form.find( 'input[name="last_name"]' ).val(),
+                first_date = $form.find( 'input[name="first_date"]' ).val(),
                 email = $form.find( 'input[name="email"]' ).val(),
                 login = $form.find( 'input[name="login"]' ).val(),
                 dept = $form.find( 'input[name="dept"]' ).val(),
@@ -30,6 +31,7 @@
                         {'key': '{{user.key}}',
                          'first_name': first_name,
                         'last_name': last_name,
+                        'first_date': first_date,
                         'login': login,
                         'email': email,
                         'role': role,
@@ -86,6 +88,10 @@
             <tr>
                 <td><label>position:</label></td>
                 <td><input type="text" value="{{user.position}}" name="position"><br></td>
+            </tr>
+            <tr>
+                <td><label>first_date:</label></td>
+                <td><input type="text" value="{{user.first_date}}" name="first_date"><br></td>
             </tr>
             <tr>
             <script type="text/javascript">

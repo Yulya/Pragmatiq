@@ -1,3 +1,4 @@
+import datetime
 from google.appengine.ext.db import Model
 from google.appengine.api.datastore_errors import BadKeyError
 from google.appengine.ext.webapp import RequestHandler
@@ -32,6 +33,10 @@ class CreateUser(RequestHandler):
 
         position = self.request.get('position')
         user.position = position
+
+        first_date =  self.request.get('first_date')
+        first_date = datetime.datetime.strptime(first_date, '%Y-%m-%d').date()
+        user.first_date = first_date
 
         dept = self.request.get('dept')
         dept_ref = Dept.all().filter('name', dept).get()

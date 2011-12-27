@@ -10,7 +10,15 @@
     </form>
 </div>
 
-<div><a href="/edit_user/">Add user</a></div>
+<div>
+    Update user first date information by uploading .xls file:
+    <form action="{{upload_url_first_date}}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file"><br>
+        <input type="submit" name="submit" value="Update">
+    </form>
+</div>
+
+<div><a href="/edit_user">Add user</a></div>
 
 <div>
     <p>Users:</p>
