@@ -285,6 +285,8 @@ shared to:
 
             {% for manager_comment in form.manager_comments %}
                 <p id="{{manager_comment.key}}" onclick="make_textarea(this)">{{manager_comment.value}}</p>
+                <p>{{manager_comment.manager.email}}</p>
+                <hr>
             {% endfor %}
 
             <input type="button" class="add_button" onclick="add_textarea(this, '{{form.key}}')" value="add" >

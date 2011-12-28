@@ -1,3 +1,4 @@
+import logging
 from google.appengine.api.datastore_errors import BadKeyError
 from google.appengine.ext.webapp import RequestHandler
 from logic import models
@@ -27,7 +28,7 @@ class AddData(RequestHandler):
 
         form_key = self.request.get('form_key')
         table = self.request.get('table')
-
+        logging.debug(table)
         try:
             attr = getattr(models, dict[table])
         except AttributeError, KeyError:

@@ -22,7 +22,11 @@ class AutomaticPerformanceReview(RequestHandler):
 
         for employee in employees:
 
+
             first_date = employee.first_date
+            if not first_date:
+                first_date = datetime.date.min
+                logging.debug(first_date)
 
             start_date = first_date + datetime.timedelta(weeks=13)
             finish_date = start_date + datetime.timedelta(weeks=2)
@@ -43,35 +47,21 @@ class AutomaticPerformanceReview(RequestHandler):
                                         period=period)
                 pr.put()
 
-            if employee.self_pr.fetch(100):
-                
-                last_pr = employee.self_pr.order('-date').get()
-                last_pr_date = last_pr.period.start_date
-                next_pr_start_date = last_pr_date + 6 * month
+            next_pr_start_date = start_date + 13 * week
 
-            else:
-                next_pr_start_date = None
+            for event in events:
 
-            if next_pr_start_date:
+                delta = next_pr_start_date - event.start_date
+                if next_pr_start_date > today:
 
-
-
-                for event in events:
-
-                    delta = next_pr_start_date - event.start_date
-                    event_for_pr = None
                     if delta < month and delta > -month:
-                        event_for_pr = event
 
-                    if event_for_pr:
-                        logging.debug(event_for_pr.start_date - month)
-                        if event_for_pr.start_date - month == today:
+                        if event.start_date - month == today:
 
-
-                            description = "PR %s: %s-%s" % (event_for_pr.type, event_for_pr.start_date, event_for_pr.finish_date)
-                            period = PerformanceReviewPeriod(start_date=event_for_pr.start_date,
+                            description = "PR %s: %s-%s" % (event.type, event.start_date, event.finish_date)
+                            period = PerformanceReviewPeriod(start_date=event.start_date,
                                 description=description,
-                                finish_date=event_for_pr.finish_date)
+                                finish_date=event.finish_date)
                             period.put()
 
                             pr = PerformanceReview(period=period,
@@ -83,10 +73,11 @@ class AutomaticPerformanceReview(RequestHandler):
                     else:
 
                         if next_pr_start_date == today + month:
+
                             finish_date = next_pr_start_date + 2 * week
                             description = "PR custom: %s-%s" % (next_pr_start_date, finish_date)
                             period = PerformanceReviewPeriod(start_date=next_pr_start_date,
-                                description='self period',
+                                description=description,
                                 finish_date=finish_date)
                             period.put()
 
@@ -97,20 +88,20 @@ class AutomaticPerformanceReview(RequestHandler):
                             )
                             pr.put()
 
-            else:
+                else:
 
-                for event in events:
-                    if event.start_date - month == today or event.start_date.replace(year=(today.year + 1)):
+                    for event in events:
+                        if event.start_date - month == today or event.start_date.replace(year=(today.year + 1)):
 
-                        description = "PR %s: %s-%s" % (event.type, event.start_date, event.finish_date)
-                        period = PerformanceReviewPeriod(start_date=event.start_date,
-                            description=description,
-                            finish_date=event.finish_date)
-                        period.put()
+                            description = "PR %s: %s-%s" % (event.type, event.start_date, event.finish_date)
+                            period = PerformanceReviewPeriod(start_date=event.start_date,
+                                description=description,
+                                finish_date=event.finish_date)
+                            period.put()
 
-                        pr = PerformanceReview(period=period,
-                            employee=employee,
-                            manager=employee.manager,
-                            date=period.start_date
-                        )
-                        pr.put()
+                            pr = PerformanceReview(period=period,
+                                employee=employee,
+                                manager=employee.manager,
+                                date=period.start_date
+                            )
+                            pr.put()

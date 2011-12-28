@@ -11,7 +11,7 @@ class UserTable(RequestHandler):
     template_values = {}
 
     def get(self):
-        users = User.all().fetch(1000)
+        users = User.all().order('first_name').fetch(1000)
         for user in users:
             user.roles = ''
             for role in user.role:

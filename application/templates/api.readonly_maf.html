@@ -17,6 +17,7 @@
 {% ifnotequal form.status 'submitted' %}
 <script type="text/javascript">
 
+    {% ifequal user.email form.pr.manager.email %}
     $(document).ready(function(){
 
         editing_form_open= true;
@@ -24,6 +25,7 @@
         unlock_timer = unlock_form();
 
     });
+    {% endifequal %}
 </script>
 {% endifnotequal %}
 {% endif %}
@@ -185,21 +187,21 @@
     <div>
         {% block salary %}
 
-        <div id='salary' class="input_div">
-            New salary:
-                <p class='text_field' onclick="make_input(this)" id="{{form.get_all_data.salary.key}}" >{{form.get_all_data.salary.value}}</p>
+            <div id='salary' class="input_div">
+                <p>Salary:</p>
+                    <p>{{form.get_all_data.salary.value}}</p>
 
-        </div>
+            </div>
 
-        <div id='grade' class="input_div">
-            Grade:
-                <p class='text_field' onclick="make_input(this)" id="{{form.get_all_data.grade.key}}" >{{form.get_all_data.grade.value}}</p>
-        </div>
+            <div id='grade' class="input_div">
+                <p>Grade:</p>
+                    <p>{{form.get_all_data.grade.value}}</p>
+            </div>
 
-        <div>
-            New position:
-                <p class='text_field' onclick="make_input(this)" id="{{form.get_all_data.position.key}}" >{{form.get_all_data.position.value}}</p>
-        </div>
+            <div id='position' class="input_div">
+                <p>New position:</p>
+                    <p>{{form.get_all_data.position.value}}</p>
+            </div>
         {% endblock %}
 
         <div id='conclusion' class="prev_data">
@@ -218,11 +220,30 @@
     <div>
         <div id="manager_comment" class="input_div">
             <p>Fill any comments on this particular form.</p>
-            <ul>
+
             {% for manager_comment in form.manager_comments %}
-                <li id="{{manager_comment.key}}" >{{manager_comment.value}}</li>
+                {% ifequal user.email form.pr.manager %}
+                    <p id="{{manager_comment.key}}" >{{manager_comment.value}}</p>
+                    <p>{{manager_comment.manager.email}}</p>
+                    <hr>
+                {% else %}
+                    {% ifequal user.email manager_comment.manager.email %}
+                        {% ifequal form.status 'draft' %}
+                            <p id="{{manager_comment.key}}" onclick="make_textarea(this)">{{manager_comment.value}}</p>
+                            <p>{{manager_comment.manager.email}}</p>
+                            <hr>
+                        {% else %}
+                            <p id="{{manager_comment.key}}" >{{manager_comment.value}}</p>
+                            <p>{{manager_comment.manager.email}}</p>
+                            <hr>
+                        {% endifequal %}
+                    {% endifequal %}
+                {% endifequal %}
             {% endfor %}
-            </ul>
+            {% ifequal form.status 'draft' %}
+                <input type="button" class="add_button" onclick="add_textarea(this, '{{form.key}}')" value="add" >
+            {% endifequal %}
+
             
         </div>
         {% block hr-comment %}

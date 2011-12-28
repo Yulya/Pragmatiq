@@ -16,6 +16,7 @@ class GetManagerForm(BaseFormHandler):
         form = self.template_values['form']
         user = self.template_values['user']
 
+
         if form.status == 'submitted':
             self.path = 'templates/api.readonly_maf.html'
 
@@ -26,6 +27,9 @@ class GetManagerForm(BaseFormHandler):
             self.path = 'templates/api.registered_maf.html'
 
         current_time = datetime.datetime.now()
+
+        if user.email != form.pr.manager.email:
+            self.path = 'templates/api.readonly_maf.html'
 
         if form.lock_time:
             if form.lock_time > current_time and \

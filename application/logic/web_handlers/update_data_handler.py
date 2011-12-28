@@ -19,6 +19,11 @@ class UpdateData(RequestHandler):
 
         obj.value = self.request.get('value')
 
+        try:
+            obj.manager = self.request.environ['current_user']
+        except AttributeError:
+            pass
+
         if self.request.get('result'):
             obj.result = int(self.request.get('result'))
 

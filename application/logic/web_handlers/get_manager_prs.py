@@ -1,7 +1,7 @@
 import logging
 import urllib
 from google.appengine.ext.webapp import RequestHandler, template
-from logic.models import PerformanceReview, SharedForm, Dept
+from logic.models import PerformanceReview, SharedForm, Dept, WorkProject, User
 
 
 class GetPrs(RequestHandler):
@@ -45,6 +45,16 @@ class GetPrs(RequestHandler):
             for department in departments:
                 department.prs = filter(lambda x: x.employee.dept.name
                 == department.name, prs)
+
+            if not departments:
+                departments = WorkProject.all().filter('name', dept).fetch(1000)
+                for department in departments:
+                    department.prs = []
+                    for employee_key in department.employees:
+                        employee = User.get(employee_key)
+                        pr = employee.self_pr.order('-date').get()
+                        if pr:
+                            department.prs.append(pr)
 
         shared_forms = SharedForm.all().filter('user', user).fetch(1000)
 
