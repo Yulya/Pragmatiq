@@ -2,7 +2,7 @@ from google.appengine.api import users
 from google.appengine.ext import blobstore
 from google.appengine.ext.db import BadKeyError
 from google.appengine.ext.webapp import RequestHandler
-from logic.models import PerformanceReview
+from logic.models import PerformanceReview, PerformanceReviewForm
 
 
 class BaseFormHandler(RequestHandler):
@@ -20,9 +20,13 @@ class BaseFormHandler(RequestHandler):
 
         try:
             pr = PerformanceReview.get(key)
-        except BadKeyError:
-            self.error(405)
-            return
+        except:
+            try:
+                form = PerformanceReviewForm.get(key)
+                pr = form.pr
+            except:
+                self.error(405)
+                return
 
         form = pr.forms.filter('type', self.type).get()
         prev_pr = PerformanceReview.all().order('-date').\
