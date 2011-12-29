@@ -22,11 +22,9 @@ class AutomaticPerformanceReview(RequestHandler):
 
         for employee in employees:
 
-
             first_date = employee.first_date
             if not first_date:
                 first_date = datetime.date.min
-                logging.debug(first_date)
 
             start_date = first_date + datetime.timedelta(weeks=13)
             finish_date = start_date + datetime.timedelta(weeks=2)

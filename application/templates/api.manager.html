@@ -1,9 +1,10 @@
 {% extends "_api_base.html" %}
 
 {% block breadcrumps %}
-<a href="#/manager/home">Home</a> >
+<span class="breadcrump"><a href="#/manager/home">Home</a></span>&nbsp;&gt;
 {% ifnotequal dept 'all' %}
-<a href="/#/manager/get/all">PR</a> > <a>{{dept}}</a>
+<span class="breadcrump"><a href="/#/manager/get/all">PR</a></span>&nbsp;&gt;&nbsp;
+<span class="breadcrump breadcrump_current">{{dept}}</span>
 {% else %}
        <a>PR</a>
 {% endifnotequal %}
