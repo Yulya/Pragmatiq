@@ -54,6 +54,7 @@ from logic.web_handlers.manager_form_register import ManagerFormRegister
 from logic.web_handlers.manager_form_submit_handler import ManagerFormSubmit
 from logic.web_handlers.manager_home import ManagerHome
 from logic.web_handlers.manager_settings import ManagerSettings
+from logic.web_handlers.parse_xml_form import ParseXml
 from logic.web_handlers.register_performance_review import RegisterPerformanceReview
 from logic.web_handlers.serve_handler import ServeHandler
 from logic.web_handlers.share_form_handler import ShareForm
@@ -120,6 +121,7 @@ def main():
                                           ('/get_users', GetJSONUsers),
                                           ('/hr', GetAllEmployees),
                                           ('/hr/new_period', HR),
+                                          ('/p', ParseXml),
                                           ('/upload', UploadHandler),
                                           ('/upload_contacts', UploadXlsHandler),
                                           ('/upload_first_date', FirstDateParseHandler),

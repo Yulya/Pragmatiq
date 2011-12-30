@@ -17,7 +17,7 @@ class Authentication(object):
 
         req = Request(environ)
 
-        non_auth_urls = ['/create_role', '/users', '/add_emp', '/edit_user', '/upload_contacts', '/parse_xls']
+        non_auth_urls = ['/create_role', '/p', '/users', '/add_emp', '/edit_user', '/upload_contacts', '/parse_xls']
         if environ['PATH_INFO'] not in non_auth_urls:
 
             if current_user is None:
