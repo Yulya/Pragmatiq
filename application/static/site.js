@@ -1,13 +1,13 @@
 function load_role(a){
+    console.log('role');
     if (a == 'manager'){
-        window.location = '/#/manager/home'
+        load('/manager/home')
     }
     if (a == 'employee'){
-        window.location = '/#/employee';}
+        load('/employee')}
     
     if (a == 'hr'){
-        window.location = '/#/hr'
-
+        load('/hr')
     }
 }
 function delete_period(period_key){
@@ -41,7 +41,6 @@ function load(url) {
     else{
         hide_hint()
     }
-
 }
 
 function set_result(id, value) {

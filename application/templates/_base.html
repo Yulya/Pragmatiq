@@ -22,15 +22,18 @@
     <!-- script -->
     {% block script %}
     <script type="text/javascript">
+        if (currentAnchor == ''){
+            
     $(document).ready(function(){
-        var current_role = '{{current_role}}';
-//        if (current_role == 'manager'){
-            load_role(current_role);
-//        }
-//        else{
-//        load('/' + current_role);}
 
-    });
+        var current_role = '{{current_role}}';
+        if (current_role == 'manager'){
+            load('/manager/home')
+        }
+        else{
+        load('/' + current_role);}
+
+    });}
 
     </script>
     {% endblock %}
@@ -52,8 +55,7 @@
                     </select>
                 </td>
                 <td id="settings" style="display: none;">
-                    <!--<a href="#/hr/settings">settings</a>-->
-                </td>
+                    <a href="#/hr/settings">settings</a></td>
                  <td><a href="/logout">Logout</a></td>
             </tr>
         </table>

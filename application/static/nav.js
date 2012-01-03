@@ -1,10 +1,10 @@
 /**
 * Javascript anchor navigation
 */
+
 function init(delegate) {
     if (arguments.callee.done) return;
     arguments.callee.done = true;
-
     delegate();
 }
 
@@ -29,7 +29,7 @@ init();
 // safari
 if (/WebKit/i.test(navigator.userAgent)) {
     var _timer = setInterval(function() {
-        if (/loaded|complete/.test(document.readyState)) {
+        if (/complete/.test(document.readyState)) {
             clearInterval(_timer);
             delete _timer;
             init();
@@ -46,12 +46,13 @@ var unlock_timer = false;
 var editing_form_open = false;
 //On load page, init the timer which check if the there are anchor changes each 300 ms
 init(function(){
-    setInterval("checkAnchor()", 100);
+    setInterval("checkAnchor()", 10);
 });
 
-var currentAnchor = '';
+var currentAnchor = "";
 //Function which check if there are anchor changes, if there are, sends the ajax petition
 function checkAnchor(){
+    if (document.readyState == "complete"){
     //Check if it has changes
     if(currentAnchor != document.location.hash){
         if (currentAnchor == null) {
@@ -64,7 +65,7 @@ currentAnchor = document.location.hash;
 var url = currentAnchor.replace('#','');
 url = encodeURI(url);
 
-var role = url.split('/')[1];
+var role = url.split("/")[1];
 
 if (role == 'manager'){
     $('#settings').html('<a href="#/manager/settings">settings</a>').css('display','table-cell');
@@ -76,8 +77,7 @@ if (role == 'employee'){
     $('#settings').html('').css('display','none');
 }
 $('.select_role').val(role);
-
 load(url);
 
-}
+}}
 }

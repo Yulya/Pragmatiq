@@ -1,7 +1,7 @@
 {% extends "_api_base.html" %}
 {% block script %}
-<script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
-<script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+<!--<script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>-->
+<!--<script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>-->
 <script type="text/javascript">
             function add(){
                 var name = $('#add_project').val();
@@ -13,11 +13,14 @@
                 });
 
             }
+    var project_key = '';
+
     $(document).ready(function(){
         var employees_email = new Array();
+
         
     $(function() {
-		$( "#dialog:ui-dialog" ).dialog( "destroy" );
+//		$( "#dialog:ui-dialog" ).dialog( "destroy" );
 
         $( "#new_project_form" ).dialog({
 			autoOpen: false,
@@ -54,11 +57,13 @@
                         },
                       "cancel": function(){$( this ).dialog( "close" );}}
 		});
-	});
+
         $( ".attach_employee" )
 			.click(function() {
                 project_key = $(this).parent().attr('id');
 				$( "#attaching-form" ).dialog( "open" );
+
+                console.log($( "#attaching-form" ).dialog._isOpen);
 			});
         $("#new_project").click(function(){
             $( "#new_project_form" ).dialog( "open" );
@@ -83,6 +88,7 @@
 			}
 
                 });
+    });
         </script>
 {% endblock %}
 {% block breadcrumps %}
