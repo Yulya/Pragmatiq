@@ -121,7 +121,7 @@ def main():
                                           ('/get_users', GetJSONUsers),
                                           ('/hr', GetAllEmployees),
                                           ('/hr/new_period', HR),
-                                          ('/p', ParseXml),
+                                          ('/parse_form', ParseXml),
                                           ('/upload', UploadHandler),
                                           ('/upload_contacts', UploadXlsHandler),
                                           ('/upload_first_date', FirstDateParseHandler),

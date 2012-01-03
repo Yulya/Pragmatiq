@@ -1,0 +1,2778 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?> 
+<?mso-application progid="Word.Document"?> 
+<w:wordDocument w:macrosPresent="no" w:embeddedObjPresent="no" w:ocxPresent="no" xml:space="preserve" xmlns:w="http://schemas.microsoft.com/office/word/2003/wordml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:sl="http://schemas.microsoft.com/schemaLibrary/2003/core" xmlns:aml="http://schemas.microsoft.com/aml/2001/core" xmlns:wx="http://schemas.microsoft.com/office/word/2003/auxHint" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:dt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" xmlns:wsp="http://schemas.microsoft.com/office/word/2003/wordml/sp2" xmlns:ns0="GD_AssessmentReportManager.xsl">
+  
+  <w:ignoreElements w:val="http://schemas.microsoft.com/office/word/2003/wordml/sp2" /> 
+  
+- <o:DocumentProperties>
+  
+  <o:Title>Performance Review</o:Title> 
+  
+  <o:Author /> 
+  
+  <o:LastAuthor /> 
+  
+  <o:Revision>27</o:Revision> 
+  
+  <o:TotalTime>28</o:TotalTime> 
+  
+  <o:LastPrinted>2010-08-09T07:39:00Z</o:LastPrinted> 
+  
+  <o:Created>2010-08-04T14:25:00Z</o:Created> 
+  
+  <o:LastSaved>2010-08-09T08:03:00Z</o:LastSaved> 
+  
+  <o:Pages>1</o:Pages> 
+  
+  <o:Words>296</o:Words> 
+  
+  <o:Characters>1690</o:Characters> 
+  
+  <o:Company /> 
+  
+  <o:Lines>14</o:Lines> 
+  
+  <o:Paragraphs>3</o:Paragraphs> 
+  
+  <o:CharactersWithSpaces>1983</o:CharactersWithSpaces> 
+  
+  <o:Version>11.0000</o:Version> 
+  
+  </o:DocumentProperties>
+  
+- <w:fonts>
+  
+  <w:defaultFonts w:ascii="Times New Roman" w:fareast="Times New Roman" w:h-ansi="Times New Roman" w:cs="Times New Roman" /> 
+  
+- <w:font w:name="Wingdings">
+  
+  <w:panose-1 w:val="05000000000000000000" /> 
+  
+  <w:charset w:val="02" /> 
+  
+  <w:family w:val="Auto" /> 
+  
+  <w:pitch w:val="variable" /> 
+  
+  <w:sig w:usb-0="00000000" w:usb-1="10000000" w:usb-2="00000000" w:usb-3="00000000" w:csb-0="80000000" w:csb-1="00000000" /> 
+  
+  </w:font>
+  
+- <w:font w:name="Tahoma">
+  
+  <w:panose-1 w:val="020B0604030504040204" /> 
+  
+  <w:charset w:val="CC" /> 
+  
+  <w:family w:val="Swiss" /> 
+  
+  <w:pitch w:val="variable" /> 
+  
+  <w:sig w:usb-0="61007A87" w:usb-1="80000000" w:usb-2="00000008" w:usb-3="00000000" w:csb-0="000101FF" w:csb-1="00000000" /> 
+  
+  </w:font>
+  
+  </w:fonts>
+  
+- <w:lists>
+  
+- <w:listDef w:listDefId="0">
+  
+  <w:lsid w:val="4B966C3D" /> 
+  
+  <w:plt w:val="HybridMultilevel" /> 
+  
+  <w:tmpl w:val="5464FB8E" /> 
+  
+- <w:lvl w:ilvl="0" w:tplc="04090001">
+  
+  <w:start w:val="1" /> 
+  
+  <w:nfc w:val="23" /> 
+  
+  <w:lvlText w:val="" /> 
+  
+  <w:lvlJc w:val="left" /> 
+  
+- <w:pPr>
+  
+- <w:tabs>
+  
+  <w:tab w:val="list" w:pos="720" /> 
+  
+  </w:tabs>
+  
+  <w:ind w:left="720" w:hanging="360" /> 
+  
+  </w:pPr>
+  
+- <w:rPr>
+  
+  <w:rFonts w:ascii="Symbol" w:h-ansi="Symbol" w:hint="default" /> 
+  
+  </w:rPr>
+  
+  </w:lvl>
+  
+- <w:lvl w:ilvl="1" w:tplc="04090003" w:tentative="on">
+  
+  <w:start w:val="1" /> 
+  
+  <w:nfc w:val="23" /> 
+  
+  <w:lvlText w:val="o" /> 
+  
+  <w:lvlJc w:val="left" /> 
+  
+- <w:pPr>
+  
+- <w:tabs>
+  
+  <w:tab w:val="list" w:pos="1440" /> 
+  
+  </w:tabs>
+  
+  <w:ind w:left="1440" w:hanging="360" /> 
+  
+  </w:pPr>
+  
+- <w:rPr>
+  
+  <w:rFonts w:ascii="Courier New" w:h-ansi="Courier New" w:hint="default" /> 
+  
+  </w:rPr>
+  
+  </w:lvl>
+  
+- <w:lvl w:ilvl="2" w:tplc="04090005" w:tentative="on">
+  
+  <w:start w:val="1" /> 
+  
+  <w:nfc w:val="23" /> 
+  
+  <w:lvlText w:val="" /> 
+  
+  <w:lvlJc w:val="left" /> 
+  
+- <w:pPr>
+  
+- <w:tabs>
+  
+  <w:tab w:val="list" w:pos="2160" /> 
+  
+  </w:tabs>
+  
+  <w:ind w:left="2160" w:hanging="360" /> 
+  
+  </w:pPr>
+  
+- <w:rPr>
+  
+  <w:rFonts w:ascii="Wingdings" w:h-ansi="Wingdings" w:hint="default" /> 
+  
+  </w:rPr>
+  
+  </w:lvl>
+  
+- <w:lvl w:ilvl="3" w:tplc="04090001" w:tentative="on">
+  
+  <w:start w:val="1" /> 
+  
+  <w:nfc w:val="23" /> 
+  
+  <w:lvlText w:val="" /> 
+  
+  <w:lvlJc w:val="left" /> 
+  
+- <w:pPr>
+  
+- <w:tabs>
+  
+  <w:tab w:val="list" w:pos="2880" /> 
+  
+  </w:tabs>
+  
+  <w:ind w:left="2880" w:hanging="360" /> 
+  
+  </w:pPr>
+  
+- <w:rPr>
+  
+  <w:rFonts w:ascii="Symbol" w:h-ansi="Symbol" w:hint="default" /> 
+  
+  </w:rPr>
+  
+  </w:lvl>
+  
+- <w:lvl w:ilvl="4" w:tplc="04090003" w:tentative="on">
+  
+  <w:start w:val="1" /> 
+  
+  <w:nfc w:val="23" /> 
+  
+  <w:lvlText w:val="o" /> 
+  
+  <w:lvlJc w:val="left" /> 
+  
+- <w:pPr>
+  
+- <w:tabs>
+  
+  <w:tab w:val="list" w:pos="3600" /> 
+  
+  </w:tabs>
+  
+  <w:ind w:left="3600" w:hanging="360" /> 
+  
+  </w:pPr>
+  
+- <w:rPr>
+  
+  <w:rFonts w:ascii="Courier New" w:h-ansi="Courier New" w:hint="default" /> 
+  
+  </w:rPr>
+  
+  </w:lvl>
+  
+- <w:lvl w:ilvl="5" w:tplc="04090005" w:tentative="on">
+  
+  <w:start w:val="1" /> 
+  
+  <w:nfc w:val="23" /> 
+  
+  <w:lvlText w:val="" /> 
+  
+  <w:lvlJc w:val="left" /> 
+  
+- <w:pPr>
+  
+- <w:tabs>
+  
+  <w:tab w:val="list" w:pos="4320" /> 
+  
+  </w:tabs>
+  
+  <w:ind w:left="4320" w:hanging="360" /> 
+  
+  </w:pPr>
+  
+- <w:rPr>
+  
+  <w:rFonts w:ascii="Wingdings" w:h-ansi="Wingdings" w:hint="default" /> 
+  
+  </w:rPr>
+  
+  </w:lvl>
+  
+- <w:lvl w:ilvl="6" w:tplc="04090001" w:tentative="on">
+  
+  <w:start w:val="1" /> 
+  
+  <w:nfc w:val="23" /> 
+  
+  <w:lvlText w:val="" /> 
+  
+  <w:lvlJc w:val="left" /> 
+  
+- <w:pPr>
+  
+- <w:tabs>
+  
+  <w:tab w:val="list" w:pos="5040" /> 
+  
+  </w:tabs>
+  
+  <w:ind w:left="5040" w:hanging="360" /> 
+  
+  </w:pPr>
+  
+- <w:rPr>
+  
+  <w:rFonts w:ascii="Symbol" w:h-ansi="Symbol" w:hint="default" /> 
+  
+  </w:rPr>
+  
+  </w:lvl>
+  
+- <w:lvl w:ilvl="7" w:tplc="04090003" w:tentative="on">
+  
+  <w:start w:val="1" /> 
+  
+  <w:nfc w:val="23" /> 
+  
+  <w:lvlText w:val="o" /> 
+  
+  <w:lvlJc w:val="left" /> 
+  
+- <w:pPr>
+  
+- <w:tabs>
+  
+  <w:tab w:val="list" w:pos="5760" /> 
+  
+  </w:tabs>
+  
+  <w:ind w:left="5760" w:hanging="360" /> 
+  
+  </w:pPr>
+  
+- <w:rPr>
+  
+  <w:rFonts w:ascii="Courier New" w:h-ansi="Courier New" w:hint="default" /> 
+  
+  </w:rPr>
+  
+  </w:lvl>
+  
+- <w:lvl w:ilvl="8" w:tplc="04090005" w:tentative="on">
+  
+  <w:start w:val="1" /> 
+  
+  <w:nfc w:val="23" /> 
+  
+  <w:lvlText w:val="" /> 
+  
+  <w:lvlJc w:val="left" /> 
+  
+- <w:pPr>
+  
+- <w:tabs>
+  
+  <w:tab w:val="list" w:pos="6480" /> 
+  
+  </w:tabs>
+  
+  <w:ind w:left="6480" w:hanging="360" /> 
+  
+  </w:pPr>
+  
+- <w:rPr>
+  
+  <w:rFonts w:ascii="Wingdings" w:h-ansi="Wingdings" w:hint="default" /> 
+  
+  </w:rPr>
+  
+  </w:lvl>
+  
+  </w:listDef>
+  
+- <w:list w:ilfo="1">
+  
+  <w:ilst w:val="0" /> 
+  
+  </w:list>
+  
+  </w:lists>
+  
+- <w:styles>
+  
+  <w:versionOfBuiltInStylenames w:val="4" /> 
+  
+  <w:latentStyles w:defLockedState="off" w:latentStyleCount="156" /> 
+  
+- <w:style w:type="paragraph" w:default="on" w:styleId="Normal">
+  
+  <w:name w:val="Normal" /> 
+  
+  <w:rsid w:val="0064041F" /> 
+  
+- <w:rPr>
+  
+  <w:rFonts w:ascii="Arial" w:h-ansi="Arial" /> 
+  
+  <wx:font wx:val="Arial" /> 
+  
+  <w:sz w:val="24" /> 
+  
+  <w:sz-cs w:val="24" /> 
+  
+  <w:lang w:val="RU" w:fareast="RU" w:bidi="AR-SA" /> 
+  
+  </w:rPr>
+  
+  </w:style>
+  
+- <w:style w:type="character" w:default="on" w:styleId="DefaultParagraphFont">
+  
+  <w:name w:val="Default Paragraph Font" /> 
+  
+  <w:semiHidden /> 
+  
+  </w:style>
+  
+- <w:style w:type="table" w:default="on" w:styleId="TableNormal">
+  
+  <w:name w:val="Normal Table" /> 
+  
+  <wx:uiName wx:val="Table Normal" /> 
+  
+  <w:semiHidden /> 
+  
+- <w:rPr>
+  
+  <wx:font wx:val="Times New Roman" /> 
+  
+  </w:rPr>
+  
+- <w:tblPr>
+  
+  <w:tblInd w:w="0" w:type="dxa" /> 
+  
+- <w:tblCellMar>
+  
+  <w:top w:w="0" w:type="dxa" /> 
+  
+  <w:left w:w="108" w:type="dxa" /> 
+  
+  <w:bottom w:w="0" w:type="dxa" /> 
+  
+  <w:right w:w="108" w:type="dxa" /> 
+  
+  </w:tblCellMar>
+  
+  </w:tblPr>
+  
+  </w:style>
+  
+- <w:style w:type="list" w:default="on" w:styleId="NoList">
+  
+  <w:name w:val="No List" /> 
+  
+  <w:semiHidden /> 
+  
+  </w:style>
+  
+- <w:style w:type="paragraph" w:styleId="Header">
+  
+  <w:name w:val="header" /> 
+  
+  <wx:uiName wx:val="Header" /> 
+  
+  <w:basedOn w:val="Normal" /> 
+  
+  <w:link w:val="HeaderChar" /> 
+  
+  <w:rsid w:val="0064041F" /> 
+  
+- <w:pPr>
+  
+  <w:pStyle w:val="Header" /> 
+  
+- <w:tabs>
+  
+  <w:tab w:val="center" w:pos="4677" /> 
+  
+  <w:tab w:val="right" w:pos="9355" /> 
+  
+  </w:tabs>
+  
+  </w:pPr>
+  
+- <w:rPr>
+  
+  <wx:font wx:val="Arial" /> 
+  
+  </w:rPr>
+  
+  </w:style>
+  
+- <w:style w:type="character" w:styleId="HeaderChar">
+  
+  <w:name w:val="Header Char" /> 
+  
+  <w:basedOn w:val="DefaultParagraphFont" /> 
+  
+  <w:link w:val="Header" /> 
+  
+  <w:semiHidden /> 
+  
+  <w:locked /> 
+  
+  <w:rsid w:val="0064041F" /> 
+  
+- <w:rPr>
+  
+  <w:rFonts w:ascii="Arial" w:h-ansi="Arial" /> 
+  
+  <w:sz w:val="24" /> 
+  
+  <w:sz-cs w:val="24" /> 
+  
+  <w:lang w:val="RU" w:fareast="RU" w:bidi="AR-SA" /> 
+  
+  </w:rPr>
+  
+  </w:style>
+  
+- <w:style w:type="paragraph" w:styleId="BalloonText">
+  
+  <w:name w:val="Balloon Text" /> 
+  
+  <w:basedOn w:val="Normal" /> 
+  
+  <w:semiHidden /> 
+  
+  <w:rsid w:val="006955B9" /> 
+  
+- <w:pPr>
+  
+  <w:pStyle w:val="BalloonText" /> 
+  
+  </w:pPr>
+  
+- <w:rPr>
+  
+  <w:rFonts w:ascii="Tahoma" w:h-ansi="Tahoma" w:cs="Tahoma" /> 
+  
+  <wx:font wx:val="Tahoma" /> 
+  
+  <w:sz w:val="16" /> 
+  
+  <w:sz-cs w:val="16" /> 
+  
+  </w:rPr>
+  
+  </w:style>
+  
+  </w:styles>
+  
+- <w:docPr>
+  
+  <w:view w:val="print" /> 
+  
+  <w:zoom w:percent="100" /> 
+  
+  <w:doNotEmbedSystemFonts /> 
+  
+  <w:proofState w:spelling="clean" w:grammar="clean" /> 
+  
+  <w:attachedTemplate w:val="" /> 
+  
+  <w:defaultTabStop w:val="720" /> 
+  
+  <w:punctuationKerning /> 
+  
+  <w:characterSpacingControl w:val="DontCompress" /> 
+  
+  <w:optimizeForBrowser /> 
+  
+  <w:validateAgainstSchema /> 
+  
+  <w:saveInvalidXML w:val="off" /> 
+  
+  <w:ignoreMixedContent /> 
+  
+  <w:alwaysShowPlaceholderText w:val="off" /> 
+  
+- <w:compat>
+  
+  <w:breakWrappedTables /> 
+  
+  <w:snapToGridInCell /> 
+  
+  <w:wrapTextWithPunct /> 
+  
+  <w:useAsianBreakRules /> 
+  
+  <w:dontGrowAutofit /> 
+  
+  </w:compat>
+  
+- <wsp:rsids>
+  
+  <wsp:rsidRoot wsp:val="0064041F" /> 
+  
+  <wsp:rsid wsp:val="00110A2D" /> 
+  
+  <wsp:rsid wsp:val="001C13A2" /> 
+  
+  <wsp:rsid wsp:val="00270FD6" /> 
+  
+  <wsp:rsid wsp:val="00304FF8" /> 
+  
+  <wsp:rsid wsp:val="0034177F" /> 
+  
+  <wsp:rsid wsp:val="00445DCD" /> 
+  
+  <wsp:rsid wsp:val="00462F75" /> 
+  
+  <wsp:rsid wsp:val="004F4881" /> 
+  
+  <wsp:rsid wsp:val="00532AD7" /> 
+  
+  <wsp:rsid wsp:val="0054223C" /> 
+  
+  <wsp:rsid wsp:val="005945A3" /> 
+  
+  <wsp:rsid wsp:val="0064041F" /> 
+  
+  <wsp:rsid wsp:val="006955B9" /> 
+  
+  <wsp:rsid wsp:val="006D294F" /> 
+  
+  <wsp:rsid wsp:val="006E4D7C" /> 
+  
+  <wsp:rsid wsp:val="00756FDA" /> 
+  
+  <wsp:rsid wsp:val="007C2739" /> 
+  
+  <wsp:rsid wsp:val="00842467" /> 
+  
+  <wsp:rsid wsp:val="009701F3" /> 
+  
+  <wsp:rsid wsp:val="009C06AF" /> 
+  
+  <wsp:rsid wsp:val="00A61BAE" /> 
+  
+  <wsp:rsid wsp:val="00A901B5" /> 
+  
+  <wsp:rsid wsp:val="00A91502" /> 
+  
+  <wsp:rsid wsp:val="00B95DF7" /> 
+  
+  <wsp:rsid wsp:val="00BD0A4B" /> 
+  
+  <wsp:rsid wsp:val="00C13E90" /> 
+  
+  <wsp:rsid wsp:val="00D32E37" /> 
+  
+  <wsp:rsid wsp:val="00E91F3D" /> 
+  
+  <wsp:rsid wsp:val="00F14331" /> 
+  
+  <wsp:rsid wsp:val="00F17AA0" /> 
+  
+  </wsp:rsids>
+  
+  <w:showXMLTags w:val="off" /> 
+  
+  </w:docPr>
+  
+- <w:body>
+  
+- <wx:sect>
+  
+- <ns0:result>
+- <ns0:EvaluationYear>
+- <ns0:EvaluationYearReport>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="00232B3E" wsp:rsidRDefault="00A61BAE" wsp:rsidP="00C13E90">
+- <w:pPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:sz w:val="32" /> 
+  <w:sz-cs w:val="32" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:GD_PerformanceReview>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="00232B3E">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:sz w:val="32" /> 
+  <w:sz-cs w:val="32" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Performance Review</w:t> 
+  </w:r>
+  </ns0:GD_PerformanceReview>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="00232B3E" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="32" /> 
+  <w:sz-cs w:val="32" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:GD_EmployeeSelfAssessmentForm>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="00232B3E">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="32" /> 
+  <w:sz-cs w:val="32" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Employee Self Assessment Form</w:t> 
+  </w:r>
+  </ns0:GD_EmployeeSelfAssessmentForm>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="00232B3E">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="32" /> 
+  <w:sz-cs w:val="32" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:br /> 
+  </w:r>
+  </w:p>
+- <w:tbl>
+- <w:tblPr>
+  <w:tblW w:w="0" w:type="auto" /> 
+  <w:tblInd w:w="116" w:type="dxa" /> 
+- <w:tblBorders>
+  <w:top w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  <w:left w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  <w:bottom w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  <w:right w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  <w:insideH w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  <w:insideV w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  </w:tblBorders>
+  <w:tblLook w:val="01E0" /> 
+  </w:tblPr>
+- <w:tblGrid>
+  <w:gridCol w:w="3052" /> 
+  <w:gridCol w:w="5760" /> 
+  </w:tblGrid>
+- <w:tr wsp:rsidR="0064041F" wsp:rsidRPr="001B5D32" wsp:rsidTr="0064041F">
+- <w:tc>
+- <w:tcPr>
+  <w:tcW w:w="3052" w:type="dxa" /> 
+  <w:shd w:val="clear" w:color="auto" w:fill="E0E0E0" /> 
+  </w:tcPr>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="002D0D1F" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:GD_NameFIO>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="002D0D1F">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Name</w:t> 
+  </w:r>
+  </ns0:GD_NameFIO>
+  </w:p>
+  </w:tc>
+- <w:tc>
+- <w:tcPr>
+  <w:tcW w:w="5760" w:type="dxa" /> 
+  </w:tcPr>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="001B5D32" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:EmployeeName>
+- <w:r wsp:rsidR="0064041F">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:sz w:val="25" /> 
+  <w:sz-cs w:val="25" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Portnova Julia borisovna</w:t> 
+  </w:r>
+  </ns0:EmployeeName>
+  </w:p>
+  </w:tc>
+  </w:tr>
+- <w:tr wsp:rsidR="0064041F" wsp:rsidRPr="001B5D32" wsp:rsidTr="0064041F">
+- <w:tc>
+- <w:tcPr>
+  <w:tcW w:w="3052" w:type="dxa" /> 
+  <w:shd w:val="clear" w:color="auto" w:fill="E0E0E0" /> 
+  </w:tcPr>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="002D0D1F" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:GD_Title>
+- <w:r wsp:rsidR="0064041F">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Title</w:t> 
+  </w:r>
+  </ns0:GD_Title>
+  </w:p>
+  </w:tc>
+- <w:tc>
+- <w:tcPr>
+  <w:tcW w:w="5760" w:type="dxa" /> 
+  </w:tcPr>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="001B5D32" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:EmployeePosition>
+- <w:r wsp:rsidR="0064041F">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:sz w:val="25" /> 
+  <w:sz-cs w:val="25" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Intern</w:t> 
+  </w:r>
+  </ns0:EmployeePosition>
+  </w:p>
+  </w:tc>
+  </w:tr>
+- <w:tr wsp:rsidR="0064041F" wsp:rsidRPr="001B5D32" wsp:rsidTr="0064041F">
+- <w:tc>
+- <w:tcPr>
+  <w:tcW w:w="3052" w:type="dxa" /> 
+  <w:shd w:val="clear" w:color="auto" w:fill="E0E0E0" /> 
+  </w:tcPr>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="002D0D1F" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:GD_Manager>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="002D0D1F">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Manager / team lead</w:t> 
+  </w:r>
+  </ns0:GD_Manager>
+  </w:p>
+  </w:tc>
+- <w:tc>
+- <w:tcPr>
+  <w:tcW w:w="5760" w:type="dxa" /> 
+  </w:tcPr>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="001B5D32" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:ManagerName>
+- <w:r wsp:rsidR="0064041F">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:sz w:val="25" /> 
+  <w:sz-cs w:val="25" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Korenkov Maxim Igorevich</w:t> 
+  </w:r>
+  </ns0:ManagerName>
+  </w:p>
+  </w:tc>
+  </w:tr>
+- <w:tr wsp:rsidR="0064041F" wsp:rsidRPr="00C13E90" wsp:rsidTr="0064041F">
+- <w:tc>
+- <w:tcPr>
+  <w:tcW w:w="3052" w:type="dxa" /> 
+  <w:shd w:val="clear" w:color="auto" w:fill="E0E0E0" /> 
+  </w:tcPr>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="002D0D1F" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:GD_Date>
+- <w:r wsp:rsidR="0064041F">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Date</w:t> 
+  </w:r>
+  </ns0:GD_Date>
+  </w:p>
+  </w:tc>
+- <w:tc>
+- <w:tcPr>
+  <w:tcW w:w="5760" w:type="dxa" /> 
+  </w:tcPr>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="001B5D32" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:ActionDateFormat>
+- <w:r wsp:rsidR="00C13E90">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:sz w:val="25" /> 
+  <w:sz-cs w:val="25" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>29/12/2011</w:t> 
+  </w:r>
+  </ns0:ActionDateFormat>
+  </w:p>
+  </w:tc>
+  </w:tr>
+  </w:tbl>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRDefault="0064041F" wsp:rsidP="0064041F">
+- <w:pPr>
+  <w:widowControl w:val="off" /> 
+- <w:tabs>
+  <w:tab w:val="left" w:pos="720" /> 
+  <w:tab w:val="left" w:pos="1440" /> 
+  <w:tab w:val="left" w:pos="2790" /> 
+  <w:tab w:val="left" w:pos="5220" /> 
+  <w:tab w:val="left" w:pos="5940" /> 
+  <w:tab w:val="left" w:pos="9900" /> 
+  </w:tabs>
+  <w:ind w:right="630" /> 
+  <w:jc w:val="both" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="00F26600" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+  <w:widowControl w:val="off" /> 
+- <w:tabs>
+  <w:tab w:val="left" w:pos="720" /> 
+  <w:tab w:val="left" w:pos="1440" /> 
+  <w:tab w:val="left" w:pos="2790" /> 
+  <w:tab w:val="left" w:pos="5220" /> 
+  <w:tab w:val="left" w:pos="5940" /> 
+  <w:tab w:val="left" w:pos="9900" /> 
+  </w:tabs>
+  <w:ind w:right="630" /> 
+  <w:jc w:val="both" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="18" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:GD_FormInvitationEmp>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="00F26600">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="18" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>The following sections are intended to help you prepare for your performance review meeting with your manager. Be as specific as possible. Bring the completed form to your performance review session.</w:t> 
+  </w:r>
+  </ns0:GD_FormInvitationEmp>
+  </w:p>
+- <w:p wsp:rsidR="007C2739" wsp:rsidRDefault="007C2739" wsp:rsidP="007C2739">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <wx:pBdrGroup>
+- <wx:borders>
+  <wx:top wx:val="solid" wx:bdrwidth="10" wx:space="1" wx:color="auto" /> 
+  <wx:left wx:val="solid" wx:bdrwidth="10" wx:space="10" wx:color="auto" /> 
+  <wx:bottom wx:val="solid" wx:bdrwidth="10" wx:space="0" wx:color="auto" /> 
+  <wx:right wx:val="solid" wx:bdrwidth="10" wx:space="0" wx:color="auto" /> 
+  </wx:borders>
+  <wx:shd wx:bgcolor="D9D9D9" /> 
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="00652687" wsp:rsidRDefault="0064041F" wsp:rsidP="0064041F">
+- <w:pPr>
+  <w:pStyle w:val="Header" /> 
+  <w:keepNext /> 
+  <w:keepLines /> 
+- <w:pBdr>
+  <w:top w:val="single" w:sz="4" wx:bdrwidth="10" w:space="1" w:color="auto" /> 
+  <w:left w:val="single" w:sz="4" wx:bdrwidth="10" w:space="10" w:color="auto" /> 
+  <w:bottom w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  <w:right w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  </w:pBdr>
+  <w:shd w:val="clear" w:color="auto" w:fill="D9D9D9" /> 
+  <w:outlineLvl w:val="0" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <w:r>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>1.</w:t> 
+  </w:r>
+- <ns0:GD_ProjectsAndInitiatives>
+- <w:r wsp:rsidRPr="00652687">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Projects and Initiatives</w:t> 
+  </w:r>
+  </ns0:GD_ProjectsAndInitiatives>
+  </w:p>
+  </wx:pBdrGroup>
+- <w:p wsp:rsidR="009701F3" wsp:rsidRDefault="009701F3" wsp:rsidP="009701F3">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="0025008E" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:GD_ProjectsAndInitiativesLbl>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="0025008E">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Please list all projects and initiatives you participated in during this performance review period.</w:t> 
+  </w:r>
+  </ns0:GD_ProjectsAndInitiativesLbl>
+  </w:p>
+- <ns0:ProjectEmpList>
+- <ns0:EvaluationYearDetail>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRDefault="0064041F" wsp:rsidP="0064041F">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:listPr>
+  <w:ilvl w:val="0" /> 
+  <w:ilfo w:val="1" /> 
+  <wx:t wx:val="·" wx:wTabBefore="360" wx:wTabAfter="270" /> 
+  <wx:font wx:val="Symbol" /> 
+  </w:listPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:Description>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Pragmatiq</w:t> 
+  </w:r>
+  </ns0:Description>
+  </w:p>
+  </ns0:EvaluationYearDetail>
+  </ns0:ProjectEmpList>
+- <w:p wsp:rsidR="007C2739" wsp:rsidRDefault="007C2739" wsp:rsidP="007C2739">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="007C2739" wsp:rsidRDefault="007C2739" wsp:rsidP="007C2739">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <wx:pBdrGroup>
+- <wx:borders>
+  <wx:top wx:val="solid" wx:bdrwidth="10" wx:space="0" wx:color="auto" /> 
+  <wx:left wx:val="solid" wx:bdrwidth="10" wx:space="10" wx:color="auto" /> 
+  <wx:bottom wx:val="solid" wx:bdrwidth="10" wx:space="0" wx:color="auto" /> 
+  <wx:right wx:val="solid" wx:bdrwidth="10" wx:space="0" wx:color="auto" /> 
+  </wx:borders>
+  <wx:shd wx:bgcolor="D9D9D9" /> 
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="00A70467" wsp:rsidRDefault="0064041F" wsp:rsidP="0064041F">
+- <w:pPr>
+  <w:pStyle w:val="Header" /> 
+  <w:keepNext /> 
+  <w:keepLines /> 
+- <w:pBdr>
+  <w:top w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  <w:left w:val="single" w:sz="4" wx:bdrwidth="10" w:space="10" w:color="auto" /> 
+  <w:bottom w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  <w:right w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  </w:pBdr>
+  <w:shd w:val="clear" w:color="auto" w:fill="D9D9D9" /> 
+  <w:outlineLvl w:val="0" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <w:r>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>2.</w:t> 
+  </w:r>
+- <ns0:GD_Achievements>
+- <w:r wsp:rsidRPr="00652687">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Achievements</w:t> 
+  </w:r>
+  </ns0:GD_Achievements>
+- <w:r wsp:rsidRPr="00A70467">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t></w:t> 
+  </w:r>
+  </w:p>
+  </wx:pBdrGroup>
+- <w:p wsp:rsidR="006E4D7C" wsp:rsidRDefault="006E4D7C" wsp:rsidP="006E4D7C">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:GD_AchievementsLbl>
+- <w:r wsp:rsidR="0064041F">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>What do you consider to be your key accomplishments since your last review?</w:t> 
+  </w:r>
+  </ns0:GD_AchievementsLbl>
+  </w:p>
+- <ns0:AchievementEmpList>
+- <ns0:EvaluationYearDetail>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRDefault="0064041F" wsp:rsidP="0064041F">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:listPr>
+  <w:ilvl w:val="0" /> 
+  <w:ilfo w:val="1" /> 
+  <wx:t wx:val="·" wx:wTabBefore="360" wx:wTabAfter="270" /> 
+  <wx:font wx:val="Symbol" /> 
+  </w:listPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:Description>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Working on Pragmatiq</w:t> 
+  </w:r>
+  </ns0:Description>
+  </w:p>
+  </ns0:EvaluationYearDetail>
+  </ns0:AchievementEmpList>
+- <w:p wsp:rsidR="006E4D7C" wsp:rsidRDefault="006E4D7C" wsp:rsidP="006E4D7C">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="006E4D7C" wsp:rsidRDefault="006E4D7C" wsp:rsidP="006E4D7C">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <wx:pBdrGroup>
+- <wx:borders>
+  <wx:top wx:val="solid" wx:bdrwidth="10" wx:space="0" wx:color="auto" /> 
+  <wx:left wx:val="solid" wx:bdrwidth="10" wx:space="10" wx:color="auto" /> 
+  <wx:bottom wx:val="solid" wx:bdrwidth="10" wx:space="0" wx:color="auto" /> 
+  <wx:right wx:val="solid" wx:bdrwidth="10" wx:space="0" wx:color="auto" /> 
+  </wx:borders>
+  <wx:shd wx:bgcolor="D9D9D9" /> 
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="00A70467" wsp:rsidRDefault="0064041F" wsp:rsidP="0064041F">
+- <w:pPr>
+  <w:pStyle w:val="Header" /> 
+  <w:keepNext /> 
+  <w:keepLines /> 
+- <w:pBdr>
+  <w:top w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  <w:left w:val="single" w:sz="4" wx:bdrwidth="10" w:space="10" w:color="auto" /> 
+  <w:bottom w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  <w:right w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  </w:pBdr>
+  <w:shd w:val="clear" w:color="auto" w:fill="D9D9D9" /> 
+  <w:outlineLvl w:val="0" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <w:r>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>3.</w:t> 
+  </w:r>
+- <ns0:GD_JobResponsibilitiesEval>
+- <w:r>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Evaluation of Job Responsibilities</w:t> 
+  </w:r>
+  </ns0:GD_JobResponsibilitiesEval>
+- <w:r>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t></w:t> 
+  </w:r>
+  </w:p>
+  </wx:pBdrGroup>
+- <w:p wsp:rsidR="006955B9" wsp:rsidRDefault="006955B9" wsp:rsidP="006955B9">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:GD_JobResponsibilitiesLbl0>
+- <w:r wsp:rsidR="0064041F">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>This back over the review period.</w:t> 
+  </w:r>
+  </ns0:GD_JobResponsibilitiesLbl0>
+- <w:r wsp:rsidR="00C13E90">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>.</w:t> 
+  </w:r>
+- <w:r wsp:rsidR="0064041F">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t></w:t> 
+  </w:r>
+- <ns0:GD_JobResponsibilitiesLbl1>
+- <w:r wsp:rsidR="0064041F">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>List your key job responsibilities during your performance period. Please comment on your job performance assessment.</w:t> 
+  </w:r>
+  </ns0:GD_JobResponsibilitiesLbl1>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="00395822">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t></w:t> 
+  </w:r>
+  </w:p>
+- <ns0:ResponsibilityEmpList>
+- <ns0:EvaluationYearDetail>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRDefault="0064041F" wsp:rsidP="0064041F">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:listPr>
+  <w:ilvl w:val="0" /> 
+  <w:ilfo w:val="1" /> 
+  <wx:t wx:val="·" wx:wTabBefore="360" wx:wTabAfter="270" /> 
+  <wx:font wx:val="Symbol" /> 
+  </w:listPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:Description>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>developing Pragmatiq</w:t> 
+  </w:r>
+  </ns0:Description>
+  </w:p>
+  </ns0:EvaluationYearDetail>
+  </ns0:ResponsibilityEmpList>
+- <w:p wsp:rsidR="006E4D7C" wsp:rsidRDefault="006E4D7C" wsp:rsidP="006E4D7C">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:GD_JobResponsibilitiesLbl2>
+- <w:r wsp:rsidR="0064041F">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>If you have experienced challenges, please specify the areas where you need to focus and improve.</w:t> 
+  </w:r>
+  </ns0:GD_JobResponsibilitiesLbl2>
+  </w:p>
+- <ns0:ChallengeEmpList>
+- <ns0:EvaluationYearDetail>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRDefault="0064041F" wsp:rsidP="0064041F">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:listPr>
+  <w:ilvl w:val="0" /> 
+  <w:ilfo w:val="1" /> 
+  <wx:t wx:val="·" wx:wTabBefore="360" wx:wTabAfter="270" /> 
+  <wx:font wx:val="Symbol" /> 
+  </w:listPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:Description>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>desighning system's architecture</w:t> 
+  </w:r>
+  </ns0:Description>
+  </w:p>
+  </ns0:EvaluationYearDetail>
+  </ns0:ChallengeEmpList>
+- <w:p wsp:rsidR="006E4D7C" wsp:rsidRDefault="006E4D7C" wsp:rsidP="006E4D7C">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:GD_JobResponsibilitiesLbl3>
+- <w:r wsp:rsidR="0064041F">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Please mention what skills and/or knowledge do you need for further development to contribute to your overall job success.</w:t> 
+  </w:r>
+  </ns0:GD_JobResponsibilitiesLbl3>
+  </w:p>
+- <ns0:KnowledgeEmpList>
+- <ns0:EvaluationYearDetail>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRDefault="0064041F" wsp:rsidP="0064041F">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:listPr>
+  <w:ilvl w:val="0" /> 
+  <w:ilfo w:val="1" /> 
+  <wx:t wx:val="·" wx:wTabBefore="360" wx:wTabAfter="270" /> 
+  <wx:font wx:val="Symbol" /> 
+  </w:listPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:Description>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>knowledge in desighning architecture</w:t> 
+  </w:r>
+  </ns0:Description>
+  </w:p>
+  </ns0:EvaluationYearDetail>
+- <ns0:EvaluationYearDetail>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRDefault="0064041F" wsp:rsidP="0064041F">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:listPr>
+  <w:ilvl w:val="0" /> 
+  <w:ilfo w:val="1" /> 
+  <wx:t wx:val="·" wx:wTabBefore="360" wx:wTabAfter="270" /> 
+  <wx:font wx:val="Symbol" /> 
+  </w:listPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:Description>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>better knowledge of javascript</w:t> 
+  </w:r>
+  </ns0:Description>
+  </w:p>
+  </ns0:EvaluationYearDetail>
+- <ns0:EvaluationYearDetail>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRDefault="0064041F" wsp:rsidP="0064041F">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:listPr>
+  <w:ilvl w:val="0" /> 
+  <w:ilfo w:val="1" /> 
+  <wx:t wx:val="·" wx:wTabBefore="360" wx:wTabAfter="270" /> 
+  <wx:font wx:val="Symbol" /> 
+  </w:listPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:Description>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>better knowledge of python</w:t> 
+  </w:r>
+  </ns0:Description>
+  </w:p>
+  </ns0:EvaluationYearDetail>
+- <ns0:EvaluationYearDetail>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRDefault="0064041F" wsp:rsidP="0064041F">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:listPr>
+  <w:ilvl w:val="0" /> 
+  <w:ilfo w:val="1" /> 
+  <wx:t wx:val="·" wx:wTabBefore="360" wx:wTabAfter="270" /> 
+  <wx:font wx:val="Symbol" /> 
+  </w:listPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:Description>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>better knowledge of english</w:t> 
+  </w:r>
+  </ns0:Description>
+  </w:p>
+  </ns0:EvaluationYearDetail>
+  </ns0:KnowledgeEmpList>
+- <w:p wsp:rsidR="006E4D7C" wsp:rsidRDefault="006E4D7C" wsp:rsidP="006E4D7C">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="006E4D7C" wsp:rsidRDefault="006E4D7C" wsp:rsidP="006E4D7C">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <wx:pBdrGroup>
+- <wx:borders>
+  <wx:top wx:val="solid" wx:bdrwidth="10" wx:space="1" wx:color="auto" /> 
+  <wx:left wx:val="solid" wx:bdrwidth="10" wx:space="10" wx:color="auto" /> 
+  <wx:bottom wx:val="solid" wx:bdrwidth="10" wx:space="0" wx:color="auto" /> 
+  <wx:right wx:val="solid" wx:bdrwidth="10" wx:space="0" wx:color="auto" /> 
+  </wx:borders>
+  <wx:shd wx:bgcolor="D9D9D9" /> 
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="00214492" wsp:rsidRDefault="0064041F" wsp:rsidP="0064041F">
+- <w:pPr>
+  <w:pStyle w:val="Header" /> 
+  <w:keepNext /> 
+  <w:keepLines /> 
+- <w:pBdr>
+  <w:top w:val="single" w:sz="4" wx:bdrwidth="10" w:space="1" w:color="auto" /> 
+  <w:left w:val="single" w:sz="4" wx:bdrwidth="10" w:space="10" w:color="auto" /> 
+  <w:bottom w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  <w:right w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  </w:pBdr>
+  <w:shd w:val="clear" w:color="auto" w:fill="D9D9D9" /> 
+  <w:outlineLvl w:val="0" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <w:r>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>4.</w:t> 
+  </w:r>
+- <ns0:LR_Goals>
+- <w:r wsp:rsidRPr="00214492">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Goals</w:t> 
+  </w:r>
+  </ns0:LR_Goals>
+  </w:p>
+  </wx:pBdrGroup>
+- <w:p wsp:rsidR="006E4D7C" wsp:rsidRDefault="006E4D7C" wsp:rsidP="006E4D7C">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:sz w:val="25" /> 
+  <w:sz-cs w:val="25" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:GD_GoalsLbl1>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="00214492">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:sz w:val="25" /> 
+  <w:sz-cs w:val="25" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Goals and Accomplishments from the previous performance review</w:t> 
+  </w:r>
+  </ns0:GD_GoalsLbl1>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="00214492">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:sz w:val="25" /> 
+  <w:sz-cs w:val="25" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>:</w:t> 
+  </w:r>
+  </w:p>
+- <w:p wsp:rsidR="006E4D7C" wsp:rsidRDefault="006E4D7C" wsp:rsidP="006E4D7C">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRDefault="006E4D7C" wsp:rsidP="006E4D7C">
+- <w:pPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <w:r>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t></w:t> 
+  </w:r>
+- <w:r wsp:rsidR="0064041F">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>(</w:t> 
+  </w:r>
+- <ns0:GD_GoalsLbl2>
+- <w:r wsp:rsidR="0064041F">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>List your results based on the following rating scale: (i) below expectations, (ii) meet expectations and (iii) above expectations.</w:t> 
+  </w:r>
+  </ns0:GD_GoalsLbl2>
+- <w:r wsp:rsidR="00F14331">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>)</w:t> 
+  </w:r>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="006E4D7C" wsp:rsidRDefault="0064041F" wsp:rsidP="006E4D7C">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:tbl>
+- <w:tblPr>
+  <w:tblW w:w="0" w:type="auto" /> 
+  <w:tblInd w:w="-34" w:type="dxa" /> 
+- <w:tblBorders>
+  <w:top w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  <w:left w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  <w:bottom w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  <w:right w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  <w:insideH w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  <w:insideV w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  </w:tblBorders>
+  <w:tblLook w:val="00A0" /> 
+  </w:tblPr>
+- <w:tblGrid>
+  <w:gridCol w:w="3562" /> 
+  <w:gridCol w:w="2817" /> 
+  <w:gridCol w:w="3226" /> 
+  </w:tblGrid>
+- <w:tr wsp:rsidR="0064041F" wsp:rsidRPr="00214492" wsp:rsidTr="0064041F">
+- <w:tc>
+- <w:tcPr>
+  <w:tcW w:w="3562" w:type="dxa" /> 
+  <w:shd w:val="clear" w:color="auto" w:fill="E0E0E0" /> 
+  </w:tcPr>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="002241F9" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:sz w:val="25" /> 
+  <w:sz-cs w:val="25" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:LR_Goal>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="002241F9">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:sz w:val="25" /> 
+  <w:sz-cs w:val="25" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Goal</w:t> 
+  </w:r>
+  </ns0:LR_Goal>
+  </w:p>
+  </w:tc>
+- <w:tc>
+- <w:tcPr>
+  <w:tcW w:w="2817" w:type="dxa" /> 
+  <w:shd w:val="clear" w:color="auto" w:fill="E0E0E0" /> 
+  </w:tcPr>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="002241F9" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:sz w:val="25" /> 
+  <w:sz-cs w:val="25" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:LR_Results>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="002241F9">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:sz w:val="25" /> 
+  <w:sz-cs w:val="25" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Results</w:t> 
+  </w:r>
+  </ns0:LR_Results>
+  </w:p>
+  </w:tc>
+- <w:tc>
+- <w:tcPr>
+  <w:tcW w:w="3226" w:type="dxa" /> 
+  <w:shd w:val="clear" w:color="auto" w:fill="E0E0E0" /> 
+  </w:tcPr>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="002241F9" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:sz w:val="25" /> 
+  <w:sz-cs w:val="25" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:LR_Comment>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="002241F9">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:sz w:val="25" /> 
+  <w:sz-cs w:val="25" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Comment</w:t> 
+  </w:r>
+  </ns0:LR_Comment>
+  </w:p>
+  </w:tc>
+  </w:tr>
+  </w:tbl>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="00AC3B67" wsp:rsidRDefault="0064041F" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="000000" /> 
+  <w:sz w:val="2" /> 
+  <w:sz-cs w:val="2" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <ns0:Goals>
+- <w:tbl>
+- <w:tblPr>
+  <w:tblW w:w="0" w:type="auto" /> 
+  <w:tblInd w:w="-34" w:type="dxa" /> 
+- <w:tblBorders>
+  <w:top w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  <w:left w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  <w:bottom w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  <w:right w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  <w:insideH w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  <w:insideV w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  </w:tblBorders>
+  <w:tblLook w:val="00A0" /> 
+  </w:tblPr>
+- <w:tblGrid>
+  <w:gridCol w:w="3562" /> 
+  <w:gridCol w:w="2817" /> 
+  <w:gridCol w:w="3226" /> 
+  </w:tblGrid>
+  </w:tbl>
+- <w:p wsp:rsidR="006E4D7C" wsp:rsidRDefault="00A61BAE" wsp:rsidP="006E4D7C">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+  </ns0:Goals>
+- <w:p wsp:rsidR="006955B9" wsp:rsidRPr="006E4D7C" wsp:rsidRDefault="006955B9" wsp:rsidP="006E4D7C">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="00214492" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:sz w:val="25" /> 
+  <w:sz-cs w:val="25" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:GD_NextYearGoalsLbl>
+- <w:r wsp:rsidR="0064041F">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:sz w:val="25" /> 
+  <w:sz-cs w:val="25" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>What goals you would like to set for yourself for the next review period?</w:t> 
+  </w:r>
+  </ns0:GD_NextYearGoalsLbl>
+- <w:r wsp:rsidR="0064041F">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:sz w:val="25" /> 
+  <w:sz-cs w:val="25" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>:</w:t> 
+  </w:r>
+  </w:p>
+- <ns0:NextYearGoalsEmp>
+- <ns0:EvaluationGoal>
+- <w:p wsp:rsidR="006E4D7C" wsp:rsidRPr="006E4D7C" wsp:rsidRDefault="006E4D7C" wsp:rsidP="006E4D7C">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:listPr>
+  <w:ilvl w:val="0" /> 
+  <w:ilfo w:val="1" /> 
+  <wx:t wx:val="·" wx:wTabBefore="360" wx:wTabAfter="270" /> 
+  <wx:font wx:val="Symbol" /> 
+  </w:listPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:Goal>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Increasing knowledge of desighning application</w:t> 
+  </w:r>
+  </ns0:Goal>
+  </w:p>
+  </ns0:EvaluationGoal>
+- <ns0:EvaluationGoal>
+- <w:p wsp:rsidR="006E4D7C" wsp:rsidRPr="006E4D7C" wsp:rsidRDefault="006E4D7C" wsp:rsidP="006E4D7C">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:listPr>
+  <w:ilvl w:val="0" /> 
+  <w:ilfo w:val="1" /> 
+  <wx:t wx:val="·" wx:wTabBefore="360" wx:wTabAfter="270" /> 
+  <wx:font wx:val="Symbol" /> 
+  </w:listPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:Goal>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Increasing knowledge of English</w:t> 
+  </w:r>
+  </ns0:Goal>
+  </w:p>
+  </ns0:EvaluationGoal>
+- <ns0:EvaluationGoal>
+- <w:p wsp:rsidR="006E4D7C" wsp:rsidRPr="006E4D7C" wsp:rsidRDefault="006E4D7C" wsp:rsidP="006E4D7C">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:listPr>
+  <w:ilvl w:val="0" /> 
+  <w:ilfo w:val="1" /> 
+  <wx:t wx:val="·" wx:wTabBefore="360" wx:wTabAfter="270" /> 
+  <wx:font wx:val="Symbol" /> 
+  </w:listPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:Goal>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Increasing knowledge of Python, JavaScript</w:t> 
+  </w:r>
+  </ns0:Goal>
+  </w:p>
+  </ns0:EvaluationGoal>
+  </ns0:NextYearGoalsEmp>
+- <w:p wsp:rsidR="006E4D7C" wsp:rsidRPr="006E4D7C" wsp:rsidRDefault="006E4D7C" wsp:rsidP="006E4D7C">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="006E4D7C" wsp:rsidRPr="006E4D7C" wsp:rsidRDefault="006E4D7C" wsp:rsidP="006E4D7C">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <wx:pBdrGroup>
+- <wx:borders>
+  <wx:top wx:val="solid" wx:bdrwidth="10" wx:space="1" wx:color="auto" /> 
+  <wx:left wx:val="solid" wx:bdrwidth="10" wx:space="10" wx:color="auto" /> 
+  <wx:bottom wx:val="solid" wx:bdrwidth="10" wx:space="0" wx:color="auto" /> 
+  <wx:right wx:val="solid" wx:bdrwidth="10" wx:space="0" wx:color="auto" /> 
+  </wx:borders>
+  <wx:shd wx:bgcolor="D9D9D9" /> 
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="000A07CD" wsp:rsidRDefault="0064041F" wsp:rsidP="0064041F">
+- <w:pPr>
+  <w:pStyle w:val="Header" /> 
+  <w:keepNext /> 
+  <w:keepLines /> 
+- <w:pBdr>
+  <w:top w:val="single" w:sz="4" wx:bdrwidth="10" w:space="1" w:color="auto" /> 
+  <w:left w:val="single" w:sz="4" wx:bdrwidth="10" w:space="10" w:color="auto" /> 
+  <w:bottom w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  <w:right w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  </w:pBdr>
+  <w:shd w:val="clear" w:color="auto" w:fill="D9D9D9" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <w:r wsp:rsidRPr="00965DD7">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>5</w:t> 
+  </w:r>
+- <w:r>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>.</w:t> 
+  </w:r>
+- <ns0:LR_CareerDevelopPlan>
+- <w:r>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Long-term Career Objectives</w:t> 
+  </w:r>
+  </ns0:LR_CareerDevelopPlan>
+  </w:p>
+  </wx:pBdrGroup>
+- <w:p wsp:rsidR="006E4D7C" wsp:rsidRPr="006E4D7C" wsp:rsidRDefault="006E4D7C" wsp:rsidP="006E4D7C">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:GD_CareerDevelopPlanLbl>
+- <w:r wsp:rsidR="0064041F">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>What are your professional interests and long-term career objectives, and what are you plans to accomplish these objectives?</w:t> 
+  </w:r>
+  </ns0:GD_CareerDevelopPlanLbl>
+  </w:p>
+- <ns0:CareerDevelopmentPlanEmpList>
+- <ns0:EvaluationYearDetail>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRDefault="0064041F" wsp:rsidP="0064041F">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:listPr>
+  <w:ilvl w:val="0" /> 
+  <w:ilfo w:val="1" /> 
+  <wx:t wx:val="·" wx:wTabBefore="360" wx:wTabAfter="270" /> 
+  <wx:font wx:val="Symbol" /> 
+  </w:listPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:Description>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Working as developer</w:t> 
+  </w:r>
+  </ns0:Description>
+  </w:p>
+  </ns0:EvaluationYearDetail>
+  </ns0:CareerDevelopmentPlanEmpList>
+- <w:p wsp:rsidR="006E4D7C" wsp:rsidRPr="006E4D7C" wsp:rsidRDefault="006E4D7C" wsp:rsidP="006E4D7C">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="006E4D7C" wsp:rsidRPr="006E4D7C" wsp:rsidRDefault="006E4D7C" wsp:rsidP="006E4D7C">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <wx:pBdrGroup>
+- <wx:borders>
+  <wx:top wx:val="solid" wx:bdrwidth="10" wx:space="1" wx:color="auto" /> 
+  <wx:left wx:val="solid" wx:bdrwidth="10" wx:space="10" wx:color="auto" /> 
+  <wx:bottom wx:val="solid" wx:bdrwidth="10" wx:space="0" wx:color="auto" /> 
+  <wx:right wx:val="solid" wx:bdrwidth="10" wx:space="0" wx:color="auto" /> 
+  </wx:borders>
+  <wx:shd wx:bgcolor="D9D9D9" /> 
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="000A07CD" wsp:rsidRDefault="0064041F" wsp:rsidP="0064041F">
+- <w:pPr>
+  <w:pStyle w:val="Header" /> 
+  <w:keepNext /> 
+  <w:keepLines /> 
+- <w:pBdr>
+  <w:top w:val="single" w:sz="4" wx:bdrwidth="10" w:space="1" w:color="auto" /> 
+  <w:left w:val="single" w:sz="4" wx:bdrwidth="10" w:space="10" w:color="auto" /> 
+  <w:bottom w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  <w:right w:val="single" w:sz="4" wx:bdrwidth="10" w:space="0" w:color="auto" /> 
+  </w:pBdr>
+  <w:shd w:val="clear" w:color="auto" w:fill="D9D9D9" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <w:r>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>6.</w:t> 
+  </w:r>
+- <ns0:GD_Overlook>
+- <w:r>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Overall Job Satisfaction</w:t> 
+  </w:r>
+  </ns0:GD_Overlook>
+  </w:p>
+  </wx:pBdrGroup>
+- <w:p wsp:rsidR="006E4D7C" wsp:rsidRPr="006E4D7C" wsp:rsidRDefault="006E4D7C" wsp:rsidP="006E4D7C">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="00AF2970" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:GD_OverlookLbl4>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="00AF2970">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Please rate your overall job satisfaction, using a "1" to "10": "1" being the worst job you can imagine and "10" being your dream job</w:t> 
+  </w:r>
+  </ns0:GD_OverlookLbl4>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="00AF2970">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>:</w:t> 
+  </w:r>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:JobSatisfaction>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:b /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>7</w:t> 
+  </w:r>
+  </ns0:JobSatisfaction>
+  </w:p>
+- <w:p wsp:rsidR="006E4D7C" wsp:rsidRPr="006E4D7C" wsp:rsidRDefault="006E4D7C" wsp:rsidP="006E4D7C">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:GD_OverlookLbl1>
+- <w:r wsp:rsidR="0064041F">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Do you see any issues with your role within the company and/or your project(s)?</w:t> 
+  </w:r>
+  </ns0:GD_OverlookLbl1>
+  </w:p>
+- <ns0:IssueEmpList>
+- <ns0:EvaluationYearDetail>
+- <w:p wsp:rsidR="006E4D7C" wsp:rsidRPr="006E4D7C" wsp:rsidRDefault="006E4D7C" wsp:rsidP="006E4D7C">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:listPr>
+  <w:ilvl w:val="0" /> 
+  <w:ilfo w:val="1" /> 
+  <wx:t wx:val="·" wx:wTabBefore="360" wx:wTabAfter="270" /> 
+  <wx:font wx:val="Symbol" /> 
+  </w:listPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:Description>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>no</w:t> 
+  </w:r>
+  </ns0:Description>
+  </w:p>
+  </ns0:EvaluationYearDetail>
+  </ns0:IssueEmpList>
+- <w:p wsp:rsidR="006E4D7C" wsp:rsidRPr="006E4D7C" wsp:rsidRDefault="006E4D7C" wsp:rsidP="006E4D7C">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:GD_OverlookLbl2>
+- <w:r wsp:rsidR="0064041F">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Do you have any complaints?</w:t> 
+  </w:r>
+  </ns0:GD_OverlookLbl2>
+  </w:p>
+- <ns0:ComplaintEmpList>
+- <ns0:EvaluationYearDetail>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRDefault="0064041F" wsp:rsidP="0064041F">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:listPr>
+  <w:ilvl w:val="0" /> 
+  <w:ilfo w:val="1" /> 
+  <wx:t wx:val="·" wx:wTabBefore="360" wx:wTabAfter="270" /> 
+  <wx:font wx:val="Symbol" /> 
+  </w:listPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:Description>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>no</w:t> 
+  </w:r>
+  </ns0:Description>
+  </w:p>
+  </ns0:EvaluationYearDetail>
+  </ns0:ComplaintEmpList>
+- <w:p wsp:rsidR="006E4D7C" wsp:rsidRPr="006E4D7C" wsp:rsidRDefault="006E4D7C" wsp:rsidP="006E4D7C">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:GD_OverlookLbl3>
+- <w:r wsp:rsidR="0064041F">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:color w:val="BFBFBF" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Is there anything your manager could do to help you do a better job?</w:t> 
+  </w:r>
+  </ns0:GD_OverlookLbl3>
+  </w:p>
+- <ns0:ManagerHelpEmpList>
+- <ns0:EvaluationYearDetail>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRDefault="0064041F" wsp:rsidP="0064041F">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:listPr>
+  <w:ilvl w:val="0" /> 
+  <w:ilfo w:val="1" /> 
+  <wx:t wx:val="·" wx:wTabBefore="360" wx:wTabAfter="270" /> 
+  <wx:font wx:val="Symbol" /> 
+  </w:listPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:Description>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Give more advices how to develope application more correct and effective</w:t> 
+  </w:r>
+  </ns0:Description>
+  </w:p>
+  </ns0:EvaluationYearDetail>
+- <ns0:EvaluationYearDetail>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRDefault="0064041F" wsp:rsidP="0064041F">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+- <w:p wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8" wsp:rsidRDefault="00A61BAE" wsp:rsidP="0064041F">
+- <w:pPr>
+- <w:listPr>
+  <w:ilvl w:val="0" /> 
+  <w:ilfo w:val="1" /> 
+  <wx:t wx:val="·" wx:wTabBefore="360" wx:wTabAfter="270" /> 
+  <wx:font wx:val="Symbol" /> 
+  </w:listPr>
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+- <ns0:Description>
+- <w:r wsp:rsidR="0064041F" wsp:rsidRPr="002F58E8">
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  <w:t>Assess my work</w:t> 
+  </w:r>
+  </ns0:Description>
+  </w:p>
+  </ns0:EvaluationYearDetail>
+  </ns0:ManagerHelpEmpList>
+- <w:p wsp:rsidR="006E4D7C" wsp:rsidRPr="006E4D7C" wsp:rsidRDefault="006E4D7C" wsp:rsidP="006E4D7C">
+- <w:pPr>
+  <w:ind w:left="360" /> 
+- <w:rPr>
+  <w:rFonts w:cs="Arial" /> 
+  <w:sz w:val="20" /> 
+  <w:sz-cs w:val="20" /> 
+  <w:lang w:val="EN-US" /> 
+  </w:rPr>
+  </w:pPr>
+  </w:p>
+  <w:p wsp:rsidR="00532AD7" wsp:rsidRDefault="00A61BAE" /> 
+  </ns0:EvaluationYearReport>
+  </ns0:EvaluationYear>
+  </ns0:result>
+  
+- <w:sectPr wsp:rsidR="00532AD7" wsp:rsidSect="00C13E90">
+  
+  <w:pgSz w:w="11906" w:h="16838" /> 
+  
+  <w:pgMar w:top="1134" w:right="746" w:bottom="1134" w:left="1440" w:header="708" w:footer="708" w:gutter="0" /> 
+  
+  <w:cols w:space="708" /> 
+  
+  <w:rtlGutter /> 
+  
+  <w:docGrid w:line-pitch="360" /> 
+  
+  </w:sectPr>
+  
+  </wx:sect>
+  
+  </w:body>
+  
+- <o:CustomDocumentProperties>
+  
+  <o:processingInstructions dt:dt="string"></o:processingInstructions> 
+  
+  </o:CustomDocumentProperties>
+  
+  </w:wordDocument>
