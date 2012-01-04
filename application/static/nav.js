@@ -52,7 +52,7 @@ init(function(){
 var currentAnchor = "";
 //Function which check if there are anchor changes, if there are, sends the ajax petition
 function checkAnchor(){
-    if (document.readyState == "complete"){
+//    if (document.readyState == "complete"){
     //Check if it has changes
     if(currentAnchor != document.location.hash){
         if (currentAnchor == null) {
@@ -62,6 +62,7 @@ currentAnchor = document.location.hash;
 currentAnchor = document.location.hash;
         }
 
+if (document.readyState == "complete"){
 var url = currentAnchor.replace('#','');
 url = encodeURI(url);
 
@@ -77,7 +78,12 @@ if (role == 'employee'){
     $('#settings').html('').css('display','none');
 }
 $('.select_role').val(role);
+
 load(url);
 
-}}
+}
+        else{
+    currentAnchor = 'uncomplete';
+}
+    }
 }

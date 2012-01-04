@@ -22,18 +22,20 @@
     <!-- script -->
     {% block script %}
     <script type="text/javascript">
-        if (currentAnchor == ''){
+
             
     $(document).ready(function(){
-
-        var current_role = '{{current_role}}';
-        if (current_role == 'manager'){
-            load('/manager/home')
+        console.log(currentAnchor);
+        if (currentAnchor == ''){
+            var current_role = '{{current_role}}';
+            if (current_role == 'manager'){
+                window.location.href = '/#/manager/home';
+            }
+            else{
+                window.location.href = '/#/' + current_role;
+            }
         }
-        else{
-        load('/' + current_role);}
-
-    });}
+    });
 
     </script>
     {% endblock %}

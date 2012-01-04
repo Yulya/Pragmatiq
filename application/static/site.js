@@ -1,13 +1,13 @@
 function load_role(a){
-    console.log('role');
     if (a == 'manager'){
-        load('/manager/home')
+        window.location.href = '/#/manager/home'
     }
     if (a == 'employee'){
-        load('/employee')}
+        window.location.href = '/#/employee'
+    }
     
     if (a == 'hr'){
-        load('/hr')
+       window.location.href = '/#/hr'
     }
 }
 function delete_period(period_key){
@@ -156,12 +156,12 @@ function make_text(object){
 function display(obj){
     var object = $(document).find(obj);
     object.parent().find('div').css('display', 'block');
-    object.attr('onclick', 'hide(this)');
+    object.attr('onclick', 'hide(this); return false');
 }
 function hide(obj){
     var object = $(document).find(obj);
     object.parent().find('div').css('display', 'none');
-    object.attr('onclick', 'display(this)');
+    object.attr('onclick', 'display(this); return false');
 }
 function update_event(obj){
     var object = $(document).find(obj);
