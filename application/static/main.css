@@ -69,3 +69,9 @@ div { margin: 20px; }
     width: 100%;
     margin: auto auto 30px auto;
 }
+#accordion ul{
+    padding: 0px;
+}
+#accordion li{
+    margin-left: 25px;
+}
