@@ -11,14 +11,5 @@
         {% else %}
         <a href="/#/employee/pr/add/employee/{{pr.employee.key}}">create self AF</a>
         {% endif %}
-    {% else %}
-    <p>Upload your PR form</p>
-    <div>
-            <form action="{{upload_url}}" method="POST" enctype="multipart/form-data">
-                <input type='hidden' name='key' value={{user.key}}>
-                <input type="file" name="file"><br>
-                <input type="submit" name="submit" value="attach">
-            </form>
-    </div>
-     {% endif %}
+    {% endif %}
 {% endblock %}

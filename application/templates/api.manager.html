@@ -28,6 +28,7 @@
             </thead>
         {% endif %}
         {% for pr in dept.prs %}
+            {% if pr.is_open %}
                 <tr>
                     <td>{{pr.employee.first_name}}&nbsp;{{pr.employee.last_name}}</td>
                     <td>
@@ -48,7 +49,7 @@
                         {% endif %}
                     </td>
                 </tr>
-
+            {% endif %}
         {% endfor %}
         </table>
     {% endfor %}

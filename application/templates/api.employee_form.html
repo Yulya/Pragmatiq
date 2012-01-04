@@ -23,6 +23,16 @@
 <p>Manager: {{form.pr.manager.first_name}}&nbsp;{{form.pr.manager.last_name}}</p>
 <p>date: {{form.pr.date}}</p>
 </div>
+{% if not prev_form %}
+<div>
+    <p>Upload previous PR form</p>
+        <form action="{{upload_form_url}}" method="POST" enctype="multipart/form-data">
+            <input type='hidden' name='key' value={{form.pr.employee.key}}>
+            <input type="file" name="file"><br>
+            <input type="submit" name="submit" value="attach">
+        </form>
+</div>
+{% endif %}
 <div id='accordion'>
 
 <h3><a href="#">Projects and Initiatives</a></h3>

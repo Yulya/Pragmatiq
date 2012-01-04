@@ -45,6 +45,16 @@
 <p>date: {{form.pr.date}}</p>
 <p id="lock_info"></p>
 </div>
+{% if not prev_form %}
+<div>
+    <p>Upload previous PR form</p>
+        <form action="{{upload_form_url}}" method="POST" enctype="multipart/form-data">
+            <input type='hidden' name='key' value={{form.pr.employee.key}}>
+            <input type="file" name="file"><br>
+            <input type="submit" name="submit" value="attach">
+        </form>
+</div>
+{% endif %}
 
 
 <div id='accordion'>
@@ -63,7 +73,7 @@
 <h3><a href="#">Achievements and Challenges</a></h3>
     <div>
         <div id="prev_achievements">
-            <<a href="#" onclick="display(this); return false">Show previous achievements</a>
+            <a href="#" onclick="display(this); return false">Show previous achievements</a>
             <div class='hidden'>
                 <ul>
                 {% for achievement in prev_form.achievements %}

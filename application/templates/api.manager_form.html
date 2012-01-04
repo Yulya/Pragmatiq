@@ -35,17 +35,21 @@ $(document).ready(function(){
 {% block content %}
 
         <h1>Manager form</h1>
+
 <div id="info">
 <p>Manager Assessment Form for {{form.pr.employee.first_name}}&nbsp;{{form.pr.employee.last_name}}</p>
 <p>date: {{form.pr.date}}</p>
 <p id="lock_info"></p>
-shared to:
-<ul>
-    {% for editor in form.editors %}
-        <li>{{editor.user.first_name}}&nbsp;{{editor.user.last_name}}</li>
-    {% endfor %}
-</ul>
-<input type="button" id="share" value="share">
+{% if not prev_form %}
+<div>
+    <p>Upload previous PR form</p>
+        <form action="{{upload_form_url}}" method="POST" enctype="multipart/form-data">
+            <input type='hidden' name='key' value={{form.pr.employee.key}}>
+            <input type="file" name="file"><br>
+            <input type="submit" name="submit" value="attach">
+        </form>
+</div>
+{% endif %}
 </div>
 <div id='accordion'>
 <h3><a href="#">Projects and Initiatives</a></h3>

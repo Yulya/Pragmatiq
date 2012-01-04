@@ -64,6 +64,7 @@ from logic.web_handlers.update_manager_settings import UpdateManagerSettings
 from logic.web_handlers.update_pr_handler import UpdatePR
 from logic.web_handlers.upload_handler import UploadHandler
 from logic.web_handlers.upload_xls_handler import UploadXlsHandler
+from logic.web_handlers.upload_xml import UploadXml
 from logic.web_handlers.url_handler import UrlHandler
 from logic.web_handlers.user_table_handler import UserTable
 from logic.web_handlers.xls_parsing_handler import XlsParseHandler
@@ -118,7 +119,8 @@ def main():
                                           ('/get_users', GetJSONUsers),
                                           ('/hr', GetAllEmployees),
                                           ('/hr/new_period', HR),
-                                          ('/parse_form', ParseXml),
+                                          ('/upload_xml', UploadXml),
+                                          ('/parse_xml/(.*)/(.*)', ParseXml),
                                           ('/upload', UploadHandler),
                                           ('/upload_contacts', UploadXlsHandler),
                                           ('/upload_first_date', FirstDateParseHandler),

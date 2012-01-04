@@ -1,20 +1,20 @@
 import datetime
 import logging
+import urllib
 from xml.etree import ElementTree
+from google.appengine.ext.blobstore import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
 from logic.models import PerformanceReviewPeriod, PerformanceReview, User, Achievements, PerformanceReviewForm, Challenges, NextGoals
 
 class ParseXml(blobstore_handlers.BlobstoreUploadHandler):
     
-    def post(self):
+    def get(self, user_key, blob_key):
 
-        upload_files = self.get_uploads('file')
-        blob_info = upload_files[0]
+        blob_key = str(urllib.unquote(blob_key))
+        blob_info = blobstore.BlobInfo.get(blob_key)
 
         file = blob_info.open()
-        key = self.request.get('key')
-        employee = User.get(key)
-
+        employee = User.get(user_key)
 
         NAMESPACES = {
             'w':"http://schemas.microsoft.com/office/word/2003/wordml",
@@ -35,7 +35,27 @@ class ParseXml(blobstore_handlers.BlobstoreUploadHandler):
 
         date = parser.find('.//w:body//ns0:ActionDateFormat//w:t',
                           namespaces=NAMESPACES).text
-        logging.debug(date)
+        manager_type = parser.find('.//w:body//ns0:GD_ManagerAssessmentForm//w:t',
+                          namespaces=NAMESPACES)
+        if manager_type is None:
+            self.response.out.write('Error. You uploaded self form, not manager form')
+            return
+
+        fio = parser.find('.//w:body//ns0:EmployeeName//w:t',
+                          namespaces=NAMESPACES).text.replace('  ',' ').strip()
+
+        last_name, first_name = fio.split(' ')[:2]
+
+        employee_from_form = User.gql(
+            "WHERE last_name = :last_name AND first_name = :first_name",
+                                      last_name=last_name,
+                                      first_name=first_name).get()
+
+        if employee_from_form is None or employee_from_form.email != employee.email:
+            self.response.out.write('Error. You uploaded wrong form')
+
+            return
+
         date = datetime.datetime.strptime(date, '%d/%m/%Y').date()
         type = 'annual'
         description = "PR %s: %s-%s" % (type, date, date)
@@ -53,13 +73,9 @@ class ParseXml(blobstore_handlers.BlobstoreUploadHandler):
                                date=date)
         pr.put()
 
-        employee_form = PerformanceReviewForm(pr=pr,
-                                              status='approved',
-                                     type='employee')
-        employee_form.put()
         manager_form = PerformanceReviewForm(pr=pr,
                                              status='approved',
-                                     type='employee')
+                                     type='manager')
         manager_form.put()
 
         achievements = parser.findall('.//w:body//ns0:AchievementMngList//ns0:Description//w:t',
@@ -72,9 +88,6 @@ class ParseXml(blobstore_handlers.BlobstoreUploadHandler):
             ach = Achievements(value=achievement,
                                form=manager_form)
             ach.put()
-            ach = Achievements(value=achievement,
-                               form=employee_form)
-            ach.put()
 
         challenges = parser.findall('.//w:body//ns0:ChallengeMngList//ns0:Description//w:t',
                               namespaces=NAMESPACES)
@@ -85,10 +98,6 @@ class ParseXml(blobstore_handlers.BlobstoreUploadHandler):
                                form=manager_form)
             ch.put()
 
-            ch = Challenges(value=challenge,
-                               form=employee_form)
-            ch.put()
-
         goals = parser.findall('.//w:body//ns0:NextYearGoalsMng//ns0:Goal//w:t',
                               namespaces=NAMESPACES)
         for goal in goals:
@@ -97,10 +106,9 @@ class ParseXml(blobstore_handlers.BlobstoreUploadHandler):
             g = NextGoals(value=goal,
                                form=manager_form)
             g.put()
-            g = NextGoals(value=goal,
-                               form=employee_form)
-            g.put()
 
-        self.redirect('/')
+        pr = employee.self_pr.order("-date").get()
+
+        self.redirect('/#/manager/pr/get/manager/%s' %pr.key())
 
 
