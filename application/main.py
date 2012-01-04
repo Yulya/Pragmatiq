@@ -34,7 +34,6 @@ from logic.web_handlers.delete_pr import DeletePR
 from logic.web_handlers.detailed_report_handler import GetDetailedReport
 from logic.web_handlers.employee_form_draft import EmployeeFormDraft
 from logic.web_handlers.employee_form_submit_handler import EmployeeFormSubmit
-from logic.web_handlers.first_date_parse_handler import FirstDateParseHandler
 from logic.web_handlers.get_all_departments import HR
 from logic.web_handlers.get_all_employees import GetAllEmployees
 from logic.web_handlers.get_all_managers_handler import GetManagers
@@ -57,7 +56,6 @@ from logic.web_handlers.manager_settings import ManagerSettings
 from logic.web_handlers.parse_xml_form import ParseXml
 from logic.web_handlers.register_performance_review import RegisterPerformanceReview
 from logic.web_handlers.serve_handler import ServeHandler
-from logic.web_handlers.share_form_handler import ShareForm
 from logic.web_handlers.summary_report_handler import GetSummaryReport
 from logic.web_handlers.system_settings_handler import GetSettings
 from logic.web_handlers.update_data_handler import UpdateData
@@ -90,7 +88,6 @@ def main():
                                           ('/pr/create', CreatePR),
                                           ('/pr/update', UpdatePR),
                                           ('/employee', GetSelfPR),
-                                          ('/form/share', ShareForm),
                                           ('/lock_form/(.*)', LockFormHandler),
                                           ('/manager/home', ManagerHome),
                                           ('/manager/pr/get/manager/(.*)', GetManagerForm),

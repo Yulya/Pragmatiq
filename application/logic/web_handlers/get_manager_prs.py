@@ -1,7 +1,7 @@
 import logging
 import urllib
 from google.appengine.ext.webapp import RequestHandler, template
-from logic.models import PerformanceReview, SharedForm, Dept, WorkProject, User
+from logic.models import PerformanceReview, Dept, WorkProject, User
 
 
 class GetPrs(RequestHandler):
@@ -56,12 +56,9 @@ class GetPrs(RequestHandler):
                         if pr:
                             department.prs.append(pr)
 
-        shared_forms = SharedForm.all().filter('user', user).fetch(1000)
-
         template_values = {'dept': dept,
                            'depts': departments,
-                           'current_user': user.email,
-                           'shared_forms': shared_forms}
+                           'current_user': user.email}
 
         path = 'templates/api.manager.html'
         self.response.out.write(template.render(path, template_values))

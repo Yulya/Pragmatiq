@@ -11,57 +11,6 @@ var form_key= '{{form.key}}';
 var form_type='{{form.pr.period.type}}';
 var users_email = new Array();
 
-
-$(function() {
-		$( "#dialog:ui-dialog" ).dialog( "destroy" );
-
-		$( "#sharing-form" ).dialog({
-			autoOpen: false,
-			height: 500,
-			width: 500,
-			modal: true,
-            buttons: {"ok": function(){
-                                $( "#sharing-form" )
-                                    .find('.users_email')
-                                    .each(function(){
-                                    users_email.push($(this).html())
-                                       });
-
-                                    $( this ).dialog( "close" );
-
-                                    $('#shared_users').html('');
-
-                                    $.post('/form/share',
-                                            {'form_key': form_key,
-                                             'users': users_email.join(',')},
-                                              function(data){
-                                                message = data;
-                                                load(window.location.hash
-                                                        .replace('#',''));
-                                                            })
-                                        },
-                
-                      "cancel": function(){$( this ).dialog( "close" );}}
-		});
-	});
-        $( "#share" )
-			.click(function() {
-				$( "#sharing-form" ).dialog( "open" );
-			});
-        $( "#users" ).autocomplete({
-			source: "/get_users",
-			minLength: 1,
-            select: function( event, ui ) {
-                $('#shared_users')
-                        .append("<div><p class='users_email'>"
-                        + ui.item.value +
-                        "</p><input type='button' value='&times;' onclick='parent_replace(this)'></div>");
-			}
-
-        });
-
-$( "#users" ).focusout(function(){$(this).val('')});
-
 $(function() {
 		$( "#accordion" ).accordion();
 	});
@@ -84,12 +33,6 @@ $(document).ready(function(){
 <span class="breadcrump breadcrump_current">{{form.pr.employee.first_name}}&nbsp;{{form.pr.employee.last_name}}&nbsp;form</span>
 {% endblock %}
 {% block content %}
-
-<div id="sharing-form" title="Share form">
-	<p>Share to:</p>
-    <input type="text" id="users">
-    <div id="shared_users"></div>
-</div>
 
         <h1>Manager form</h1>
 <div id="info">
