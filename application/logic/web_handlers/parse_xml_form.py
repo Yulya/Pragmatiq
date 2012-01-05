@@ -8,13 +8,24 @@ from logic.models import PerformanceReviewPeriod, PerformanceReview, User, Achie
 
 class ParseXml(blobstore_handlers.BlobstoreUploadHandler):
     
-    def get(self, user_key, blob_key):
+    def get(self, role, pr_key, blob_key):
 
         blob_key = str(urllib.unquote(blob_key))
         blob_info = blobstore.BlobInfo.get(blob_key)
 
+        current_pr = PerformanceReview.get(pr_key)
+
+        if role == 'manager':
+            url = '/#/manager/pr/get/manager/%s' %current_pr.key()
+        elif role == 'hr':
+            url = '/#/hr/get/manager/%s' %current_pr.key()
+        elif role == 'employee':
+            url = '/#/employee/pr/get/employee/%s' %current_pr.key()
+
         file = blob_info.open()
-        employee = User.get(user_key)
+
+
+        employee = current_pr.employee
 
         NAMESPACES = {
             'w':"http://schemas.microsoft.com/office/word/2003/wordml",
@@ -38,7 +49,9 @@ class ParseXml(blobstore_handlers.BlobstoreUploadHandler):
         manager_type = parser.find('.//w:body//ns0:GD_ManagerAssessmentForm//w:t',
                           namespaces=NAMESPACES)
         if manager_type is None:
-            self.response.out.write('Error. You uploaded self form, not manager form')
+
+            self.redirect(url + '?err=incorrect_type' %current_pr.key())
+
             return
 
         fio = parser.find('.//w:body//ns0:EmployeeName//w:t',
@@ -52,8 +65,8 @@ class ParseXml(blobstore_handlers.BlobstoreUploadHandler):
                                       first_name=first_name).get()
 
         if employee_from_form is None or employee_from_form.email != employee.email:
-            self.response.out.write('Error. You uploaded wrong form')
 
+            self.redirect(url + '?err=incorrect_user' %current_pr.key())
             return
 
         date = datetime.datetime.strptime(date, '%d/%m/%Y').date()
@@ -107,8 +120,6 @@ class ParseXml(blobstore_handlers.BlobstoreUploadHandler):
                                form=manager_form)
             g.put()
 
-        pr = employee.self_pr.order("-date").get()
-
-        self.redirect('/#/manager/pr/get/manager/%s' %pr.key())
+        self.redirect(url + '?err=ok')
 
 

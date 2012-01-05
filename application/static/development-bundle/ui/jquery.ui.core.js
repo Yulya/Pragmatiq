@@ -290,7 +290,7 @@ $.extend( $.ui, {
 		if ( el[ scroll ] > 0 ) {
 			return true;
 		}
-	
+
 		// TODO: determine which cases actually cause this to happen
 		// if the element doesn't have the scroll set, see if it's possible to
 		// set the scroll

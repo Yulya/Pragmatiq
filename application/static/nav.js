@@ -46,23 +46,18 @@ var unlock_timer = false;
 var editing_form_open = false;
 //On load page, init the timer which check if the there are anchor changes each 300 ms
 init(function(){
-    setInterval("checkAnchor()", 10);
+    setInterval("checkAnchor()", 100);
 });
 
-var currentAnchor = "";
-//Function which check if there are anchor changes, if there are, sends the ajax petition
+var currentAnchor = document.location.hash;
+
+    //Function which check if there are anchor changes, if there are, sends the ajax petition
 function checkAnchor(){
-//    if (document.readyState == "complete"){
     //Check if it has changes
     if(currentAnchor != document.location.hash){
-        if (currentAnchor == null) {
-currentAnchor = document.location.hash;
-            return
-        } else {
-currentAnchor = document.location.hash;
-        }
 
-if (document.readyState == "complete"){
+    currentAnchor = document.location.hash;
+
 var url = currentAnchor.replace('#','');
 url = encodeURI(url);
 
@@ -80,10 +75,6 @@ if (role == 'employee'){
 $('.select_role').val(role);
 
 load(url);
-
-}
-        else{
-    currentAnchor = 'uncomplete';
 }
     }
-}
+

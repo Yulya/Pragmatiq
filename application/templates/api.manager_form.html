@@ -23,6 +23,24 @@ $(document).ready(function(){
     lock_timer = lock_form();
 
 });
+    var parameters = window.location.href.split('?').length > 1;
+if (parameters){
+    var parameter =  window.location.href.split('?')[1].split('=')[0];
+    var value =  window.location.href.split('?')[1].split('=')[1];
+    if (parameter == 'err'){var err = value}
+
+if (err == 'incorrect_type'){
+    message = 'Error. We expect you to upload manager assessment form';
+}
+if (err == 'incorrect_user'){
+    message = 'Error. Wrong employee';
+}
+if (err == 'ok'){
+    message = 'You succesfully uploaded PR form';
+}
+window.location.href = window.location.href.split('?')[0]
+}
+
 
 </script>
 {% endblock %}
@@ -44,7 +62,8 @@ $(document).ready(function(){
 <div>
     <p>Upload previous PR form</p>
         <form action="{{upload_form_url}}" method="POST" enctype="multipart/form-data">
-            <input type='hidden' name='key' value={{form.pr.employee.key}}>
+            <input type='hidden' name='key' value={{form.pr.key}}>
+            <input type='hidden' name='role' value='manager'>
             <input type="file" name="file"><br>
             <input type="submit" name="submit" value="attach">
         </form>

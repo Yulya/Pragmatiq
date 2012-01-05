@@ -25,18 +25,22 @@
 
             
     $(document).ready(function(){
-        console.log(currentAnchor);
+
         if (currentAnchor == ''){
-            
+
             var current_role = '{{current_role}}';
+            if (current_role) {
             if (current_role == 'manager'){
                 window.location.href = '/#/manager/home';
             }
             else{
                 window.location.href = '/#/' + current_role;
-            }
+            }}
         }
-    });
+        else{
+            currentAnchor = '';
+        }
+    })
 
     </script>
     {% endblock %}

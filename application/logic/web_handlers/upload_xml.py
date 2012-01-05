@@ -9,7 +9,8 @@ class UploadXml(blobstore_handlers.BlobstoreUploadHandler):
         blob_info = upload_files[0]
 
         key = self.request.get('key')
+        role = self.request.get('role')
         
-        self.redirect('/parse_xml/%s/%s' %(key, blob_info.key()))
+        self.redirect('/parse_xml/%s/%s/%s' %(role, key, blob_info.key()))
 
   

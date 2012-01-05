@@ -13,11 +13,12 @@ class UpdateData(RequestHandler):
             self.error(405)
             return
 
-        if self.request.get('value') == '':
+        if self.request.get('value') == '' and not self.request.get('result'):
             obj.delete()
             return
 
-        obj.value = self.request.get('value')
+        if self.request.get('value'):
+            obj.value = self.request.get('value')
 
         try:
             obj.manager = self.request.environ['current_user']

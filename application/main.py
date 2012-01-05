@@ -120,7 +120,7 @@ def main():
                                           ('/hr', GetAllEmployees),
                                           ('/hr/new_period', HR),
                                           ('/upload_xml', UploadXml),
-                                          ('/parse_xml/(.*)/(.*)', ParseXml),
+                                          ('/parse_xml/(.*)/(.*)/(.*)', ParseXml),
                                           ('/upload', UploadHandler),
                                           ('/upload_contacts', UploadXlsHandler),
                                           ('/upload_first_date', FirstDateParseHandler),
