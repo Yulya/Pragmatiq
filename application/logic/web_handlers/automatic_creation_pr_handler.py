@@ -23,6 +23,7 @@ class AutomaticPerformanceReview(RequestHandler):
         for employee in employees:
 
             first_date = employee.first_date
+
             if not first_date:
                 first_date = datetime.date.min
 
@@ -50,6 +51,7 @@ class AutomaticPerformanceReview(RequestHandler):
             for event in events:
 
                 delta = next_pr_start_date - event.start_date
+
                 if next_pr_start_date > today:
 
                     if delta < month and delta > -month:

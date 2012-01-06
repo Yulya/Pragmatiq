@@ -52,6 +52,7 @@ var uiDialogClasses =
 	};
 
 $.widget("ui.dialog", {
+    
 	options: {
 		autoOpen: true,
 		buttons: {},
@@ -87,7 +88,6 @@ $.widget("ui.dialog", {
 	},
 
 	_create: function() {
-
 		this.originalTitle = this.element.attr('title');
 		// #5742 - .attr() might return a DOMElement
 		if ( typeof this.originalTitle !== "string" ) {
@@ -102,7 +102,8 @@ $.widget("ui.dialog", {
 			titleId = $.ui.dialog.getTitleId(self.element),
 
 			uiDialog = (self.uiDialog = $('<div></div>'))
-				.appendTo(document.body)
+//				.appendTo(document.body)
+				.appendTo('.result')
 				.hide()
 				.addClass(uiDialogClasses + options.dialogClass)
 				.css({
@@ -186,10 +187,10 @@ $.widget("ui.dialog", {
 		//handling of deprecated beforeclose (vs beforeClose) option
 		//Ticket #4669 http://dev.jqueryui.com/ticket/4669
 		//TODO: remove in 1.9pre
+
 		if ($.isFunction(options.beforeclose) && !$.isFunction(options.beforeClose)) {
 			options.beforeClose = options.beforeclose;
 		}
-
 		uiDialogTitlebar.find("*").add(uiDialogTitlebar).disableSelection();
 
 		if (options.draggable && $.fn.draggable) {
@@ -205,6 +206,7 @@ $.widget("ui.dialog", {
 		if ($.fn.bgiframe) {
 			uiDialog.bgiframe();
 		}
+
 	},
 
 	_init: function() {

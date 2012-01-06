@@ -73,11 +73,19 @@ class ParseXml(blobstore_handlers.BlobstoreUploadHandler):
         type = 'annual'
         description = "PR %s: %s-%s" % (type, date, date)
 
-        period = PerformanceReviewPeriod(start_date=date,
-                                         finish_date=date,
-                                         description=description,
-                                         type=type)
-        period.put()
+        month = datetime.timedelta(days=30)
+
+        period = PerformanceReviewPeriod.gql("WHERE start_date >= \
+                                            :min_start_date AND \
+                                            start_date <= :max_start_date",
+                                             max_start_date=date+month,
+                                             min_start_date=date-month).get()
+        if period is None:
+            period = PerformanceReviewPeriod(start_date=date,
+                                             finish_date=date,
+                                             description=description,
+                                             type=type)
+            period.put()
 
         pr = PerformanceReview(employee=employee,
                                first_effective_date=employee.first_date,

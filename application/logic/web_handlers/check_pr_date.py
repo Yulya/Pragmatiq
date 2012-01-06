@@ -11,8 +11,9 @@ class CheckDate(RequestHandler):
         today = datetime.date.today()
         subject = 'Performance Review'
 
-        two_weeks = datetime.timedelta(days=14)
+        month = datetime.timedelta(days=30)
         week = datetime.timedelta(days=7)
+        day = datetime.timedelta(days=1)
 
         prs = PerformanceReview.all().filter('start_date >=', today)
 
@@ -22,6 +23,6 @@ class CheckDate(RequestHandler):
             text = 'Your Performance Review starts in ' \
                    + str(delta.days) + ' days'
 
-            if delta == two_weeks or delta <= week:
+            if delta == month or delta == week or delta == day:
 
                 send_message(pr.employee.email, subject, text)
