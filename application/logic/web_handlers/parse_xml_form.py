@@ -4,7 +4,9 @@ import urllib
 from xml.etree import ElementTree
 from google.appengine.ext.blobstore import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
-from logic.models import PerformanceReviewPeriod, PerformanceReview, User, Achievements, PerformanceReviewForm, Challenges, NextGoals
+from logic.models import PerformanceReviewPeriod, \
+    PerformanceReview, User, Achievements, PerformanceReviewForm,\
+    Challenges, NextGoals
 
 class ParseXml(blobstore_handlers.BlobstoreUploadHandler):
     
@@ -21,6 +23,8 @@ class ParseXml(blobstore_handlers.BlobstoreUploadHandler):
             url = '/#/hr/get/manager/%s' %current_pr.key()
         elif role == 'employee':
             url = '/#/employee/pr/get/employee/%s' %current_pr.key()
+        else:
+            url = '/'
 
         file = blob_info.open()
 
@@ -40,13 +44,20 @@ class ParseXml(blobstore_handlers.BlobstoreUploadHandler):
             'ns0':"GD_AssessmentReportManager.xsl",
         }
 
-        ElementTree.register_namespace('o', 'urn:schemas-microsoft-com:office:office')
+        ElementTree.register_namespace(
+                                'o',
+                                'urn:schemas-microsoft-com:office:office')
 
-        parser = ElementTree.parse(file)
+        try:
+            parser = ElementTree.parse(file)
+        except SyntaxError:
+            self.redirect(url + '?err=incorrect_type' %current_pr.key())
+            return
 
         date = parser.find('.//w:body//ns0:ActionDateFormat//w:t',
                           namespaces=NAMESPACES).text
-        manager_type = parser.find('.//w:body//ns0:GD_ManagerAssessmentForm//w:t',
+        manager_type = parser.find(
+                          './/w:body//ns0:GD_ManagerAssessmentForm//w:t',
                           namespaces=NAMESPACES)
         if manager_type is None:
 
@@ -64,7 +75,8 @@ class ParseXml(blobstore_handlers.BlobstoreUploadHandler):
                                       last_name=last_name,
                                       first_name=first_name).get()
 
-        if employee_from_form is None or employee_from_form.email != employee.email:
+        if employee_from_form is None or \
+            employee_from_form.email != employee.email:
 
             self.redirect(url + '?err=incorrect_user' %current_pr.key())
             return
@@ -99,8 +111,10 @@ class ParseXml(blobstore_handlers.BlobstoreUploadHandler):
                                      type='manager')
         manager_form.put()
 
-        achievements = parser.findall('.//w:body//ns0:AchievementMngList//ns0:Description//w:t',
-                              namespaces=NAMESPACES)
+        achievements = parser.findall(
+                    './/w:body//ns0:AchievementMngList//ns0:Description//w:t',
+                    namespaces=NAMESPACES)
+
         for achievement in achievements:
 
             achievement = achievement.text.replace('\n', '').replace('  ',' ')
@@ -110,8 +124,10 @@ class ParseXml(blobstore_handlers.BlobstoreUploadHandler):
                                form=manager_form)
             ach.put()
 
-        challenges = parser.findall('.//w:body//ns0:ChallengeMngList//ns0:Description//w:t',
-                              namespaces=NAMESPACES)
+        challenges = parser.findall(
+                    './/w:body//ns0:ChallengeMngList//ns0:Description//w:t',
+                    namespaces=NAMESPACES)
+
         for challenge in challenges:
 
             challenge = challenge.text.replace('\n', '').replace('  ',' ')
@@ -119,8 +135,10 @@ class ParseXml(blobstore_handlers.BlobstoreUploadHandler):
                                form=manager_form)
             ch.put()
 
-        goals = parser.findall('.//w:body//ns0:NextYearGoalsMng//ns0:Goal//w:t',
-                              namespaces=NAMESPACES)
+        goals = parser.findall(
+                    './/w:body//ns0:NextYearGoalsMng//ns0:Goal//w:t',
+                    namespaces=NAMESPACES)
+        
         for goal in goals:
 
             goal = goal.text.replace('\n', '').replace('  ',' ')
