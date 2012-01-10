@@ -1,4 +1,4 @@
-import json
+from django.utils import simplejson
 from google.appengine.ext.webapp import RequestHandler
 from logic.models import User
 
@@ -15,5 +15,5 @@ class GetJSONUsers(RequestHandler):
 
         user_list = map(lambda x: x.email, users)
 
-        user_list_json = json.dumps(user_list)
+        user_list_json = simplejson.dumps(user_list)
         self.response.out.write(user_list_json)
