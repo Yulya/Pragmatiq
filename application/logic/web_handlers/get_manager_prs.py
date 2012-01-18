@@ -1,7 +1,7 @@
 import logging
 import urllib
 from google.appengine.ext.webapp import RequestHandler, template
-from logic.models import PerformanceReview, Dept, WorkProject, User
+from logic.models import PerformanceReview, Dept, WorkProject, User, PerformanceReviewPeriod
 
 
 class GetPrs(RequestHandler):
@@ -55,6 +55,12 @@ class GetPrs(RequestHandler):
                         pr = employee.self_pr.order('-date').get()
                         if pr:
                             department.prs.append(pr)
+
+            if not departments:
+                departments = PerformanceReviewPeriod.all().filter('description', dept).fetch(1000)
+                for department in departments:
+                    department.prs = department.performance_reviews.fetch(1000)
+                    department.prs = filter(lambda x: x.manager.email == user.email, department.prs)
 
         template_values = {'dept': dept,
                            'depts': departments,

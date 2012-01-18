@@ -25,7 +25,7 @@
 <h1>Archived Performance Reviews</h1>
 <ul class="pr_archived">
     {% for pr in prs %}
-    <li><a href="#">{{pr.description}}</a></li>
+    <li><a href="#/manager/get/{{pr.description}}">{{pr.description}}</a></li>
     {% endfor %}
 </ul>
 {% endif %}
