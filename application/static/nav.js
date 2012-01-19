@@ -50,12 +50,13 @@ init(function(){
 });
 
 var currentAnchor = document.location.hash;
+console.log('init');
 
     //Function which check if there are anchor changes, if there are, sends the ajax petition
 function checkAnchor(){
     //Check if it has changes
     if(currentAnchor != document.location.hash){
-
+        console.log('anchor changed');
     currentAnchor = document.location.hash;
 
 var url = currentAnchor.replace('#','');

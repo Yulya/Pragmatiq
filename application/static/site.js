@@ -22,10 +22,12 @@ function hide_hint(){
     }
 
 function load(url) {
+
     editing_form_open = false;
     
     $('.result').css('display', 'block');
     $('.result').load(url);
+        console.log('loaded new page');
     if (lock_timer){
         clearInterval(lock_timer);
     }
