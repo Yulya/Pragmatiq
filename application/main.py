@@ -37,10 +37,12 @@ from logic.web_handlers.employee_form_submit_handler import EmployeeFormSubmit
 from logic.web_handlers.get_all_departments import HR
 from logic.web_handlers.get_all_employees import GetAllEmployees
 from logic.web_handlers.get_all_managers_handler import GetManagers
+from logic.web_handlers.get_department_prs import GetDepartmentPrs
 from logic.web_handlers.get_eaf_handler import GetEmployeeForm
 from logic.web_handlers.get_maf_handler import GetManagerForm
 from logic.postdeploy import PostDeploy
-from logic.web_handlers.get_manager_prs import GetPrs
+from logic.web_handlers.get_period_prs import GetPeriodPrs
+from logic.web_handlers.get_project_prs import GetProjectPrs
 from logic.web_handlers.get_projects_handler import GetProjects
 from logic.web_handlers.get_self_pr_handler import GetSelfPR
 from logic.web_handlers.hr_maf_handler import HRManagerForm
@@ -115,7 +117,9 @@ def main():
                                           ('/pr/manager/check/(.*)', CheckFormContent),
                                           ('/manager/settings', ManagerSettings),
                                           ('/manager/settings/update', UpdateManagerSettings),
-                                          ('/manager/get/(.*)',GetPrs),
+                                          ('/manager/get/department/(.*)',GetDepartmentPrs),
+                                          ('/manager/get/project/(.*)',GetProjectPrs),
+                                          ('/manager/get/period/(.*)',GetPeriodPrs),
                                           ('/get_users', GetJSONUsers),
                                           ('/hr', GetAllEmployees),
                                           ('/hr/new_period', HR),

@@ -46,7 +46,7 @@ var unlock_timer = false;
 var editing_form_open = false;
 //On load page, init the timer which check if the there are anchor changes each 300 ms
 init(function(){
-    setInterval("checkAnchor()", 100);
+    setInterval("checkAnchor()", 500);
 });
 
 var currentAnchor = document.location.hash;
@@ -61,6 +61,7 @@ function checkAnchor(){
 
 var url = currentAnchor.replace('#','');
 url = encodeURI(url);
+        console.log('3');
 
 var role = url.split("/")[1];
 
@@ -73,9 +74,15 @@ if (role == 'hr'){
 if (role == 'employee'){
     $('#settings').html('').css('display','none');
 }
+        console.log('4');
+
 $('.select_role').val(role);
+        console.log('5');
+
 
 load(url);
+        console.log('6');
+
 }
     }
 
