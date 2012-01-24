@@ -28,16 +28,19 @@
 
         if (currentAnchor == ''){
 
+            console.log('11');
             var current_role = '{{current_role}}';
             if (current_role) {
             if (current_role == 'manager'){
                 window.location.href = '/#/manager/home';
             }
             else{
+
                 window.location.href = '/#/' + current_role;
             }}
         }
         else{
+            console.log('12');
             currentAnchor = '';
         }
     })

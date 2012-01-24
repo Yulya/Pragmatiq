@@ -3,12 +3,14 @@
 {% block script %}
     <script type="text/javascript">
 
+
         var form_key= '{{form.key}}';
         var form_type='{{form.type}}';
 
         $(function() {
                 $( "#accordion" ).accordion();
             });
+        console.log('13');
     var parameters = window.location.href.split('?').length > 1;
 if (parameters){
     var parameter =  window.location.href.split('?')[1].split('=')[0];
@@ -26,6 +28,8 @@ if (err == 'ok'){
 }
 window.location.href = window.location.href.split('?')[0]
 }
+
+//}
     </script>
 {% endblock %}
 

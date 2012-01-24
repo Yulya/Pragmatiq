@@ -1,0 +1,50 @@
+{% extends "_api_base.html" %}
+
+{% block breadcrumps %}
+<span class="breadcrump"><a href="#/manager/home">Home</a></span>&nbsp;&gt;
+<span class="breadcrump breadcrump_current">{{name}}</span>
+{% endblock %}
+
+{% block content %}
+{% if not periods %}
+    No reviews currently available
+{% else %}
+    {% for period in periods %}
+        {% if period.prs %}
+        <div>
+        <a href = '/#/manager/get/period/{{period.description}}'>Period: {{period.description}}</a></div>
+        <table>
+            <thead>
+                <tr>
+                    <td>Employee</td>
+                    <td>Manager&nbsp;form</td>
+                    <td>Employee&nbsp;form</td>
+                </tr>
+            </thead>
+        {% endif %}
+        {% for pr in period.prs %}
+                <tr>
+                    <td>{{pr.employee.first_name}}&nbsp;{{pr.employee.last_name}}</td>
+                    <td>
+                        {% if pr.manager_form %}
+                            <a href="#/manager/pr/get/manager/{{pr.key}}">load</a>
+                        {% else %}
+                            <a href="#/manager/pr/add/manager/{{pr.employee.key}}">create</a>
+                        {% endif %}
+                    </td>
+                    <td>{% if pr.employee_form %}
+                            {% ifnotequal pr.employee_form.status 'draft' %}
+                                <a href="#/manager/pr/get/employee/{{pr.key}}">load</a>
+                            {% else %}
+                                <p>none</p>
+                            {% endifnotequal %}
+                        {% else %}
+                                <p>none</p>
+                        {% endif %}
+                    </td>
+                </tr>
+        {% endfor %}
+        </table>
+    {% endfor %}
+{% endif %}
+{% endblock %}
