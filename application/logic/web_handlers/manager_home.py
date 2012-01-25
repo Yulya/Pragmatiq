@@ -14,7 +14,7 @@ class ManagerHome(RequestHandler):
                                              manager)
 
         for pr in prs:
-            if pr.is_open:
+            if pr.period.is_open:
                 if not pr.employee.dept.key() in user_departments:
                     user_departments.append(pr.employee.dept.key())
 

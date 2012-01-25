@@ -5,11 +5,18 @@
 {% endblock %}
 
 {% block content %}
-    {% if pr %}
-        {% if pr.employee_form %}
-        <a href="/#/employee/pr/get/employee/{{pr.key}}">load self AF</a>
+    {% if current_pr %}
+        <h1>Current PR</h1>
+        {% if current_pr.employee_form %}
+        <a href="/#/employee/pr/get/employee/{{current_pr.key}}">load self AF</a>
         {% else %}
-        <a href="/#/employee/pr/add/employee/{{pr.employee.key}}">create self AF</a>
+        <a href="/#/employee/pr/add/employee/{{current_pr.employee.key}}">create self AF</a>
         {% endif %}
+    {% endif %}
+    {% if prs %}
+        <h1>Archived Performance Reviews</h1>
+        {% for pr in prs %}
+            <a href="/#/employee/pr/get/employee/{{pr.key}}">{{pr.period.description}}</a>
+        {% endfor %}
     {% endif %}
 {% endblock %}

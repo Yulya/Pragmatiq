@@ -50,18 +50,16 @@ init(function(){
 });
 
 var currentAnchor = document.location.hash;
-console.log('init');
 
     //Function which check if there are anchor changes, if there are, sends the ajax petition
 function checkAnchor(){
     //Check if it has changes
     if(currentAnchor != document.location.hash){
-        console.log('anchor changed');
+        
     currentAnchor = document.location.hash;
 
 var url = currentAnchor.replace('#','');
 url = encodeURI(url);
-        console.log('3');
 
 var role = url.split("/")[1];
 
@@ -74,14 +72,10 @@ if (role == 'hr'){
 if (role == 'employee'){
     $('#settings').html('').css('display','none');
 }
-        console.log('4');
 
 $('.select_role').val(role);
-        console.log('5');
-
 
 load(url);
-        console.log('6');
 
 }
     }

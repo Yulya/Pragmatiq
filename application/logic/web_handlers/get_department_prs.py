@@ -38,7 +38,7 @@ class GetDepartmentPrs(RequestHandler):
 
         for department in departments:
             department.prs = filter(lambda x: x.employee.dept.name
-            == department.name and x.is_open, prs)
+            == department.name and x.period.is_open, prs)
 
         template_values = {'name': name,
                            'depts': departments,

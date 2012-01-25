@@ -27,7 +27,12 @@ class BaseFormHandler(RequestHandler):
                 self.error(405)
                 return
 
+        if not pr.is_open:
+            self.type = 'manager'
+            self.path = 'templates/api.readonly_maf.html'
+
         form = pr.forms.filter('type', self.type).get()
+
         prev_pr = PerformanceReview.all().order('-date').\
                                         filter('date <', pr.date).\
                                         filter('employee', pr.employee).get()

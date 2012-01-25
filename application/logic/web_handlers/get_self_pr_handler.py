@@ -8,15 +8,25 @@ class GetSelfPR(RequestHandler):
 
         user = self.request.environ['current_user']
 
-        pr = PerformanceReview.all().filter('employee', user).\
-                                     order('-date').get()
-        try:
-            form = pr.employee_form
-        except AttributeError:
-            pr = None
+        prs = PerformanceReview.all().filter('employee', user).order('-date')
+        prs = prs.fetch(1000)
 
-        template_values = {'pr': pr,
-                            'user': user
+        current_pr = None
+
+        if prs:
+            if prs[0].is_open:
+                current_pr = prs[0]
+                prs.remove(prs[0])
+#
+#        if current_pr:
+#            try:
+#                form = pr.employee_form
+#            except AttributeError:
+#                pr = None
+
+        template_values = {'current_pr': current_pr,
+                           'prs': prs,
+                           'user': user
                         }
 
         path = 'templates/api.employee.html'
