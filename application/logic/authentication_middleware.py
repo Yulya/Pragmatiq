@@ -1,4 +1,5 @@
 import base64
+import logging
 from google.appengine.api import users
 from google.appengine.ext.db import Model
 from webob import Request, Response
@@ -47,8 +48,9 @@ class Authentication(object):
                     resp = Response(status="401")
                     return resp(environ, start_response)
             else:
-                user_info = User.all().filter('email', str(current_user.email())).get()
-                
+                email = str(current_user.email()).strip()
+                user_info = User.all().filter('email', email).get()
+
                 if user_info is None:
                     user_info = User(
                         email=current_user.email())
