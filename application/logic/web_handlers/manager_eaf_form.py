@@ -5,7 +5,7 @@ from logic.web_handlers.base_form_handler import BaseFormHandler
 class ManagerEmployeeForm(BaseFormHandler):
 
     template_values = {}
-    path = 'templates/api.readonly_eaf.html'
+    path = 'templates/api.manager_eaf.html'
     type = 'employee'
 
     def get(self, key):

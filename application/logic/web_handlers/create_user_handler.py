@@ -35,7 +35,10 @@ class CreateUser(RequestHandler):
         user.position = position
 
         first_date =  self.request.get('first_date')
-        first_date = datetime.datetime.strptime(first_date, '%Y-%m-%d').date()
+        try:
+            first_date = datetime.datetime.strptime(first_date, '%Y-%m-%d').date()
+        except ValueError:
+            first_date = None
         user.first_date = first_date
 
         dept = self.request.get('dept')
@@ -53,12 +56,12 @@ class CreateUser(RequestHandler):
         user.manager = manager
 
         roles = self.request.get('role')[:-1].split(',')
-        for role in roles:
-                    role_key = Role.gql("WHERE value = :role",
-                                        role=role).get().key()
-                    if role_key not in user.role:
-                        user.role.append(role_key)
 
+        user.role = []
+        for role in roles:
+                role_key = Role.gql("WHERE value = :role",
+                                    role=role).get().key()
+                user.role.append(role_key)
         user.put()
 
         self.response.out.write('ok')

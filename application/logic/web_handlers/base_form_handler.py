@@ -27,9 +27,9 @@ class BaseFormHandler(RequestHandler):
                 self.error(405)
                 return
 
-        if not pr.is_open:
+        if not pr.is_open and self.type == 'employee':
             self.type = 'manager'
-            self.path = 'templates/api.readonly_maf.html'
+            self.path = 'templates/api.employee_maf.html'
 
         form = pr.forms.filter('type', self.type).get()
 

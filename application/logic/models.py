@@ -217,5 +217,8 @@ class Challenges(db.Model):
 class Conclusion(db.Model):
     form = db.ReferenceProperty(PerformanceReviewForm,
                                 collection_name='conclusion')
-    value = db.StringProperty()
+    value = db.StringProperty(choices=('meet expectations',
+                                       'below expectations',
+                                       'above expectations'),
+                              default='meet expectations')
     

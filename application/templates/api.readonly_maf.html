@@ -237,16 +237,9 @@ window.location.href = window.location.href.split('?')[0]
             </div>
         {% endblock %}
 
-        <div id='conclusion' class="prev_data">
+        <div id='conclusion'>
             Conclusion:
-                <select id="{{form.get_all_data.conclusion.key}}" onchange="send_value(this.id, this.options[selectedIndex].value)">
-                    <option value="below expectations">below expectations</option>
-                    <option value="meet expectations">meet expectations</option>
-                    <option value="above expectations">above expectations</option>
-                </select>
-                <script type="text/javascript" language="JavaScript">
-                            $("#{{form.get_all_data.conclusion.key}}").val("{{form.get_all_data.conclusion.value}}");
-                </script>
+                <p>{{form.get_all_data.conclusion.value}}</p>
         </div>
     </div>
 <h3><a href="#">Misc</a></h3>

@@ -50,7 +50,7 @@ class AddManagerForm(AddEmployeeForm):
                                     form=self.form)
             position.put()
 
-            conclusion = Conclusion(value='meet expectation',
+            conclusion = Conclusion(value='meet expectations',
                                     form=self.form)
             conclusion.put()
 

@@ -1,5 +1,4 @@
 import base64
-import logging
 from google.appengine.api import users
 from google.appengine.ext.db import Model
 from webob import Request, Response

@@ -1,4 +1,3 @@
-import logging
 from google.appengine.ext.webapp import RequestHandler
 from logic.models import PerformanceReviewPeriod
 
@@ -17,9 +16,6 @@ class DeletePR(RequestHandler):
                     delete_pr = 0
 
             if delete_pr:
+                for pr in period.performance_reviews:
+                    pr.delete()
                 period.delete()
-
-
-
-
-

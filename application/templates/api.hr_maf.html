@@ -1,10 +1,14 @@
 {% extends "api.readonly_maf.html" %}
+
 {% block breadcrumps %}
-<a href="/#/hr">Home</a> > <a>{{form.pr.employee.first_name}}&nbsp;{{form.pr.employee.last_name}}&nbsp;form</a>
+<a href="/#/hr">Home</a>&nbsp;&gt;&nbsp;
+<a>{{form.pr.employee.first_name}}&nbsp;{{form.pr.employee.last_name}}&nbsp;form</a>
 {% endblock %}
+
 {% block upload_role %}
 <input type='hidden' name='role' value='hr'>
 {% endblock %}
+
 {% block hr-comment %}
     <div id='hr_comment' class="input_div">
     <p>Comment:</p>

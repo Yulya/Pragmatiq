@@ -14,9 +14,9 @@ class GetEmployeeForm(BaseFormHandler):
 
         user = self.template_values['user']
         employee = self.template_values['form'].pr.employee
-        status = self.template_values['form'].status
+        form = self.template_values['form']
 
-        if status == 'draft':
+        if form.status == 'draft':
             self.path = 'templates/api.employee_form.html'
 
         self.response.out.write(template.render(self.path,
