@@ -1,0 +1,13 @@
+{% extends "api.readonly_eaf.html" %}
+        
+{% block breadcrumps %}
+<a href="/#/manager/home">Home</a>&nbsp;&gt;&nbsp;
+<a href="/#/manager/get/department/all">PR</a>&nbsp;&gt;&nbsp;
+<a href="/#/manager/get/department/{{form.pr.employee.dept.name}}">{{form.pr.employee.dept.name}}</a>&nbsp;&gt;&nbsp;
+<span class="breadcrump breadcrump_current">{{form.pr.employee.first_name}}&nbsp;{{form.pr.employee.last_name}}&nbsp;form</span>
+{% endblock %}
+{% block undo_submit %}
+<div>
+    <input type="button" id="undo submit" onclick="eaf_draft()" value="undo submit">
+</div>
+{% endblock %}
