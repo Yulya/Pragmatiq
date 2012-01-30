@@ -27,6 +27,7 @@ from logic.web_handlers.autocomplete_users import GetJSONUsers
 from logic.web_handlers.automatic_creation_pr_handler import AutomaticPerformanceReview
 from logic.web_handlers.check_form_content_handler import CheckFormContent
 from logic.web_handlers.check_pr_date import CheckDate
+from logic.web_handlers.close_period import ClosePeriod
 from logic.web_handlers.create_pr_handler import CreatePR
 from logic.web_handlers.create_roles_handler import CreateRoles
 from logic.web_handlers.create_user_handler import CreateUser
@@ -121,6 +122,7 @@ def main():
                                           ('/manager/get/project/(.*)',GetProjectPrs),
                                           ('/manager/get/period/(.*)',GetPeriodPrs),
                                           ('/get_users', GetJSONUsers),
+                                          ('/pr/period/close/(.*)', ClosePeriod),
                                           ('/hr', GetAllEmployees),
                                           ('/hr/new_period', HR),
                                           ('/upload_xml', UploadXml),

@@ -5,6 +5,13 @@
 <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript">
 
+        function close_period(period_key){
+            $.get('/pr/period/close/' + period_key,
+                  function (data){
+                      message = data;
+                      window.location.href = window.location.href + '#';
+                  })
+        }
 
         $(document).ready(function(){
 
@@ -55,6 +62,7 @@
         Start: {{period.start_date}}
         Finish: {{period.finish_date}}
         <div align="right">
+        <div style="float: left"><input type="button" id="close_period" onclick="close_period('{{period.key}}')" value="close"></div>
         <p style="display: {{period.delete}}"><a class="nav" href="#"  onclick="delete_period('{{period.key}}'); return false">delete</a> |</p>
         <a class="nav" href="#/hr/report/detailed/{{period.key}}">detailed report</a> |
         <a class="nav" href="#/hr/report/summary/{{period.key}}">summary report</a>

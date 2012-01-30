@@ -40,15 +40,7 @@ class PerformanceReviewPeriod(db.Model):
     start_date = db.DateProperty()
     finish_date = db.DateProperty()
     type = db.StringProperty(choices=('annual','semi-annual'))
-
-    @property
-    def is_open(self):
-        result = False
-        for pr in self.performance_reviews:
-            if pr.is_open:
-                result = True
-                break
-        return result
+    is_open = db.BooleanProperty(default=True)
 
 
 class PerformanceReview(db.Model):
