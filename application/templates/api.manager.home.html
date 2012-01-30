@@ -8,8 +8,7 @@
 {% block content %}
 <!-- show current PR link (if open) -->
 <!-- if departments or projects -->
-{% if current_pr %}
-    {% if departments %}
+{% if departments %}
 <h1><a href="#/manager/get/department/all">Current PR</a></h1>
 <ul class="pr_current">
     {% for department in departments %}
@@ -19,15 +18,13 @@
     <!--<li><a href="#/manager/get/{{project.name}}">Project:&nbsp;{{project.name}}</a></li>-->
     <!--{% endfor %}-->
 </ul>
-    {% endif %}
 {% else %}
         <h1>Current PR</h1>
         <p>There aren't open PR</p>
-
 {% endif %}
 <!-- show archived PRs link -->
 <h1>Archived Performance Reviews</h1>
-{% if prs %}
+{% if archived_periods %}
 <ul class="pr_archived">
     {% for pr in prs %}
     <li><a href="#/manager/get/period/{{pr.description}}">{{pr.description}}</a></li>
@@ -37,15 +34,15 @@
     <p>There aren't archived PRs</p>
 {% endif %}
 <!-- show projects and people assigned -->
-{% if projects %}
-<h1><a href="#/manager/get/project/all">My Projects</a></h1>
-<ul class="my_projects">
-    {% for project in projects %}
-    <li><a href="#/manager/get/project/{{project.name}}">Project:&nbsp;{{project.name}}</a></li>
-    {% endfor %}
-</ul>
-{% else %}
-    <h1>My Projects</h1>
-    <p>You have no projects yet</p>
-{% endif %}
+<!--{% if projects %}-->
+<!--<h1><a href="#/manager/get/project/all">My Projects</a></h1>-->
+<!--<ul class="my_projects">-->
+    <!--{% for project in projects %}-->
+    <!--<li><a href="#/manager/get/project/{{project.name}}">Project:&nbsp;{{project.name}}</a></li>-->
+    <!--{% endfor %}-->
+<!--</ul>-->
+<!--{% else %}-->
+    <!--<h1>My Projects</h1>-->
+    <!--<p>You have no projects yet</p>-->
+<!--{% endif %}-->
 {% endblock %}

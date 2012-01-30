@@ -5,10 +5,25 @@
 <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript">
 
-        function close_period(period_key){
+        function close_period(period_key, period_description){
             $.get('/pr/period/close/' + period_key,
                   function (data){
-                      message = data;
+                      if (data == 'ok'){
+                          message = "You have successfully closed" + period_description + "."
+                      }
+                      else{
+                      message = data}
+                      window.location.href = window.location.href + '#';
+                  })
+        }
+        function reopen_period(period_key, period_description){
+            $.get('/pr/period/reopen/' + period_key,
+                  function (data){
+                      if (data == 'ok'){
+                          message = "You have successfully reopened" + period_description + "."
+                      }
+                      else{
+                      message = data}
                       window.location.href = window.location.href + '#';
                   })
         }
@@ -53,17 +68,18 @@
 {% endblock %}
 {% block content %}
 
-        <p><a href="/#/hr/get/projects">Projects</a></p>
-
-    {% for period in periods %}
+    {% if open_periods %}
+        <h1>Current Performance Reviews</h1>
+    {% endif %}
+    {% for period in open_periods %}
 
         <h2>{{period.description}}</h2>
         Type: {{period.type}}
         Start: {{period.start_date}}
         Finish: {{period.finish_date}}
+<div style="float: left"><input type="button" id="close_period" onclick="close_period('{{period.key}}', '{{period.description}}')" value="close"></div>
         <div align="right">
-        <div style="float: left"><input type="button" id="close_period" onclick="close_period('{{period.key}}')" value="close"></div>
-        <p style="display: {{period.delete}}"><a class="nav" href="#"  onclick="delete_period('{{period.key}}'); return false">delete</a> |</p>
+        <p style="display: {{period.delete}}"><a class="nav" href="#"  onclick="delete_period('{{period.key}}', '{{period.description}}'); return false">delete</a> |</p>
         <a class="nav" href="#/hr/report/detailed/{{period.key}}">detailed report</a> |
         <a class="nav" href="#/hr/report/summary/{{period.key}}">summary report</a>
         </div>
@@ -105,6 +121,54 @@
             {% endfor %}
         </table>
         <input type="button" {{period.register}} name="register" value="register">
+        <hr >
+    {% endfor %}
+        
+    {% if closed_periods %}
+        <h1>Archived Performance Reviews</h1>
+    {% endif %}
+        
+    {% for period in closed_periods %}
+        <h2>{{period.description}}</h2>
+        Type: {{period.type}}
+        Start: {{period.start_date}}
+        Finish: {{period.finish_date}}
+        <div>
+        <div style="float: left; position: inherit;"><input type="button" id="reopen_period" onclick="reopen_period('{{period.key}}')" value="close"></div>
+        <div style="float: right;">
+        <a class="nav" href="#/hr/report/detailed/{{period.key}}">detailed report</a> |
+        <a class="nav" href="#/hr/report/summary/{{period.key}}">summary report</a>
+        </div>
+        </div>
+        <div  style="clear: both;">
+            <table>
+            <tr>
+                <td>employee</td>
+                <td>manager</td>
+                <td>date</td>
+                <td>MAF</td>
+                <td>status</td>
+            </tr>
+            {% for pr in period.performance_reviews %}
+                <tr id="{{pr.key}}">
+                    <td>{{pr.employee.email}}</td>
+                    <td>{{pr.manager.email}}</td>
+                    <td><p>{{pr.date}}</p></td>
+                    <td>
+                        {% if pr.manager_form %}
+                            {% ifnotequal pr.manager_form.status 'draft' %}
+                                <a href="#/hr/get/manager/{{pr.key}}" class="nav">{{pr.employee.first_name}}&nbsp;{{pr.employee.last_name}} form</a>
+                            {% else %}
+                                form is in work
+                            {% endifnotequal %}
+                        {% else %}
+                            none
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+            </div>
         <hr >
     {% endfor %}
         <p id="new_period" ><a href="#/hr/new_period">Create New PR Period</a></p>

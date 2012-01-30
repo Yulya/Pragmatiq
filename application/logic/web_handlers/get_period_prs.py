@@ -32,7 +32,8 @@ class GetPeriodPrs(RequestHandler):
             prs = []
             get_sub_prs(user, prs)
 
-        periods = PerformanceReviewPeriod.all().filter('description', name).fetch(1000)
+        periods = PerformanceReviewPeriod.all().filter('description',
+                                                       name).fetch(1000)
         for period in periods:
             period.prs = filter(lambda x: x.period.key() == period.key(), prs)
 

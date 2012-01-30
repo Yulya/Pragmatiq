@@ -36,7 +36,6 @@ from logic.web_handlers.detailed_report_handler import GetDetailedReport
 from logic.web_handlers.employee_form_draft import EmployeeFormDraft
 from logic.web_handlers.employee_form_submit_handler import EmployeeFormSubmit
 from logic.web_handlers.get_all_departments import HR
-from logic.web_handlers.get_all_employees import GetAllEmployees
 from logic.web_handlers.get_all_managers_handler import GetManagers
 from logic.web_handlers.get_department_prs import GetDepartmentPrs
 from logic.web_handlers.get_eaf_handler import GetEmployeeForm
@@ -46,6 +45,7 @@ from logic.web_handlers.get_period_prs import GetPeriodPrs
 from logic.web_handlers.get_project_prs import GetProjectPrs
 from logic.web_handlers.get_projects_handler import GetProjects
 from logic.web_handlers.get_self_pr_handler import GetSelfPR
+from logic.web_handlers.hr_home import HRHome
 from logic.web_handlers.hr_maf_handler import HRManagerForm
 from logic.web_handlers.lock_form import LockFormHandler
 from logic.web_handlers.main_handler import MainHandler
@@ -58,6 +58,7 @@ from logic.web_handlers.manager_home import ManagerHome
 from logic.web_handlers.manager_settings import ManagerSettings
 from logic.web_handlers.parse_xml_form import ParseXml
 from logic.web_handlers.register_performance_review import RegisterPerformanceReview
+from logic.web_handlers.reopen_period import ReopenPeriod
 from logic.web_handlers.serve_handler import ServeHandler
 from logic.web_handlers.summary_report_handler import GetSummaryReport
 from logic.web_handlers.system_settings_handler import GetSettings
@@ -123,7 +124,8 @@ def main():
                                           ('/manager/get/period/(.*)',GetPeriodPrs),
                                           ('/get_users', GetJSONUsers),
                                           ('/pr/period/close/(.*)', ClosePeriod),
-                                          ('/hr', GetAllEmployees),
+                                          ('/pr/period/reopen/(.*)', ReopenPeriod),
+                                          ('/hr', HRHome),
                                           ('/hr/new_period', HR),
                                           ('/upload_xml', UploadXml),
                                           ('/parse_xml/(.*)/(.*)/(.*)', ParseXml),

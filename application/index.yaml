@@ -41,6 +41,12 @@ indexes:
 
 - kind: PerformanceReviewPeriod
   properties:
+  - name: is_open
+  - name: start_date
+    direction: desc
+
+- kind: PerformanceReviewPeriod
+  properties:
   - name: type
   - name: finish_date
     direction: desc

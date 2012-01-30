@@ -15,16 +15,11 @@ class GetDepartmentPrs(RequestHandler):
                                              user).order("-date").fetch(1000)
 
         def get_sub_prs(manager, prs):
-
             current_manager_prs = PerformanceReview.all().filter('manager',
                                              manager).order("-date").fetch(1000)
-
             prs.extend(current_manager_prs)
-
             for manager in manager.subs:
                 get_sub_prs(manager, prs)
-
-
             return prs
 
         if user.edit_sub_reviews:
