@@ -190,3 +190,13 @@ function create_event(obj){
     })
 
 }
+function save_comment(comment_key, obj){
+    var object = $(document).find(obj);
+    var comment = object.parent().find('.comment_area').val();
+    $.post('pr/comment/save/' + comment_key,
+          {'comment': comment},
+          function (data){
+              message = data;
+              load(window.location.hash.replace('#', ''));
+          })
+}

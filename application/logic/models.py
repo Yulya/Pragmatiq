@@ -19,10 +19,6 @@ class User(db.Model):
     first_date = db.DateProperty()
     edit_sub_reviews = db.IntegerProperty(choices=(0, 1), default=0)
 
-class WorkProject(db.Model):
-    name = db.StringProperty()
-    manager = db.ReferenceProperty(User, collection_name='projects')
-    employees = db.ListProperty(db.Key)
 
 class Event(db.Model):
     start_date = db.DateProperty()
@@ -100,6 +96,11 @@ class PerformanceReviewForm(db.Model):
                 'conclusion': self.conclusion.get()}
         return data
 
+
+class CommentToForm(db.Model):
+    manager = db.ReferenceProperty(User, collection_name='requested_comments')
+    comment = db.TextProperty()
+    pr = db.ReferenceProperty(PerformanceReview, collection_name='comments')
 
 class HrComment(db.Model):
     value = db.StringProperty()

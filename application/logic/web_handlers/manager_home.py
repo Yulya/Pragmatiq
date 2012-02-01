@@ -1,6 +1,5 @@
-import logging
 from google.appengine.ext.webapp import RequestHandler, template
-from logic.models import PerformanceReviewPeriod, Dept, PerformanceReview
+from logic.models import PerformanceReviewPeriod, Dept, PerformanceReview, CommentToForm
 
 class ManagerHome(RequestHandler):
 
@@ -20,7 +19,7 @@ class ManagerHome(RequestHandler):
 
         user_departments = map(lambda x: Dept.get(x), user_departments_keys)
 
-        archived_periods = PerformanceReviewPeriod.all().order("-finish_date").fetch(1000)
+        archived_periods = PerformanceReviewPeriod.gql("WHERE is_open = false ORDER BY start_date DESC").fetch(1000)
 
         def manager_has_pr_in_period(period):
             for pr in period.performance_reviews:
@@ -29,10 +28,13 @@ class ManagerHome(RequestHandler):
 
         archived_periods = filter(manager_has_pr_in_period, archived_periods)
 
+        comments = CommentToForm.gql("WHERE manager = :manager AND comment = NULL", manager = manager).fetch(1000)
+        comments = filter(lambda x: x.pr.period.is_open, comments)
+
         template_values = {"departments": user_departments,
                            "archived_periods": archived_periods,
+                           "comments": comments
                            }
 
         path = 'templates/api.manager.home.html'
         self.response.out.write(template.render(path, template_values))
- 

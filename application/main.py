@@ -21,8 +21,6 @@ from logic.authentication_middleware import Authentication
 from logic.web_handlers.add_data_handler import AddData
 from logic.web_handlers.add_form_handler import AddEmployeeForm
 from logic.web_handlers.add_manager_form_handler import AddManagerForm
-from logic.web_handlers.add_project_handler import AddProjects
-from logic.web_handlers.attach_employee_to_project import AttachEmployeeToProject
 from logic.web_handlers.autocomplete_users import GetJSONUsers
 from logic.web_handlers.automatic_creation_pr_handler import AutomaticPerformanceReview
 from logic.web_handlers.check_form_content_handler import CheckFormContent
@@ -31,10 +29,12 @@ from logic.web_handlers.close_period import ClosePeriod
 from logic.web_handlers.create_pr_handler import CreatePR
 from logic.web_handlers.create_roles_handler import CreateRoles
 from logic.web_handlers.create_user_handler import CreateUser
+from logic.web_handlers.delete_comment import DeleteComment
 from logic.web_handlers.delete_pr import DeletePR
 from logic.web_handlers.detailed_report_handler import GetDetailedReport
 from logic.web_handlers.employee_form_draft import EmployeeFormDraft
 from logic.web_handlers.employee_form_submit_handler import EmployeeFormSubmit
+from logic.web_handlers.employee_home import EmployeeHome
 from logic.web_handlers.get_all_departments import HR
 from logic.web_handlers.get_all_managers_handler import GetManagers
 from logic.web_handlers.get_department_prs import GetDepartmentPrs
@@ -42,13 +42,11 @@ from logic.web_handlers.get_eaf_handler import GetEmployeeForm
 from logic.web_handlers.get_maf_handler import GetManagerForm
 from logic.postdeploy import PostDeploy
 from logic.web_handlers.get_period_prs import GetPeriodPrs
-from logic.web_handlers.get_project_prs import GetProjectPrs
-from logic.web_handlers.get_projects_handler import GetProjects
-from logic.web_handlers.get_self_pr_handler import GetSelfPR
 from logic.web_handlers.hr_home import HRHome
 from logic.web_handlers.hr_maf_handler import HRManagerForm
 from logic.web_handlers.lock_form import LockFormHandler
 from logic.web_handlers.main_handler import MainHandler
+from logic.web_handlers.manager_comments import ManagerComments
 from logic.web_handlers.manager_eaf_form import ManagerEmployeeForm
 from logic.web_handlers.manager_form_approve_handler import ManagerFormApprove
 from logic.web_handlers.manager_form_draft import ManagerFormDraft
@@ -59,6 +57,8 @@ from logic.web_handlers.manager_settings import ManagerSettings
 from logic.web_handlers.parse_xml_form import ParseXml
 from logic.web_handlers.register_performance_review import RegisterPerformanceReview
 from logic.web_handlers.reopen_period import ReopenPeriod
+from logic.web_handlers.request_comment import RequestComment
+from logic.web_handlers.save_comment import SaveComment
 from logic.web_handlers.serve_handler import ServeHandler
 from logic.web_handlers.summary_report_handler import GetSummaryReport
 from logic.web_handlers.system_settings_handler import GetSettings
@@ -92,7 +92,7 @@ def main():
                                           ('/hr/settings', GetSettings),
                                           ('/pr/create', CreatePR),
                                           ('/pr/update', UpdatePR),
-                                          ('/employee', GetSelfPR),
+                                          ('/employee', EmployeeHome),
                                           ('/lock_form/(.*)', LockFormHandler),
                                           ('/manager/home', ManagerHome),
                                           ('/manager/pr/get/manager/(.*)', GetManagerForm),
@@ -113,18 +113,18 @@ def main():
                                           ('/pr/delete', DeletePR),
                                           ('/pr/data/update/(.*)', UpdateData),
                                           ('/hr/get/manager/(.*)', HRManagerForm),
-                                          ('/hr/get/projects', GetProjects),
-                                          ('/hr/project/add', AddProjects),
-                                          ('/hr/project/attach', AttachEmployeeToProject),
                                           ('/pr/manager/check/(.*)', CheckFormContent),
                                           ('/manager/settings', ManagerSettings),
                                           ('/manager/settings/update', UpdateManagerSettings),
                                           ('/manager/get/department/(.*)',GetDepartmentPrs),
-                                          ('/manager/get/project/(.*)',GetProjectPrs),
                                           ('/manager/get/period/(.*)',GetPeriodPrs),
                                           ('/get_users', GetJSONUsers),
                                           ('/pr/period/close/(.*)', ClosePeriod),
                                           ('/pr/period/reopen/(.*)', ReopenPeriod),
+                                          ('/pr/comment/request', RequestComment),
+                                          ('/pr/comment/save/(.*)', SaveComment),
+                                          ('/pr/comment/delete/(.*)', DeleteComment),
+                                          ('/pr/manager/comments/(.*)', ManagerComments),
                                           ('/hr', HRHome),
                                           ('/hr/new_period', HR),
                                           ('/upload_xml', UploadXml),

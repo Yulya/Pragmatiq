@@ -14,35 +14,30 @@
     {% for department in departments %}
     <li><a href="#/manager/get/department/{{department.name}}">Department:&nbsp;{{department.name}}</a></li>
     {% endfor %}
-    <!--{% for project in projects %}-->
-    <!--<li><a href="#/manager/get/{{project.name}}">Project:&nbsp;{{project.name}}</a></li>-->
-    <!--{% endfor %}-->
 </ul>
 {% else %}
         <h1>Current PR</h1>
         <p>There aren't open PR</p>
 {% endif %}
+{% if comments %}
+        <h1>You have to leave comments</h1>
+        {% for comment in comments %}
+            <div>
+                <p>{{comment.pr.employee.first_name}}&nbsp;{{comment.pr.employee.last_name}}</p>
+                <textarea class="comment_area" rows="5" cols="30"></textarea><br>
+                <input type="button" value="send comment" onclick="save_comment('{{comment.key}}', this)">
+            </div>
+        {% endfor %}
+    {% endif %}
 <!-- show archived PRs link -->
 <h1>Archived Performance Reviews</h1>
 {% if archived_periods %}
 <ul class="pr_archived">
-    {% for pr in prs %}
+    {% for pr in archived_periods %}
     <li><a href="#/manager/get/period/{{pr.description}}">{{pr.description}}</a></li>
     {% endfor %}
 </ul>
 {% else %}
     <p>There aren't archived PRs</p>
 {% endif %}
-<!-- show projects and people assigned -->
-<!--{% if projects %}-->
-<!--<h1><a href="#/manager/get/project/all">My Projects</a></h1>-->
-<!--<ul class="my_projects">-->
-    <!--{% for project in projects %}-->
-    <!--<li><a href="#/manager/get/project/{{project.name}}">Project:&nbsp;{{project.name}}</a></li>-->
-    <!--{% endfor %}-->
-<!--</ul>-->
-<!--{% else %}-->
-    <!--<h1>My Projects</h1>-->
-    <!--<p>You have no projects yet</p>-->
-<!--{% endif %}-->
 {% endblock %}

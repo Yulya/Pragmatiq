@@ -5,13 +5,25 @@
 {% endblock %}
 
 {% block content %}
-    {% if current_pr %}
         <h1>Current PR</h1>
+    {% if current_pr %}
         {% if current_pr.employee_form %}
         <a href="/#/employee/pr/get/employee/{{current_pr.key}}">load self AF</a>
         {% else %}
         <a href="/#/employee/pr/add/employee/{{current_pr.employee.key}}">create self AF</a>
         {% endif %}
+    {% else %}
+        You have no assigned performance review
+    {% endif %}
+    {% if comments %}
+        <h1>You have to leave comments</h1>
+        {% for comment in comments %}
+             <div>
+                <p>{{comment.pr.employee.first_name}}&nbsp;{{comment.pr.employee.last_name}}</p>
+                <textarea class="comment_area" rows="5" cols="30"></textarea><br>
+                <input type="button" value="send comment" onclick="save_comment('{{comment.key}}', this)">
+            </div>
+        {% endfor %}
     {% endif %}
     {% if prs %}
         <h1>Archived Performance Reviews</h1>

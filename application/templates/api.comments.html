@@ -1,0 +1,44 @@
+{% extends "_api_base.html" %}
+{% block script %}
+        <script type="text/javascript">
+        function delete_comment(comment_key){
+            $.post("/pr/comment/delete/" + comment_key);
+            load(window.location.hash.replace('#', ''));
+        }
+
+$( "#managers" ).autocomplete({
+			source: "/get_users",
+			minLength: 1,
+            select: function( event, ui ) {
+                $.post('/pr/comment/request',
+                        {'manager_email': ui.item.value,
+                         'pr_key': '{{pr.key}}'},
+                        function(data){
+                            message = data;
+                        });
+                         load(window.location.hash.replace('#', ''));
+			}
+                });
+        </script>
+{% endblock %}
+{% block content %}
+    <h1>Comments</h1>
+        <div>
+        {% for comment in pr.comments %}
+            <p style="font-style: italic;">{{comment.manager.first_name}}&nbsp;{{comment.manager.last_name}}</p>
+            <p>
+                {% if comment.comment %}
+                {{comment.comment}}
+                {% else %}
+                    Manager hasn't left comment yet.
+                {% endif %}
+            </p>
+            <div><input type="button" value="delete" onclick="delete_comment('{{comment.key}}')"></div>
+            <br>
+        {% endfor %}
+        </div>
+        <div>
+        Request for comment:
+        <input type="text" id="managers">
+        </div>
+{% endblock %}

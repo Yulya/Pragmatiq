@@ -1,7 +1,7 @@
 import logging
 import urllib
 from google.appengine.ext.webapp import RequestHandler, template
-from logic.models import PerformanceReview, Dept, WorkProject, User, PerformanceReviewPeriod
+from logic.models import PerformanceReview, PerformanceReviewPeriod
 
 
 class GetPeriodPrs(RequestHandler):
