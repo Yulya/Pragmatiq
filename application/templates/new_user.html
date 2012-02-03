@@ -17,7 +17,6 @@
                 last_name = $form.find( 'input[name="last_name"]' ).val(),
                 first_date = $form.find( 'input[name="first_date"]' ).val(),
                 email = $form.find( 'input[name="email"]' ).val(),
-                login = $form.find( 'input[name="login"]' ).val(),
                 dept = $form.find( 'input[name="dept"]' ).val(),
                 position = $form.find( 'input[name="position"]' ).val(),
                 manager = $form.find( 'select[name="manager"]' ).val(),
@@ -26,7 +25,13 @@
                 $('input[name="role"]:checked').each(function(){
                     role = role + this.value + ',';
                 });
-                
+
+                if (first_name.length > 20){
+                    alert('incorrect name');
+                }
+                if (last_name.length > 20){
+                    alert('incorrect name');
+                }
                 $.post( url,
                         {'key': '{{user.key}}',
                          'first_name': first_name,

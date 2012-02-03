@@ -16,11 +16,11 @@
     {% endfor %}
 </ul>
 {% else %}
-        <h1>Current PR</h1>
-        <p>There aren't open PR</p>
+        <h1>Current Performance Reviews</h1>
+        <p>You have no open performance reviews </p>
 {% endif %}
 {% if comments %}
-        <h1>You have to leave comments</h1>
+        <h1>You can leave comments</h1>
         {% for comment in comments %}
             <div>
                 <p>{{comment.pr.employee.first_name}}&nbsp;{{comment.pr.employee.last_name}}</p>
@@ -38,6 +38,6 @@
     {% endfor %}
 </ul>
 {% else %}
-    <p>There aren't archived PRs</p>
+    <p>You have no archived performance reviews</p>
 {% endif %}
 {% endblock %}
