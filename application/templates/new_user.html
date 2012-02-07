@@ -67,7 +67,6 @@
 
 {% block content %}
 
-
 <div id="wrapper">
 <div>
     <p>add new:</p>
@@ -76,23 +75,23 @@
            
             <tr>
                 <td><label>first_name:</label></td>
-                <td><input type="text" value="{{user.first_name}}" name="first_name"><br></td>
+                <td><input type="text" value="{{user.first_name}}" maxlength="25" name="first_name"><br></td>
             </tr>
             <tr>
                 <td><label>last_name:</label></td>
-                <td><input type="text" value="{{user.last_name}}" name="last_name"><br></td>
+                <td><input type="text" value="{{user.last_name}}" maxlength="25" name="last_name"><br></td>
             </tr>
             <tr>
                 <td><label>email:</label></td>
-                <td><input type="text" value="{{user.email}}" name="email"><br></td>
+                <td><input type="text" value="{{user.email}}" maxlength="25" name="email"><br></td>
             </tr>
             <tr>
                 <td><label>department:</label></td>
-                <td><input type="text" value="{{user.dept.name}}" name="dept"><br></td>
+                <td><input type="text" value="{{user.dept.name}}" maxlength="25" name="dept"><br></td>
             </tr>
             <tr>
                 <td><label>position:</label></td>
-                <td><input type="text" value="{{user.position}}" name="position"><br></td>
+                <td><input type="text" value="{{user.position}}" maxlength="25" name="position"><br></td>
             </tr>
             <tr>
                 <td><label>first_date:</label></td>
