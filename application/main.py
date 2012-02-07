@@ -28,7 +28,7 @@ from logic.web_handlers.check_pr_date import CheckDate
 from logic.web_handlers.close_period import ClosePeriod
 from logic.web_handlers.create_pr_handler import CreatePR
 from logic.web_handlers.create_roles_handler import CreateRoles
-from logic.web_handlers.create_user_handler import CreateUser
+from logic.web_handlers.edit_user import EditUser
 from logic.web_handlers.delete_comment import DeleteComment
 from logic.web_handlers.delete_pr import DeletePR
 from logic.web_handlers.detailed_report_handler import GetDetailedReport
@@ -36,7 +36,6 @@ from logic.web_handlers.employee_form_draft import EmployeeFormDraft
 from logic.web_handlers.employee_form_submit_handler import EmployeeFormSubmit
 from logic.web_handlers.employee_home import EmployeeHome
 from logic.web_handlers.get_all_departments import HR
-from logic.web_handlers.get_all_managers_handler import GetManagers
 from logic.web_handlers.get_department_prs import GetDepartmentPrs
 from logic.web_handlers.get_eaf_handler import GetEmployeeForm
 from logic.web_handlers.get_maf_handler import GetManagerForm
@@ -70,6 +69,7 @@ from logic.web_handlers.upload_handler import UploadHandler
 from logic.web_handlers.upload_xls_handler import UploadXlsHandler
 from logic.web_handlers.upload_xml import UploadXml
 from logic.web_handlers.url_handler import UrlHandler
+from logic.web_handlers.user_data import UserData
 from logic.web_handlers.user_table_handler import UserTable
 from logic.web_handlers.xls_parsing_handler import XlsParseHandler
 from logic.web_handlers.first_date_parse_handler import FirstDateParseHandler
@@ -81,11 +81,11 @@ def main():
 
     logging.getLogger().setLevel(logging.DEBUG)
     application = webapp.WSGIApplication([('/', MainHandler),
-                                          ('/add_emp', CreateUser),
+                                          ('/edit_user', EditUser),
                                           ('/logout', UrlHandler),
                                           ('/users', UserTable),
                                           ('/create_role', CreateRoles),
-                                          ('/edit_user/(.*)', GetManagers),
+                                          ('/edit_user/(.*)', UserData),
                                           ('/check', CheckDate),
                                           ('/pr/automatic', AutomaticPerformanceReview),
                                           ('/event/update', UpdateEvent),

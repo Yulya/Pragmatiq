@@ -1,4 +1,4 @@
-{% extends "_base.html" %}
+{% extends "_api_base.html" %}
 
 {% block content %}
 <div>
@@ -18,7 +18,7 @@
     </form>
 </div>
 
-<div><a href="/edit_user/">Add user</a></div>
+<div><a href="/#/edit_user/">Add user</a></div>
 
 <div>
     <p>Users:</p>
@@ -46,7 +46,7 @@
                 <td>{{user.roles}}</td>
                 <td>{{user.dept.name}}</td>
                 <td>{{user.position}}</td>
-                <td><a href="/edit_user/{{user.key}}">edit</a></td>
+                <td><a href="/#/edit_user/{{user.key}}">edit</a></td>
             </tr>
         {% endfor %}
     </table>

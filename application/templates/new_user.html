@@ -1,9 +1,82 @@
-{% extends "_base.html" %}
+{% extends "_api_base.html" %}
 
 {% block script %}
 
 <script type="text/javascript">
 
+    $('input[name="first_date"]').datepicker({ dateFormat: 'yy-mm-dd' });
+
+    $( 'input[name="manager"]' ).autocomplete({
+			source: "/get_users",
+			minLength: 1});
+
+    $( 'input[name="manager"]' ).focusin(function(){
+        $(this).val('');
+    });
+
+    function validate(){
+        $('#hint').css('display', 'block');
+        var x;
+        var res;
+        x = $( 'input[name="first_name"]' ).val();
+        if (x==null || x=="")
+         {
+            $('#hint').find('.message').html("First name must be filled");
+            return false;
+         }
+        x = $( 'input[name="email"]' ).val();
+        if (x==null || x=="")
+         {
+            $('#hint').find('.message').html("Email must be filled");
+            return false;
+         }
+        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        if(!reg.test(x)){
+            $('#hint').find('.message').html("Email is incorrect");
+            return false;
+        }
+        x = $( 'input[name="last_name"]' ).val();
+        if (x==null || x=="")
+         {
+            $('#hint').find('.message').html("Last name must be filled");
+            return false;
+         }
+        x = $( 'input[name="first_date"]' ).val();
+        if (x==null || x=="")
+         {
+            $('#hint').find('.message').html("First date is not filled");
+            res = confirm("You have not filled first date. Continue?");
+            if (!res){
+                return false
+            }
+         }
+        x = $( 'input[name="dept"]' ).val();
+        if (x==null || x=="")
+         {
+            $('#hint').find('.message').html("Department is not filled");
+            res = confirm("You have not filled department. Continue?");
+            if (!res){
+                return false
+            }
+         }
+        x = $( 'input[name="position"]' ).val();
+        if (x==null || x=="")
+         {  $('#hint').find('.message').html("Position is not filled");
+            res = confirm("You have not filled position. Continue?");
+            if (!res){
+                return false
+            }
+         }
+        x = $( 'input[name="manager"]' ).val().strip;
+        if (x==null || x=="")
+         {  $('#hint').find('.message').html("Manager is not filled");
+            res = confirm("You have not filled manager. Continue?");
+            if (!res){
+                return false
+            }
+         }
+        return true
+    }
 
     $(document).ready(function(){
             {% for role in roles %}
@@ -12,6 +85,10 @@
 
         $('#send').click(function(){
 
+            if (!validate()){
+                return false
+            }
+
             var $form = $('#user_form'),
                 first_name = $form.find( 'input[name="first_name"]' ).val(),
                 last_name = $form.find( 'input[name="last_name"]' ).val(),
@@ -19,25 +96,18 @@
                 email = $form.find( 'input[name="email"]' ).val(),
                 dept = $form.find( 'input[name="dept"]' ).val(),
                 position = $form.find( 'input[name="position"]' ).val(),
-                manager = $form.find( 'select[name="manager"]' ).val(),
+                manager = $form.find( 'input[name="manager"]' ).val(),
                 url = $form.attr( 'action' ),
                 role = '';
                 $('input[name="role"]:checked').each(function(){
                     role = role + this.value + ',';
                 });
 
-                if (first_name.length > 20){
-                    alert('incorrect name');
-                }
-                if (last_name.length > 20){
-                    alert('incorrect name');
-                }
                 $.post( url,
                         {'key': '{{user.key}}',
                          'first_name': first_name,
                         'last_name': last_name,
                         'first_date': first_date,
-                        'login': login,
                         'email': email,
                         'role': role,
                         'dept': dept,
@@ -45,9 +115,9 @@
                         'manager': manager},
                         function(data){
                             if (data == "ok"){
-                                window.location = "/users"
+                                window.location = "/#/users"
                             }
-                            else alert(data);
+                            else $('hint').find('message').html(data);
                         })
 
         });
@@ -108,15 +178,7 @@
             </tr>
             <tr>
                 <td><label>manager:</label></td>
-                <td><select id="select_manager" name="manager">
-                        <option value="">None</option>
-                    {% for manager in managers %}
-                        <option value="{{manager.key}}">{{manager.email}}</option>
-                    {% endfor %}
-                    </select><br>
-                    <script type="text/javascript" language="JavaScript">
-                        $("#select_manager").val("{{user.manager.key}}");
-                    </script>
+                <td><input type="text" value="{{user.manager.first_name}}&nbsp;{{user.manager.last_name}}" name="manager"><br>
                 </td>
             </tr>
         </table>
