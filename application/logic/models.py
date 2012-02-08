@@ -99,7 +99,7 @@ class PerformanceReviewForm(db.Model):
 
 class CommentToForm(db.Model):
     manager = db.ReferenceProperty(User, collection_name='requested_comments')
-    comment = db.TextProperty()
+    comments = db.StringListProperty()
     pr = db.ReferenceProperty(PerformanceReview, collection_name='comments')
 
 class HrComment(db.Model):

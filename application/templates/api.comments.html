@@ -1,10 +1,6 @@
 {% extends "_api_base.html" %}
 {% block script %}
         <script type="text/javascript">
-        function delete_comment(comment_key){
-            $.post("/pr/comment/delete/" + comment_key);
-            load(window.location.hash.replace('#', ''));
-        }
 
 $( "#managers" ).autocomplete({
 			source: "/get_users",
@@ -26,15 +22,16 @@ $( "#managers" ).autocomplete({
         <div>
         {% for comment in pr.comments %}
             <p style="font-style: italic;">{{comment.manager.first_name}}&nbsp;{{comment.manager.last_name}}</p>
-            <p>
-                {% if comment.comment %}
-                {{comment.comment}}
+
+                {% if comment.comments %}
+                    {% for comment_text in comment.comments %}
+                        <p>{{comment_text}}</p>
+                    <div><input type="button" value="delete" onclick="delete_comment('{{comment.key}}', '{{forloop.counter0}}')"></div>
+                    {% endfor %}
                 {% else %}
-                    Manager hasn't left comment yet.
+                    <p>Manager hasn't left comment yet.</p>
                 {% endif %}
-            </p>
-            <div><input type="button" value="delete" onclick="delete_comment('{{comment.key}}')"></div>
-            <br>
+
         {% endfor %}
         </div>
         <div>

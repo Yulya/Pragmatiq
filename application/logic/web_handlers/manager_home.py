@@ -28,7 +28,7 @@ class ManagerHome(RequestHandler):
 
         archived_periods = filter(manager_has_pr_in_period, archived_periods)
 
-        comments = CommentToForm.gql("WHERE manager = :manager AND comment = NULL", manager = manager).fetch(1000)
+        comments = CommentToForm.gql("WHERE manager = :manager", manager = manager).fetch(1000)
         comments = filter(lambda x: x.pr.period.is_open, comments)
 
         template_values = {"departments": user_departments,

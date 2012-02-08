@@ -23,12 +23,16 @@
         <h1>You can leave comments</h1>
         {% for comment in comments %}
             <div>
-                <p>{{comment.pr.employee.first_name}}&nbsp;{{comment.pr.employee.last_name}}</p>
+                <div>{{comment.pr.employee.first_name}}&nbsp;{{comment.pr.employee.last_name}}</div>
+                {% for comment_text in comment.comments %}
+                        <p>{{comment_text}}</p>
+                    <div><input type="button" value="delete" onclick="delete_comment('{{comment.key}}', '{{forloop.counter0}}')"></div>
+                    {% endfor %}
                 <textarea class="comment_area" rows="5" cols="30"></textarea><br>
                 <input type="button" value="send comment" onclick="save_comment('{{comment.key}}', this)">
             </div>
         {% endfor %}
-    {% endif %}
+{% endif %}
 <!-- show archived PRs link -->
 <h1>Archived Performance Reviews</h1>
 {% if archived_periods %}

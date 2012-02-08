@@ -200,3 +200,7 @@ function save_comment(comment_key, obj){
               load(window.location.hash.replace('#', ''));
           })
 }
+function delete_comment(comment_key, number){
+            $.post("/pr/comment/delete/" + comment_key, {'number': number});
+            load(window.location.hash.replace('#', ''));
+        }
