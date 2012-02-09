@@ -5,6 +5,9 @@
 <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript">
 
+    $(function() {
+		$( "#accordion" ).accordion();
+	});
         function close_period(period_key, period_description){
             $.get('/pr/period/close/' + period_key,
                   function (data){
@@ -71,9 +74,11 @@
     {% if open_periods %}
         <h1>Current Performance Reviews</h1>
     {% endif %}
+        <div id="accordion">
     {% for period in open_periods %}
 
-        <h2>{{period.description}}</h2>
+        <h3><a href="#">{{period.description}}</a></h3>
+    <div>
         Type: {{period.type}}
         Start: {{period.start_date}}
         Finish: {{period.finish_date}}
@@ -90,7 +95,6 @@
                 <td>manager</td>
                 <td>date</td>
                 <td>MAF</td>
-                <td>status</td>
             </tr>
             {% for pr in period.pr %}
                 <tr id="{{pr.key}}">
@@ -109,20 +113,15 @@
                             none
                         {% endif %}
                     </td>
-                    <td name="status">
-                        {% if pr.manager_form.status %}
-                            {{pr.manager_form.status}}
-                        {% else %}
-                            none
-                        {% endif %}
-                    </td>
-
                 </tr>
             {% endfor %}
         </table>
         <input type="button" {{period.register}} name="register" value="register">
-        <hr >
+        <!--<hr >-->
+        </div>
+
     {% endfor %}
+              </div>
         
     {% if closed_periods %}
         <h1>Archived Performance Reviews</h1>

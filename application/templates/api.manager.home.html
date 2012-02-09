@@ -34,14 +34,14 @@
         {% endfor %}
 {% endif %}
 <!-- show archived PRs link -->
-<h1>Archived Performance Reviews</h1>
+
 {% if archived_periods %}
+<h1>Archived Performance Reviews</h1>
 <ul class="pr_archived">
     {% for pr in archived_periods %}
     <li><a href="#/manager/get/period/{{pr.description}}">{{pr.description}}</a></li>
     {% endfor %}
 </ul>
-{% else %}
-    <p>You have no archived performance reviews</p>
+
 {% endif %}
 {% endblock %}
