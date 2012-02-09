@@ -6,7 +6,10 @@
 <script type="text/javascript">
 
     $(function() {
-		$( "#accordion" ).accordion();
+		$( "#accordion" ).accordion({ autoHeight: false });
+	});
+    $(function() {
+		$( ".accordion2" ).accordion({ autoHeight: false });
 	});
         function close_period(period_key, period_description){
             $.get('/pr/period/close/' + period_key,
@@ -88,6 +91,11 @@
         <a class="nav" href="#/hr/report/detailed/{{period.key}}">detailed report</a> |
         <a class="nav" href="#/hr/report/summary/{{period.key}}">summary report</a>
         </div>
+        <div class="accordion2">
+
+            {% for department in period.departments %}
+            <h3>{{department.name}}</h3>
+            <div>
         <table>
             <tr>
                 <td><input type="checkbox" id="{{period.key}}" {{period.register}} class="checkall"></td>
@@ -96,7 +104,7 @@
                 <td>date</td>
                 <td>MAF</td>
             </tr>
-            {% for pr in period.pr %}
+            {% for pr in department.prs %}
                 <tr id="{{pr.key}}">
                     <td><input type="checkbox" {{pr.register}} value={{pr.key}} title="{{pr.employee.email}}" name="check"></td>
                     <td>{{pr.employee.email}}</td>
@@ -117,6 +125,9 @@
             {% endfor %}
         </table>
         <input type="button" {{period.register}} name="register" value="register">
+                </div>
+        {% endfor %}
+            </div>
         <!--<hr >-->
         </div>
 
