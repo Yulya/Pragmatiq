@@ -1,9 +1,14 @@
 {% extends "_api_base.html" %}
 
 {% block script %}
-        
         <script type="text/javascript" src="/static/locking_form.js"></script>
-<script type="text/javascript" src="/static/jquery.drag.drop.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+<script src="/static/development-bundle/ui/jquery.ui.widget.js"></script>
+<script src="/static/jQuery-File-Upload/jquery.iframe-transport.js"></script>
+<script src="/static/jQuery-File-Upload/jquery.fileupload.js"></script>
+        <!--<script type="text/javascript" src="/static/jQuery-File-Upload/application.js"></script>-->
+
 <script type="text/javascript">
 
 var form_key= '{{form.key}}';
@@ -14,6 +19,30 @@ $(function() {
 		$( "#accordion" ).accordion();
 	});
 
+$(function () {
+    $('#dropzone').fileupload({
+        formData: {'key': '{{form.pr.key}}',
+        {% block upload_role %}
+            'role': 'manager'},
+        {% endblock %}
+        url: '/upload_xml',
+        dropZone: $("#dropzone"),
+        done: function (e, data) {
+            message = data.result;
+            window.location.href = window.location.href + '#'
+        }
+    });
+});
+$(function () {
+    $('#dropzone2').fileupload({
+        formData: {'key': '{{form.key}}'},
+        url: '/upload_file',
+        dropZone: $("#dropzone2"),
+        done: function (e, data) {
+            window.location.href = window.location.href + '#'
+        }
+    });
+});
 $(document).ready(function(){
 
     $('.date').datepicker({ dateFormat: 'yy-mm-dd' });
@@ -21,24 +50,6 @@ $(document).ready(function(){
     send_lock_request();
     lock_timer = lock_form();
 
-
-    var parameters = window.location.href.split('?').length > 1;
-if (parameters){
-    var parameter =  window.location.href.split('?')[1].split('=')[0];
-    var value =  window.location.href.split('?')[1].split('=')[1];
-    if (parameter == 'err'){var err = value}
-
-if (err == 'incorrect_type'){
-    message = 'Error. We expect you to upload manager assessment form';
-}
-if (err == 'incorrect_user'){
-    message = 'Error. Wrong employee';
-}
-if (err == 'ok'){
-    message = 'You succesfully uploaded PR form';
-}
-document.location.hash = document.location.hash.split('?')[0];
-}
 });
 
 </script>
@@ -58,19 +69,9 @@ document.location.hash = document.location.hash.split('?')[0];
 <p>date: {{form.pr.date}}</p>
 <p id="lock_info"></p>
 {% if not prev_form %}
-<!--<div>-->
-    <!--<p>Upload previous PR form</p>-->
-        <!--<form action="{{upload_form_url}}" method="POST" id="fileupload" enctype="multipart/form-data">-->
-            <!--<input type='hidden' name='key' value={{form.pr.key}}>-->
-            <!--<input type='hidden' name='role' value='manager'>-->
-            <!--<input type="file" name="file"><br>-->
-            <!--<input type="submit" name="submit" value="attach">-->
-        <!--</form>-->
-<!--</div>-->
-<form action="#" method="post" enctype="multipart/form-data">
-<input type="file" name="files[]" multiple="multiple">
-<input type="submit" value="Upload!">
-</form>
+
+    <div style="height: 50px; width: 100px; background-color: #add8e6;" id="dropzone" >Drop file here</div>
+
 {% endif %}
 </div>
 <div id='accordion'>
@@ -269,13 +270,7 @@ document.location.hash = document.location.hash.split('?')[0];
             {% endif %}
         </div>
 
-        <div>
-            <form action="{{upload_url}}" method="POST" enctype="multipart/form-data">
-                <input type='hidden' name='key' value={{form.key}}>
-                <input type="file" name="file"><br>
-                <input type="submit" name="submit" value="attach">
-            </form>
-        </div>
+        <div style="height: 50px; width: 100px; background-color: #add8e6;" id="dropzone2" >Drop file here</div>
     </div>
 </div>
 

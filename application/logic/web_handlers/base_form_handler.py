@@ -47,7 +47,7 @@ class BaseFormHandler(RequestHandler):
         self.template_values.update({'form': form,
                                      'file_key': form.file_key,
                                      'user': user,
-                                     'upload_form_url': upload_form_url,
+#                                     'upload_form_url': upload_form_url,
                                      'upload_url': upload_url,
                                      'prev_form': prev_form,
                                      'file_name': form.file_name})

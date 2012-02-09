@@ -65,6 +65,7 @@ from logic.web_handlers.update_data_handler import UpdateData
 from logic.web_handlers.update_event_handler import UpdateEvent
 from logic.web_handlers.update_manager_settings import UpdateManagerSettings
 from logic.web_handlers.update_pr_handler import UpdatePR
+from logic.web_handlers.upload_file import UploadFile
 from logic.web_handlers.upload_handler import UploadHandler
 from logic.web_handlers.upload_xls_handler import UploadXlsHandler
 from logic.web_handlers.upload_xml import UploadXml
@@ -128,8 +129,9 @@ def main():
                                           ('/hr', HRHome),
                                           ('/hr/new_period', HR),
                                           ('/upload_xml', UploadXml),
+                                          ('/upload_file', UploadFile),
                                           ('/parse_xml/(.*)/(.*)/(.*)', ParseXml),
-                                          ('/upload', UploadHandler),
+#                                          ('/upload', UploadHandler),
                                           ('/upload_contacts', UploadXlsHandler),
                                           ('/upload_first_date', FirstDateParseHandler),
                                           ('/parse_xls', XlsParseHandler),

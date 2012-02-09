@@ -2,32 +2,34 @@
 
 {% block script %}
     <script type="text/javascript">
-
-
         var form_key= '{{form.key}}';
         var form_type='{{form.type}}';
 
         $(function() {
                 $( "#accordion" ).accordion();
             });
-        console.log('13');
-    var parameters = window.location.href.split('?').length > 1;
-if (parameters){
-    var parameter =  window.location.href.split('?')[1].split('=')[0];
-    var value =  window.location.href.split('?')[1].split('=')[1];
-    if (parameter == 'err'){var err = value}
+        $(function () {
+    $('#dropzone').fileupload({
+        formData: {'key': '{{form.pr.key}}', 'role': 'employee'},
+        url: '/upload_xml',
+        dropZone: $("#dropzone"),
+        done: function (e, data) {
+            message = data.result;
+            window.location.href = window.location.href + '#'
+        }
+    });
+});
+$(function () {
+    $('#dropzone2').fileupload({
+        formData: {'key': '{{form.key}}'},
+        url: '/upload_file',
+        dropZone: $("#dropzone2"),
+        done: function (e, data) {
+            window.location.href = window.location.href + '#'
+        }
+    });
+});
 
-if (err == 'incorrect_type'){
-    message = 'Error. We expect you to upload manager assessment form';
-}
-if (err == 'incorrect_user'){
-    message = 'Error. Wrong employee';
-}
-if (err == 'ok'){
-    message = 'You succesfully uploaded PR form';
-}
-window.location.href = window.location.href.split('?')[0]
-}
 
     </script>
 {% endblock %}
@@ -43,15 +45,8 @@ window.location.href = window.location.href.split('?')[0]
 <p>date: {{form.pr.date}}</p>
 </div>
 {% if not prev_form %}
-<div>
-    <p>Upload previous PR form</p>
-        <form action="{{upload_form_url}}" method="POST" enctype="multipart/form-data">
-            <input type='hidden' name='key' value={{form.pr.key}}>
-            <input type='hidden' name='role' value='employee'>
-            <input type="file" name="file"><br>
-            <input type="submit" name="submit" value="attach">
-        </form>
-</div>
+<div style="height: 50px; width: 100px; background-color: #add8e6;" id="dropzone" >Drop file here</div>
+
 {% endif %}
 <div id='accordion'>
 
@@ -247,13 +242,8 @@ window.location.href = window.location.href.split('?')[0]
     {% endif %}
 </div>
 
-<div>
-    <form action="{{upload_url}}" method="POST" enctype="multipart/form-data">
-        <input type='hidden' name='key' value={{key}}>
-        <input type="file" name="file"><br>
-        <input type="submit" name="submit" value="attach">
-    </form>
-</div>
+    <div style="height: 50px; width: 100px; background-color: #add8e6;" id="dropzone2" >Drop file here</div>
+
 </div>
 
 </div>

@@ -28,7 +28,6 @@ class ParseXml(blobstore_handlers.BlobstoreUploadHandler):
 
         file = blob_info.open()
 
-
         employee = current_pr.employee
 
         NAMESPACES = {
@@ -51,7 +50,7 @@ class ParseXml(blobstore_handlers.BlobstoreUploadHandler):
         try:
             parser = ElementTree.parse(file)
         except SyntaxError:
-            self.redirect(url + '?err=incorrect_type' %current_pr.key())
+            self.response.out.write('incorrect type')
             return
 
         date = parser.find('.//w:body//ns0:ActionDateFormat//w:t',
@@ -61,8 +60,9 @@ class ParseXml(blobstore_handlers.BlobstoreUploadHandler):
                           namespaces=NAMESPACES)
         if manager_type is None:
 
-            self.redirect(url + '?err=incorrect_type' %current_pr.key())
-
+            blob_info.delete()
+            self.response.out.write('incorrect type')
+#
             return
 
         fio = parser.find('.//w:body//ns0:EmployeeName//w:t',
@@ -78,7 +78,8 @@ class ParseXml(blobstore_handlers.BlobstoreUploadHandler):
         if employee_from_form is None or \
             employee_from_form.email != employee.email:
 
-            self.redirect(url + '?err=incorrect_user' %current_pr.key())
+            blob_info.delete()
+            self.response.out.write('incorrect user')
             return
 
         date = datetime.datetime.strptime(date, '%d/%m/%Y').date()
@@ -146,6 +147,7 @@ class ParseXml(blobstore_handlers.BlobstoreUploadHandler):
                                form=manager_form)
             g.put()
 
-        self.redirect(url + '?err=ok')
+        blob_info.delete()
+        self.response.out.write('done')
 
 

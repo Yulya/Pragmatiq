@@ -1,56 +1,28 @@
-{% extends "_api_base.html" %}
+<html>
+<head>
+<meta charset="utf-8">
+<title>jQuery File Upload Example</title>
+</head>
+<body>
+<input id="fileupload" type="file" name="files[]" multiple>
 
-{% block content %}
-<div>
-    Update user information by uploading .xls file:
-    <form action="{{upload_url}}" method="POST" enctype="multipart/form-data">
-        <input type='hidden' name='key' value={{form.key}}>
-        <input type="file" name="file"><br>
-        <input type="submit" name="submit" value="Update">
-    </form>
-</div>
-
-<div>
-    Update user first date information by uploading .xls file:
-    <form action="{{upload_url_first_date}}" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file"><br>
-        <input type="submit" name="submit" value="Update">
-    </form>
-</div>
-
-<div><a href="/#/edit_user/">Add user</a></div>
-
-<div>
-    <p>Users:</p>
-    <table>
-        {% if users %}
-            <thead>
-                <tr>
-                    <td> First Name </td>
-                    <td> Last Name </td>
-                    <td> Email </td>
-                    <td> Manager </td>
-                    <td> Roles </td>
-                    <td> Department </td>
-                    <td> Position </td>
-                    <td></td>
-                </tr>
-            </thead>
-        {% endif %}
-	    {% for user in users %}
-            <tr>
-                <td>{{user.first_name}}</td>
-                <td>{{user.last_name}}</td>
-                <td>{{user.email}}</td>
-                <td>{{user.manager.first_name}} {{user.manager.last_name}}</td>
-                <td>{{user.roles}}</td>
-                <td>{{user.dept.name}}</td>
-                <td>{{user.position}}</td>
-                <td><a href="/#/edit_user/{{user.key}}">edit</a></td>
-            </tr>
-        {% endfor %}
-    </table>
-
-</div>
-
-{% endblock %}
+    <script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+<script src="/static/development-bundle/ui/jquery.ui.widget.js"></script>
+<script src="/static/jQuery-File-Upload/jquery.iframe-transport.js"></script>
+<script src="/static/jQuery-File-Upload/jquery.fileupload.js"></script>
+<script>
+$(function () {
+    $('#fileupload').fileupload({
+//        dataType: 'json',
+        url: '/upload_xml',
+        done: function (e, data) {
+            $.each(data.result, function (index, file) {
+                $('<p/>').text(file.name).appendTo(document.body);
+            });
+        }
+    });
+});
+</script>
+</body>
+</html>

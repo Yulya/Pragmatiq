@@ -11,23 +11,18 @@
     $(function() {
             $( "#accordion" ).accordion();
         });
-var parameters = window.location.href.split('?').length > 1;
-if (parameters){
-    var parameter =  window.location.href.split('?')[1].split('=')[0];
-    var value =  window.location.href.split('?')[1].split('=')[1];
-    if (parameter == 'err'){var err = value}
+$(function () {
+    $('#dropzone').fileupload({
+        formData: {'key': '{{form.pr.key}}', 'role': 'manager'},
+        url: '/upload_xml',
+        dropZone: $("#dropzone"),
+        done: function (e, data) {
+            message = data.result;
+            window.location.href = window.location.href + '#'
+        }
+    });
+});
 
-if (err == 'incorrect_type'){
-    message = 'Error. We expect you to upload manager assessment form';
-}
-if (err == 'incorrect_user'){
-    message = 'Error. Wrong employee';
-}
-if (err == 'ok'){
-    message = 'You succesfully uploaded PR form';
-}
-window.location.href = window.location.href.split('?')[0]
-}
 </script>
 {% if form.pr.is_open %}
 {% ifnotequal form.status 'submitted' %}
@@ -63,17 +58,8 @@ window.location.href = window.location.href.split('?')[0]
 <p id="lock_info"></p>
 </div>
 {% if not prev_form %}
-<div>
-    <p>Upload previous PR form</p>
-        <form action="{{upload_form_url}}" method="POST" enctype="multipart/form-data">
-            <input type='hidden' name='key' value={{form.pr.key}}>
-            {% block upload_role %}
-            <input type='hidden' name='role' value='manager'>
-            {% endblock %}
-            <input type="file" name="file"><br>
-            <input type="submit" name="submit" value="attach">
-        </form>
-</div>
+<div style="height: 50px; width: 100px; background-color: #add8e6;" id="dropzone" >Drop file here</div>
+
 {% endif %}
 
 

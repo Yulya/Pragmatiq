@@ -20,5 +20,4 @@ class DeleteComment(RequestHandler):
 
         comment.comments.pop(number)
         logging.debug(comment.comments)
-
         comment.put()
