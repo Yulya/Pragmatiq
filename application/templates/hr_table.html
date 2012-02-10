@@ -6,10 +6,10 @@
 <script type="text/javascript">
 
     $(function() {
-		$( "#accordion" ).accordion({ autoHeight: false });
+		$( "#accordion" ).accordion({ autoHeight: false, collapsible: true, active: false });
 	});
     $(function() {
-		$( ".accordion2" ).accordion({ autoHeight: false });
+		$( ".sec" ).accordion({ autoHeight: false, collapsible: true, active: false  });
 	});
         function close_period(period_key, period_description){
             $.get('/pr/period/close/' + period_key,
@@ -91,18 +91,19 @@
         <a class="nav" href="#/hr/report/detailed/{{period.key}}">detailed report</a> |
         <a class="nav" href="#/hr/report/summary/{{period.key}}">summary report</a>
         </div>
-        <div class="accordion2">
+        <div class="sec">
 
             {% for department in period.departments %}
             <h3>{{department.name}}</h3>
             <div>
         <table>
             <tr>
-                <td><input type="checkbox" id="{{period.key}}" {{period.register}} class="checkall"></td>
+                <td><input type="checkbox" id="{{period.key}}" {{department.register}} class="checkall"></td>
                 <td>employee</td>
                 <td>manager</td>
                 <td>date</td>
                 <td>MAF</td>
+                <td>status</td>
             </tr>
             {% for pr in department.prs %}
                 <tr id="{{pr.key}}">
@@ -121,10 +122,17 @@
                             none
                         {% endif %}
                     </td>
+                    <td name="status">
+                        {% if pr.manager_form.status %}
+                            {{pr.manager_form.status}}
+                        {% else %}
+                            none
+                        {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
         </table>
-        <input type="button" {{period.register}} name="register" value="register">
+        <input type="button" {{department.register}} name="register" value="register">
                 </div>
         {% endfor %}
             </div>
@@ -171,6 +179,13 @@
                             {% else %}
                                 form is in work
                             {% endifnotequal %}
+                        {% else %}
+                            none
+                        {% endif %}
+                    </td>
+                    <td name="status">
+                        {% if pr.manager_form.status %}
+                            {{pr.manager_form.status}}
                         {% else %}
                             none
                         {% endif %}
