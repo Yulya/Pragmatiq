@@ -1,0 +1,52 @@
+.inline-block {
+  zoom:1;
+  display:inline;
+  }
+* HTML .corners,
+* HTML .corners-content {
+  zoom:1;
+  }
+  
+* HTML .corners-content {
+  height:41px; /* min-height */
+  }
+
+* HTML .corners-l {
+  left:-981px;
+  width:1058px;
+  clip:rect(auto 1010px auto 960px);
+  } 
+* HTML .corners-r {
+  left:-1058px;
+  width:1058px;
+  clip:rect(auto auto auto 989px);
+  } 
+
+* HTML .corners-l,
+* HTML .corners-r {
+  zoom:1;
+  background-image:none;
+  stretch:expression(
+    function(t){
+      var h = t.parentNode.offsetHeight;
+      if (t.h != h) {
+        t.h = h;
+        if (h > 50) {
+          t.style.height = h - 29 - h%2;
+        } else {
+          t.style.height = 0;
+        }
+      }     
+    }(this)
+  );  
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="i/var-2002_a.png", sizingMethod="scale");
+  }
+* HTML .corners-tl,
+* HTML .corners-tr,
+* HTML .corners-bl,
+* HTML .corners-br {
+  zoom:1;
+  background-image:none;
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="i/var-2002_a.png", sizingMethod="crop");
+  }
+

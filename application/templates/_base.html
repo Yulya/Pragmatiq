@@ -1,15 +1,19 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en-US">
 <head>
     <script type="text/javascript" src="/static/jquery.js"></script>
     <script type="text/javascript" src="/static/site.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/style/main.css">
+    <!--[if lt IE 8]>
+  <link rel="stylesheet" type="text/css" href="/static/style/ie.css">
+  <![endif]-->
     <script type="text/javascript" src="/static/nav.js"></script>
     <script type="text/javascript" src="/static/set_form_status.js"></script>
     <script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
     <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
     <link type="text/css" href="/static/css/ui-lightness/jquery-ui-1.8.16.custom.css" rel="Stylesheet" />
+
     <!-- links and scripts -->
     {% block css %}
     {% endblock %}
@@ -50,6 +54,13 @@
 <!-- header -->
 <div id="header">
     {% block header %}
+    <div class="head">
+    <p class="logo"><a href="#"></a></p>
+    <p class="gt">You are <b>A.Ivanov</b> and you are <select><option>employee</option></select></p>
+
+    <div class="sl"><a href="/" class="settings">Settings</a> | <a href="/" class="logout">Logout</a></div>
+  </div>
+    
         <table>
             <tr>
                 <td>{{username}}</td>

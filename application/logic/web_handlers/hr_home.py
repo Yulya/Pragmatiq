@@ -1,6 +1,6 @@
 import logging
 from google.appengine.ext.webapp import RequestHandler, template
-from logic.models import PerformanceReviewPeriod
+from logic.models import PerformanceReviewPeriod, Dept
 
 
 class HRHome(RequestHandler):
@@ -13,7 +13,14 @@ class HRHome(RequestHandler):
         for period in open_periods:
             period.register = 'disabled'
             period.delete = 'inline'
-            period.pr = []
+            period.departments = []
+
+            for pr in period.performance_reviews:
+                if pr.period.is_open:
+                    if not pr.employee.dept.key() in period.departments:
+                        period.departments.append(pr.employee.dept.key())
+            period.departments = map(lambda x: Dept.get(x), period.departments)
+
             for pr in period.performance_reviews:
                 if pr.manager_form or pr.employee_form:
                     period.delete = 'none'
@@ -22,7 +29,9 @@ class HRHome(RequestHandler):
                     if pr.manager_form.status == 'submitted':
                         period.register = ''
                         pr.register = ''
-                period.pr.append(pr)
+
+            for department in period.departments:
+                department.prs = filter(lambda x: x.employee.dept.name == department.name, period.performance_reviews)
 
         template_values = {'open_periods': open_periods,
                            'closed_periods': closed_periods}

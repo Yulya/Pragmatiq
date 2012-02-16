@@ -4,9 +4,10 @@
         <script type="text/javascript" src="/static/locking_form.js"></script>
     <script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
     <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
-<script src="/static/development-bundle/ui/jquery.ui.widget.js"></script>
+    <script src="/static/development-bundle/ui/jquery.ui.widget.js"></script>
 <script src="/static/jQuery-File-Upload/jquery.iframe-transport.js"></script>
 <script src="/static/jQuery-File-Upload/jquery.fileupload.js"></script>
+<script src="/static/jQuery-File-Upload/jquery.fileupload-ui.js"></script>
         <!--<script type="text/javascript" src="/static/jQuery-File-Upload/application.js"></script>-->
 
 <script type="text/javascript">
@@ -18,7 +19,6 @@ var users_email = new Array();
 $(function() {
 		$( "#accordion" ).accordion();
 	});
-
 $(function () {
     $('#dropzone').fileupload({
         formData: {'key': '{{form.pr.key}}',

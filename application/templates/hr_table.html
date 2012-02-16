@@ -6,8 +6,11 @@
 <script type="text/javascript">
 
     $(function() {
-		$( "#accordion" ).accordion();
-	});
+$( "#accordion" ).accordion({ autoHeight: false });
+});
+    $(function() {
+$( ".accordion2" ).accordion({ autoHeight: false });
+});
         function close_period(period_key, period_description){
             $.get('/pr/period/close/' + period_key,
                   function (data){
@@ -35,7 +38,7 @@
 
         $('.checkall').click(function(){
             $(this).parent().parent().parent().find('input:checkbox:not(":disabled")').attr('checked', this.checked);
-	    });
+});
 
         $('.comment').focusout(function(){
             $.post('pr/data/update/' + this.name, {'value': this.value });
@@ -84,10 +87,15 @@
         Finish: {{period.finish_date}}
 <div style="float: left"><input type="button" id="close_period" onclick="close_period('{{period.key}}', '{{period.description}}')" value="close"></div>
         <div align="right">
-        <p style="display: {{period.delete}}"><a class="nav" href="#"  onclick="delete_period('{{period.key}}', '{{period.description}}'); return false">delete</a> |</p>
+        <p style="display: {{period.delete}}"><a class="nav" href="#" onclick="delete_period('{{period.key}}', '{{period.description}}'); return false">delete</a> |</p>
         <a class="nav" href="#/hr/report/detailed/{{period.key}}">detailed report</a> |
         <a class="nav" href="#/hr/report/summary/{{period.key}}">summary report</a>
         </div>
+        <div class="accordion2">
+
+            {% for department in period.departments %}
+            <h3>{{department.name}}</h3>
+            <div>
         <table>
             <tr>
                 <td><input type="checkbox" id="{{period.key}}" {{period.register}} class="checkall"></td>
@@ -96,7 +104,7 @@
                 <td>date</td>
                 <td>MAF</td>
             </tr>
-            {% for pr in period.pr %}
+            {% for pr in department.prs %}
                 <tr id="{{pr.key}}">
                     <td><input type="checkbox" {{pr.register}} value={{pr.key}} title="{{pr.employee.email}}" name="check"></td>
                     <td>{{pr.employee.email}}</td>
@@ -117,6 +125,9 @@
             {% endfor %}
         </table>
         <input type="button" {{period.register}} name="register" value="register">
+                </div>
+        {% endfor %}
+            </div>
         <!--<hr >-->
         </div>
 
@@ -139,7 +150,7 @@
         <a class="nav" href="#/hr/report/summary/{{period.key}}">summary report</a>
         </div>
         </div>
-        <div  style="clear: both;">
+        <div style="clear: both;">
             <table>
             <tr>
                 <td>employee</td>
@@ -171,4 +182,4 @@
         <hr >
     {% endfor %}
         <p id="new_period" ><a href="#/hr/new_period">Create New PR Period</a></p>
-{% endblock %}.
+{% endblock %}
