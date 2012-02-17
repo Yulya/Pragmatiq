@@ -64,13 +64,13 @@ url = encodeURI(url);
 var role = url.split("/")[1];
 
 if (role == 'manager'){
-    $('#settings').html('<a href="#/manager/settings">settings</a>').css('display','table-cell');
+    $('.settings').attr('href', "#/manager/settings").css('display', 'inline')
 }
 if (role == 'hr'){
-        $('#settings').html('<a href="#/hr/settings">settings</a>').css('display','table-cell');
+        $('.settings').attr('href', "#/hr/settings").css('display', 'inline')
 }
 if (role == 'employee'){
-    $('#settings').html('').css('display','none');
+    $('.settings').css('display','none');
 }
 
 $('.select_role').val(role);
