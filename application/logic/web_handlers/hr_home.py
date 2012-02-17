@@ -24,14 +24,18 @@ class HRHome(RequestHandler):
             for pr in period.performance_reviews:
                 if pr.manager_form or pr.employee_form:
                     period.delete = 'none'
-                pr.register = 'disabled'
-                if pr.manager_form:
-                    if pr.manager_form.status == 'submitted':
-                        period.register = ''
-                        pr.register = ''
+
 
             for department in period.departments:
                 department.prs = filter(lambda x: x.employee.dept.name == department.name, period.performance_reviews)
+
+                for pr in department.prs:
+                    pr.register = 'disabled'
+                    if pr.manager_form:
+                        if pr.manager_form.status == 'submitted':
+                            department.register = ''
+                            pr.register = ''
+
 
         template_values = {'open_periods': open_periods,
                            'closed_periods': closed_periods}

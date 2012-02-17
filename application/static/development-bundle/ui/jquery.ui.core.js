@@ -1,5 +1,5 @@
 /*!
- * jQuery UI 1.8.16
+ * jQuery UI 1.8.17
  *
  * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
  * Dual licensed under the MIT or GPL Version 2 licenses.
@@ -18,7 +18,7 @@ if ( $.ui.version ) {
 }
 
 $.extend( $.ui, {
-	version: "1.8.16",
+	version: "1.8.17",
 
 	keyCode: {
 		ALT: 18,
@@ -290,7 +290,7 @@ $.extend( $.ui, {
 		if ( el[ scroll ] > 0 ) {
 			return true;
 		}
-
+	
 		// TODO: determine which cases actually cause this to happen
 		// if the element doesn't have the scroll set, see if it's possible to
 		// set the scroll

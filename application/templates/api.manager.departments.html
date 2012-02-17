@@ -1,6 +1,7 @@
 {% extends "_api_base.html" %}
 
 {% block script %}
+<<<<<<< HEAD
         <script type="text/javascript" src="/static/modal/js/jquery.simplemodal.js"></script>
     <script type="text/javascript" src="/static/modal/js/basic.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/modal/css/basic.css">
@@ -20,15 +21,38 @@
         </script>
 {% endblock %}
 
-{% block breadcrumps %}
-<span class="breadcrump"><a href="#/manager/home">Home</a></span>&nbsp;&gt;
-{% ifnotequal name 'all' %}
-<span class="breadcrump"><a href="/#/manager/get/department/all">PR</a></span>&nbsp;&gt;&nbsp;
-<span class="breadcrump breadcrump_current">{{name}}</span>
-{% else %}
-       <a>PR</a>
-{% endifnotequal %}
-{% endblock %}
+=======
+<script type="text/javascript" src="/static/development-bundle/ui/jquery.ui.dialog.js"></script>
+<script type="text/javascript" src="/static/development-bundle/ui/jquery.ui.tabs.js"></script>
+<script type="text/javascript">
+    $(function() {
+		$( "#tabs" ).tabs({
+			ajaxOptions: {
+				error: function( xhr, status, index, anchor ) {
+					$( anchor.hash ).html(
+						"Couldn't load this tab. We'll try to fix this as soon as possible. " +
+						"If this wouldn't be a demo." );
+				}
+			}
+		});
+	});
+
+    function open_pop_up(link){
+        $( "#tab1-content" ).load(link);
+        $( "#pop-up-content" ).dialog("open");
+    }
+    $(function() {
+		$( "#dialog:ui-dialog" ).dialog( "destroy" );
+
+		$( "#pop-up-content" ).dialog({
+			height: 600,
+            width: 600,
+            autoOpen: false,
+			modal: true
+		});
+	});
+</script>
+
 {% block content %}
 
 {% if not depts %}
@@ -46,6 +70,7 @@
                     <td>Employee&nbsp;form</td>
                     <td>Comments</td>
                     <td>Open modal</td>
+
                 </tr>
             </thead>
         {% endif %}
@@ -70,6 +95,7 @@
                         {% endif %}
                     </td>
                     <td><a href="#/pr/manager/comments/{{pr.key}}">comments</a></td>
+
                 <td>
                     <input type="button" value="open" onclick="open_modal(this)">
                     <div class="basic-modal-content">
@@ -93,10 +119,8 @@
                     </div>
                 </td>
             </tr>
-
-            
         {% endfor %}
         </table>
-    {% endfor %}
+        {% endfor %}
 {% endif %}
 {% endblock %}
