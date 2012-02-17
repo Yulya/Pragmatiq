@@ -34,11 +34,8 @@ $(function () {
     </script>
 {% endblock %}
 
-{% block breadcrumps %}
-    <a href="/#/employee">Home</a> > <a>Self form</a>
-{% endblock %}
 {% block content %}
-<h1>Employee form</h1>
+<h1>Employee form for Current PR</h1>
 <div id="info">
 <p>Performance Review Form for {{form.pr.employee.first_name}}&nbsp;{{form.pr.employee.last_name}}</p>
 <p>Manager: {{form.pr.manager.first_name}}&nbsp;{{form.pr.manager.last_name}}</p>

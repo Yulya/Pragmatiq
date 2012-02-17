@@ -1,11 +1,7 @@
 {% extends "_api_base.html" %}
 
-{% block breadcrumps %}
-   <span class="breadcrump breadcrump_current">Home</span> 
-{% endblock %}
-
 {% block content %}
-        <h1>Current PR</h1>
+        <h1>Current Performance Review</h1>
     {% if current_pr %}
         {% if current_pr.employee_form %}
         <a href="/#/employee/pr/get/employee/{{current_pr.key}}">load self AF</a>

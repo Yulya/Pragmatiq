@@ -17,7 +17,8 @@ var form_type='{{form.pr.period.type}}';
 var users_email = new Array();
 
 $(function() {
-		$( "#accordion" ).accordion();
+		$( "#accordion" ).accordion({collapsible: true,
+                                    active: false});
 	});
 $(function () {
     $('#dropzone').fileupload({

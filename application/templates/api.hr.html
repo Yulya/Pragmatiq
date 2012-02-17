@@ -7,7 +7,7 @@
         $('.date').datepicker({ dateFormat: 'yy-mm-dd' });
 
         $('#submit').click(function(){
-            var employees = new Array();
+            var employees = '';
             var start = $('#start').val();
             var finish = $('#finish').val();
             var type = $('#type').val();
@@ -16,7 +16,8 @@
 
             var re = /^\d{4}\-\d{1,2}\-\d{1,2}$/;
 
-            if (start != '' && start.match(re) && finish != '' && finish.match(re)){
+            if (start != '' && start.match(re) && finish != '' && finish.match(re) ){
+                if (employees != '')
                 $.post('/pr/create', {'employees': employees,
                     'type':type,
                     'start': start,

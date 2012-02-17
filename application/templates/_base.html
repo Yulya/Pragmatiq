@@ -3,7 +3,7 @@
 <head>
     <script type="text/javascript" src="/static/jquery.js"></script>
     <script type="text/javascript" src="/static/site.js"></script>
-    <link rel="stylesheet" type="text/css" href="/static/main.css">
+    <!--<link rel="stylesheet" type="text/css" href="/static/main.css">-->
     <link rel="stylesheet" type="text/css" href="/static/style/main.css">
     <!--[if lt IE 8]>
   <link rel="stylesheet" type="text/css" href="/static/style/ie.css">
@@ -51,44 +51,27 @@
     {% endblock %}
 </head>
 <body>
+<div class="wrapper">
 <!-- header -->
-<div id="header">
+<!--<div id="header">-->
     {% block header %}
     <div class="head">
-    <p class="logo"><a href="#"></a></p>
-    <p class="gt">You are <b>A.Ivanov</b> and you are <select><option>employee</option></select></p>
-
-    <div class="sl"><a href="/" class="settings">Settings</a> | <a href="/" class="logout">Logout</a></div>
-  </div>
-    
-        <table>
-            <tr>
-                <td>{{username}}</td>
-                <td>Current role:
-                    <select class="select_role" onchange="load_role(
+    <p class="logo"><a href="/"></a></p>
+    <p class="gt">You are <b>{{user.first_name}}&nbsp;{{user.last_name}}</b> and you are <select class="select_role" onchange="load_role(
                                 this.options[selectedIndex].value,
                                 '{{user.key}}');">
                         {% for role in roles %}
                             <option value="{{role}}">{{role}}</option>
                         {% endfor %}
-                    </select>
-                </td>
-                <td id="settings" style="display: none;">
-                    <a href="#/hr/settings">settings</a></td>
-                 <td><a href="/logout">Logout</a></td>
-            </tr>
-        </table>
-    {% endblock %}
-</div>
+                    </select></p>
 
-<!-- sidebar -->
-<div id="sidebar">
-    {% block sidebar %}
+    <div class="sl"><a href="#/hr/settings" class="settings">Settings</a> | <a href="/logout" class="logout">Logout</a></div>
+  </div>
 
     {% endblock %}
-</div>
 
 <!-- content -->
+<div class="content">
 <div id="body">
     <div id="user">
     </div>
@@ -98,11 +81,8 @@
 
     {% endblock %}
 </div>
+    </div>
 
- <!--footer-->
-<div id="footer">
-    From Kharkov with Love (c) Mirantis
 </div>
-
 </body>
 </html>
