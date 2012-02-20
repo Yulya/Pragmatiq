@@ -17,8 +17,8 @@ var form_type='{{form.pr.period.type}}';
 var users_email = new Array();
 
 $(function() {
-		$( "#accordion" ).accordion({collapsible: true,
-                                    active: false});
+		$( "#accordion" ).accordion({ header: "h3", collapsible: true,
+                                    active: false,autoHeight: false });
 	});
 $(function () {
     $('#dropzone').fileupload({
@@ -55,26 +55,24 @@ $(document).ready(function(){
 
 </script>
 {% endblock %}
-{% block breadcrumps %}
-<a href="/#/manager/home">Home</a>&nbsp;&gt;&nbsp;
-<a href="/#/manager/get/all">PR</a>&nbsp;&gt;&nbsp;
-<a href="/#/manager/get/{{form.pr.employee.dept.name}}">{{form.pr.employee.dept.name}}</a>&nbsp;&gt;&nbsp;
-<span class="breadcrump breadcrump_current">{{form.pr.employee.first_name}}&nbsp;{{form.pr.employee.last_name}}&nbsp;form</span>
-{% endblock %}
+
 {% block content %}
 
         <h1>Manager form</h1>
-
-<div id="info">
-<p>Manager Assessment Form for {{form.pr.employee.first_name}}&nbsp;{{form.pr.employee.last_name}}</p>
-<p>date: {{form.pr.date}}</p>
+<div class="info">
+  <p>Employee: <b>{{form.pr.employee.first_name}}&nbsp;{{form.pr.employee.last_name}}</b><br />
+  Time period: <b>{{form.pr.period.description}}</b>
+  </div>
+<!--<div id="info">-->
+<!--<p>Manager Assessment Form for {{form.pr.employee.first_name}}&nbsp;{{form.pr.employee.last_name}}</p>-->
+<!--<p>date: {{form.pr.date}}</p>-->
 <p id="lock_info"></p>
 {% if not prev_form %}
 
     <div style="height: 50px; width: 100px; background-color: #add8e6;" id="dropzone" >Drop file here</div>
 
 {% endif %}
-</div>
+<!--</div>-->
 <div id='accordion'>
 <h3><a href="#">Projects and Initiatives</a></h3>
     <div>
